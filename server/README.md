@@ -1,1 +1,1 @@
-docker run --detach --name e-passport-mysql -v ./db:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=1qaz2wsx -e MYSQL_DATABASE=e-passport-db -e MYSQL_USER=e-passport-user -e MYSQL_PASSWORD=1qaz2wsx --publish 6603:3306 mysql
+docker run --detach --name e-passport-mysql -v db:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=1qaz2wsx -e MYSQL_DATABASE=e-passport-db -e MYSQL_USER=e-passport-user -e MYSQL_PASSWORD=1qaz2wsx --publish 3306:3306 mysql
