@@ -1,4 +1,3 @@
-
 /*
  * -------------------------------------------------------
  * THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
@@ -7,31 +6,37 @@
 
 /* tslint:disable */
 /* eslint-disable */
-export interface NewRecipeInput {
-    title: string;
-    description?: Nullable<string>;
-    ingredients: string[];
+export class CreateCatInput {
+    name?: Nullable<string>;
+    age?: Nullable<number>;
 }
 
-export interface Recipe {
-    id: string;
-    description?: Nullable<string>;
-    creationDate: Date;
-    ingredients: string[];
+export abstract class IQuery {
+    abstract cats(): Nullable<Nullable<Cat>[]> | Promise<Nullable<Nullable<Cat>[]>>;
+
+    abstract cat(id: string): Nullable<Cat> | Promise<Nullable<Cat>>;
 }
 
-export interface IQuery {
-    recipe(id: string): Recipe | Promise<Recipe>;
-    recipes(skip?: Nullable<number>, take?: Nullable<number>): Recipe[] | Promise<Recipe[]>;
+export abstract class IMutation {
+    abstract createCat(createCatInput?: Nullable<CreateCatInput>): Nullable<Cat> | Promise<Nullable<Cat>>;
 }
 
-export interface IMutation {
-    addRecipe(newRecipeData: NewRecipeInput): Recipe | Promise<Recipe>;
-    removeRecipe(id: string): boolean | Promise<boolean>;
+export abstract class ISubscription {
+    abstract catCreated(): Nullable<Cat> | Promise<Nullable<Cat>>;
 }
 
-export interface ISubscription {
-    recipeAdded(): Recipe | Promise<Recipe>;
+export class Owner {
+    id: number;
+    name: string;
+    age?: Nullable<number>;
+    cats?: Nullable<Cat[]>;
+}
+
+export class Cat {
+    id?: Nullable<number>;
+    name?: Nullable<string>;
+    age?: Nullable<number>;
+    owner?: Nullable<Owner>;
 }
 
 type Nullable<T> = T | null;
