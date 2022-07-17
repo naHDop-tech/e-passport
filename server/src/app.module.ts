@@ -7,7 +7,7 @@ import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { ConfigModule } from '@nestjs/config';
 
 import { upperDirectiveTransformer } from './common/directives/upper-case.directive';
-// import { CatsModule } from './cats/cats.module';
+import { CatsModule } from './cats/cats.module';
 
 @Module({
   imports: [
@@ -15,10 +15,9 @@ import { upperDirectiveTransformer } from './common/directives/upper-case.direct
       isGlobal: true,
       envFilePath: [`.env.${process.env.NODE_ENV}`],
     }),
-    // CatsModule,
+    CatsModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      // autoSchemaFile: joinPath(process.cwd(), 'src/schema.gql'),
       typePaths: ['./**/*.graphql'],
       transformSchema: (schema) => upperDirectiveTransformer(schema, 'upper'),
       installSubscriptionHandlers: true,
