@@ -1,4 +1,3 @@
-
 /*
  * -------------------------------------------------------
  * THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
@@ -61,14 +60,32 @@ export abstract class IQuery {
     abstract cats(): Nullable<Nullable<Cat>[]> | Promise<Nullable<Nullable<Cat>[]>>;
 
     abstract cat(id: string): Nullable<Cat> | Promise<Nullable<Cat>>;
+
+    abstract user(id: string): Nullable<User> | Promise<Nullable<User>>;
 }
 
 export abstract class IMutation {
     abstract createCat(createCatInput?: Nullable<CreateCatInput>): Nullable<Cat> | Promise<Nullable<Cat>>;
+
+    abstract createUser(payload?: Nullable<CreateUserInput>): Nullable<User> | Promise<Nullable<User>>;
+
+    abstract updateUser(payload?: Nullable<UpdateUserInput>): Nullable<User> | Promise<Nullable<User>>;
+
+    abstract deleteUser(id: string): Nullable<User> | Promise<Nullable<User>>;
 }
 
 export abstract class ISubscription {
     abstract catCreated(): Nullable<Cat> | Promise<Nullable<Cat>>;
+
+    abstract userCreated(): Nullable<User> | Promise<Nullable<User>>;
+
+    abstract userPhoneUpdated(): Nullable<User> | Promise<Nullable<User>>;
+
+    abstract userAddressUpdated(): Nullable<User> | Promise<Nullable<User>>;
+
+    abstract userPersonalDataUpdated(): Nullable<User> | Promise<Nullable<User>>;
+
+    abstract userDeleted(): Nullable<User> | Promise<Nullable<User>>;
 }
 
 export class Owner {

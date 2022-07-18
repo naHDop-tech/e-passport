@@ -1,12 +1,23 @@
 type Query {
   cats: [Cat]
   cat(id: ID!): Cat
+  user(id: ID!): User
 }
 
 type Mutation {
   createCat(createCatInput: CreateCatInput): Cat
+
+  createUser(payload: CreateUserInput): User
+  updateUser(payload: UpdateUserInput): User
+  deleteUser(id: ID!): User
 }
 
 type Subscription {
   catCreated: Cat
+
+  userCreated: User
+  userPhoneUpdated: User
+  userAddressUpdated: User
+  userPersonalDataUpdated: User
+  userDeleted: User
 }
