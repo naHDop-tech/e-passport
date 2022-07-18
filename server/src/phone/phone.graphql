@@ -4,6 +4,11 @@ type Phone {
   number: Int
 }
 
+input CreatePhoneInput {
+  countryCode: Int!
+  number: Int!
+}
+
 input UpdatePhoneInput {
   countryCode: Int
   number: Int

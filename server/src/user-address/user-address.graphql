@@ -7,6 +7,14 @@ type Address {
   zip: Int
 }
 
+input CreateAddressInput {
+  country: String!
+  city: String!
+  line1: String!
+  line2: String!
+  zip: Int!
+}
+
 input UpdateAddressInput {
   country: String
   city: String

@@ -9,6 +9,7 @@ type User {
   passport: Passport
   address: Address
   phone: Phone
+  photo: Photo
 }
 
 input CreateUserInput {
@@ -31,4 +32,5 @@ input UpdateUserInput {
   isVerified: Boolean
   address: UpdateAddressInput
   phone: UpdatePhoneInput
+  photo: UpdatePhotoInput
 }

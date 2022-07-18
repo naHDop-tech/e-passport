@@ -1,3 +1,4 @@
+
 /*
  * -------------------------------------------------------
  * THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
@@ -21,9 +22,38 @@ export class UpdatePassportInput {
     fingerprint: Fingerprint;
 }
 
+export class CreatePhoneInput {
+    countryCode: number;
+    number: number;
+}
+
 export class UpdatePhoneInput {
     countryCode?: Nullable<number>;
     number?: Nullable<number>;
+}
+
+export class CreatePhotoInput {
+    externalId: string;
+    name: string;
+    url: string;
+}
+
+export class UpdatePhotoInput {
+    externalId: string;
+    name: string;
+    url: string;
+}
+
+export class MarkAsDeletePhotoInput {
+    id: string;
+}
+
+export class CreateAddressInput {
+    country: string;
+    city: string;
+    line1: string;
+    line2: string;
+    zip: number;
 }
 
 export class UpdateAddressInput {
@@ -54,6 +84,7 @@ export class UpdateUserInput {
     isVerified?: Nullable<boolean>;
     address?: Nullable<UpdateAddressInput>;
     phone?: Nullable<UpdatePhoneInput>;
+    photo?: Nullable<UpdatePhotoInput>;
 }
 
 export abstract class IQuery {
@@ -122,6 +153,14 @@ export class Phone {
     number?: Nullable<number>;
 }
 
+export class Photo {
+    id?: Nullable<string>;
+    externalId?: Nullable<string>;
+    name?: Nullable<string>;
+    url?: Nullable<string>;
+    isDeleted?: Nullable<boolean>;
+}
+
 export class Address {
     id?: Nullable<string>;
     country?: Nullable<string>;
@@ -142,6 +181,7 @@ export class User {
     passport?: Nullable<Passport>;
     address?: Nullable<Address>;
     phone?: Nullable<Phone>;
+    photo?: Nullable<Photo>;
 }
 
 type Nullable<T> = T | null;

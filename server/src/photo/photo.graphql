@@ -1,0 +1,23 @@
+type Photo {
+  id: ID
+  externalId: String
+  name: String
+  url: String
+  isDeleted: Boolean
+}
+
+input CreatePhotoInput {
+  externalId: String!
+  name: String!
+  url: String!
+}
+
+input UpdatePhotoInput {
+  externalId: String!
+  name: String!
+  url: String!
+}
+
+input MarkAsDeletePhotoInput {
+  id: ID!
+}
