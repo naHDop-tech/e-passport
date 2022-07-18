@@ -1,0 +1,5 @@
+type Fingerprint {
+  id: ID
+  publicKey: String!
+  privateKey: String!
+}

@@ -1,0 +1,17 @@
+type Passport {
+  id: ID!
+  identifier: String!
+  number: String!
+  user: User!
+  fingerprint: Fingerprint!
+}
+
+input CreatePassportInput {
+  user: User!
+  identifier: String!
+  number: String!
+}
+
+input UpdatePassportInput {
+  fingerprint: Fingerprint!
+}

@@ -1,0 +1,16 @@
+type Address {
+  id: ID
+  country: String
+  city: String
+  line1: String
+  line2: String
+  zip: Int
+}
+
+input UpdateAddressInput {
+  country: String
+  city: String
+  line1: String
+  line2: String
+  zip: Int
+}

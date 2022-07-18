@@ -1,0 +1,10 @@
+type Phone {
+  id: ID
+  countryCode: Int
+  number: Int
+}
+
+input UpdatePhoneInput {
+  countryCode: Int
+  number: Int
+}

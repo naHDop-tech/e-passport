@@ -1,0 +1,34 @@
+type User {
+  id: ID
+  firstName: String!
+  lastName: String!
+  birthDate: String!
+  countryResident: String!
+  age: Int
+  isVerified: Boolean
+  passport: Passport
+  address: Address
+  phone: Phone
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  birthDate: String!
+  countryResident: String!
+}
+
+input DeleteUserInput {
+  id: ID!
+}
+
+input UpdateUserInput {
+  id: ID!
+  firstName: String
+  lastName: String
+  birthDate: String
+  countryResident: String
+  isVerified: Boolean
+  address: UpdateAddressInput
+  phone: UpdatePhoneInput
+}
