@@ -1,11 +1,12 @@
 type User {
-  id: ID
+  id: ID!
+  email: String!
   firstName: String!
   lastName: String!
   birthDate: String!
   countryResident: String!
-  age: Int
-  isVerified: Boolean
+  age: Int!
+  isVerified: Boolean!
   passport: Passport
   address: Address
   phone: Phone
@@ -13,6 +14,7 @@ type User {
 }
 
 input CreateUserInput {
+  email: String!
   firstName: String!
   lastName: String!
   birthDate: String!
@@ -25,12 +27,10 @@ input DeleteUserInput {
 
 input UpdateUserInput {
   id: ID!
+  email: String
   firstName: String
   lastName: String
   birthDate: String
   countryResident: String
   isVerified: Boolean
-  address: UpdateAddressInput
-  phone: UpdatePhoneInput
-  photo: UpdatePhotoInput
 }

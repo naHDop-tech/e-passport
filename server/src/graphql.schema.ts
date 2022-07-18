@@ -65,6 +65,7 @@ export class UpdateAddressInput {
 }
 
 export class CreateUserInput {
+    email: string;
     firstName: string;
     lastName: string;
     birthDate: string;
@@ -77,14 +78,12 @@ export class DeleteUserInput {
 
 export class UpdateUserInput {
     id: string;
+    email?: Nullable<string>;
     firstName?: Nullable<string>;
     lastName?: Nullable<string>;
     birthDate?: Nullable<string>;
     countryResident?: Nullable<string>;
     isVerified?: Nullable<boolean>;
-    address?: Nullable<UpdateAddressInput>;
-    phone?: Nullable<UpdatePhoneInput>;
-    photo?: Nullable<UpdatePhotoInput>;
 }
 
 export abstract class IQuery {
@@ -171,13 +170,14 @@ export class Address {
 }
 
 export class User {
-    id?: Nullable<string>;
+    id: string;
+    email: string;
     firstName: string;
     lastName: string;
     birthDate: string;
     countryResident: string;
-    age?: Nullable<number>;
-    isVerified?: Nullable<boolean>;
+    age: number;
+    isVerified: boolean;
     passport?: Nullable<Passport>;
     address?: Nullable<Address>;
     phone?: Nullable<Phone>;
