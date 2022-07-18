@@ -18,7 +18,6 @@ import { CatsModule } from './cats/cats.module';
       envFilePath: [`.env.${process.env.NODE_ENV}`],
     }),
     //GraphQl
-    CatsModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       typePaths: ['./**/*.graphql'],
@@ -55,6 +54,8 @@ import { CatsModule } from './cats/cats.module';
         };
       },
     }),
+    // Application modules
+    CatsModule,
   ],
 })
 export class AppModule {}
