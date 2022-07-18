@@ -48,8 +48,10 @@ import { CatsModule } from './cats/cats.module';
           username: config.get<string>('DB_USER'),
           password: config.get<string>('DB_PASS'),
           database: config.get<string>('DB_NAME'),
-          entities: [__dirname + '/**/*.entity{.ts,.js}'],
-          synchronize: config.get<string>('NODE_ENV') === 'dev',
+          migrationsRun: true,
+          entities: [`${__dirname}/**/*.entity{.ts,.js}`],
+          migrations: [`${__dirname}/migrations/*{.ts,.js}`],
+          applicationName: 'NestJS (TypeORM)',
         };
       },
     }),
