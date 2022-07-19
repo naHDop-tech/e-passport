@@ -6,8 +6,23 @@ type Passport {
   fingerprint: Fingerprint!
 }
 
+input UserInput {
+  id: ID!
+  email: String!
+  firstName: String!
+  lastName: String!
+  birthDate: String!
+  countryResident: String!
+  age: Int!
+  isVerified: Boolean!
+  # passport: Passport
+  # address: Address
+  # phone: Phone
+  # photo: Photo
+}
+
 input CreatePassportInput {
-  user: User!
+  user: UserInput!
   identifier: String!
   number: String!
 }

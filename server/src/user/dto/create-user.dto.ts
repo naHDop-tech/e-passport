@@ -1,4 +1,12 @@
-import { MinLength, IsString, IsNotEmpty, IsEmail } from 'class-validator';
+import {
+  MinLength,
+  IsString,
+  IsNotEmpty,
+  IsEmail,
+  IsOptional,
+  IsNumber,
+  Min,
+} from 'class-validator';
 import { CreateUserInput } from '../../graphql.schema';
 
 export class CreateUserDto extends CreateUserInput {
@@ -23,4 +31,9 @@ export class CreateUserDto extends CreateUserInput {
   @IsNotEmpty()
   @IsString()
   countryResident: string;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(1)
+  age: number;
 }

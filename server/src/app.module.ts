@@ -9,7 +9,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { upperDirectiveTransformer } from './common/directives/upper-case.directive';
 import { CatsModule } from './cats/cats.module';
-
+import { UtilsModule } from '~/utils/utils.module';
+import { UserModule } from '~/user/user.module';
 @Module({
   imports: [
     // Config
@@ -56,6 +57,8 @@ import { CatsModule } from './cats/cats.module';
     }),
     // Application modules
     CatsModule,
+    UtilsModule,
+    UserModule,
   ],
 })
 export class AppModule {}

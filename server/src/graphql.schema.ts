@@ -12,8 +12,23 @@ export class CreateCatInput {
     age?: Nullable<number>;
 }
 
+export class UserInput {
+    id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    birthDate: string;
+    countryResident: string;
+    age: number;
+    isVerified: boolean;
+    passport?: Nullable<Passport>;
+    address?: Nullable<Address>;
+    phone?: Nullable<Phone>;
+    photo?: Nullable<Photo>;
+}
+
 export class CreatePassportInput {
-    user: User;
+    user: UserInput;
     identifier: string;
     number: string;
 }
@@ -97,11 +112,11 @@ export abstract class IQuery {
 export abstract class IMutation {
     abstract createCat(createCatInput?: Nullable<CreateCatInput>): Nullable<Cat> | Promise<Nullable<Cat>>;
 
-    abstract createUser(payload?: Nullable<CreateUserInput>): Nullable<User> | Promise<Nullable<User>>;
+    abstract createUser(createUserInput?: Nullable<CreateUserInput>): Nullable<User> | Promise<Nullable<User>>;
 
-    abstract updateUser(payload?: Nullable<UpdateUserInput>): Nullable<User> | Promise<Nullable<User>>;
+    abstract updateUser(updateUserInput?: Nullable<UpdateUserInput>): Nullable<User> | Promise<Nullable<User>>;
 
-    abstract deleteUser(id: string): Nullable<User> | Promise<Nullable<User>>;
+    abstract deleteUser(deleteUserId: string): Nullable<User> | Promise<Nullable<User>>;
 }
 
 export abstract class ISubscription {
