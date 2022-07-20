@@ -1,5 +1,11 @@
 type Fingerprint {
-  id: ID
+  id: ID!
+  publicKey: String!
+  privateKey: String!
+}
+
+input FingerprintInput {
+  id: ID!
   publicKey: String!
   privateKey: String!
 }

@@ -12,6 +12,12 @@ export class CreateCatInput {
     age?: Nullable<number>;
 }
 
+export class FingerprintInput {
+    id: string;
+    publicKey: string;
+    privateKey: string;
+}
+
 export class UserInput {
     id: string;
     email: string;
@@ -21,10 +27,9 @@ export class UserInput {
     countryResident: string;
     age: number;
     isVerified: boolean;
-    passport?: Nullable<Passport>;
-    address?: Nullable<Address>;
-    phone?: Nullable<Phone>;
-    photo?: Nullable<Photo>;
+    address?: Nullable<AddressInput>;
+    phone?: Nullable<PhoneInput>;
+    photo?: Nullable<PhotoInput>;
 }
 
 export class CreatePassportInput {
@@ -34,7 +39,13 @@ export class CreatePassportInput {
 }
 
 export class UpdatePassportInput {
-    fingerprint: Fingerprint;
+    fingerprint: FingerprintInput;
+}
+
+export class PhoneInput {
+    id: string;
+    countryCode: number;
+    number: number;
 }
 
 export class CreatePhoneInput {
@@ -45,6 +56,14 @@ export class CreatePhoneInput {
 export class UpdatePhoneInput {
     countryCode?: Nullable<number>;
     number?: Nullable<number>;
+}
+
+export class PhotoInput {
+    id: string;
+    externalId: string;
+    name: string;
+    url: string;
+    isDeleted: boolean;
 }
 
 export class CreatePhotoInput {
@@ -61,6 +80,15 @@ export class UpdatePhotoInput {
 
 export class MarkAsDeletePhotoInput {
     id: string;
+}
+
+export class AddressInput {
+    id: string;
+    country: string;
+    city: string;
+    line1: string;
+    line2: string;
+    zip: number;
 }
 
 export class CreateAddressInput {
@@ -148,7 +176,7 @@ export class Cat {
 }
 
 export class Fingerprint {
-    id?: Nullable<string>;
+    id: string;
     publicKey: string;
     privateKey: string;
 }
@@ -162,17 +190,17 @@ export class Passport {
 }
 
 export class Phone {
-    id?: Nullable<string>;
-    countryCode?: Nullable<number>;
-    number?: Nullable<number>;
+    id: string;
+    countryCode: number;
+    number: number;
 }
 
 export class Photo {
-    id?: Nullable<string>;
-    externalId?: Nullable<string>;
-    name?: Nullable<string>;
-    url?: Nullable<string>;
-    isDeleted?: Nullable<boolean>;
+    id: string;
+    externalId: string;
+    name: string;
+    url: string;
+    isDeleted: boolean;
 }
 
 export class Address {

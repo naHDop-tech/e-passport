@@ -7,6 +7,15 @@ type Address {
   zip: Int
 }
 
+input AddressInput {
+  id: ID!
+  country: String!
+  city: String!
+  line1: String!
+  line2: String!
+  zip: Int!
+}
+
 input CreateAddressInput {
   country: String!
   city: String!

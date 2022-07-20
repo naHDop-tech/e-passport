@@ -1,7 +1,13 @@
 type Phone {
-  id: ID
-  countryCode: Int
-  number: Int
+  id: ID!
+  countryCode: Int!
+  number: Int!
+}
+
+input PhoneInput {
+  id: ID!
+  countryCode: Int!
+  number: Int!
 }
 
 input CreatePhoneInput {

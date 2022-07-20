@@ -1,9 +1,17 @@
 type Photo {
-  id: ID
-  externalId: String
-  name: String
-  url: String
-  isDeleted: Boolean
+  id: ID!
+  externalId: String!
+  name: String!
+  url: String!
+  isDeleted: Boolean!
+}
+
+input PhotoInput {
+  id: ID!
+  externalId: String!
+  name: String!
+  url: String!
+  isDeleted: Boolean!
 }
 
 input CreatePhotoInput {
