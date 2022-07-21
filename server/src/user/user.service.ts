@@ -9,6 +9,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '~/user/user.entity';
 import { CreateUserDto } from '~/user/dto/create-user.dto';
 import { DateCalculatorService } from '~/utils/date-calculator.service';
+import { CryptoService } from '~/utils/crypto.service';
 
 @Injectable()
 export class UserService {
@@ -16,6 +17,7 @@ export class UserService {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     private readonly dateCalculatorService: DateCalculatorService,
+    private readonly cryptoService: CryptoService,
   ) {}
 
   async create(user: CreateUserDto): Promise<UserEntity> {
@@ -28,6 +30,8 @@ export class UserService {
     }
 
     user.age = this.dateCalculatorService.getAgeFromBirthDate(user.birthDate);
+    const passwordHash = await this.cryptoService.generateHash(user.password);
+    user.password = passwordHash;
     const newUser = this.userRepository.create(user);
 
     return this.userRepository.save(newUser);
