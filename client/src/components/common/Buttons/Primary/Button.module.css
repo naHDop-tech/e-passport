@@ -1,11 +1,51 @@
-.primary {
-  background-color: #008cba;
+.base {
   border: none;
-  color: white;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
+  cursor: pointer;
+  outline: none;
+  transition: 0.2s all;
+}
+
+.type-primary {
+  color: black;
+  background-color: #92a8d1;
+}
+
+.type-secondary {
+  color: white;
+  background-color: #034f84;
+}
+
+.type-danger {
+  color: white;
+  background-color: #f7786b;
+}
+
+.type-warning {
+  color: white;
+  background-color: #ffef96;
+}
+
+.type-success {
+  color: white;
+  background-color: #82b74b;
+}
+
+.type-accent {
+  color: white;
+  background-color: #50394c;
+}
+
+.click-animation:active {
+  transform: scale(0.98);
+  /* Scaling button to 0.98 to its original size */
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+  /* Lowering the shadow */
 }
