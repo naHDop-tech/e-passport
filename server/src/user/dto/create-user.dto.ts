@@ -6,6 +6,7 @@ import {
   IsOptional,
   IsNumber,
   Min,
+  MaxLength,
 } from 'class-validator';
 import { CreateUserInput } from '../../graphql.schema';
 
@@ -18,6 +19,12 @@ export class CreateUserDto extends CreateUserInput {
   @IsString()
   @MinLength(3)
   firstName: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(8)
+  @MaxLength(24)
+  password: string;
 
   @IsNotEmpty()
   @IsString()

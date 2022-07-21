@@ -109,6 +109,7 @@ export class UpdateAddressInput {
 
 export class CreateUserInput {
     email: string;
+    password: string;
     firstName: string;
     lastName: string;
     birthDate: string;
@@ -215,6 +216,7 @@ export class Address {
 export class User {
     id: string;
     email: string;
+    password: string;
     firstName: string;
     lastName: string;
     birthDate: string;

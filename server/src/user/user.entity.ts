@@ -19,6 +19,9 @@ export class UserEntity extends User {
   @Column()
   email: string;
 
+  @Column()
+  password: string;
+
   @Column({ name: 'birth_date' })
   birthDate: string;
 

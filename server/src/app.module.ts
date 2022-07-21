@@ -7,7 +7,7 @@ import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { upperDirectiveTransformer } from './common/directives/upper-case.directive';
+import { upperDirectiveTransformer } from '~/common/directives/upper-case.directive';
 import { CatsModule } from './cats/cats.module';
 import { UtilsModule } from '~/utils/utils.module';
 import { UserModule } from '~/user/user.module';

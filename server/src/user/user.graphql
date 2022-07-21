@@ -1,6 +1,7 @@
 type User {
   id: ID!
   email: String!
+  password: String!
   firstName: String!
   lastName: String!
   birthDate: String!
@@ -15,6 +16,7 @@ type User {
 
 input CreateUserInput {
   email: String!
+  password: String!
   firstName: String!
   lastName: String!
   birthDate: String!
