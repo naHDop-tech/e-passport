@@ -21,6 +21,7 @@ export class FingerprintInput {
 export class UserInput {
     id: string;
     email: string;
+    password: string;
     firstName: string;
     lastName: string;
     birthDate: string;
