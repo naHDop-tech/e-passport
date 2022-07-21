@@ -42,7 +42,7 @@ import { UserModule } from '~/user/user.module';
       inject: [ConfigService],
       useFactory: async (config: ConfigService) => {
         return {
-          type: 'mysql',
+          type: 'postgres',
           host: config.get<string>('DB_HOST'),
           port: Number(config.get<string>('DB_PORT')),
           username: config.get<string>('DB_USER'),

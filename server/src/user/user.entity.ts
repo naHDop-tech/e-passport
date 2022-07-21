@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  CreateDateColumn,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 import { User } from '~/graphql.schema';
 
@@ -24,6 +30,12 @@ export class UserEntity extends User {
 
   @Column({ name: 'birth_date' })
   birthDate: string;
+
+  @CreateDateColumn({ name: 'created_at', default: 'now()' })
+  createdAt: string;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: string;
 
   @Column({ name: 'country_resident' })
   countryResident: string;

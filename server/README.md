@@ -1,3 +1,11 @@
-docker run --detach --name e-passport-mysql -v db:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=1qaz2wsx -e MYSQL_DATABASE=e-passport-db -e MYSQL_USER=e-passport-user -e MYSQL_PASSWORD=1qaz2wsx --publish 3306:3306 mysql
+docker run -d \
+ --name e-passport-mysql \
+ -e POSTGRES_PASSWORD=1qaz2wsx \
+ -e POSTGRES_DB=e-passport-db \
+ -e POSTGRES_USER=e-passport-user \
+ -e PGDATA=/var/lib/postgresql/data/ \
+ -v db:/var/lib/postgresql/data \
+ -p 5432:5432 \
+ postgres
 
 npx typeorm migration:create -n <migration_name>

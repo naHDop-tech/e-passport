@@ -12,6 +12,8 @@ input UserInput {
   password: String!
   firstName: String!
   lastName: String!
+  createdAt: String!
+  updatedAt: String!
   birthDate: String!
   countryResident: String!
   age: Int!

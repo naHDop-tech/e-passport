@@ -24,6 +24,8 @@ export class UserInput {
     password: string;
     firstName: string;
     lastName: string;
+    createdAt: string;
+    updatedAt: string;
     birthDate: string;
     countryResident: string;
     age: number;
@@ -221,6 +223,8 @@ export class User {
     firstName: string;
     lastName: string;
     birthDate: string;
+    createdAt: string;
+    updatedAt: string;
     countryResident: string;
     age: number;
     isVerified: boolean;

@@ -5,6 +5,8 @@ type User {
   firstName: String!
   lastName: String!
   birthDate: String!
+  createdAt: String!
+  updatedAt: String!
   countryResident: String!
   age: Int!
   isVerified: Boolean!
