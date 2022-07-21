@@ -36,6 +36,13 @@ import { UserModule } from '~/user/user.module';
         path: joinPath(process.cwd(), 'src/graphql.schema.ts'),
         outputAs: 'class',
       },
+      cors: {
+        credentials: true,
+        origin: [
+          /^https?:\/\/localhost:\d+$/,
+          /^https:\/\/.+?\.e-passport\.eu$/,
+        ],
+      },
     }),
     //Database
     TypeOrmModule.forRootAsync({

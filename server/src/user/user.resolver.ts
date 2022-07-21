@@ -1,10 +1,12 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
-import { pubSub } from '../pub-sub/pub-sub.provider';
-import { User } from '../graphql.schema';
-import { UserGuard } from './user.guard';
+
+import { pubSub } from '~/pub-sub/pub-sub.provider';
+import { User } from '~/graphql.schema';
+import { UserGuard } from '~/user/user.guard';
 import { UserService } from '~/user/user.service';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto } from '~/user/dto/create-user.dto';
+import { UpdateUserDto } from '~/user/dto/update-user.dto';
 
 @Resolver('User')
 export class UserResolver {
@@ -23,8 +25,20 @@ export class UserResolver {
     return createUser;
   }
 
+  @Mutation('updateUser')
+  async update(@Args('updateUserInput') payload: UpdateUserDto): Promise<User> {
+    const updatedUser = await this.userService.updateById(payload.id, payload);
+    pubSub.publish('userUpdated', { updatedUser });
+    return updatedUser;
+  }
+
   @Subscription('userCreated')
   userCreated() {
     return pubSub.asyncIterator('userCreated');
+  }
+
+  @Subscription('userUpdated')
+  userUpdated() {
+    return pubSub.asyncIterator('userUpdated');
   }
 }

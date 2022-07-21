@@ -10,7 +10,8 @@ import { UserEntity } from '~/user/user.entity';
 import { CreateUserDto } from '~/user/dto/create-user.dto';
 import { DateCalculatorService } from '~/utils/date-calculator.service';
 import { CryptoService } from '~/utils/crypto.service';
-
+import { UpdateUserInput } from '~/graphql.schema';
+import { UserFactory } from '~/user/user.factory';
 @Injectable()
 export class UserService {
   constructor(
@@ -18,6 +19,7 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
     private readonly dateCalculatorService: DateCalculatorService,
     private readonly cryptoService: CryptoService,
+    private readonly userFactory: UserFactory,
   ) {}
 
   async create(user: CreateUserDto): Promise<UserEntity> {
@@ -53,5 +55,17 @@ export class UserService {
     }
 
     return this.userRepository.remove(user);
+  }
+
+  async updateById(id: string, payload: UpdateUserInput): Promise<UserEntity> {
+    const user = await this.findById(id);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const updatedUser = this.userFactory.update(user, payload);
+
+    return this.userRepository.save(updatedUser);
   }
 }

@@ -16,6 +16,7 @@ type Subscription {
   catCreated: Cat
 
   userCreated: User
+  userUpdated: User
   userPhoneUpdated: User
   userAddressUpdated: User
   userPersonalDataUpdated: User
