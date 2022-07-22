@@ -5,7 +5,7 @@ export function App(): JSX.Element {
   return (
     <div>
       <h1>E-Passport</h1>
-      <Button color={ButtonColors.Danger} onClick={() => console.log('button pushed')}>Push my</Button>
+      <Button bType={ButtonColors.Danger} onClick={() => console.log('button pushed')}>Push my</Button>
     </div>
   );
 }

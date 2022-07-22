@@ -4,7 +4,7 @@ import cn from 'classnames';
 import s from './Button.module.css'
 const styles = s as unknown as IButtonStyle
 
-export enum ButtonColors {
+export enum ButtonTypes {
   Primary = 'type-primary',
   Secondary = 'type-secondary',
   Danger = 'type-danger',
@@ -26,17 +26,17 @@ interface IButtonStyle {
 
 interface IAdditionButtonProps {
   title?: string
-  color?: ButtonColors
+  bType?: ButtonTypes
 }
 
 export type ButtonProps = IAdditionButtonProps & ButtonHTMLAttributes<HTMLButtonElement>
 
 export function Button(props: PropsWithChildren<ButtonProps>): JSX.Element {
-  const { title, onClick, children, color = ButtonColors.Primary,  ...rest } = props
+  const { title, onClick, children, bType = ButtonTypes.Primary,  ...rest } = props
 
   return (
     <button
-      className={cn(styles['click-animation'], styles.base, styles[color])}
+      className={cn(styles['click-animation'], styles.base, styles[bType])}
       onClick={onClick}
       {...rest}
     >
