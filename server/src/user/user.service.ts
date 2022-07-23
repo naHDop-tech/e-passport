@@ -27,7 +27,7 @@ export class UserService {
       where: { email: user.email },
     });
 
-    if (applicant.email === user.email) {
+    if (applicant?.email === user.email) {
       throw new ConflictException('Email already using');
     }
 
@@ -45,6 +45,14 @@ export class UserService {
     }
 
     return await this.userRepository.findOne({ where: { id } });
+  }
+
+  async findByEmail(email: string): Promise<UserEntity> {
+    if (!email) {
+      throw new NotFoundException('User not found');
+    }
+
+    return await this.userRepository.findOne({ where: { email } });
   }
 
   async removeById(id: string) {
@@ -67,5 +75,16 @@ export class UserService {
     const updatedUser = this.userFactory.update(user, payload);
 
     return this.userRepository.save(updatedUser);
+  }
+
+  async setVerify(id: string, state: boolean): Promise<UserEntity> {
+    const user = await this.findById(id);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    user.isVerified = state;
+    return this.userRepository.save(user);
   }
 }

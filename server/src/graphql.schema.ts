@@ -18,6 +18,11 @@ export class FingerprintInput {
     privateKey: string;
 }
 
+export class SignInInput {
+    email: string;
+    password: string;
+}
+
 export class UserInput {
     id: string;
     email: string;
@@ -149,6 +154,8 @@ export abstract class IMutation {
     abstract updateUser(updateUserInput?: Nullable<UpdateUserInput>): Nullable<User> | Promise<Nullable<User>>;
 
     abstract deleteUser(deleteUserId: string): Nullable<User> | Promise<Nullable<User>>;
+
+    abstract signIn(signInInput?: Nullable<SignInInput>): Nullable<JwtToken> | Promise<Nullable<JwtToken>>;
 }
 
 export abstract class ISubscription {
@@ -185,6 +192,10 @@ export class Fingerprint {
     id: string;
     publicKey: string;
     privateKey: string;
+}
+
+export class JwtToken {
+    token: string;
 }
 
 export class Passport {

@@ -17,7 +17,7 @@ export class CryptoService {
     password: string,
     passwordHash: string,
   ): Promise<boolean> {
-    const result = await bcrypt.compare(password, passwordHash);
+    const result: boolean = await bcrypt.compare(password, passwordHash);
     return result;
   }
 }

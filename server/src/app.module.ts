@@ -11,6 +11,7 @@ import { upperDirectiveTransformer } from '~/common/directives/upper-case.direct
 import { CatsModule } from './cats/cats.module';
 import { UtilsModule } from '~/utils/utils.module';
 import { UserModule } from '~/user/user.module';
+import { JwtAuthModule } from '~/jwt-auth/jwt-auth.module';
 @Module({
   imports: [
     // Config
@@ -69,7 +70,7 @@ import { UserModule } from '~/user/user.module';
           migrationsRun: true,
           entities: [`${__dirname}/**/*.entity{.ts,.js}`],
           migrations: [`${__dirname}/migrations/*{.ts,.js}`],
-          applicationName: 'NestJS (TypeORM)',
+          applicationName: 'NestJS (TypeORM, GraphQL)',
         };
       },
     }),
@@ -77,6 +78,7 @@ import { UserModule } from '~/user/user.module';
     CatsModule,
     UtilsModule,
     UserModule,
+    JwtAuthModule,
   ],
 })
 export class AppModule {}
