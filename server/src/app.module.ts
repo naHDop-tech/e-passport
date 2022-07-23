@@ -21,6 +21,17 @@ import { UserModule } from '~/user/user.module';
     //GraphQl
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      subscriptions: {
+        'graphql-ws': {
+          path: '/subscription',
+          onConnect: (context: any) => {
+            const { connectionParams, extra } = context;
+            // user validation will remain the same as in the example above
+            // when using with graphql-ws, additional context value should be stored in the extra field
+            extra.user = { user: {} };
+          },
+        },
+      },
       typePaths: ['./**/*.graphql'],
       transformSchema: (schema) => upperDirectiveTransformer(schema, 'upper'),
       installSubscriptionHandlers: true,

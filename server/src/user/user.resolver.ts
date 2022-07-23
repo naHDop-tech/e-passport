@@ -8,7 +8,7 @@ import { UserService } from '~/user/user.service';
 import { CreateUserDto } from '~/user/dto/create-user.dto';
 import { UpdateUserDto } from '~/user/dto/update-user.dto';
 
-@Resolver('User')
+@Resolver((of) => User)
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
@@ -32,12 +32,16 @@ export class UserResolver {
     return updatedUser;
   }
 
-  @Subscription('userCreated')
+  @Subscription((returns) => User, {
+    name: 'userCreated',
+  })
   userCreated() {
     return pubSub.asyncIterator('userCreated');
   }
 
-  @Subscription('userUpdated')
+  @Subscription((returns) => User, {
+    name: 'userUpdated',
+  })
   userUpdated() {
     return pubSub.asyncIterator('userUpdated');
   }
