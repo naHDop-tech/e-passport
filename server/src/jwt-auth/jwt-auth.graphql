@@ -1,0 +1,8 @@
+type JwtToken {
+  token: String!
+}
+
+input SignInInput {
+  email: String!
+  password: String!
+}

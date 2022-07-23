@@ -13,4 +13,4 @@ import { PROVIDE_JWT_KEY } from '~/jwt/dto/jwt-user.dto';
   ],
   exports: [JwtService],
 })
-export class JwtAuthModule {}
+export class JwtModule {}
