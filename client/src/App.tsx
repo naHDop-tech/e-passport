@@ -1,14 +1,16 @@
-import { RecoilRoot } from 'recoil';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+
+import { ThemeToggleDLC } from './components/integration/ThemeToggle'
 
 export function App(): JSX.Element {
   return (
-    <RecoilRoot>
+    <>
+      <ThemeToggleDLC />
       <Router>
         <Routes>
           <Route path='/' element={<>Home</>} />
         </Routes>
       </Router>
-    </RecoilRoot>
+    </>
   );
 }
