@@ -11,7 +11,7 @@ interface IAdditionThemeToggleProps {
   isDarkModeOn: boolean
 }
 
-export type ThemeToggleProps = IAdditionThemeToggleProps & InputHTMLAttributes<HTMLInputElement>
+export type ThemeToggleProps = IAdditionThemeToggleProps & Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>
 
 export function ThemeToggle(props: ThemeToggleProps): JSX.Element {
   const { isDarkModeOn, ...rest } = props
