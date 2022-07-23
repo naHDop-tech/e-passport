@@ -27,7 +27,7 @@ export class UserService {
       where: { email: user.email },
     });
 
-    if (applicant.email === user.email) {
+    if (applicant?.email === user.email) {
       throw new ConflictException('Email already using');
     }
 
