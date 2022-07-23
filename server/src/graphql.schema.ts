@@ -156,6 +156,8 @@ export abstract class ISubscription {
 
     abstract userCreated(): Nullable<User> | Promise<Nullable<User>>;
 
+    abstract userUpdated(): Nullable<User> | Promise<Nullable<User>>;
+
     abstract userPhoneUpdated(): Nullable<User> | Promise<Nullable<User>>;
 
     abstract userAddressUpdated(): Nullable<User> | Promise<Nullable<User>>;

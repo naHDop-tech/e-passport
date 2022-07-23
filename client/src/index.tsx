@@ -5,6 +5,7 @@ import { App } from './App';
 import reportWebVitals from './reportWebVitals';
 import { ApolloProvider } from '@apollo/client';
 import { apolloClient } from './api/apollo-client';
+import { RecoilRoot } from 'recoil';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,9 +13,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <ApolloProvider client={apolloClient}>
-      <App />
-    </ApolloProvider>
+    <RecoilRoot>
+      <ApolloProvider client={apolloClient}>
+        <App />
+      </ApolloProvider>
+    </RecoilRoot>
   </React.StrictMode>
 );
 
