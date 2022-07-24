@@ -1,11 +1,14 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
-import { ThemeToggleDLC } from './components/integration/ThemeToggle'
+import { ThemeToggle } from './components/common/ThemeToggle'
+import { withTheme } from './components/HOC/withTheme'
+
+const ThemeToggleWithThemeState = withTheme(ThemeToggle)
 
 export function App(): JSX.Element {
   return (
     <>
-      <ThemeToggleDLC />
+      <ThemeToggleWithThemeState />
       <Router>
         <Routes>
           <Route path='/' element={<>Home</>} />
