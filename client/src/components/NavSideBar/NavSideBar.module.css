@@ -1,0 +1,8 @@
+.wrapper {
+  width: 300px;
+  backgroud-color: var(--color-primary);
+}
+
+.active {
+  color: var(--color-secondary);
+}
