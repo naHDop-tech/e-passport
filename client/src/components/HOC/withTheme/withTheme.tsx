@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 
 import { ThemeToggleProps } from '../../common/ThemeToggle'
 import { useTheme, ThemeMode } from '../../../hooks/useTheme'
-import { isDarkMode } from '../../../recoil/theme/atoms'
+import { isDarkMode } from '../../../store/theme/atoms'
 
 export const withTheme = (Component: (props: ThemeToggleProps) => JSX.Element) => () => {
   const [isDarkModeOn, setIsDarkMode] = useRecoilState(isDarkMode)
