@@ -2,8 +2,9 @@
 import { useState } from 'react'
 
 import s from './SideBar.module.css'
-
+import { Item } from './Item'
 import { IItem } from './types'
+import { ReactComponent as FingerPrintIcon } from '../../../src/img/svg/finger-print.icon.svg'
 const styles = s as unknown as ISideBarStyle
 
 interface ISideBarStyle {
@@ -31,14 +32,16 @@ export function SideBar(props: SideBarProps): JSX.Element {
       </div>
       <div className={styles.navContent}>
         {items.map((item) => {
-          const { component: Item, id, title, logo } = item;
+          const { component: Component, id, title, logo } = item;
           return (
             <>
-              <Item logo={logo} title={title} onClick={() => handler(id)} isActive={activeId === id} />
+              <Component logo={logo} title={title} onClick={() => handler(id)} isActive={activeId === id} />
             </>
           )
         })}
       </div>
+      <Item staticColor="--color-accent" logo={FingerPrintIcon} title='Logout' />
+      <Item logo={FingerPrintIcon} title='Contact us' />
     </div>
   )
 }

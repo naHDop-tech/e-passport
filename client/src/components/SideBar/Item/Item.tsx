@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil'
 import clns from 'classnames'
 
 import { themeStateSelector } from '../../../store/theme/selector'
+import { ColorTypes } from '../../../store/theme/types'
 import s from './Item.module.css'
 const styles = s as unknown as ItemStyles
 
@@ -11,6 +12,11 @@ interface ItemStyles {
   box: string
   logo: string
   disabled: string
+  '--color-primary': string
+  '--color-background': string
+  '--color-text': string
+  '--color-secondary': string
+  '--color-accent': string
 }
 
 export interface IItemProps {
@@ -19,18 +25,19 @@ export interface IItemProps {
   isDisabled?: boolean
   isActive?: boolean
   onClick?: () => void
+  staticColor?: ColorTypes
 }
 
 export function Item(props: IItemProps): JSX.Element {
-  const { title, logo: Icon, isActive, isDisabled, onClick } = props
+  const { title, logo: Icon, isActive, isDisabled, onClick, staticColor } = props
   const { colorMap } = useRecoilValue(themeStateSelector)
 
   return (
     <div onClick={onClick} className={clns(styles.box, isDisabled && styles.disabled)}>
       <div>
-        <Icon color={isActive ? colorMap['--color-accent'] : colorMap['--color-text']} />
+        <Icon color={staticColor ? colorMap[staticColor] : isActive ? colorMap['--color-primary'] : colorMap['--color-text']} />
       </div>
-      <div className={clns(isActive && styles.active)}>{title}</div>
+      <div className={clns(staticColor ? styles[staticColor] : isActive && styles.active)}>{title}</div>
     </div>
   )
 }
