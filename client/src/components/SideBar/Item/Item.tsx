@@ -37,7 +37,7 @@ export function Item(props: IItemProps): JSX.Element {
       <div>
         <Icon color={staticColor ? colorMap[staticColor] : isActive ? colorMap['--color-primary'] : colorMap['--color-text']} />
       </div>
-      <div className={clns(staticColor ? styles[staticColor] : isActive && styles.active)}>{title}</div>
+      <div className={clns(staticColor ? staticColor : isActive && styles.active)}>{title}</div>
     </div>
   )
 }
