@@ -1,6 +1,9 @@
 import { SvgComponent } from '../../components/types'
 import { IItemProps, Item } from './Item'
-import { ReactComponent as FingerPrintIcon } from '../../../src/img/svg/finger-print.icon.svg'
+
+import { ReactComponent as HubIcon } from '../../../src/img/svg/hub.icon.svg'
+import { ReactComponent as SettingsIcon } from '../../../src/img/svg/settings.icon.svg'
+import { ReactComponent as PassportIcon } from '../../../src/img/svg/passport.icon.svg'
 
 export interface IItem {
   id: string
@@ -12,21 +15,21 @@ export interface IItem {
 
 export const items: IItem[] = [
   {
-    id: 'k2j3h4e',
-    title: 'search',
+    id: '1',
+    title: 'Hub',
     component: Item,
-    logo: FingerPrintIcon,
+    logo: HubIcon,
   },
   {
-    id: 'l23k4j2',
-    title: 'main',
+    id: '2',
+    title: 'Settings',
     component: Item,
-    logo: FingerPrintIcon,
+    logo: SettingsIcon,
   },
   {
-    id: 'kj2435kj',
-    title: 'setting',
+    id: '3',
+    title: 'Passport',
     component: Item,
-    logo: FingerPrintIcon,
+    logo: PassportIcon,
   }
 ]

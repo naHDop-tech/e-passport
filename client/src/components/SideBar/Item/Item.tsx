@@ -12,6 +12,7 @@ interface ItemStyles {
   box: string
   logo: string
   disabled: string
+  'flex-item': string
   '--color-primary': string
   '--color-background': string
   '--color-text': string
@@ -34,10 +35,10 @@ export function Item(props: IItemProps): JSX.Element {
 
   return (
     <div onClick={onClick} className={clns(styles.box, isDisabled && styles.disabled)}>
-      <div>
+      <div className={styles['flex-item']}>
         <Icon color={staticColor ? colorMap[staticColor] : isActive ? colorMap['--color-primary'] : colorMap['--color-text']} />
       </div>
-      <div className={clns(staticColor ? staticColor : isActive && styles.active)}>{title}</div>
+      <div className={clns(staticColor ? staticColor : isActive && styles.active, styles['flex-item'])}>{title}</div>
     </div>
   )
 }
