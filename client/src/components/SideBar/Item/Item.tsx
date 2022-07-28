@@ -18,6 +18,7 @@ interface ItemStyles {
   '--color-text': string
   '--color-secondary': string
   '--color-accent': string
+  'svg-component': string
 }
 
 export interface IItemProps {
@@ -36,7 +37,7 @@ export function Item(props: IItemProps): JSX.Element {
   return (
     <div onClick={onClick} className={clns(styles.box, isDisabled && styles.disabled)}>
       <div className={styles['flex-item']}>
-        <Icon color={staticColor ? colorMap[staticColor] : isActive ? colorMap['--color-secondary'] : colorMap['--color-text']} />
+        <Icon className={styles['svg-component']} color={staticColor ? colorMap[staticColor] : isActive ? colorMap['--color-secondary'] : colorMap['--color-text']} />
       </div>
       <div className={clns(staticColor ? staticColor : isActive && styles.active, styles['flex-item'])}>{title}</div>
     </div>
