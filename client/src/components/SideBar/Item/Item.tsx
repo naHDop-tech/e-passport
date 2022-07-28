@@ -36,7 +36,7 @@ export function Item(props: IItemProps): JSX.Element {
   return (
     <div onClick={onClick} className={clns(styles.box, isDisabled && styles.disabled)}>
       <div className={styles['flex-item']}>
-        <Icon color={staticColor ? colorMap[staticColor] : isActive ? colorMap['--color-primary'] : colorMap['--color-text']} />
+        <Icon color={staticColor ? colorMap[staticColor] : isActive ? colorMap['--color-secondary'] : colorMap['--color-text']} />
       </div>
       <div className={clns(staticColor ? staticColor : isActive && styles.active, styles['flex-item'])}>{title}</div>
     </div>

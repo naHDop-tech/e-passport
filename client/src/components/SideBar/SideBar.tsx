@@ -11,6 +11,7 @@ interface ISideBarStyle {
   title: string
   'nav-content': string
   wrapper: string
+  gap24: string
 }
 
 export type SideBarProps = {
@@ -31,7 +32,7 @@ export function SideBar(props: SideBarProps): JSX.Element {
 
       </div>
       <div className={styles['nav-content']}>
-        <div>
+        <div className={styles.gap24}>
           {items.map((item) => {
             const { component: Component, id, title, logo } = item;
             return (
@@ -45,7 +46,7 @@ export function SideBar(props: SideBarProps): JSX.Element {
           })}
         </div>
         <div>
-          <Item staticColor="--color-secondary" logo={SignInIcon} title='Signin' />
+          <Item staticColor="--color-primary" logo={SignInIcon} title='Signin' />
         </div>
       </div>
     </div>
