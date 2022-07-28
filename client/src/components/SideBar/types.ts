@@ -10,6 +10,7 @@ export interface IItem {
   component: (props: IItemProps) => JSX.Element
   title: string
   logo: SvgComponent
+  route: string
   isDisabled?: boolean
 }
 
@@ -19,17 +20,20 @@ export const items: IItem[] = [
     title: 'Hub',
     component: Item,
     logo: HubIcon,
+    route: '/hub'
   },
   {
     id: '2',
     title: 'Settings',
     component: Item,
     logo: SettingsIcon,
+    route: '/settings'
   },
   {
     id: '3',
     title: 'Passport',
     component: Item,
     logo: PassportIcon,
+    route: '/passport'
   }
 ]

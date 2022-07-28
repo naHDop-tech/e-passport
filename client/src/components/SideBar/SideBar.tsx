@@ -4,12 +4,12 @@ import { useState } from 'react'
 import s from './SideBar.module.css'
 import { Item } from './Item'
 import { IItem } from './types'
-import { ReactComponent as FingerPrintIcon } from '../../../src/img/svg/finger-print.icon.svg'
+import { ReactComponent as SignInIcon } from '../../../src/img/svg/signin.icon.svg'
 const styles = s as unknown as ISideBarStyle
 
 interface ISideBarStyle {
   title: string
-  navContent: string
+  'nav-content': string
   wrapper: string
 }
 
@@ -19,10 +19,10 @@ export type SideBarProps = {
 
 export function SideBar(props: SideBarProps): JSX.Element {
   const { items } = props
-  const [activeId, setActiveId] = useState<string>()
+  const [activeItem, setActiveItem] = useState<IItem>()
 
-  const handler = (id: string) => {
-    setActiveId(id);
+  const handler = (item: IItem) => {
+    setActiveItem(item);
   }
 
   return (
@@ -30,18 +30,24 @@ export function SideBar(props: SideBarProps): JSX.Element {
       <div className={styles.title}>
 
       </div>
-      <div className={styles.navContent}>
-        {items.map((item) => {
-          const { component: Component, id, title, logo } = item;
-          return (
-            <>
-              <Component logo={logo} title={title} onClick={() => handler(id)} isActive={activeId === id} />
-            </>
-          )
-        })}
+      <div className={styles['nav-content']}>
+        <div>
+          {items.map((item) => {
+            const { component: Component, id, title, logo } = item;
+            return (
+              <Component
+                logo={logo}
+                title={title}
+                onClick={() => handler(item)}
+                isActive={activeItem?.id === id}
+              />
+            )
+          })}
+        </div>
+        <div>
+          <Item staticColor="--color-secondary" logo={SignInIcon} title='Signin' />
+        </div>
       </div>
-      <Item staticColor="--color-accent" logo={FingerPrintIcon} title='Logout' />
-      <Item logo={FingerPrintIcon} title='Contact us' />
     </div>
   )
 }
