@@ -77,27 +77,3 @@ select {
     scroll-behavior: auto !important;
   }
 }
-
-:root {
-  --color-background: #191919;
-  --color-text: #fff8f3;
-  --color-primary: #2d4263;
-  --color-secondary: #c84b31;
-  --color-accent: #ecdbba;
-}
-
-* .--color-primary {
-  color: var(--color-primary);
-}
-* .--color-background {
-  color: var(--color-background);
-}
-* .--color-text {
-  color: var(--color-text);
-}
-* .--color-secondary {
-  color: var(--color-secondary);
-}
-* .--color-accent {
-  color: var(--color-accent);
-}

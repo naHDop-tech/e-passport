@@ -1,23 +1,11 @@
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-
-import { ThemeToggle } from './components/common/ThemeToggle'
-import { withTheme } from './components/HOC/withTheme'
-import { SideBar } from './components/SideBar'
-import { items } from './components/SideBar/types'
-
-const ThemeToggleWithThemeState = withTheme(ThemeToggle)
+import Button from '@mui/material/Button';
+import './style.css'
 
 export function App(): JSX.Element {
-  // const { colorMap } = useRecoilValue(themeStateSelector)
   return (
     <>
-      <ThemeToggleWithThemeState />
-      <SideBar items={items} />
-      <Router>
-        <Routes>
-          <Route path='/' element={<>Home</>} />
-        </Routes>
-      </Router>
+      <h1>E-Passport</h1>
+      <Button variant="contained">Push me</Button>
     </>
-  );
+  )
 }
