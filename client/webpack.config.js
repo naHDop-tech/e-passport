@@ -45,6 +45,9 @@ module.exports = {
     new CleanWebpackPlugin(),
   ],
   devServer: {
+    client: {
+      logging: 'info',
+    },
     static: path.join(__dirname, './src'),
     port: 3001,
     hot: 'only',
