@@ -45,9 +45,7 @@ module.exports = {
     new CleanWebpackPlugin(),
   ],
   devServer: {
-    client: {
-      logging: 'info',
-    },
+    historyApiFallback: true,
     static: path.join(__dirname, './src'),
     port: 3001,
     hot: 'only',

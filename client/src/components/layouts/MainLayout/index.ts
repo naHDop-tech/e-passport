@@ -1,2 +1,3 @@
 export { MainLayout } from './MainLayout'
-export type { IMainProps } from './types'
+export { MainLayoutDlc } from './MainLayoutDlc'
+export type { IMainLayoutProps } from './types'
