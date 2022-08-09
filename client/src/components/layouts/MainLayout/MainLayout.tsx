@@ -42,11 +42,19 @@ export function MainLayout(props: PropsWithChildren<IMainLayoutProps>) {
           }
         </Container>
       </Navbar>
-      <div style={{ backgroundColor: '#E8E8E8', padding: '0 10%', height: '100vh' }}>
-        <Container style={{ backgroundColor: '#FFF' }}>
+      <div style={{ backgroundColor: '#E8E8E8', padding: '0 10%' }}>
+        <Container style={{ backgroundColor: '#FFF', height: '100vh' }}>
           {children}
         </Container>
       </div>
+      <Navbar bg="dark" variant="dark">
+        <Container>
+        <div style={{ color: 'white', textAlign: 'center' }}>Tarasoff Inc. ©</div>
+
+          <Navbar.Collapse id="footer-navbar-nav"/>
+          <div style={{ color: 'white', textAlign: 'center' }}>{new Date().getFullYear()}</div>
+        </Container>
+      </Navbar>
     </>
   )
 }
