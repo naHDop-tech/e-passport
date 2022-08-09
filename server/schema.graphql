@@ -2,6 +2,7 @@ type Query {
   cats: [Cat]
   cat(id: ID!): Cat
   user(id: ID!): User
+  isUserExists(email: String): Boolean
 }
 
 type Mutation {

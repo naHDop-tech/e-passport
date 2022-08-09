@@ -12,6 +12,11 @@ import { UpdateUserDto } from '~/user/dto/update-user.dto';
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
+  @Query('isUserExists')
+  async isUserExists(@Args('email') email: string): Promise<boolean> {
+    return this.userService.isUserExists(email);
+  }
+
   @Query('user')
   @UseGuards(UserGuard)
   async findOneById(@Args('id') id: string): Promise<User> {

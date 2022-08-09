@@ -22,6 +22,17 @@ export class UserService {
     private readonly userFactory: UserFactory,
   ) {}
 
+  async isUserExists(email: string): Promise<boolean> {
+    const applicant = await this.userRepository.findOne({
+      where: { email },
+    });
+
+    if (applicant?.email === email) {
+      return true;
+    }
+    return false;
+  }
+
   async create(user: CreateUserDto): Promise<UserEntity> {
     const applicant = await this.userRepository.findOne({
       where: { email: user.email },
