@@ -30,12 +30,14 @@ interface IButtonStyle {
   'success-outline': string
   'accent-outline': string
   'outline-outline': string
+  'wide': string
 }
 
 interface IAdditionButtonProps {
   title?: string
   bType?: ButtonTypes
   outline?: boolean
+  wide?: boolean
 }
 
 export type ButtonProps = IAdditionButtonProps & ButtonHTMLAttributes<HTMLButtonElement>
@@ -87,7 +89,7 @@ const getColor = (type: ButtonTypes, isOutline: boolean): string => {
 }
 
 export function Button(props: PropsWithChildren<ButtonProps>): JSX.Element {
-  const { title, onClick, children, bType = ButtonTypes.Primary, outline = false, className,  ...rest } = props
+  const { title, onClick, children, bType = ButtonTypes.Primary, outline = false, wide, className,  ...rest } = props
 
   return (
     <button
@@ -95,6 +97,9 @@ export function Button(props: PropsWithChildren<ButtonProps>): JSX.Element {
         styles['click-animation'],
         styles.base,
         getColor(bType, outline),
+        {
+          [styles.wide]: wide,
+        },
         className,
       )}
       onClick={onClick}

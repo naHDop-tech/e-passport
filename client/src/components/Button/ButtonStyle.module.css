@@ -13,6 +13,10 @@
   transition: 0.2s all;
 }
 
+.wide {
+  width: 100%;
+}
+
 .primary {
   background-color: var(--color-primary-purple);
 }
