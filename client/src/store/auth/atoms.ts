@@ -1,5 +1,5 @@
 import { atom } from 'recoil'
-import { localStorageEffect } from './effect'
+import { localStorageEffect } from '../effect'
 
 export const token = atom({
   key: 'token',
@@ -12,9 +12,9 @@ export const token = atom({
 export const userInfo = atom({
   key: 'userInfo',
   default: {
-    email: '',
-    firstName: '',
-    lastName: ''
+    email: 'grigory@maroo.us', // TODO: get true info
+    firstName: 'Greg', // TODO: get true info
+    lastName: 'Tarasoff' // TODO: get true info
   },
   effects: [
     localStorageEffect('user')

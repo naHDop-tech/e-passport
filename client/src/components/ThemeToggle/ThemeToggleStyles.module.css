@@ -1,0 +1,39 @@
+.toggle label {
+  background-color: var(--color-background);
+  border: 2px solid #555;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: all ease-in-out 0.3s;
+  width: 50px;
+  height: 25px;
+}
+
+.toggle input[type='checkbox'] {
+  display: none;
+}
+
+.toggle label::after {
+  background-color: var(--color-text);
+  border-radius: 50%;
+  content: ' ';
+  cursor: pointer;
+  display: inline-block;
+  position: absolute;
+  left: 0.1px;
+  top: 0.1px;
+  transition: all ease-in-out 0.3s;
+  width: 21px;
+  height: 21px;
+}
+
+.toggle input[type='checkbox']:checked ~ label {
+  background-color: var(--color-background);
+  border-color: var(--color-text);
+}
+
+.toggle input[type='checkbox']:checked ~ label::after {
+  background-color: var(--color-text);
+  transform: translateX(25px);
+}

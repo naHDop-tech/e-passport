@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;400;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap');
 
 /* Box sizing rules */
 *,
@@ -22,8 +22,8 @@ dd {
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
-ul[role="list"],
-ol[role="list"] {
+ul[role='list'],
+ol[role='list'] {
   list-style: none;
 }
 
@@ -39,7 +39,7 @@ body {
   line-height: 1.5;
   background-color: var(--color-background);
   color: var(--color-text);
-  font-family: "Mukta", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* A elements that don't have a class get default styles */
@@ -76,4 +76,26 @@ select {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+:root {
+  --color-promary-purple: #6a4bff;
+  --color-primary-dark: #171725;
+  --color-primary-black-accent: #1d2335;
+
+  --color-yellow: #f6c949;
+  --color-red: #ff7256;
+  --color-green: #3bc963;
+  --color-orange: #ff6b2c;
+  --color-blue: #1d92f1;
+
+  --color-text-black: #25546f;
+  --color-text-dark-grey: #696674;
+  --color-text-grey: #92929d;
+  --color-text-line-dark: #eaeaea;
+  --color-text-white-grey: #f1f1f5;
+  --color-text-white: #ffffff;
+
+  --color-text: var(--color-text-white);
+  --color-background: var(--color-primary-black-accent);
 }
