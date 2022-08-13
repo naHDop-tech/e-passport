@@ -1,0 +1,19 @@
+.GridContainer {
+  width: 100%;
+  display: grid;
+  grid-template-rows: 70px 1fr 200px;
+  grid-auto-flow: column;
+  row-gap: 24px;
+}
+
+.Header {
+  border: 1px solid red;
+}
+
+.Content {
+  border: 1px solid red;
+}
+
+.Footer {
+  border: 1px solid red;
+}

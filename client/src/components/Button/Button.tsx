@@ -14,23 +14,22 @@ export enum ButtonTypes {
 }
 
 interface IButtonStyle {
-  base: string
-  'click-animation': string
-  'primary': string
-  'secondary': string
-  'danger': string
-  'warning': string
-  'success': string
-  'accent': string
-  'outline': string
-  'primary-outline': string
-  'secondary-outline': string
-  'danger-outline': string
-  'warning-outline': string
-  'success-outline': string
-  'accent-outline': string
-  'outline-outline': string
-  'wide': string
+  Base: string
+  ClickAnimation: string
+  Primary: string
+  Secondary: string
+  Danger: string
+  Warning: string
+  Success: string
+  Accent: string
+  Outline: string
+  PrimaryOutline: string
+  SecondaryOutline: string
+  DangerOutline: string
+  WarningOutline: string
+  SuccessOutline: string
+  AccentOutline: string
+  Wide: string
 }
 
 interface IAdditionButtonProps {
@@ -46,46 +45,46 @@ export type ButtonProps = IAdditionButtonProps & ButtonHTMLAttributes<HTMLButton
 const getColor = (type: ButtonTypes, isOutline: boolean): string => {
   if (type === ButtonTypes.Primary) {
     if (isOutline) {
-      return styles['primary-outline']
+      return styles.PrimaryOutline
     }
-    return styles.primary
+    return styles.Primary
   }
   if (type === ButtonTypes.Secondary) {
     if (isOutline) {
-      return styles['secondary-outline']
+      return styles.SecondaryOutline
     }
-    return styles.secondary
+    return styles.Secondary
   }
   if (type === ButtonTypes.Danger) {
     if (isOutline) {
-      return styles['danger-outline']
+      return styles.DangerOutline
     }
-    return styles.danger
+    return styles.Danger
   }
   if (type === ButtonTypes.Warning) {
     if (isOutline) {
-      return styles['warning-outline']
+      return styles.WarningOutline
     }
-    return styles.warning
+    return styles.Warning
   }
   if (type === ButtonTypes.Success) {
     if (isOutline) {
-      return styles['success-outline']
+      return styles.SuccessOutline
     }
-    return styles.success
+    return styles.Success
   }
   if (type === ButtonTypes.Accent) {
     if (isOutline) {
-      return styles['accent-outline']
+      return styles.AccentOutline
     }
-    return styles.accent
+    return styles.Accent
   }
 
   if (isOutline) {
-    return styles['primary-outline']
+    return styles.PrimaryOutline
   }
 
-  return styles.primary
+  return styles.Primary
 }
 
 export function Button(props: PropsWithChildren<ButtonProps>): JSX.Element {
@@ -94,11 +93,11 @@ export function Button(props: PropsWithChildren<ButtonProps>): JSX.Element {
   return (
     <button
       className={cn(
-        styles['click-animation'],
-        styles.base,
+        styles.ClickAnimation,
+        styles.Base,
         getColor(bType, outline),
         {
-          [styles.wide]: wide,
+          [styles.Wide]: wide,
         },
         className,
       )}

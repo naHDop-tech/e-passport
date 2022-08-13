@@ -1,4 +1,4 @@
-.base {
+.Base {
   color: white;
   border: none;
   padding: 10px 26px;
@@ -13,76 +13,76 @@
   transition: 0.2s all;
 }
 
-.wide {
+.Wide {
   width: 100%;
 }
 
-.primary {
+.Primary {
   background-color: var(--color-primary-purple);
 }
 
-.primary-outline {
+.PrimaryOutline {
   padding: 9px 25px;
   color: var(--color-primary-purple);
   background-color: transparent;
   border: 1px solid var(--color-primary-purple);
 }
 
-.secondary {
+.Secondary {
   background-color: var(--color-blue);
 }
 
-.secondary-outline {
+.SecondaryOutline {
   padding: 9px 25px;
   color: var(--color-blue);
   background-color: transparent;
   border: 1px solid var(--color-blue);
 }
 
-.danger {
+.Danger {
   background-color: var(--color-red);
 }
 
-.danger-outline {
+.DangerOutline {
   padding: 9px 25px;
   color: var(--color-red);
   background-color: transparent;
   border: 1px solid var(--color-red);
 }
 
-.warning {
+.Warning {
   background-color: var(--color-yellow);
 }
 
-.warning-outline {
+.WarningOutline {
   padding: 9px 25px;
   color: var(--color-yellow);
   background-color: transparent;
   border: 1px solid var(--color-yellow);
 }
 
-.success {
+.Success {
   background-color: var(--color-green);
 }
 
-.success-outline {
+.SuccessOutline {
   padding: 9px 25px;
   color: var(--color-green);
   background-color: transparent;
   border: 1px solid var(--color-green);
 }
 
-.accent {
+.Accent {
   background-color: var(--color-orange);
 }
 
-.accent-outline {
+.AccentOutline {
   padding: 9px 25px;
   color: var(--color-orange);
   background-color: transparent;
   border: 1px solid var(--color-orange);
 }
 
-.click-animation:active {
+.ClickAnimation:active {
   transform: scale(0.98);
 }
