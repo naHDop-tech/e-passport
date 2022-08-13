@@ -1,0 +1,84 @@
+.base {
+  color: white;
+  border: none;
+  padding: 10px 26px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 12px;
+  cursor: pointer;
+  outline: none;
+  transition: 0.2s all;
+}
+
+.primary {
+  background-color: var(--color-primary-purple);
+}
+
+.primary-outline {
+  padding: 9px 25px;
+  color: var(--color-primary-purple);
+  background-color: transparent;
+  border: 1px solid var(--color-primary-purple);
+}
+
+.secondary {
+  background-color: var(--color-blue);
+}
+
+.secondary-outline {
+  padding: 9px 25px;
+  color: var(--color-blue);
+  background-color: transparent;
+  border: 1px solid var(--color-blue);
+}
+
+.danger {
+  background-color: var(--color-red);
+}
+
+.danger-outline {
+  padding: 9px 25px;
+  color: var(--color-red);
+  background-color: transparent;
+  border: 1px solid var(--color-red);
+}
+
+.warning {
+  background-color: var(--color-yellow);
+}
+
+.warning-outline {
+  padding: 9px 25px;
+  color: var(--color-yellow);
+  background-color: transparent;
+  border: 1px solid var(--color-yellow);
+}
+
+.success {
+  background-color: var(--color-green);
+}
+
+.success-outline {
+  padding: 9px 25px;
+  color: var(--color-green);
+  background-color: transparent;
+  border: 1px solid var(--color-green);
+}
+
+.accent {
+  background-color: var(--color-orange);
+}
+
+.accent-outline {
+  padding: 9px 25px;
+  color: var(--color-orange);
+  background-color: transparent;
+  border: 1px solid var(--color-orange);
+}
+
+.click-animation:active {
+  transform: scale(0.98);
+}
