@@ -2,13 +2,18 @@ import s from './MainLayoutGridStyle.module.css'
 const styles = s as unknown as IMainLayoutStyle
 
 interface IMainLayoutStyle {
-  GridContainer: string
+  UserGridContainer: string
+  BaseGridContainer: string
   Header: string
   Content: string
   Footer: string
+  HideFooter: string
   Sidebar: string
+  HideSidebar: string
   Navbar: string
+  HideNavbar: string
   Adv: string
+  HideAdv: string
 }
 
 export function MainLayoutGrid(props: any) {
@@ -18,21 +23,21 @@ export function MainLayoutGrid(props: any) {
   const Header = header
 
   return (
-    <div className={styles.GridContainer}>
+    <div className={isAuth ? styles.UserGridContainer : styles.BaseGridContainer}>
       <header className={styles.Header}>
         <Header />
       </header>
-      <nav className={styles.Navbar}>
+      <nav className={isAuth ? styles.Navbar : styles.HideNavbar}>
         <Navbar />
       </nav>
       <article className={styles.Content}>
         {children}
+        <footer className={!isAuth ? styles.Footer : styles.HideFooter}>The footer</footer>
       </article>
-      <aside className={styles.Sidebar}>
+      <aside className={isAuth ? styles.Sidebar : styles.HideSidebar}>
         <Sidebar />
       </aside>
-      <div className={styles.Adv}>Advertising</div>
-      <footer className={styles.Footer}>The footer</footer>
+      <div className={isAuth ? styles.Adv : styles.HideAdv}>Advertising</div>
     </div>
   )
 }

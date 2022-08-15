@@ -34,6 +34,8 @@ export function withUserInfo(Component: (p: PropsWithChildren<IMainLayoutProps>)
     const header = () => (
       <>
         <ThemeToggle />
+        <p>How</p>
+        <p>How</p>
       </>
     )
 
