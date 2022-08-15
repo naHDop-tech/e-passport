@@ -1,5 +1,7 @@
 export interface IMainLayoutProps {
   isAuth: boolean
   userEmail: string
-  sider: () => JSX.Element
+  sidebar: () => JSX.Element
+  navbar: () => JSX.Element
+  header: () => JSX.Element
 }

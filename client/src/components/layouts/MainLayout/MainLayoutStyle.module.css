@@ -3,11 +3,11 @@
   height: 100vh;
 
   display: grid;
-  grid-template-columns: 200px auto;
+  grid-template-columns: 200px auto 200px;
   grid-template-rows: 100px 1fr;
   grid-template-areas:
-    'sider header'
-    'sider content';
+    'navbar header header'
+    'navbar content sidebar';
 }
 
 .BaseGridContainer {
@@ -32,17 +32,28 @@
 }
 
 .Sidebar {
-  grid-area: sider;
+  grid-area: sidebar;
   border: 1px solid pink;
 }
 
 .SilentSidebar {
+  grid-area: sidebar;
   display: none;
-  grid-area: sider;
+}
+
+.Navbar {
+  grid-area: navbar;
+  border: 1px solid pink;
+}
+
+.SilentNavbar {
+  grid-area: navbar;
+  display: none;
 }
 
 .Content {
   grid-area: content;
+  padding: 20px;
   overflow: auto;
   border: 1px solid blue;
 }

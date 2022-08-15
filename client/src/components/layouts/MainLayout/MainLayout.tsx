@@ -12,33 +12,35 @@ interface IMainLayoutStyle {
   Footer: string
   Sidebar: string
   SilentSidebar: string
+  Navbar: string
+  SilentNavbar: string
 }
 
-import { ThemeToggle as TT } from '../../ThemeToggle'
-import { withTheme } from '../../HOC/WithTheme'
-import { Button, ButtonTypes } from '../../Button'
 import { IMainLayoutProps } from './types'
 
-const ThemeToggle = withTheme(TT)
-
 export function MainLayout(props: PropsWithChildren<IMainLayoutProps>) {
-  const { children, isAuth, sider, userEmail } = props
+  const { children, isAuth, sidebar, header, navbar,  userEmail } = props
   const navigateTo = useNavigate()
-  const Sider = sider
+  const Sidebar = sidebar
+  const Navbar = navbar
+  const Header = header
 
   return (
     <div className={isAuth ? styles.UserGridContainer : styles.BaseGridContainer}>
       <div className={styles.Header}>
-        <ThemeToggle />
+        <Header />
       </div>
-      <div className={isAuth ? styles.Sidebar : styles.SilentSidebar}>
-        <Sider />
+      <div className={isAuth ? styles.Navbar : styles.SilentNavbar}>
+        <Navbar />
       </div>
       <div className={styles.Content}>
         {children}
         <div className={styles.Footer}>
           {new Date().getFullYear()}
         </div>
+      </div>
+      <div className={isAuth ? styles.Sidebar : styles.SilentSidebar}>
+        <Sidebar />
       </div>
   </div>
   )
