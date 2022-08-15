@@ -3,9 +3,10 @@ import './style.css'
 
 import { Login } from './components/Login'
 import { MainLayout } from './components/layouts/MainLayout'
+import { MainLayoutGrid } from './components/layouts/MainLayout/MainLayoutGrid'
 import { withUserInfo } from './components/HOC/WithUserInfo'
 
-const MainLayoutWrapper = withUserInfo(MainLayout)
+const MainLayoutWrapper = withUserInfo(MainLayoutGrid)
 
 export function App(): JSX.Element {
   return (

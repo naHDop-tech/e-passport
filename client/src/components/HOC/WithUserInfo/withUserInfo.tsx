@@ -14,12 +14,11 @@ export function withUserInfo(Component: (p: PropsWithChildren<IMainLayoutProps>)
     const { user: { email } } = useRecoilValue(userSelector)
     
     const navbar = () => (
-      <>
-        <p>Hello</p>
-        <p>Setting</p>
-        <p>Some</p>
-        <p>Logout</p>
-      </>
+      <ul>
+        <li><a href="">Nav 1</a></li>
+        <li><a href="">Nav 2</a></li>
+        <li><a href="">Nav 3</a></li>
+      </ul>
     )
     const sidebar = () => (
       <>
