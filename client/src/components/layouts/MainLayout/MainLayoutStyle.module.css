@@ -1,19 +1,53 @@
-.GridContainer {
+.UserGridContainer {
   width: 100%;
+  height: 100vh;
+
   display: grid;
-  grid-template-rows: 70px 1fr 200px;
-  grid-auto-flow: column;
-  row-gap: 24px;
+  grid-template-columns: 200px auto;
+  grid-template-rows: 100px 1fr;
+  grid-template-areas:
+    'sider header'
+    'sider content';
+}
+
+.BaseGridContainer {
+  width: 100%;
+  height: 100vh;
+
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 100px 1fr;
+  grid-template-areas:
+    'header'
+    'content';
 }
 
 .Header {
+  grid-area: header;
+  top: 0;
   border: 1px solid red;
+  /* background-color: var(--color-background); */
+
+  /* box-shadow: 0 14px 14px 20px var(--color-background); */
+}
+
+.Sidebar {
+  grid-area: sider;
+  border: 1px solid pink;
+}
+
+.SilentSidebar {
+  display: none;
+  grid-area: sider;
 }
 
 .Content {
-  border: 1px solid red;
+  grid-area: content;
+  overflow: auto;
+  border: 1px solid blue;
 }
 
 .Footer {
-  border: 1px solid red;
+  /* grid-area: footer; */
+  border: 1px solid purple;
 }

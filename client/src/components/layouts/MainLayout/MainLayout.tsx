@@ -5,10 +5,13 @@ import s from './MainLayoutStyle.module.css'
 const styles = s as unknown as IMainLayoutStyle
 
 interface IMainLayoutStyle {
-  GridContainer: string
+  BaseGridContainer: string
+  UserGridContainer: string
   Header: string
   Content: string
   Footer: string
+  Sidebar: string
+  SilentSidebar: string
 }
 
 import { ThemeToggle as TT } from '../../ThemeToggle'
@@ -19,20 +22,24 @@ import { IMainLayoutProps } from './types'
 const ThemeToggle = withTheme(TT)
 
 export function MainLayout(props: PropsWithChildren<IMainLayoutProps>) {
-  const { children, isAuth, userEmail } = props
+  const { children, isAuth, sider, userEmail } = props
   const navigateTo = useNavigate()
+  const Sider = sider
 
   return (
-    <div className={styles.GridContainer}>
+    <div className={isAuth ? styles.UserGridContainer : styles.BaseGridContainer}>
       <div className={styles.Header}>
         <ThemeToggle />
       </div>
+      <div className={isAuth ? styles.Sidebar : styles.SilentSidebar}>
+        <Sider />
+      </div>
       <div className={styles.Content}>
         {children}
+        <div className={styles.Footer}>
+          {new Date().getFullYear()}
+        </div>
       </div>
-      <div className={styles.Footer}>
-        {new Date().getFullYear()}
-      </div>
-    </div>
+  </div>
   )
 }

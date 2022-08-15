@@ -8,9 +8,16 @@ export function withUserInfo(Component: (p: PropsWithChildren<IMainLayoutProps>)
     const { children } = props
     const { isAuth } = useRecoilValue(authSelector)
     const { user: { email } } = useRecoilValue(userSelector)
-
+    const sider = () => (
+      <>
+        <p>Hello</p>
+        <p>Setting</p>
+        <p>Some</p>
+        <p>Logout</p>
+      </>
+    )
     return (
-      <Component isAuth={isAuth} userEmail={email}>
+      <Component sider={sider} isAuth={isAuth} userEmail={email}>
         {children}
       </Component>
     )
