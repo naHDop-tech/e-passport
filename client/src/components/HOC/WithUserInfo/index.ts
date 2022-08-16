@@ -1,0 +1,2 @@
+export { withUserInfo } from './withUserInfo'
+

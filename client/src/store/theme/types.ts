@@ -5,19 +5,13 @@ export enum ThemeMode {
 
 export const themes = {
   light: {
-    '--color-background': '#FFF8F3',
-    '--color-text': '#191919',
-    '--color-primary': '#A3E4DB',
-    '--color-secondary': '#1C6DD0',
-    '--color-accent': '#FED1EF',
+    '--color-background': '#1d2335',
+    '--color-text': '#ffffff',
   },
   dark: {
-    '--color-background': '#191919',
-    '--color-text': '#FFF8F3',
-    '--color-primary': '#2d4263',
-    '--color-secondary': '#c84b31',
-    '--color-accent': '#ecdbba',
+    '--color-background': '#ffffff',
+    '--color-text': '#1d2335',
   },
 }
 
-export type ColorTypes = '--color-primary' | '--color-background' | '--color-text' | '--color-secondary' | '--color-accent'
+export type ColorTypes = '--color-background' | '--color-text'

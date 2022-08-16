@@ -144,6 +144,8 @@ export abstract class IQuery {
     abstract cat(id: string): Nullable<Cat> | Promise<Nullable<Cat>>;
 
     abstract user(id: string): Nullable<User> | Promise<Nullable<User>>;
+
+    abstract isUserExists(email?: Nullable<string>): Nullable<boolean> | Promise<Nullable<boolean>>;
 }
 
 export abstract class IMutation {

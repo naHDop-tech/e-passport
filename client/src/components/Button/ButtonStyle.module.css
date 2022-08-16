@@ -1,0 +1,88 @@
+.Base {
+  color: white;
+  border: none;
+  padding: 10px 26px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 12px;
+  cursor: pointer;
+  outline: none;
+  transition: 0.2s all;
+}
+
+.Wide {
+  width: 100%;
+}
+
+.Primary {
+  background-color: var(--color-primary-purple);
+}
+
+.PrimaryOutline {
+  padding: 9px 25px;
+  color: var(--color-primary-purple);
+  background-color: transparent;
+  border: 1px solid var(--color-primary-purple);
+}
+
+.Secondary {
+  background-color: var(--color-blue);
+}
+
+.SecondaryOutline {
+  padding: 9px 25px;
+  color: var(--color-blue);
+  background-color: transparent;
+  border: 1px solid var(--color-blue);
+}
+
+.Danger {
+  background-color: var(--color-red);
+}
+
+.DangerOutline {
+  padding: 9px 25px;
+  color: var(--color-red);
+  background-color: transparent;
+  border: 1px solid var(--color-red);
+}
+
+.Warning {
+  background-color: var(--color-yellow);
+}
+
+.WarningOutline {
+  padding: 9px 25px;
+  color: var(--color-yellow);
+  background-color: transparent;
+  border: 1px solid var(--color-yellow);
+}
+
+.Success {
+  background-color: var(--color-green);
+}
+
+.SuccessOutline {
+  padding: 9px 25px;
+  color: var(--color-green);
+  background-color: transparent;
+  border: 1px solid var(--color-green);
+}
+
+.Accent {
+  background-color: var(--color-orange);
+}
+
+.AccentOutline {
+  padding: 9px 25px;
+  color: var(--color-orange);
+  background-color: transparent;
+  border: 1px solid var(--color-orange);
+}
+
+.ClickAnimation:active {
+  transform: scale(0.98);
+}

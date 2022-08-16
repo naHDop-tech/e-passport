@@ -1,0 +1,106 @@
+.UserGridContainer {
+  width: 100%;
+  height: 100vh;
+
+  display: grid;
+  gap: 20px;
+  grid-template-columns: auto;
+  grid-template-rows: 1fr 1fr 80vh auto;
+  grid-template-areas:
+    'header'
+    'nav'
+    'content'
+    'sidebar'
+    'ad';
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+.BaseGridContainer {
+  width: 100%;
+  height: 100vh;
+
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 100px 1fr;
+  grid-template-areas:
+    'header'
+    'content';
+}
+
+.Header {
+  border: 1px solid red;
+  grid-area: header;
+}
+.Content {
+  border: 1px solid pink;
+  grid-area: content;
+  overflow: auto;
+}
+.Navbar {
+  border: 1px solid yellow;
+  grid-area: nav;
+}
+.Sidebar {
+  border: 1px solid blue;
+  grid-area: sidebar;
+}
+.Adv {
+  border: 1px solid blue;
+  grid-area: ad;
+}
+.Footer {
+  border: 1px solid grey;
+}
+.HideNavbar {
+  display: none;
+  border: 1px solid yellow;
+  grid-area: nav;
+}
+.HideSidebar {
+  display: none;
+  border: 1px solid blue;
+  grid-area: sidebar;
+}
+.HideAdv {
+  display: none;
+  border: 1px solid blue;
+  grid-area: ad;
+}
+.HideFooter {
+  display: none;
+  border: 1px solid grey;
+}
+
+@media (min-width: 500px) {
+  .UserGridContainer {
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 3fr;
+    grid-template-areas:
+      'header  header'
+      'nav     nav'
+      'sidebar content'
+      'ad      ad';
+  }
+  nav ul {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 700px) {
+  .UserGridContainer {
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-areas:
+      'nav    header  header'
+      'nav    content sidebar'
+      'nav    content ad';
+  }
+  nav ul {
+    flex-direction: column;
+  }
+}
