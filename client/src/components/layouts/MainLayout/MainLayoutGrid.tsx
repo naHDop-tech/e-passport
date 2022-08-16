@@ -1,3 +1,5 @@
+import { PropsWithChildren } from 'react'
+
 import s from './MainLayoutGridStyle.module.css'
 const styles = s as unknown as IMainLayoutStyle
 
@@ -16,8 +18,10 @@ interface IMainLayoutStyle {
   HideAdv: string
 }
 
-export function MainLayoutGrid(props: any) {
-  const { children, isAuth, sidebar, header, navbar,  userEmail } = props
+import { IMainLayoutProps } from './types'
+
+export function MainLayoutGrid(props: PropsWithChildren<IMainLayoutProps>) {
+  const { children, isAuth, sidebar, header, navbar } = props
   const Sidebar = sidebar
   const Navbar = navbar
   const Header = header

@@ -40,7 +40,7 @@ export function withUserInfo(Component: (p: PropsWithChildren<IMainLayoutProps>)
     )
 
     return (
-      <Component navbar={navbar} header={header} sidebar={sidebar} isAuth={isAuth} userEmail={email}>
+      <Component navbar={navbar} header={header} sidebar={sidebar} isAuth={isAuth}>
         {children}
       </Component>
     )

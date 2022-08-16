@@ -2,7 +2,6 @@ import { BrowserRouter as RouterProvider, Routes, Route } from 'react-router-dom
 import './style.css'
 
 import { Login } from './components/Login'
-import { MainLayout } from './components/layouts/MainLayout'
 import { MainLayoutGrid } from './components/layouts/MainLayout/MainLayoutGrid'
 import { withUserInfo } from './components/HOC/WithUserInfo'
 

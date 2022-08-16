@@ -19,7 +19,7 @@ interface IMainLayoutStyle {
 import { IMainLayoutProps } from './types'
 
 export function MainLayout(props: PropsWithChildren<IMainLayoutProps>) {
-  const { children, isAuth, sidebar, header, navbar,  userEmail } = props
+  const { children, isAuth, sidebar, header, navbar } = props
   const navigateTo = useNavigate()
   const Sidebar = sidebar
   const Navbar = navbar
