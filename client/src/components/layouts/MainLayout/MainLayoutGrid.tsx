@@ -21,10 +21,12 @@ interface IMainLayoutStyle {
 import { IMainLayoutProps } from './types'
 
 export function MainLayoutGrid(props: PropsWithChildren<IMainLayoutProps>) {
-  const { children, isAuth, sidebar, header, navbar } = props
+  const { children, isAuth, sidebar, header, navbar, footer, ad } = props
   const Sidebar = sidebar
   const Navbar = navbar
   const Header = header
+  const Footer = footer
+  const Advertising = ad
 
   return (
     <div className={isAuth ? styles.UserGridContainer : styles.BaseGridContainer}>
@@ -36,12 +38,16 @@ export function MainLayoutGrid(props: PropsWithChildren<IMainLayoutProps>) {
       </nav>
       <article className={styles.Content}>
         {children}
-        <footer className={!isAuth ? styles.Footer : styles.HideFooter}>The footer</footer>
+        <footer className={!isAuth ? styles.Footer : styles.HideFooter}>
+          <Footer />
+        </footer>
       </article>
       <aside className={isAuth ? styles.Sidebar : styles.HideSidebar}>
         <Sidebar />
       </aside>
-      <div className={isAuth ? styles.Adv : styles.HideAdv}>Advertising</div>
+      <div className={isAuth ? styles.Adv : styles.HideAdv}>
+        <Advertising />
+      </div>
     </div>
   )
 }

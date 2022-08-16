@@ -34,13 +34,29 @@ export function withUserInfo(Component: (p: PropsWithChildren<IMainLayoutProps>)
     const header = () => (
       <>
         <ThemeToggle />
-        <p>How</p>
-        <p>How</p>
+      </>
+    )
+    const footer = () => (
+      <>
+        {new Date().getFullYear()}
       </>
     )
 
+    const ad = () => (
+      <div>
+        <p>Advertising</p>
+      </div>
+    )
+
     return (
-      <Component navbar={navbar} header={header} sidebar={sidebar} isAuth={isAuth}>
+      <Component
+        ad={ad}
+        footer={footer}
+        navbar={navbar}
+        header={header}
+        sidebar={sidebar}
+        isAuth={isAuth}
+      >
         {children}
       </Component>
     )
