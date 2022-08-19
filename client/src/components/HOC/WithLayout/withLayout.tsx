@@ -1,7 +1,8 @@
 import { PropsWithChildren } from 'react'
 import { useLocation } from 'react-router-dom'
 import { MainLayoutGrid } from '../../layouts/MainLayout/MainLayoutGrid'
-import { IMainLayoutProps } from '../../layouts/MainLayout/types'
+import { BaseHeader } from '../../Header'
+import { CustomerHeader } from '../../Header'
 import { withTheme } from '../WithTheme'
 import { ThemeToggle as TT } from '../../../components/ThemeToggle'
 import { IUseUserInfo } from '../../../hooks/useUserInfo'
@@ -22,11 +23,7 @@ export function withLayout(props: IUseUserInfo) {
       </>
     )
   
-    const header = () => (
-      <div>
-        <ThemeToggle />
-      </div>
-    )
+    const header = () => !isAuth ? <BaseHeader /> : <CustomerHeader />
   
     const navbar = () => (
       <ul>

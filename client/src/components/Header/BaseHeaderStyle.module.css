@@ -1,0 +1,23 @@
+.FlexBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 100%;
+}
+
+.LeftContent {
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.LeftText {
+  margin-left: 10px;
+}
+
+.RightContent {
+  display: flex;
+  align-items: center;
+}
