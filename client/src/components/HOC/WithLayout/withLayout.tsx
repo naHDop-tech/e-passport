@@ -3,11 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { MainLayoutGrid } from '../../layouts/MainLayout/MainLayoutGrid'
 import { BaseHeader } from '../../Header'
 import { CustomerHeader } from '../../Header'
-import { withTheme } from '../WithTheme'
-import { ThemeToggle as TT } from '../../../components/ThemeToggle'
 import { IUseUserInfo } from '../../../hooks/useUserInfo'
-
-const ThemeToggle = withTheme(TT)
 
 export function withLayout(props: IUseUserInfo) {
   return (p: PropsWithChildren<{}>) => {
