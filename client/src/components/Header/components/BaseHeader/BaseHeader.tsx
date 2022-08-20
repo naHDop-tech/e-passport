@@ -54,7 +54,7 @@ export function BaseHeader() {
     })
   }, [itemId])
 
-  const burgerMenu = (
+  const burgerButton = (
     <>
       <input
         className={styles.MenuToggle}
@@ -79,7 +79,7 @@ export function BaseHeader() {
           {lineMenu}
         </div>
         <div onClick={() => setIsCheckboxActive(prev => !prev)} className={styles.HamburgerMenu}>
-          {burgerMenu}
+          {burgerButton}
         </div>
         {isCheckboxActive && (
           <div className={styles.CollapsedContentBox}>
