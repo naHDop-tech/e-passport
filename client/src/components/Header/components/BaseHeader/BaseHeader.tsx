@@ -62,7 +62,14 @@ export function BaseHeader() {
           {menu}
         </div>
         <div onClick={() => setIsCheckboxActive(prev => !prev)} className={styles.HamburgerMenu}>
-          <input className={styles.MenuToggle} type="checkbox" checked={isCheckboxActive} />
+          <input
+            className={styles.MenuToggle}
+            type="checkbox"
+            // workaround for no error in console
+            // if you pass checked props -> onChange is needed
+            onChange={() => null}
+            checked={isCheckboxActive}
+          />
           <div className={styles.MenuButton}></div>
         </div>
       </div>
