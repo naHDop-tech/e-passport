@@ -1,2 +1,2 @@
-export { BaseHeader } from './BaseHeader'
-export { CustomerHeader } from './CustomerHeader'
+export { BaseHeader } from './components/BaseHeader'
+export { CustomerHeader } from './components/CustomerHeader'
