@@ -1,12 +1,10 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom'
 
 import { EIcon } from '../../../EIcon'
-import { withTheme } from '../../../HOC/WithTheme'
 import { Button } from '../../../Button'
 import { MenuItem } from '../../../Header/components/MenuItem'
-import { ThemeToggle as TT } from '../../../ThemeToggle'
 import { activeItemId, } from '../../../../store/header/atoms'
 import { headerItemsStateSelector } from '../../../../store/header/selector'
 import { Item } from '../../../../store/header/types'
@@ -14,16 +12,18 @@ import { Item } from '../../../../store/header/types'
 import s from './BaseHeaderStyle.module.css'
 const styles = s as unknown as IEIconStyle
 
-const ThemeToggle = withTheme(TT)
-
 interface IEIconStyle {
   FlexBox: string
   LeftContent: string
   LeftText: string
-  RightContent: string
+  InlineMenu: string
+  HamburgerMenu: string
+  MenuToggle: string
+  MenuButton: string
 }
 
 export function BaseHeader() {
+  const [isCheckboxActive, setIsCheckboxActive] = useState(false)
   const [_, setActiveItem] = useRecoilState(activeItemId)
   const { items, itemId } = useRecoilValue(headerItemsStateSelector)
   const navigateTo = useNavigate()
@@ -57,9 +57,14 @@ export function BaseHeader() {
         <EIcon />
         <div className={styles.LeftText}>Passport</div>
       </div>
-      <div className={styles.RightContent}>
-        <ThemeToggle />
-        {menu}
+      <div>
+        <div className={styles.InlineMenu}>
+          {menu}
+        </div>
+        <div onClick={() => setIsCheckboxActive(prev => !prev)} className={styles.HamburgerMenu}>
+          <input className={styles.MenuToggle} type="checkbox" checked={isCheckboxActive} />
+          <div className={styles.MenuButton}></div>
+        </div>
       </div>
     </div>
   )

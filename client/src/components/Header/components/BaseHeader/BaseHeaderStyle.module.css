@@ -18,8 +18,73 @@
   margin-left: 10px;
 }
 
-.RightContent {
-  display: flex;
+.HamburgerMenu {
+  display: block;
+  cursor: pointer;
+}
+
+.InlineMenu {
+  display: none;
   align-items: center;
   gap: 30px;
+}
+
+.MenuToggle {
+  display: none;
+}
+
+.MenuButton,
+.MenuButton::before,
+.MenuButton::after {
+  display: block;
+  background-color: var(--color-text);
+  position: absolute;
+  height: 4px;
+  width: 30px;
+  transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
+  border-radius: 2px;
+}
+
+.MenuButton::before {
+  content: '';
+  margin-top: -8px;
+}
+
+.MenuButton::after {
+  content: '';
+  margin-top: 8px;
+}
+
+.MenuToggle:checked + .MenuButton::before {
+  margin-top: 0px;
+  transform: rotate(405deg);
+}
+
+.MenuToggle:checked + .MenuButton {
+  background: rgba(255, 255, 255, 0);
+}
+
+.MenuToggle:checked + .MenuButton::after {
+  margin-top: 0px;
+  transform: rotate(-405deg);
+}
+
+@media (min-width: 500px) {
+  .HamburgerMenu {
+    display: none;
+  }
+
+  .InlineMenu {
+    display: flex;
+  }
+}
+
+@media (min-width: 700px) {
+  .HamburgerMenu {
+    display: none;
+  }
+
+  .InlineMenu {
+    display: flex;
+  }
 }
