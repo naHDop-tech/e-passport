@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import cn from 'classnames'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom'
 
@@ -20,6 +21,7 @@ interface IEIconStyle {
   HamburgerMenu: string
   MenuToggle: string
   MenuButton: string
+  CollapsedContentBox: string
 }
 
 export function BaseHeader() {
@@ -29,11 +31,12 @@ export function BaseHeader() {
   const navigateTo = useNavigate()
 
   const onSelectItem = (item: Item) => {
+    setIsCheckboxActive(false)
     setActiveItem(item.id)
     navigateTo(item.url)
   }
 
-  const menu = useMemo(() => {
+  const lineMenu = useMemo(() => {
     return items.map((item) => {
       if (item.id === 4) {
         return <Button key={item.id} onClick={() => onSelectItem(item)} title={item.title} />
@@ -51,6 +54,20 @@ export function BaseHeader() {
     })
   }, [itemId])
 
+  const burgerMenu = (
+    <>
+      <input
+        className={styles.MenuToggle}
+        type="checkbox"
+        // workaround for no error in console
+        // if you pass checked props -> onChange is needed
+        onChange={() => null}
+        checked={isCheckboxActive}
+      />
+      <div className={styles.MenuButton}></div>
+    </>
+  )
+
   return (
     <div className={styles.FlexBox}>
       <div className={styles.LeftContent} onClick={() => navigateTo('/')}>
@@ -59,19 +76,26 @@ export function BaseHeader() {
       </div>
       <div>
         <div className={styles.InlineMenu}>
-          {menu}
+          {lineMenu}
         </div>
         <div onClick={() => setIsCheckboxActive(prev => !prev)} className={styles.HamburgerMenu}>
-          <input
-            className={styles.MenuToggle}
-            type="checkbox"
-            // workaround for no error in console
-            // if you pass checked props -> onChange is needed
-            onChange={() => null}
-            checked={isCheckboxActive}
-          />
-          <div className={styles.MenuButton}></div>
+          {burgerMenu}
         </div>
+        {isCheckboxActive && (
+          <div className={styles.CollapsedContentBox}>
+            {
+              items.map((item) => (
+                <MenuItem
+                  key={item.id}
+                  onClick={() => onSelectItem(item)}
+                  isActive={item.id === itemId}
+                >
+                  {item.title}
+                </MenuItem>
+              ))
+            }
+          </div>
+        )}
       </div>
     </div>
   )
