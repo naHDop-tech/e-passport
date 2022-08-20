@@ -4,6 +4,10 @@ import { MainLayoutGrid } from '../../layouts/MainLayout/MainLayoutGrid'
 import { BaseHeader } from '../../Header'
 import { CustomerHeader } from '../../Header'
 import { IUseUserInfo } from '../../../hooks/useUserInfo'
+import { withTheme } from '../WithTheme'
+import { ThemeToggle as TT } from '../../ThemeToggle'
+
+const ThemeToggle = withTheme(TT)
 
 export function withLayout(props: IUseUserInfo) {
   return (p: PropsWithChildren<{}>) => {
@@ -53,6 +57,9 @@ export function withLayout(props: IUseUserInfo) {
         isAuth={isAuth}
       >
         {children}
+        <div style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
+          <ThemeToggle />
+        </div>
       </MainLayoutGrid>
     )
   }
