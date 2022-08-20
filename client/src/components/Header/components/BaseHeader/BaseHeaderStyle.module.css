@@ -92,17 +92,7 @@
   transform: rotate(-405deg);
 }
 
-@media (min-width: 500px) {
-  .HamburgerMenu {
-    display: none;
-  }
-
-  .InlineMenu {
-    display: flex;
-  }
-}
-
-@media (min-width: 700px) {
+@media (min-width: 630px) {
   .HamburgerMenu {
     display: none;
   }
