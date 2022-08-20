@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom'
 
@@ -8,6 +9,7 @@ import { MenuItem } from '../../../Header/components/MenuItem'
 import { ThemeToggle as TT } from '../../../ThemeToggle'
 import { activeItemId, } from '../../../../store/header/atoms'
 import { headerItemsStateSelector } from '../../../../store/header/selector'
+import { Item } from '../../../../store/header/types'
 
 import s from './BaseHeaderStyle.module.css'
 const styles = s as unknown as IEIconStyle
@@ -26,13 +28,17 @@ export function BaseHeader() {
   const { items, itemId } = useRecoilValue(headerItemsStateSelector)
   const navigateTo = useNavigate()
 
-  const onSelectItem = (item: any) => {
+  const onSelectItem = (item: Item) => {
     setActiveItem(item.id)
     navigateTo(item.url)
   }
 
-  const menu = (
-    items.map((item) => {
+  const menu = useMemo(() => {
+    return items.map((item) => {
+      if (item.id === 4) {
+        return <Button key={item.id} onClick={() => onSelectItem(item)} title={item.title} />
+      }
+
       return (
         <MenuItem
           key={item.id}
@@ -43,18 +49,17 @@ export function BaseHeader() {
         </MenuItem>
       )
     })
-  )
+  }, [itemId])
 
   return (
     <div className={styles.FlexBox}>
-      <div className={styles.LeftContent} onClick={() => console.log('Logo click')}>
+      <div className={styles.LeftContent} onClick={() => navigateTo('/')}>
         <EIcon />
         <div className={styles.LeftText}>Passport</div>
       </div>
       <div className={styles.RightContent}>
         <ThemeToggle />
         {menu}
-        <Button onClick={() => console.log('Sign In click')} title='Sign In' />
       </div>
     </div>
   )
