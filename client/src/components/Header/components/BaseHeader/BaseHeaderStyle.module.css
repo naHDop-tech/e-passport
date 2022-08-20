@@ -19,6 +19,7 @@
 }
 
 .HamburgerMenu {
+  position: relative;
   display: block;
   cursor: pointer;
 }
@@ -31,6 +32,10 @@
 
 .MenuToggle {
   display: none;
+}
+
+.MenuButton {
+  right: 0;
 }
 
 .MenuButton,
