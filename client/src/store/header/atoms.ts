@@ -32,3 +32,8 @@ export const activeItemId = atom({
   key: 'activeItem',
   default: 1,
 })
+
+export const menuOpenStatus = atom({
+  key: 'menuOpenStatus',
+  default: false,
+})

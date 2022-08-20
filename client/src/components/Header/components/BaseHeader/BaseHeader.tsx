@@ -1,11 +1,11 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom'
 
 import { EIcon } from '../../../EIcon'
 import { Button } from '../../../Button'
 import { MenuItem } from '../../../Header/components/MenuItem'
-import { activeItemId, } from '../../../../store/header/atoms'
+import { activeItemId, menuOpenStatus } from '../../../../store/header/atoms'
 import { headerItemsStateSelector } from '../../../../store/header/selector'
 import { Item } from '../../../../store/header/types'
 
@@ -23,8 +23,8 @@ interface IEIconStyle {
 }
 
 export function BaseHeader() {
-  const [isCheckboxActive, setIsCheckboxActive] = useState(false)
   const [_, setActiveItem] = useRecoilState(activeItemId)
+  const [isCheckboxActive, setIsCheckboxActive] = useRecoilState(menuOpenStatus)
   const { items, itemId } = useRecoilValue(headerItemsStateSelector)
   const navigateTo = useNavigate()
 
