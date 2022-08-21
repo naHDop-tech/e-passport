@@ -1,5 +1,6 @@
 import { Search } from '../Search'
 import { CustomerInfo } from '../CustomerInfo'
+import { FilterButton } from '../FilterButton'
 import { EIcon } from '../../../EIcon'
 
 import s from './CustomerHeaderStyle.module.css'
@@ -20,7 +21,7 @@ export function CustomerHeader() {
         <Search />
       </div>
       <div className={styles.FilterBox}>
-        <EIcon />
+        <FilterButton />
       </div>
       <div className={styles.UserCardBox}>
         <CustomerInfo />
