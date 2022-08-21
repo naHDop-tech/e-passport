@@ -12,7 +12,6 @@ interface ICustomerHeaderStyle {
   UserCardBox: string
 }
 
-
 export function CustomerHeader() {
   return (
     <div className={styles.GridBox}>
