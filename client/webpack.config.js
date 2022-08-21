@@ -26,8 +26,12 @@ module.exports = {
         type: 'asset/resource',
       },
       {
-        test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
+        test: /\.(woff(2)?|eot|ttf|otf|)$/,
         type: 'asset/inline',
+      },
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
       },
     ],
   },
@@ -47,5 +51,6 @@ module.exports = {
     hot: 'only',
     compress: true,
     open: true,
+    liveReload: true,
   },
 };

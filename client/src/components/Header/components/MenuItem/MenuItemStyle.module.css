@@ -1,0 +1,8 @@
+.Item {
+  color: var(--color-text-grey);
+  cursor: pointer;
+}
+
+.Active {
+  color: var(--color-primary-purple);
+}

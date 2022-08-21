@@ -3,7 +3,8 @@
   border: 2px solid var(--color-text-grey);
   border-radius: 50px;
   cursor: pointer;
-  display: inline-block;
+  display: flex;
+  align-items: center;
   position: relative;
   transition: all ease-in-out 0.3s;
   width: 40px;

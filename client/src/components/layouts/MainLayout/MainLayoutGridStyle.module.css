@@ -32,44 +32,54 @@ nav ul {
 }
 
 .Header {
-  border: 1px solid red;
   grid-area: header;
 }
+
 .Content {
   border: 1px solid pink;
   grid-area: content;
   overflow: auto;
 }
+
 .Navbar {
-  border: 1px solid yellow;
+  /* background-color: var(--color-primary-purple); */
+  /* opacity: 0.1; */
+  background: rgba(106, 75, 255, 0.1);
   grid-area: nav;
 }
+
 .Sidebar {
   border: 1px solid blue;
   grid-area: sidebar;
 }
+
 .Adv {
   border: 1px solid blue;
   grid-area: ad;
 }
+
 .Footer {
   border: 1px solid grey;
 }
+
 .HideNavbar {
   display: none;
   border: 1px solid yellow;
   grid-area: nav;
 }
+
 .HideSidebar {
   display: none;
   border: 1px solid blue;
   grid-area: sidebar;
 }
+
 .HideAdv {
   display: none;
   border: 1px solid blue;
   grid-area: ad;
 }
+
 .HideFooter {
   display: none;
   border: 1px solid grey;
