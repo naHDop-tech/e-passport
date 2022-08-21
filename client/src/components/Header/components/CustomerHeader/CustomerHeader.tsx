@@ -1,7 +1,6 @@
 import { Search } from '../Search'
 import { CustomerInfo } from '../CustomerInfo'
 import { FilterButton } from '../FilterButton'
-import { EIcon } from '../../../EIcon'
 
 import s from './CustomerHeaderStyle.module.css'
 const styles = s as unknown as ICustomerHeaderStyle
@@ -29,7 +28,3 @@ export function CustomerHeader() {
     </div>
   )
 }
-
-
-
-
