@@ -1,0 +1,17 @@
+.SearchBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background: rgba(106, 75, 255, 0.1);
+  padding: 10px 15px;
+  width: 100%;
+
+  gap: 10px;
+}
+
+.SearchElement {
+  border: none;
+  background: rgba(106, 75, 255, 0.01);
+  width: 95%;
+}

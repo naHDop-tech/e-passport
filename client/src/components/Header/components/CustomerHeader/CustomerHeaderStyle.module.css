@@ -1,0 +1,20 @@
+.GridBox {
+  height: 100%;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(12, [col-start] 1fr);
+  padding: 0 24px;
+  align-items: center;
+}
+
+.SearchBox {
+  grid-column: col-start 1 / span 7;
+}
+
+.FilterBox {
+  grid-column: col-start 8 / span 2;
+}
+
+.UserCardBox {
+  grid-column: col-start 10 / span 3;
+}

@@ -39,7 +39,7 @@ body {
   line-height: 1.5;
   background-color: var(--color-background);
   color: var(--color-text);
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* A elements that don't have a class get default styles */
@@ -60,6 +60,11 @@ button,
 textarea,
 select {
   font: inherit;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */

@@ -1,5 +1,4 @@
 import { useMemo } from 'react'
-import cn from 'classnames'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom'
 
@@ -36,7 +35,7 @@ export function BaseHeader() {
     navigateTo(item.url)
   }
 
-  const lineMenu = useMemo(() => {
+  const menuList = useMemo(() => {
     return items.map((item) => {
       if (item.id === 4) {
         return <Button key={item.id} onClick={() => onSelectItem(item)} title={item.title} />
@@ -76,7 +75,7 @@ export function BaseHeader() {
       </div>
       <div>
         <div className={styles.InlineMenu}>
-          {lineMenu}
+          {menuList}
         </div>
         <div onClick={() => setIsCheckboxActive(prev => !prev)} className={styles.HamburgerMenu}>
           {burgerButton}
