@@ -1,4 +1,5 @@
 import { BrowserRouter as RouterProvider, Routes, Route } from 'react-router-dom'
+import { NotFoundPage } from './pages/NotFoundPage'
 import './style.css'
 
 import { Login } from './components/Login'
@@ -15,6 +16,7 @@ export function App(): JSX.Element {
         <Routes>
           <Route path='/' element={<p>Hello</p>}/>
           <Route path='/login' element={<Login />}/>
+          <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       </MainLayoutWrapper>
     </RouterProvider>
