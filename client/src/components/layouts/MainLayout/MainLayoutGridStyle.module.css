@@ -36,7 +36,6 @@ nav ul {
 }
 
 .Content {
-  border: 1px solid pink;
   grid-area: content;
   overflow: auto;
 }
@@ -49,40 +48,33 @@ nav ul {
 }
 
 .Sidebar {
-  border: 1px solid blue;
   grid-area: sidebar;
 }
 
 .Adv {
-  border: 1px solid blue;
   grid-area: ad;
 }
 
 .Footer {
-  border: 1px solid grey;
 }
 
 .HideNavbar {
   display: none;
-  border: 1px solid yellow;
   grid-area: nav;
 }
 
 .HideSidebar {
   display: none;
-  border: 1px solid blue;
   grid-area: sidebar;
 }
 
 .HideAdv {
   display: none;
-  border: 1px solid blue;
   grid-area: ad;
 }
 
 .HideFooter {
   display: none;
-  border: 1px solid grey;
 }
 
 @media (min-width: 500px) {

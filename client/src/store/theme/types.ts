@@ -7,12 +7,12 @@ export const themes = {
   light: {
     '--color-background': '#1d2335',
     '--color-text': '#ffffff',
-    '--color-accent': '#f1f1f5'
+    '--color-accent': '#171725'
   },
   dark: {
     '--color-background': '#ffffff',
     '--color-text': '#1d2335',
-    '--color-accent': '#171725'
+    '--color-accent': '#f1f1f5'
   },
 }
 

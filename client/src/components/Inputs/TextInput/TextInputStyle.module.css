@@ -1,0 +1,41 @@
+.Input {
+  width: 100%;
+  border: none;
+  border: 1.5px solid var(--color-accent);
+  border-radius: 10px;
+  background: transparent;
+  padding: 10px;
+  color: var(--color-text);
+
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.Input::placeholder,
+.Input::-webkit-input-placeholder {
+  color: var(--color-text-grey);
+}
+
+.Input:-ms-input-placeholder {
+  color: var(--color-text-grey);
+}
+
+.Input:disabled {
+  opacity: 0.3;
+}
+
+.Disabled {
+  opacity: 0.3;
+}
+
+.Label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.Error {
+  padding: 0;
+  margin-top: 5px;
+  color: var(--color-red);
+  font-size: 12px;
+}
