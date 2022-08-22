@@ -5,9 +5,9 @@ import './style.css'
 import { Login } from './components/Login'
 import { withLayout } from './components/HOC/WithLayout'
 
-export function App(): JSX.Element {
-  const MainLayoutWrapper = withLayout()
+const MainLayoutWrapper = withLayout()
 
+export function App(): JSX.Element {
   return (
     <RouterProvider>
       <MainLayoutWrapper>
