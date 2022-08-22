@@ -3,18 +3,18 @@ import { useLocation } from 'react-router-dom'
 import { MainLayoutGrid } from '../../layouts/MainLayout/MainLayoutGrid'
 import { BaseHeader } from '../../Header'
 import { CustomerHeader } from '../../Header'
-import { IUseUserInfo } from '../../../hooks/useUserInfo'
+import { useUserInfo } from '../../../hooks/useUserInfo'
 import { withTheme } from '../WithTheme'
 import { ThemeToggle as TT } from '../../ThemeToggle'
 
 const ThemeToggle = withTheme(TT)
 
-export function withLayout(props: IUseUserInfo) {
+export function withLayout() {
   return (p: PropsWithChildren<{}>) => {
-    const { isAuth } = props
     const { children } = p
     const { pathname } = useLocation()
-  
+    const { isAuth } = useUserInfo()
+
     const sidebar = () => (
       <>
         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque, provident.</p>

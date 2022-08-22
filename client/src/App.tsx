@@ -4,11 +4,9 @@ import './style.css'
 
 import { Login } from './components/Login'
 import { withLayout } from './components/HOC/WithLayout'
-import { useUserInfo } from './hooks/useUserInfo'
 
 export function App(): JSX.Element {
-  const userInfo = useUserInfo()
-  const MainLayoutWrapper = withLayout(userInfo)
+  const MainLayoutWrapper = withLayout()
 
   return (
     <RouterProvider>
