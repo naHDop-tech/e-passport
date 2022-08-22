@@ -104,4 +104,5 @@ input:focus {
   --color-text: var(--color-text-white);
   --color-accent: var(--color-primary-dark);
   --color-background: var(--color-primary-black-accent);
+  --color-form-background: var(--color-primary-dark);
 }

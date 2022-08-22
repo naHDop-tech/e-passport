@@ -3,7 +3,7 @@
   border: none;
   border: 1.5px solid var(--color-accent);
   border-radius: 10px;
-  background: transparent;
+  background-color: var(--color-form-background);
   padding: 10px;
   color: var(--color-text);
 
