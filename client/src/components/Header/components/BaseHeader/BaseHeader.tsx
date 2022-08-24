@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom'
 
-import { EIcon } from '../../../EIcon'
+import { Logo } from '../../../Logo'
 import { Button } from '../../../Button'
 import { MenuItem } from '../../../Header/components/MenuItem'
 import { activeItemId, menuOpenStatus } from '../../../../store/header/atoms'
@@ -70,7 +70,7 @@ export function BaseHeader() {
   return (
     <div className={styles.FlexBox}>
       <div className={styles.LeftContent} onClick={() => navigateTo('/')}>
-        <EIcon />
+        <Logo />
         <div className={styles.LeftText}>Passport</div>
       </div>
       <div>

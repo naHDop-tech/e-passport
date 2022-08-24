@@ -1,29 +1,29 @@
 import { InputHTMLAttributes } from 'react'
 import cn from 'classnames';
 
-import s from './TextInputStyle.module.css'
-const styles = s as unknown as ITextInputStyle
+import s from './PasswordInputStyle.module.css'
+const styles = s as unknown as IPasswordInputStyle
 
-interface ITextInputStyle {
+interface IPasswordInputStyle {
   Input: string
   Label: string
   Error: string
   Disabled: string
 }
 
-interface ITextInputProps {
+interface IPasswordInputProps {
   label?: string
   errorText?: string
 }
 
-export type TextInputProps = ITextInputProps & InputHTMLAttributes<HTMLInputElement>
+export type PasswordInputProps = IPasswordInputProps & Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>
 
-export function TextInput(props: TextInputProps): JSX.Element {
+export function PasswordInput(props: PasswordInputProps) {
   const { label, errorText, ...rest} = props
   return (
     <>
       {label && <label className={cn(styles.Label, {[styles.Disabled]: rest.disabled})}>{label}</label>}
-      <input className={styles.Input} {...rest} />
+      <input type="password" className={styles.Input} {...rest} />
       {errorText && <p className={cn(styles.Error, {[styles.Disabled]: rest.disabled})}>{errorText}</p>}
     </>
   )
