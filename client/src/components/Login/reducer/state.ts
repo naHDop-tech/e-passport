@@ -11,6 +11,7 @@ export enum Actions {
   SetEmailError = 'SET_EMAIL_ERROR',
   SetPasswordError = 'SET_PASSWORD_ERROR',
   ResetErrors = 'RESET_ERRORS',
+  ResetData = 'RESET_Data',
 }
 
 export type LoginAction =
@@ -19,3 +20,4 @@ export type LoginAction =
   | { type: Actions.SetEmailError; payload: string }
   | { type: Actions.SetPasswordError; payload: string }
   | { type: Actions.ResetErrors }
+  | { type: Actions.ResetData }

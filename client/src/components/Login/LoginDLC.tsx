@@ -2,7 +2,7 @@ import { useReducer, ChangeEvent } from 'react'
 
 import { useLoginValidation } from '../../hooks/validation/useLoginValidation'
 
-import { LoginForm } from '../LoginForm'
+import { LoginForm } from './LoginForm'
 
 import { ILoginFormData } from '../../interfaces/user'
 import { loginReducer } from './reducer/reducer'
@@ -11,7 +11,7 @@ export interface ILoginProps {
   onSubmit: (data: ILoginFormData) => void
 }
 
-export function Login(props: ILoginProps): JSX.Element {
+export function LoginDLC(props: ILoginProps): JSX.Element {
   const { onSubmit } = props
 
   const [
@@ -27,8 +27,10 @@ export function Login(props: ILoginProps): JSX.Element {
 
     if (!validationResult.error) {
       onSubmit({ email, password })
+      dispatchLoginForm({ type: Actions.ResetData })
     } else {
       if (!validationResult?.error?.details.length) {
+        // TODO: toast
         console.error('Unexpected error')
       }
 
@@ -53,6 +55,8 @@ export function Login(props: ILoginProps): JSX.Element {
 
   return (
     <LoginForm
+      email={email}
+      password={password}
       onEmailChange={changeEmailHandler}
       onPasswordChange={changePasswordHandler}
       onSubmit={submitFormHandler}

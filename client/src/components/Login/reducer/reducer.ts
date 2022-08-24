@@ -19,6 +19,8 @@ export const loginReducer = (
       return { ...state, passwordError: action.payload }
     case Actions.ResetErrors:
       return { ...state, passwordError: '', emailError: '' }
+    case Actions.ResetData:
+      return { ...state, password: '', email: '' }
     default:
       throw new Error('loginReducer Error during dispatch')
   }
