@@ -1,0 +1,56 @@
+.Box {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.Box h1 {
+  font-size: 24px;
+  letter-spacing: 2px;
+}
+
+.Box p {
+  /* margin-bottom: 32px; */
+}
+
+.LeftContent {
+  display: none;
+  /* width: 1280px; */
+}
+
+.RightContent {
+  padding: 0 30px;
+}
+
+.Margin24 {
+  margin-top: 24px;
+}
+
+.Margin32 {
+  margin-top: 32px;
+}
+
+.Margin64 {
+  margin-top: 64px;
+}
+
+@media (min-width: 630px) {
+  .RightContent {
+    padding: 0 100px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .Box {
+    display: grid;
+    grid-template-columns: 5fr 6fr;
+  }
+
+  .LeftContent {
+    display: block;
+    padding-left: 100px;
+  }
+
+  .RightContent {
+    padding: 0 100px;
+  }
+}

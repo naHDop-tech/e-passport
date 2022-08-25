@@ -7,10 +7,15 @@ import { Button } from '../../Button'
 import s from './LoginFormStyle.module.css'
 const styles = s as unknown as ILoginStyle
 
+import LoginImage from '../../../../static/illustrations/login.png'
+
 interface ILoginStyle {
   Box: string
   LeftContent: string
   RightContent: string
+  Margin24: string
+  Margin32: string
+  Margin64: string
 }
 
 export interface ILoginFormProps {
@@ -29,9 +34,12 @@ export function LoginForm(props: ILoginFormProps) {
   return (
     <div className={styles.Box}>
       <div className={styles.LeftContent}>
-        {/* TODO: img */}
+        <img src={LoginImage} />
       </div>
       <div className={styles.RightContent}>
+        <h1>Sign in to your account</h1>
+        <p>Don't have an account? <a href="#">Sign up</a></p>
+        <div className={styles.Margin32} />
         <TextInput
           value={email}
           label='Email'
@@ -39,6 +47,7 @@ export function LoginForm(props: ILoginFormProps) {
           onChange={onEmailChange}
           errorText={emailError}
         />
+        <div className={styles.Margin24} />
         <PasswordInput
           value={password}
           label='Password'
@@ -46,8 +55,10 @@ export function LoginForm(props: ILoginFormProps) {
           onChange={onPasswordChange}
           errorText={passwordError}
         />
-        <Button onClick={onSubmit}>Login</Button>
-        <Button outline>Reset</Button>
+        <div className={styles.Margin64} />
+        <Button wide onClick={onSubmit}>Login</Button>
+        <div className={styles.Margin24} />
+        <Button wide outline>Google</Button>
       </div>
     </div>
   )

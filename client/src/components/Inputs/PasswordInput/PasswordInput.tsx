@@ -9,6 +9,7 @@ interface IPasswordInputStyle {
   Label: string
   Error: string
   Disabled: string
+  PositionRelative: string
 }
 
 interface IPasswordInputProps {
@@ -21,10 +22,10 @@ export type PasswordInputProps = IPasswordInputProps & Omit<InputHTMLAttributes<
 export function PasswordInput(props: PasswordInputProps) {
   const { label, errorText, ...rest} = props
   return (
-    <>
+    <div className={styles.PositionRelative}>
       {label && <label className={cn(styles.Label, {[styles.Disabled]: rest.disabled})}>{label}</label>}
       <input type="password" className={styles.Input} {...rest} />
       {errorText && <p className={cn(styles.Error, {[styles.Disabled]: rest.disabled})}>{errorText}</p>}
-    </>
+    </div>
   )
 }
