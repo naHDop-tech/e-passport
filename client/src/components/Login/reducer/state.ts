@@ -6,6 +6,12 @@ export interface ILoginState {
   passwordError?: string
 }
 
+export const defaultState = {
+  email: '',
+  password: '',
+  rememberMe: false
+}
+
 export enum Actions {
   ChangeEmail = 'CHANGE_EMAIL',
   ChangePassword = 'CHANGE_PASSWORD',

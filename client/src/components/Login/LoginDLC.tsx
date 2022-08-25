@@ -6,7 +6,7 @@ import { LoginForm } from './LoginForm'
 
 import { ILoginFormData } from '../../interfaces/user'
 import { loginReducer } from './reducer/reducer'
-import { Actions } from './reducer/state'
+import { Actions, defaultState } from './reducer/state'
 export interface ILoginProps {
   onSubmit: (data: ILoginFormData) => void
 }
@@ -17,7 +17,7 @@ export function LoginDLC(props: ILoginProps): JSX.Element {
   const [
     { password, email, emailError, passwordError, rememberMe },
     dispatchLoginForm,
-  ] = useReducer(loginReducer, { email: '', password: '', rememberMe: false })
+  ] = useReducer(loginReducer, defaultState)
 
   const loginFormValidate = useLoginValidation({ email, password })
 
