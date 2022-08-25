@@ -16,6 +16,15 @@
   padding: 0 30px;
 }
 
+.FlexBetween {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Margin12 {
+  margin-top: 12px;
+}
+
 .Margin24 {
   margin-top: 24px;
 }

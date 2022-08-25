@@ -15,7 +15,7 @@ export function useLoginValidation(loginForm: ILoginFormData) {
         tlds: {
           allow: ['com', 'net', 'us', 'de', 'ua', 'eu', 'ca', 'ru', 'ua']
         }
-      })
+      }),
       // .error(new Error('Bad email format'))
   })
 

@@ -15,9 +15,9 @@ export function LoginDLC(props: ILoginProps): JSX.Element {
   const { onSubmit } = props
 
   const [
-    { password, email, emailError, passwordError },
+    { password, email, emailError, passwordError, rememberMe },
     dispatchLoginForm,
-  ] = useReducer(loginReducer, { email: '', password: '' })
+  ] = useReducer(loginReducer, { email: '', password: '', rememberMe: false })
 
   const loginFormValidate = useLoginValidation({ email, password })
 
@@ -26,7 +26,7 @@ export function LoginDLC(props: ILoginProps): JSX.Element {
     const validationResult = loginFormValidate()
 
     if (!validationResult.error) {
-      onSubmit({ email, password })
+      onSubmit({ email, password, rememberMe })
       dispatchLoginForm({ type: Actions.ResetData })
     } else {
       if (!validationResult?.error?.details.length) {
@@ -53,10 +53,19 @@ export function LoginDLC(props: ILoginProps): JSX.Element {
     dispatchLoginForm({ type: Actions.ChangePassword, payload: e.target.value })
   }
 
+  const changeRememberMeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatchLoginForm({ type: Actions.SetRememberMe, payload: e.target.checked })
+  }
+
+  console.log(rememberMe);
+  
+
   return (
     <LoginForm
+      rememberMe={rememberMe}
       email={email}
       password={password}
+      onSetRememberMe={changeRememberMeHandler}
       onEmailChange={changeEmailHandler}
       onPasswordChange={changePasswordHandler}
       onSubmit={submitFormHandler}
