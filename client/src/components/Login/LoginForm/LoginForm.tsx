@@ -72,6 +72,7 @@ export function LoginForm(props: ILoginFormProps) {
         <div className={styles.Margin32} />
         <div className={styles.FlexBetween}>
           {/* TODO: restyle here */}
+          {/* TODO: tooltip with terms of data state saving */}
           <div style={{ display: 'flex', gap: '5px' }}>
             <input 
               checked={rememberMe}
