@@ -57,9 +57,6 @@ export function LoginDLC(props: ILoginProps): JSX.Element {
     dispatchLoginForm({ type: Actions.SetRememberMe, payload: e.target.checked })
   }
 
-  console.log(rememberMe);
-  
-
   return (
     <LoginForm
       rememberMe={rememberMe}
