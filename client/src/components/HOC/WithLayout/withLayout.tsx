@@ -1,11 +1,12 @@
 import { PropsWithChildren } from 'react'
 import { useLocation } from 'react-router-dom'
-import { MainLayoutGrid } from '../../layouts/MainLayout/MainLayoutGrid'
-import { BaseHeader } from '../../Header'
-import { CustomerHeader } from '../../Header'
-import { useUserInfo } from '../../../hooks/useUserInfo'
-import { withTheme } from '../WithTheme'
-import { ThemeToggle as TT } from '../../ThemeToggle'
+
+import { MainLayoutGrid } from '@components/layouts/MainLayout/MainLayoutGrid'
+import { BaseHeader } from '@components/Header'
+import { CustomerHeader } from '@components/Header'
+import { useUserInfo } from '@hooks/useUserInfo'
+import { withTheme } from '@components/HOC/WithTheme'
+import { ThemeToggle as TT } from '@components/ThemeToggle'
 
 const ThemeToggle = withTheme(TT)
 

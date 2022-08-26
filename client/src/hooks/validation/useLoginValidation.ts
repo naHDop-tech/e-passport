@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import Joi from 'joi'
 
-import { ILoginFormData } from '../../interfaces/user'
+import { ILoginFormData } from '@root/interfaces/user'
 
 export function useLoginValidation(loginForm: ILoginFormData) {
   const schema = Joi.object({

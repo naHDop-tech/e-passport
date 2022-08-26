@@ -1,4 +1,4 @@
-import SearchIcon from '../../../../../static/icons/search.svg'
+import SearchIcon from '@static/icons/search.svg'
 
 import s from './SearchStyle.module.css'
 const styles = s as unknown as ICustomerHeaderStyle

@@ -1,10 +1,10 @@
 import { useReducer, ChangeEvent } from 'react'
 
-import { useLoginValidation } from '../../hooks/validation/useLoginValidation'
+import { useLoginValidation } from '@hooks/validation/useLoginValidation'
 
 import { LoginForm } from './LoginForm'
 
-import { ILoginFormData } from '../../interfaces/user'
+import { ILoginFormData } from '@root/interfaces/user'
 import { loginReducer } from './reducer/reducer'
 import { Actions, defaultState } from './reducer/state'
 export interface ILoginProps {

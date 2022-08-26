@@ -1,4 +1,4 @@
-import FilterIcon from '../../../../../static/icons/filter-icon.svg'
+import FilterIcon from '@static/icons/filter-icon.svg'
 import s from './FilterButtonStyle.module.css'
 const styles = s as unknown as IFilterButtonStyle
 

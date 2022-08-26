@@ -1,9 +1,9 @@
 import { BrowserRouter as RouterProvider, Routes, Route } from 'react-router-dom'
-import { NotFoundPage } from './pages/NotFoundPage'
 import './style.css'
 
-import { LoginPage } from './pages/LoginPage'
-import { withLayout } from './components/HOC/WithLayout'
+import { NotFoundPage } from '@pages/NotFoundPage'
+import { LoginPage } from '@pages/LoginPage'
+import { withLayout } from '@components/HOC/WithLayout'
 
 const MainLayoutWrapper = withLayout()
 

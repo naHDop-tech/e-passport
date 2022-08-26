@@ -1,5 +1,5 @@
 import { atom } from 'recoil'
-import { localStorageEffect } from '../effect'
+import { localStorageEffect } from '@store/effect'
 
 export const isDarkMode = atom({
   key: 'themeMode',
