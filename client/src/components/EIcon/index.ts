@@ -1,1 +1,0 @@
-export { EIcon } from './EIcon'

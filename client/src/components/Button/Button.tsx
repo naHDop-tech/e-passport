@@ -30,6 +30,7 @@ interface IButtonStyle {
   SuccessOutline: string
   AccentOutline: string
   Wide: string
+  Disabled: string
 }
 
 interface IAdditionButtonProps {
@@ -93,10 +94,11 @@ export function Button(props: PropsWithChildren<ButtonProps>): JSX.Element {
   return (
     <button
       className={cn(
-        styles.ClickAnimation,
         styles.Base,
         getColor(bType, outline),
         {
+          [styles.Disabled]: rest.disabled,
+          [styles.ClickAnimation]: !rest.disabled,
           [styles.Wide]: wide,
         },
         className,
