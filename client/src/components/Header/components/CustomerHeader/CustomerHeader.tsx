@@ -1,6 +1,6 @@
-import { Search } from '../Search'
-import { CustomerInfo } from '../CustomerInfo'
-import { FilterButton } from '../FilterButton'
+import { Search } from '@components/Header/components/Search'
+import { CustomerInfo } from '@components/Header/components/CustomerInfo'
+import { FilterButton } from '@components/Header/components/FilterButton'
 
 import s from './CustomerHeaderStyle.module.css'
 const styles = s as unknown as ICustomerHeaderStyle

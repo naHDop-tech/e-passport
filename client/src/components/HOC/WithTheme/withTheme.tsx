@@ -1,10 +1,10 @@
 import { ChangeEvent } from 'react'
 import { useRecoilState } from 'recoil';
 
-import { ThemeToggleProps } from '../../ThemeToggle'
-import { useTheme } from '../../../hooks/useTheme'
-import { isDarkMode } from '../../../store/theme/atoms'
-import { ThemeMode } from '../../../store/theme/types'
+import { ThemeToggleProps } from '@components/ThemeToggle'
+import { useTheme } from '@hooks/useTheme'
+import { isDarkMode } from '@store/theme/atoms'
+import { ThemeMode } from '@store/theme/types'
 
 export const withTheme = (Component: (props: ThemeToggleProps) => JSX.Element) => () => {
   const [isDarkModeOn, setIsDarkMode] = useRecoilState(isDarkMode)

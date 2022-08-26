@@ -1,4 +1,4 @@
-import NotFoundImage from '../../../static/illustrations/404.png'
+import NotFoundImage from '@static/illustrations/404.png'
 
 import s from './NotFoundPageStyle.module.css'
 const styles = s as unknown as INotFoundPageStyle

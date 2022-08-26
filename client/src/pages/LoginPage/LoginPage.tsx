@@ -1,5 +1,5 @@
-import { LoginDLC } from '../../components/Login/LoginDLC'
-import { ILoginFormData } from '../../interfaces/user'
+import { LoginDLC } from '@components/Login/LoginDLC'
+import { ILoginFormData } from '@root/interfaces/user'
 
 export function LoginPage() {
   const submitFormHandler = (data: ILoginFormData) => {

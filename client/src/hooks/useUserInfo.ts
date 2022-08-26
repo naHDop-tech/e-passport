@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil'
-import { authSelector, userSelector } from '../store/auth/selector'
+import { authSelector, userSelector } from '@store/auth/selector'
 
 export interface IUseUserInfo {
   isAuth: boolean

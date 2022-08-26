@@ -1,13 +1,13 @@
 import { ChangeEvent } from 'react'
 
-import { TextInput } from '../../Inputs/TextInput'
-import { PasswordInput } from '../../Inputs/PasswordInput'
-import { Button } from '../../Button'
+import { TextInput } from '@components/Inputs/TextInput'
+import { PasswordInput } from '@components/Inputs/PasswordInput'
+import { Button } from '@components/Button'
 
 import s from './LoginFormStyle.module.css'
 const styles = s as unknown as ILoginStyle
 
-import LoginImage from '../../../../static/illustrations/login.png'
+import LoginImage from '@static/illustrations/login.png'
 
 interface ILoginStyle {
   Box: string
