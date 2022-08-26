@@ -2,7 +2,7 @@ import { BrowserRouter as RouterProvider, Routes, Route } from 'react-router-dom
 import './style.css'
 
 import { NotFoundPage } from '@pages/NotFoundPage'
-import { LoginPage } from '@pages/LoginPage'
+import { SignInPage } from '@root/pages/SignInPage'
 import { withLayout } from '@components/HOC/WithLayout'
 
 const MainLayoutWrapper = withLayout()
@@ -13,7 +13,7 @@ export function App(): JSX.Element {
       <MainLayoutWrapper>
         <Routes>
           <Route path='/' element={<p>Hello</p>}/>
-          <Route path='/login' element={<LoginPage />}/>
+          <Route path='/sign-in' element={<SignInPage />}/>
           <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       </MainLayoutWrapper>

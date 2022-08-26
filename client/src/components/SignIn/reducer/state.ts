@@ -1,4 +1,4 @@
-export interface ILoginState {
+export interface ISignInState {
   rememberMe: boolean
   email: string
   password: string
@@ -22,7 +22,7 @@ export enum Actions {
   ResetData = 'RESET_Data',
 }
 
-export type LoginAction =
+export type SignInAction =
   | { type: Actions.ChangeEmail; payload: string }
   | { type: Actions.ChangePassword; payload: string }
   | { type: Actions.SetEmailError; payload: string }

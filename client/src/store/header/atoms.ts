@@ -18,8 +18,8 @@ export const ITEMS = Object.freeze([
   },
   {
     id: 4,
-    title: 'Login',
-    url: '/login'
+    title: 'Sign In',
+    url: '/sign-in'
   },
 ])
 

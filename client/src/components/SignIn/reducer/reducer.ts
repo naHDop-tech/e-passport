@@ -1,13 +1,13 @@
 import {
-  ILoginState,
-  LoginAction,
+  ISignInState,
+  SignInAction,
   Actions
 } from './state'
 
-export const loginReducer = (
-  state: ILoginState,
-  action: LoginAction
-): ILoginState => {
+export const signInReducer = (
+  state: ISignInState,
+  action: SignInAction
+): ISignInState => {
   switch (action.type) {
     case Actions.ChangeEmail:
       return { ...state, email: action.payload }
@@ -24,6 +24,6 @@ export const loginReducer = (
     case Actions.ResetData:
       return { ...state, password: '', email: '', rememberMe: false }
     default:
-      throw new Error('loginReducer Error during dispatch')
+      throw new Error('signInReducer Error during dispatch')
   }
 }

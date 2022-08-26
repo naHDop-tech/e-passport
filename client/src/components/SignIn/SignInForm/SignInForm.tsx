@@ -4,12 +4,12 @@ import { TextInput } from '@components/Inputs/TextInput'
 import { PasswordInput } from '@components/Inputs/PasswordInput'
 import { Button } from '@components/Button'
 
-import s from './LoginFormStyle.module.css'
-const styles = s as unknown as ILoginStyle
+import s from './SignInFormStyle.module.css'
+const styles = s as unknown as ISignInStyle
 
-import LoginImage from '@static/illustrations/login.png'
+import SignInImage from '@static/illustrations/sign-in.png'
 
-interface ILoginStyle {
+interface ISignInStyle {
   Box: string
   LeftContent: string
   RightContent: string
@@ -20,7 +20,7 @@ interface ILoginStyle {
   Margin64: string
 }
 
-export interface ILoginFormProps {
+export interface ISignInFormProps {
   email: string
   password: string
   rememberMe: boolean,
@@ -32,7 +32,7 @@ export interface ILoginFormProps {
   passwordError?: string
 }
 
-export function LoginForm(props: ILoginFormProps) {
+export function SignInForm(props: ISignInFormProps) {
   const {
     email,
     password,
@@ -48,7 +48,7 @@ export function LoginForm(props: ILoginFormProps) {
   return (
     <div className={styles.Box}>
       <div className={styles.LeftContent}>
-        <img src={LoginImage} />
+        <img src={SignInImage} />
       </div>
       <div className={styles.RightContent}>
         <h1>Sign in to your account</h1>
@@ -82,7 +82,7 @@ export function LoginForm(props: ILoginFormProps) {
           <div><a href="#reset-password">Forgot password?</a></div>
         </div>
         <div className={styles.Margin32} />
-        <Button disabled={!rememberMe} wide onClick={onSubmit}>Login</Button>
+        <Button disabled={!rememberMe} wide onClick={onSubmit}>Sign in</Button>
         <div className={styles.Margin24} />
         <Button disabled={!rememberMe} wide outline>Google</Button>
       </div>

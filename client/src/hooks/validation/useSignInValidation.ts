@@ -1,9 +1,9 @@
 import { useCallback } from 'react'
 import Joi from 'joi'
 
-import { ILoginFormData } from '@root/interfaces/user'
+import { ISignInFormData } from '@root/interfaces/user'
 
-export function useLoginValidation(loginForm: ILoginFormData) {
+export function useSignInValidation(signInForm: ISignInFormData) {
   const schema = Joi.object({
     password: Joi.string()
       .pattern(new RegExp('^[a-zA-Z0-9]{12,30}$')),
@@ -21,9 +21,9 @@ export function useLoginValidation(loginForm: ILoginFormData) {
 
   return useCallback(() => {
     try {
-      return schema.validate(loginForm, { abortEarly: false })
+      return schema.validate(signInForm, { abortEarly: false })
     } catch (err: any) {
       throw new Error(err.message)
     }
-  }, [loginForm])
+  }, [signInForm])
 }
