@@ -6,7 +6,7 @@ export interface ISignInState {
   passwordError?: string
 }
 
-export const defaultState = {
+export const defaultState: ISignInState = {
   email: '',
   password: '',
   rememberMe: false

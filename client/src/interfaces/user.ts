@@ -3,3 +3,10 @@ export interface ISignInFormData {
   password: string
   rememberMe?: boolean
 }
+
+export interface ISignUpFormData {
+  email: string
+  password: string
+  repeatedPassword: string
+  isTermsAndConditionsWasRead?: boolean
+}

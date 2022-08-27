@@ -7,11 +7,11 @@ import { SignInForm } from './SignInForm'
 import { ISignInFormData } from '@root/interfaces/user'
 import { signInReducer } from './reducer/reducer'
 import { Actions, defaultState } from './reducer/state'
-export interface ISignUpProps {
+export interface ISignInProps {
   onSubmit: (data: ISignInFormData) => void
 }
 
-export function SignInDLC(props: ISignUpProps): JSX.Element {
+export function SignInDLC(props: ISignInProps): JSX.Element {
   const { onSubmit } = props
 
   const [
