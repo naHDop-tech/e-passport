@@ -6,7 +6,7 @@ import { PasswordInput } from '@components/Inputs/PasswordInput'
 import { Button } from '@components/Button'
 
 import s from './SignInFormStyle.module.css'
-const styles = s as unknown as ISignInStyle
+const styles = s as ISignInStyle
 
 import cs from '@components/CommonStyle.module.css'
 import { ICommonStyle } from '@components/common-style-types'
@@ -75,7 +75,7 @@ export function SignInForm(props: ISignInFormProps) {
           {/* TODO: restyle here */}
           {/* TODO: tooltip with terms of data state saving */}
           <div style={{ display: 'flex', gap: '5px' }}>
-            <input 
+            <input
               checked={rememberMe}
               onChange={onSetRememberMe} type="checkbox"
             /><span>Remember me</span>
