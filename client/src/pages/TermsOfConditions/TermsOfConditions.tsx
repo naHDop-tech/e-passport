@@ -13,7 +13,7 @@ interface ITermsOfServiceStyle {
 export function TermsOfConditions() {
   return (
     <div className={styles.Box}>
-      <h1 className={commonStyle.ColorPrimary}>Terms of Service</h1>
+      <h1 className={commonStyle.TextPrimary}>Terms of Service</h1>
       <p>By using this website, you agree to the terms set forth in this Terms of Service and in the Privacy Policy.</p>
       <div className={commonStyle.Margin32} />
       <h3>Terms</h3>
