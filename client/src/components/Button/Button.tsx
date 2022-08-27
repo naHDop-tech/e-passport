@@ -4,6 +4,11 @@ import cn from 'classnames';
 import s from './ButtonStyle.module.css'
 const styles = s as unknown as IButtonStyle
 
+import cs from '@components/CommonStyle.module.css'
+import { ICommonStyle } from '@components/common-style-types'
+
+const commonStyle = cs as ICommonStyle
+
 export enum ButtonTypes {
   Primary = 'primary',
   Secondary = 'secondary',
@@ -30,7 +35,6 @@ interface IButtonStyle {
   SuccessOutline: string
   AccentOutline: string
   Wide: string
-  Disabled: string
 }
 
 interface IAdditionButtonProps {
@@ -97,7 +101,7 @@ export function Button(props: PropsWithChildren<ButtonProps>): JSX.Element {
         styles.Base,
         getColor(bType, outline),
         {
-          [styles.Disabled]: rest.disabled,
+          [commonStyle.Disabled]: rest.disabled,
           [styles.ClickAnimation]: !rest.disabled,
           [styles.Wide]: wide,
         },
