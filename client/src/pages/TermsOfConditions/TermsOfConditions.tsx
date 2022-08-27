@@ -22,13 +22,15 @@ export function TermsOfConditions() {
       <h3>Use</h3>
       <p>Permission is granted to download user generated content on this site for the purposes of fair use. This is not a transfer of title, and under the use of this site, you may not:</p>
       <div className={commonStyle.Margin24} />
-      <p>attempt to reverse engineer any software contained on this Website;
-perform any illegal activities;
-submit, or upload any illegal materials;
-submit or upload any profanity, hateful speech, nudity, bullying, or illicit content of any kind;
-utilize user generated content for any illegal or malicious intent;
-use this site to initiate any illegal actions or wrongdoing of any kind.
-Breaking these rules or doing anything else that we deem unfit for use of this service will let us terminate upon violations of any of these restrictions.  We hold the right to block the access, remove the content, or delete the accounts, of anyone, for any reason whatsoever.  Upon termination, your viewing right will also be terminated and you should destroy any downloaded materials in your possession whether it is in physical or digital format. </p>
+      <p>
+        attempt to reverse engineer any software contained on this Website;
+        perform any illegal activities;
+        submit, or upload any illegal materials;å
+        submit or upload any profanity, hateful speech, nudity, bullying, or illicit content of any kind;
+        utilize user generated content for any illegal or malicious intent;
+        use this site to initiate any illegal actions or wrongdoing of any kind.
+        Breaking these rules or doing anything else that we deem unfit for use of this service will let us terminate upon violations of any of these restrictions.  We hold the right to block the access, remove the content, or delete the accounts, of anyone, for any reason whatsoever.  Upon termination, your viewing right will also be terminated and you should destroy any downloaded materials in your possession whether it is in physical or digital format.
+      </p>
       <div className={commonStyle.Margin32} />
       <h3>Disclaimer</h3>
       <p>All the materials on this Website are provided “as is”. We make no warranties, may it be expressed or implied, and this therefore negates all other warranties. Furthermore, we do not make any representations concerning the accuracy or reliability of the use of the materials on its Website or otherwise relating to such materials or any sites linked to this Website.</p>
