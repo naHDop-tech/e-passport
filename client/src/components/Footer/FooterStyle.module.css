@@ -1,0 +1,27 @@
+.Box {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 0 4vw;
+}
+
+.ContactBlock {
+}
+
+.SiteMapBlock {
+}
+
+.SocialMediaBlock {
+}
+
+@media (min-width: 630px) {
+  .Box {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+
+    padding: 0 4vw;
+  }
+}
