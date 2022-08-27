@@ -2,10 +2,10 @@ import { BrowserRouter as RouterProvider, Routes, Route } from 'react-router-dom
 import './style.css'
 
 import { NotFoundPage } from '@pages/NotFoundPage'
-import { SignInPage } from '@root/pages/SignInPage'
-import { SignUpPage } from '@root/pages/SignUpPage'
-import { ResetPasswordPage } from '@root/pages/ResetPasswordPage'
-import { TermsOfConditions } from '@root/pages/TermsOfConditions'
+import { SignInPage } from '@pages/SignInPage'
+import { SignUpPage } from '@pages/SignUpPage'
+import { ResetPasswordPage } from '@pages/ResetPasswordPage'
+import { TermsOfConditions } from '@pages/TermsOfConditions'
 import { withLayout } from '@components/HOC/WithLayout'
 
 const MainLayoutWrapper = withLayout()
