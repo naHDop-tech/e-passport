@@ -14,7 +14,15 @@ export interface ISignUpProps {
 export function SignUpDLC(props: ISignUpProps) {
   const { onSubmit } = props
   const [
-    { password, email, repeatedPassword, termsAndConditionsWasRead, emailError, passwordError, repeatedPasswordError },
+    {
+      password,
+      email,
+      repeatedPassword,
+      termsOfConditionsWasRead,
+      emailError,
+      passwordError,
+      repeatedPasswordError
+    },
     dispatchSignUpForm,
   ] = useReducer(signUpReducer, defaultState)
 
@@ -25,7 +33,11 @@ export function SignUpDLC(props: ISignUpProps) {
     const validationResult = signUpFormValidate()
 
     if (!validationResult.error) {
-      onSubmit({ email, password, isTermsAndConditionsWasRead: termsAndConditionsWasRead, repeatedPassword })
+      onSubmit({
+        email,
+        password,
+        isTermsOfConditionsWasRead: termsOfConditionsWasRead,
+        repeatedPassword })
       dispatchSignUpForm({ type: Actions.ResetData })
     } else {
       if (!validationResult?.error?.details.length) {
@@ -59,8 +71,8 @@ export function SignUpDLC(props: ISignUpProps) {
     dispatchSignUpForm({ type: Actions.ChangeRepeatedPassword, payload: e.target.value })
   }
 
-  const changeTermsAndConditionWasReadHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatchSignUpForm({ type: Actions.SetTermsAndConditionsWasRead, payload: e.target.checked })
+  const changeTermsOfConditionWasReadHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatchSignUpForm({ type: Actions.SetTermsOfConditionsWasRead, payload: e.target.checked })
   }
 
   return (
@@ -71,8 +83,8 @@ export function SignUpDLC(props: ISignUpProps) {
       emailError={emailError}
       passwordError={passwordError}
       repeatedPasswordError={repeatedPasswordError}
-      isTermsAndConditionsWasRead={termsAndConditionsWasRead}
-      onSetReadTermsAndConditions={changeTermsAndConditionWasReadHandler}
+      isTermsOfConditionsWasRead={termsOfConditionsWasRead}
+      onSetReadTermsOfConditions={changeTermsOfConditionWasReadHandler}
       onEmailChange={changeEmailHandler}
       onPasswordChange={changePasswordHandler}
       onRepeatedPasswordChange={changeRepeatedPasswordHandler}

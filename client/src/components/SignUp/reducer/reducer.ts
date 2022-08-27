@@ -21,12 +21,12 @@ export const signUpReducer = (
       return { ...state, passwordError: action.payload }
     case Actions.SetRepeatedPasswordError:
       return { ...state, repeatedPasswordError: action.payload }
-    case Actions.SetTermsAndConditionsWasRead:
-      return { ...state, termsAndConditionsWasRead: action.payload }
+    case Actions.SetTermsOfConditionsWasRead:
+      return { ...state, termsOfConditionsWasRead: action.payload }
     case Actions.ResetErrors:
       return { ...state, passwordError: '', emailError: '', repeatedPasswordError: '' }
     case Actions.ResetData:
-      return { ...state, password: '', email: '', repeatedPassword: '', termsAndConditionsWasRead: false }
+      return { ...state, password: '', email: '', repeatedPassword: '', termsOfConditionsWasRead: false }
     default:
       throw new Error('signUpReducer Error during dispatch')
   }

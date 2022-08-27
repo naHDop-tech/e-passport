@@ -8,5 +8,5 @@ export interface ISignUpFormData {
   email: string
   password: string
   repeatedPassword: string
-  isTermsAndConditionsWasRead?: boolean
+  isTermsOfConditionsWasRead?: boolean
 }

@@ -26,8 +26,8 @@ export interface ISignUpFormProps {
   email: string
   password: string
   repeatedPassword: string
-  isTermsAndConditionsWasRead: boolean,
-  onSetReadTermsAndConditions: (e: ChangeEvent<HTMLInputElement>) => void
+  isTermsOfConditionsWasRead: boolean,
+  onSetReadTermsOfConditions: (e: ChangeEvent<HTMLInputElement>) => void
   onEmailChange: (e: ChangeEvent<HTMLInputElement>) => void
   onPasswordChange: (e: ChangeEvent<HTMLInputElement>) => void
   onRepeatedPasswordChange: (e: ChangeEvent<HTMLInputElement>) => void
@@ -43,8 +43,8 @@ export function SignUpForm(props: ISignUpFormProps) {
     email,
     password,
     repeatedPassword,
-    isTermsAndConditionsWasRead,
-    onSetReadTermsAndConditions,
+    isTermsOfConditionsWasRead,
+    onSetReadTermsOfConditions,
     onRepeatedPasswordChange,
     emailError,
     passwordError,
@@ -81,8 +81,8 @@ export function SignUpForm(props: ISignUpFormProps) {
         <div className={commonStyle.Margin24} />
         <PasswordInput
           value={repeatedPassword}
-          label='Password'
-          placeholder='Repeat password above'
+          label='Repeated password'
+          placeholder='Repeat your password above'
           onChange={onRepeatedPasswordChange}
           errorText={repeatedPasswordError}
         />
@@ -91,13 +91,13 @@ export function SignUpForm(props: ISignUpFormProps) {
           {/* TODO: restyle here */}
           <div style={{ display: 'flex' }}>
             <input
-              checked={isTermsAndConditionsWasRead}
-              onChange={onSetReadTermsAndConditions} type="checkbox"
+              checked={isTermsOfConditionsWasRead}
+              onChange={onSetReadTermsOfConditions} type="checkbox"
             /><span style={{ marginLeft: '10px' }}>I have read and agree to the <NavLink to="/terms-of-conditions">Terms of conditions</NavLink></span>
           </div>
         </div>
         <div className={commonStyle.Margin32} />
-        <Button disabled={!isTermsAndConditionsWasRead} wide onClick={onSubmit}>Sign Up</Button>
+        <Button disabled={!isTermsOfConditionsWasRead} wide onClick={onSubmit}>Sign Up</Button>
       </div>
     </div>
   )
