@@ -10,3 +10,7 @@ export interface ISignUpFormData {
   repeatedPassword: string
   isTermsOfConditionsWasRead?: boolean
 }
+
+export interface IResetPasswordData {
+  email: string
+}

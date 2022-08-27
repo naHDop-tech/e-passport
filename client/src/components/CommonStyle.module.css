@@ -23,3 +23,7 @@
   opacity: 0.3 !important;
   cursor: not-allowed !important;
 }
+
+.TextWhiteGrey {
+  color: var(--color-text-grey);
+}

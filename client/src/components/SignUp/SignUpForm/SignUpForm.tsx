@@ -61,6 +61,7 @@ export function SignUpForm(props: ISignUpFormProps) {
       </div>
       <div className={styles.RightContent}>
         <h1>Create a new account</h1>
+        <div className={commonStyle.Margin12} />
         <p>Already have an account? <NavLink to="/sign-in">Sign in</NavLink></p>
         <div className={commonStyle.Margin32} />
         <TextInput

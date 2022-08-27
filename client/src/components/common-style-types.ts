@@ -5,4 +5,5 @@ export interface ICommonStyle {
   Margin64: string
   Disabled: string
   FlexBetween: string
+  TextWhiteGrey: string
 }

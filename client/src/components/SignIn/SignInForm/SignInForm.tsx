@@ -53,6 +53,7 @@ export function SignInForm(props: ISignInFormProps) {
       </div>
       <div className={styles.RightContent}>
         <h1>Sign in to your account</h1>
+        <div className={commonStyle.Margin12} />
         <p>Don't have an account? <NavLink to="/sign-up">Sign up</NavLink></p>
         <div className={commonStyle.Margin32} />
         <TextInput
