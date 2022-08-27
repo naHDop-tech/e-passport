@@ -1,4 +1,5 @@
 import { ChangeEvent } from 'react'
+import { NavLink } from 'react-router-dom'
 
 import { TextInput } from '@components/Inputs/TextInput'
 import { PasswordInput } from '@components/Inputs/PasswordInput'
@@ -7,17 +8,17 @@ import { Button } from '@components/Button'
 import s from './SignInFormStyle.module.css'
 const styles = s as unknown as ISignInStyle
 
+import cs from '@components/CommonStyle.module.css'
+import { ICommonStyle } from '@components/common-style-types'
+
+const commonStyle = cs as ICommonStyle
+
 import SignInImage from '@static/illustrations/sign-in.png'
 
 interface ISignInStyle {
   Box: string
   LeftContent: string
   RightContent: string
-  FlexBetween: string
-  Margin12: string
-  Margin24: string
-  Margin32: string
-  Margin64: string
 }
 
 export interface ISignInFormProps {
@@ -52,8 +53,8 @@ export function SignInForm(props: ISignInFormProps) {
       </div>
       <div className={styles.RightContent}>
         <h1>Sign in to your account</h1>
-        <p>Don't have an account? <a href="#">Sign up</a></p>
-        <div className={styles.Margin32} />
+        <p>Don't have an account? <NavLink to="/sign-up">Sign up</NavLink></p>
+        <div className={commonStyle.Margin32} />
         <TextInput
           value={email}
           label='Email'
@@ -61,7 +62,7 @@ export function SignInForm(props: ISignInFormProps) {
           onChange={onEmailChange}
           errorText={emailError}
         />
-        <div className={styles.Margin24} />
+        <div className={commonStyle.Margin24} />
         <PasswordInput
           value={password}
           label='Password'
@@ -69,8 +70,8 @@ export function SignInForm(props: ISignInFormProps) {
           onChange={onPasswordChange}
           errorText={passwordError}
         />
-        <div className={styles.Margin32} />
-        <div className={styles.FlexBetween}>
+        <div className={commonStyle.Margin32} />
+        <div className={commonStyle.FlexBetween}>
           {/* TODO: restyle here */}
           {/* TODO: tooltip with terms of data state saving */}
           <div style={{ display: 'flex', gap: '5px' }}>
@@ -79,11 +80,11 @@ export function SignInForm(props: ISignInFormProps) {
               onChange={onSetRememberMe} type="checkbox"
             /><span>Remember me</span>
             </div>
-          <div><a href="#reset-password">Forgot password?</a></div>
+          <div><NavLink to="/reset-password">Forgot password?</NavLink></div>
         </div>
-        <div className={styles.Margin32} />
+        <div className={commonStyle.Margin32} />
         <Button disabled={!rememberMe} wide onClick={onSubmit}>Sign in</Button>
-        <div className={styles.Margin24} />
+        <div className={commonStyle.Margin24} />
         <Button disabled={!rememberMe} wide outline>Google</Button>
       </div>
     </div>

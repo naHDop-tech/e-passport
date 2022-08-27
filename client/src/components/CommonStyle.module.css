@@ -1,0 +1,25 @@
+.FlexBetween {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Margin12 {
+  margin-top: 12px;
+}
+
+.Margin24 {
+  margin-top: 24px;
+}
+
+.Margin32 {
+  margin-top: 32px;
+}
+
+.Margin64 {
+  margin-top: 64px;
+}
+
+.Disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}

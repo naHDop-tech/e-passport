@@ -14,6 +14,8 @@ export function App(): JSX.Element {
         <Routes>
           <Route path='/' element={<p>Hello</p>}/>
           <Route path='/sign-in' element={<SignInPage />}/>
+          <Route path='/sign-up' element={<><h1>Sign up</h1></>}/>
+          <Route path='/reset-password' element={<><h1>Reset password</h1></>}/>
           <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       </MainLayoutWrapper>
