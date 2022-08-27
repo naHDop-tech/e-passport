@@ -1,0 +1,1 @@
+export { TermsOfConditions } from './TermsOfConditions'

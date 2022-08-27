@@ -27,3 +27,7 @@
 .TextWhiteGrey {
   color: var(--color-text-grey);
 }
+
+.ColorPrimary {
+  color: var(--color-primary-purple);
+}

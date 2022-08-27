@@ -1,0 +1,11 @@
+.Box {
+  padding: 0 15vw;
+}
+
+.Box p {
+  color: var(--color-text-grey);
+}
+
+.Box h3 {
+  color: var(--color-primary-purple);
+}

@@ -6,4 +6,5 @@ export interface ICommonStyle {
   Disabled: string
   FlexBetween: string
   TextWhiteGrey: string
+  ColorPrimary: string
 }

@@ -5,6 +5,7 @@ import { NotFoundPage } from '@pages/NotFoundPage'
 import { SignInPage } from '@root/pages/SignInPage'
 import { SignUpPage } from '@root/pages/SignUpPage'
 import { ResetPasswordPage } from '@root/pages/ResetPasswordPage'
+import { TermsOfConditions } from '@root/pages/TermsOfConditions'
 import { withLayout } from '@components/HOC/WithLayout'
 
 const MainLayoutWrapper = withLayout()
@@ -18,6 +19,7 @@ export function App(): JSX.Element {
           <Route path='/sign-in' element={<SignInPage />}/>
           <Route path='/sign-up' element={<SignUpPage />}/>
           <Route path='/reset-password' element={<ResetPasswordPage />}/>
+          <Route path='/terms-of-conditions' element={<TermsOfConditions />} />
           <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       </MainLayoutWrapper>
