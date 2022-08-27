@@ -1,13 +1,12 @@
 import { useMemo } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { useNavigate } from 'react-router-dom'
 
 import { Logo } from '@components/Logo'
 import { Button } from '@components/Button'
 import { MenuItem } from '@components/Header/components/MenuItem'
-import { activeItemId, menuOpenStatus } from '@store/header/atoms'
+import { useActiveItem } from '@hooks/useActiveItem'
+import { menuOpenStatus } from '@store/header/atoms'
 import { headerItemsStateSelector } from '@store/header/selector'
-import { Item } from '@store/header/types'
 
 import s from './BaseHeaderStyle.module.css'
 const styles = s as unknown as IEIconStyle
@@ -24,16 +23,10 @@ interface IEIconStyle {
 }
 
 export function BaseHeader() {
-  const [_, setActiveItem] = useRecoilState(activeItemId)
   const [isCheckboxActive, setIsCheckboxActive] = useRecoilState(menuOpenStatus)
   const { items, itemId } = useRecoilValue(headerItemsStateSelector)
-  const navigateTo = useNavigate()
 
-  const onSelectItem = (item: Item) => {
-    setIsCheckboxActive(false)
-    setActiveItem(item.id)
-    navigateTo(item.url)
-  }
+  const onSelectItem = useActiveItem()
 
   const menuList = useMemo(() => {
     return items.map((item) => {
