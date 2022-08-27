@@ -69,7 +69,7 @@ export function BaseHeader() {
 
   return (
     <div className={styles.FlexBox}>
-      <div className={styles.LeftContent} onClick={() => navigateTo('/')}>
+      <div className={styles.LeftContent} onClick={() => onSelectItem(items[0])}>
         <Logo />
         <div className={styles.LeftText}>Passport</div>
       </div>

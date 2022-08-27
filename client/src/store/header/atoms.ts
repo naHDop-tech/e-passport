@@ -1,4 +1,5 @@
 import { atom } from 'recoil'
+import { localStorageEffect } from '@store/effect'
 
 export const ITEMS = Object.freeze([
   {
@@ -31,6 +32,9 @@ export const headerItems = atom({
 export const activeItemId = atom({
   key: 'activeItem',
   default: 1,
+  effects: [
+    localStorageEffect('active_header_item')
+  ]
 })
 
 export const menuOpenStatus = atom({
