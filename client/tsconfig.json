@@ -27,7 +27,8 @@
       "@hooks/*": ["src/hooks/*"],
       "@pages/*": ["src/pages/*"],
       "@store/*": ["src/store/*"],
-      "@static/*": ["static/*"]
+      "@api/*": ["src/api/*"],
+      "@static/*": ["static/*"],
     },
   },
   "include": ["src/**/*"],

@@ -35,6 +35,7 @@ export interface ISignUpFormProps {
   emailError?: string
   passwordError?: string
   repeatedPasswordError?: string
+  isLoading?: boolean
 }
 
 
@@ -51,8 +52,18 @@ export function SignUpForm(props: ISignUpFormProps) {
     repeatedPasswordError,
     onEmailChange,
     onPasswordChange,
-    onSubmit
+    onSubmit,
+    isLoading
   } = props
+
+  if (isLoading) {
+    return (
+      <div className={styles.Box}>
+        {/* TODO: loader */}
+        <h1>Loading...</h1>
+      </div>
+    )
+  }
 
   return (
     <div className={styles.Box}>
