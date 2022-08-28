@@ -13,10 +13,9 @@ import { UserFactory } from '~/user/user.factory';
   imports: [
     UtilsModule,
     TypeOrmModule.forFeature([UserEntity]),
-    TypeOrmModule.forFeature([ApplicantEntity]),
     ApplicantModule,
   ],
-  providers: [UserResolver, UserService, UserFactory, ApplicantService],
+  providers: [UserResolver, UserService, UserFactory],
   exports: [UserService],
 })
 export class UserModule {}

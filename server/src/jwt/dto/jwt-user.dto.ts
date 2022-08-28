@@ -9,5 +9,9 @@ export class JwtUserDto {
 
   @IsNotEmpty()
   @IsUUID()
-  id: string;
+  id?: string;
+
+  @IsNotEmpty()
+  @IsUUID()
+  applicantId?: string;
 }

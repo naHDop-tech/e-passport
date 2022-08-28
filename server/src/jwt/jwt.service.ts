@@ -20,6 +20,7 @@ export class JwtService {
     const data = {
       dateTime: Date(),
       userId: user.id,
+      applicantId: user.applicantId,
       email: user.email,
     };
 
