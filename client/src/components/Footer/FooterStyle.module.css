@@ -1,0 +1,53 @@
+.Box {
+  justify-content: center;
+  flex-direction: column;
+  align-items: start;
+
+  margin-left: 30px;
+
+  margin-top: 50px;
+}
+
+.ContactBlock {
+  margin-top: 20px;
+}
+
+.SiteMapBlock {
+  margin-top: 20px;
+}
+
+.SocialMediaBlock {
+  margin-top: 20px;
+}
+
+.SocialMediaBlock {
+  margin-top: 20px;
+}
+
+.SocialMediaBlock span {
+  margin-left: 10px;
+}
+
+@media (min-width: 630px) {
+  .Box {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+
+    padding: 0 4vw;
+
+    margin-top: 50px;
+  }
+
+  .ContactBlock {
+    margin: 0;
+  }
+
+  .SiteMapBlock {
+    margin: 0;
+  }
+
+  .SocialMediaBlock {
+    margin: 0;
+  }
+}

@@ -7,14 +7,18 @@ import { CustomerHeader } from '@components/Header'
 import { useUserInfo } from '@hooks/useUserInfo'
 import { withTheme } from '@components/HOC/WithTheme'
 import { ThemeToggle as TT } from '@components/ThemeToggle'
+import { Footer } from '@components/Footer'
+
+import { useActiveItem } from '@hooks/useActiveItem'
 
 const ThemeToggle = withTheme(TT)
 
 export function withLayout() {
-  return (p: PropsWithChildren<{}>) => {
-    const { children } = p
+  return (props: PropsWithChildren<{}>) => {
+    const { children } = props
     const { pathname } = useLocation()
     const { isAuth } = useUserInfo()
+    const setActiveItem = useActiveItem()
 
     const sidebar = () => (
       <>
@@ -34,11 +38,7 @@ export function withLayout() {
       </ul>
     )
   
-    const footer = () => (
-      <div>
-        {new Date().getFullYear()}
-      </div>
-    )
+    const footer = () => <Footer onNavigate={setActiveItem} />
   
     const ad = () => (
       <div>
