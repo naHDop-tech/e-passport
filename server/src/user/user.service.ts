@@ -40,11 +40,14 @@ export class UserService {
       where: { email: user.email },
     });
 
-    if (applicant?.email === user.email) {
+    const existsApplicant = await this.applicantService.findByEmail(user.email);
+
+    if (
+      applicant?.email === user.email ||
+      existsApplicant?.email === user.email
+    ) {
       throw new ConflictException('Email already using');
     }
-
-    const existsApplicant = await this.applicantService.findByEmail(user.email);
 
     if (!existsApplicant) {
       throw new ConflictException('Draft user not exists');
