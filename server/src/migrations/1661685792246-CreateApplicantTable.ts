@@ -3,6 +3,7 @@ import {
   QueryRunner,
   Table,
   TableForeignKey,
+  TableColumn,
 } from 'typeorm';
 
 export class CreateApplicantTable1661685792246 implements MigrationInterface {
@@ -36,14 +37,23 @@ export class CreateApplicantTable1661685792246 implements MigrationInterface {
       true,
     );
 
-    const foreignKey = new TableForeignKey({
-      columnNames: ['applicant_id'],
-      referencedColumnNames: ['id'],
-      referencedTableName: 'applicant',
-      onDelete: 'CASCADE',
-    });
+    await queryRunner.addColumn(
+      'users',
+      new TableColumn({
+        name: 'applicant_id',
+        type: 'uuid',
+        isNullable: true,
+      }),
+    );
 
-    await queryRunner.createForeignKey('users', foreignKey);
+    await queryRunner.createForeignKey(
+      'users',
+      new TableForeignKey({
+        columnNames: ['applicant_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'users',
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
