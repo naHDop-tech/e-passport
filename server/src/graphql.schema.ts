@@ -7,6 +7,11 @@
 
 /* tslint:disable */
 /* eslint-disable */
+export class CreateApplicantInput {
+    email: string;
+    password: string;
+}
+
 export class CreateCatInput {
     name?: Nullable<string>;
     age?: Nullable<number>;
@@ -146,12 +151,16 @@ export abstract class IQuery {
     abstract user(id: string): Nullable<User> | Promise<Nullable<User>>;
 
     abstract isUserExists(email?: Nullable<string>): Nullable<boolean> | Promise<Nullable<boolean>>;
+
+    abstract isApplicantExists(email?: Nullable<string>): Nullable<boolean> | Promise<Nullable<boolean>>;
 }
 
 export abstract class IMutation {
     abstract createCat(createCatInput?: Nullable<CreateCatInput>): Nullable<Cat> | Promise<Nullable<Cat>>;
 
     abstract createUser(createUserInput?: Nullable<CreateUserInput>): Nullable<User> | Promise<Nullable<User>>;
+
+    abstract createApplicant(createApplicantInput?: Nullable<CreateApplicantInput>): Nullable<Applicant> | Promise<Nullable<Applicant>>;
 
     abstract updateUser(updateUserInput?: Nullable<UpdateUserInput>): Nullable<User> | Promise<Nullable<User>>;
 
@@ -174,6 +183,12 @@ export abstract class ISubscription {
     abstract userPersonalDataUpdated(): Nullable<User> | Promise<Nullable<User>>;
 
     abstract userDeleted(): Nullable<User> | Promise<Nullable<User>>;
+}
+
+export class Applicant {
+    id: string;
+    email: string;
+    password: string;
 }
 
 export class Owner {
