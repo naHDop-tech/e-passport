@@ -31,8 +31,6 @@ export function SignUpDLC(props: ISignUpProps) {
   const [signUpUser, { data, loading }] = useMutation(SIGN_UP)
   const signUpFormValidate = useSignUpValidation({ email, password, repeatedPassword })
 
-  console.log(data);
-
   const submitFormHandler = async () => {
     dispatchSignUpForm({ type: Actions.ResetErrors })
     const validationResult = signUpFormValidate()
