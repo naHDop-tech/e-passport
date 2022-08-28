@@ -1,0 +1,10 @@
+type Applicant {
+  id: ID!
+  email: String!
+  password: String!
+}
+
+input CreateApplicantInput {
+  email: String!
+  password: String!
+}

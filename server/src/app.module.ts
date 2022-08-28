@@ -11,6 +11,7 @@ import { upperDirectiveTransformer } from '~/common/directives/upper-case.direct
 import { CatsModule } from './cats/cats.module';
 import { UtilsModule } from '~/utils/utils.module';
 import { UserModule } from '~/user/user.module';
+import { ApplicantModule } from '~/applicant/applicant.module';
 import { JwtAuthModule } from '~/jwt-auth/jwt-auth.module';
 @Module({
   imports: [
@@ -79,6 +80,7 @@ import { JwtAuthModule } from '~/jwt-auth/jwt-auth.module';
     UtilsModule,
     UserModule,
     JwtAuthModule,
+    ApplicantModule,
   ],
 })
 export class AppModule {}

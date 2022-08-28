@@ -1,4 +1,3 @@
-
 /*
  * -------------------------------------------------------
  * THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
@@ -7,6 +6,11 @@
 
 /* tslint:disable */
 /* eslint-disable */
+export class CreateApplicantInput {
+    email: string;
+    password: string;
+}
+
 export class CreateCatInput {
     name?: Nullable<string>;
     age?: Nullable<number>;
@@ -174,6 +178,12 @@ export abstract class ISubscription {
     abstract userPersonalDataUpdated(): Nullable<User> | Promise<Nullable<User>>;
 
     abstract userDeleted(): Nullable<User> | Promise<Nullable<User>>;
+}
+
+export class Applicant {
+    id: string;
+    email: string;
+    password: string;
 }
 
 export class Owner {

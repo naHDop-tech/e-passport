@@ -3,12 +3,14 @@ type Query {
   cat(id: ID!): Cat
   user(id: ID!): User
   isUserExists(email: String): Boolean
+  isApplicantExists(email: String): Boolean
 }
 
 type Mutation {
   createCat(createCatInput: CreateCatInput): Cat
 
   createUser(createUserInput: CreateUserInput): User
+  createApplicant(createApplicantInput: CreateApplicantInput): Applicant
   updateUser(updateUserInput: UpdateUserInput): User
   deleteUser(deleteUserId: ID!): User
 
