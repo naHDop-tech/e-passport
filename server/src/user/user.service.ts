@@ -9,6 +9,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '~/user/user.entity';
 import { CreateUserDto } from '~/user/dto/create-user.dto';
 import { DateCalculatorService } from '~/utils/date-calculator.service';
+import { ApplicantService } from '~/applicant/applicant.service';
 import { CryptoService } from '~/utils/crypto.service';
 import { UpdateUserInput } from '~/graphql.schema';
 import { UserFactory } from '~/user/user.factory';
@@ -19,6 +20,7 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
     private readonly dateCalculatorService: DateCalculatorService,
     private readonly cryptoService: CryptoService,
+    private readonly applicantService: ApplicantService,
     private readonly userFactory: UserFactory,
   ) {}
 
@@ -42,10 +44,17 @@ export class UserService {
       throw new ConflictException('Email already using');
     }
 
+    const existsApplicant = await this.applicantService.findByEmail(user.email);
+
+    if (!existsApplicant) {
+      throw new ConflictException('Draft user not exists');
+    }
+
     user.age = this.dateCalculatorService.getAgeFromBirthDate(user.birthDate);
     const passwordHash = await this.cryptoService.generateHash(user.password);
     user.password = passwordHash;
     const newUser = this.userRepository.create(user);
+    newUser.applicant = existsApplicant;
 
     return this.userRepository.save(newUser);
   }
