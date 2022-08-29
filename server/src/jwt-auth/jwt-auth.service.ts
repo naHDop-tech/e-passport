@@ -21,17 +21,29 @@ export class JwtAuthService {
     );
 
     if (
-      applicant?.email !== payload.email ||
+      applicant?.email !== payload.email &&
       existsApplicant?.email !== payload.email
     ) {
       throw new NotFoundException('User don not exist');
     }
 
-    const token = await this.jwtService.generateToken({
-      id: applicant.id,
-      email: applicant.email,
-      applicantId: existsApplicant.id,
-    });
+    let tokenData;
+
+    if (applicant) {
+      tokenData = {
+        id: applicant.id,
+        email: applicant.email,
+        isDraft: false,
+      };
+    } else {
+      tokenData = {
+        id: existsApplicant.id,
+        email: existsApplicant.email,
+        isDraft: true,
+      };
+    }
+
+    const token = await this.jwtService.generateToken(tokenData);
 
     return { token };
   }

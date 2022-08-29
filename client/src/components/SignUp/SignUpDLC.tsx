@@ -4,13 +4,12 @@ import { useMutation } from '@apollo/client';
 import { SignUpForm } from './SignUpForm'
 
 import { useSignUpValidation } from '@root/hooks/validation/userSignUpValidation'
-import { ISignUpFormData } from '@root/interfaces/user'
-import { SIGN_UP } from '@root/api/queries/sign-up'
+import { SIGN_UP } from '@root/api/mutations/sign-up'
 import { signUpReducer } from './reducer/reducer'
 import { Actions, defaultState } from './reducer/state'
 
 export interface ISignUpProps {
-  onSubmit: (data: ISignUpFormData) => void
+  onSubmit: () => void
 }
 
 export function SignUpDLC(props: ISignUpProps) {
@@ -39,20 +38,14 @@ export function SignUpDLC(props: ISignUpProps) {
       try {
         await signUpUser({ variables: { createApplicantInput: { email, password } }})
 
-        onSubmit({
-          email,
-          password,
-          isTermsOfConditionsWasRead: termsOfConditionsWasRead,
-          repeatedPassword })
+        onSubmit()
       } catch (err) {
-        // TODO: toast
         console.error(err);
       }
 
       dispatchSignUpForm({ type: Actions.ResetData })
     } else {
       if (!validationResult?.error?.details.length) {
-        // TODO: toast
         console.error('Unexpected error')
       }
 

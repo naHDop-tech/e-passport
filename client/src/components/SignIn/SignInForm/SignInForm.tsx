@@ -31,6 +31,7 @@ export interface ISignInFormProps {
   onSubmit: () => void
   emailError?: string
   passwordError?: string
+  isLoading?: boolean
 }
 
 export function SignInForm(props: ISignInFormProps) {
@@ -43,8 +44,18 @@ export function SignInForm(props: ISignInFormProps) {
     passwordError,
     onEmailChange,
     onPasswordChange,
-    onSubmit
+    onSubmit,
+    isLoading,
   } = props
+
+  if (isLoading) {
+    // TODO: rework
+    return (
+      <div className={styles.Box}>
+        Loading...
+      </div>
+    )
+  }
 
   return (
     <div className={styles.Box}>
