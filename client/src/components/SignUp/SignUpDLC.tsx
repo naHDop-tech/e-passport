@@ -28,7 +28,7 @@ export function SignUpDLC(props: ISignUpProps) {
     dispatchSignUpForm,
   ] = useReducer(signUpReducer, defaultState)
 
-  const [signUpUser, { data, loading }] = useMutation(SIGN_UP)
+  const [signUpUser, { loading }] = useMutation(SIGN_UP)
   const signUpFormValidate = useSignUpValidation({ email, password, repeatedPassword })
 
   const submitFormHandler = async () => {

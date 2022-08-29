@@ -18,6 +18,10 @@ export class ApplicantService {
     private readonly cryptoService: CryptoService,
   ) {}
 
+  async save(applicant: ApplicantEntity) {
+    return this.applicantRepository.save(applicant);
+  }
+
   async isApplicantExists(email: string): Promise<boolean> {
     const applicant = await this.applicantRepository.findOne({
       where: { email },

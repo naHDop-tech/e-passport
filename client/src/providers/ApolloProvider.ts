@@ -20,10 +20,6 @@ const typeDefs = gql`
     password: String!
   }
 
-  extend type Query {
-    isApplicantExists(email: String): Boolean
-  }
-
   extend type JwtToken {
     token: String!
   }
@@ -36,6 +32,10 @@ const typeDefs = gql`
   extend type Mutation {
     createApplicant(createApplicantInput: CreateApplicantInput): Applicant
     signIn(signInInput: SignInInput): JwtToken
+  }
+
+  extend type Query {
+    isApplicantExists(email: String): Boolean
   }
 `;
 

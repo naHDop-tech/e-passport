@@ -55,11 +55,17 @@ export class UserService {
 
     user.age = this.dateCalculatorService.getAgeFromBirthDate(user.birthDate);
     const passwordHash = await this.cryptoService.generateHash(user.password);
+
     user.password = passwordHash;
     const newUser = this.userRepository.create(user);
-    newUser.applicant = existsApplicant;
 
-    return this.userRepository.save(newUser);
+    newUser.applicant = existsApplicant;
+    existsApplicant.user = newUser;
+
+    const savedUser = await this.userRepository.save(newUser);
+    await this.applicantService.save(existsApplicant);
+
+    return savedUser;
   }
 
   async findById(id: string): Promise<UserEntity> {
