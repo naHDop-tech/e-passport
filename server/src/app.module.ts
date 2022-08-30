@@ -53,7 +53,7 @@ import { JwtAuthModule } from '~/jwt-auth/jwt-auth.module';
         credentials: true,
         origin: [
           /^https?:\/\/localhost:\d+$/,
-          /^https:\/\/.+?\.e-passport\.eu$/,
+          /^https:\/\/.+?\.di-passport\.eu$/,
         ],
       },
     }),

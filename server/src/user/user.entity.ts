@@ -46,10 +46,7 @@ export class UserEntity extends User {
   @Column({ name: 'is_verified' })
   isVerified: boolean;
 
-  @Column({ name: 'applicant_id' })
-  applicantId: string;
-
-  @OneToOne(() => ApplicantEntity)
-  @JoinColumn({ name: 'applicant_id' })
+  @OneToOne(() => ApplicantEntity, (applicant) => applicant.user)
+  @JoinColumn({ name: 'applicant_id', referencedColumnName: 'id' })
   applicant: ApplicantEntity;
 }

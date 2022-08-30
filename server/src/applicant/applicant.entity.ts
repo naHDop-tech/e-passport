@@ -3,7 +3,6 @@ import {
   Column,
   CreateDateColumn,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
   OneToOne,
 } from 'typeorm';
 
@@ -22,10 +21,7 @@ export class ApplicantEntity extends Applicant {
   password: string;
 
   @CreateDateColumn({ name: 'created_at', default: 'now()' })
-  createdAt: string;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: string;
+  createdAt: Date;
 
   @OneToOne(() => UserEntity, (user) => user.applicant)
   user: UserEntity;

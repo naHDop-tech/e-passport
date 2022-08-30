@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class CryptoService {
   readonly salt: number;
   constructor() {
-    this.salt = 1001;
+    this.salt = 10;
   }
 
   async generateHash(password: string): Promise<string> {

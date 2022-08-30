@@ -1,14 +1,15 @@
 import { useReducer, ChangeEvent } from 'react'
+import { useMutation } from '@apollo/client';
 
 import { SignUpForm } from './SignUpForm'
 
 import { useSignUpValidation } from '@root/hooks/validation/userSignUpValidation'
-import { ISignUpFormData } from '@root/interfaces/user'
+import { SIGN_UP } from '@root/api/mutations/sign-up'
 import { signUpReducer } from './reducer/reducer'
 import { Actions, defaultState } from './reducer/state'
 
 export interface ISignUpProps {
-  onSubmit: (data: ISignUpFormData) => void
+  onSubmit: () => void
 }
 
 export function SignUpDLC(props: ISignUpProps) {
@@ -26,22 +27,25 @@ export function SignUpDLC(props: ISignUpProps) {
     dispatchSignUpForm,
   ] = useReducer(signUpReducer, defaultState)
 
+  const [signUpUser, { loading }] = useMutation(SIGN_UP)
   const signUpFormValidate = useSignUpValidation({ email, password, repeatedPassword })
 
-  const submitFormHandler = () => {
+  const submitFormHandler = async () => {
     dispatchSignUpForm({ type: Actions.ResetErrors })
     const validationResult = signUpFormValidate()
 
     if (!validationResult.error) {
-      onSubmit({
-        email,
-        password,
-        isTermsOfConditionsWasRead: termsOfConditionsWasRead,
-        repeatedPassword })
+      try {
+        await signUpUser({ variables: { createApplicantInput: { email, password } }})
+
+        onSubmit()
+      } catch (err) {
+        console.error(err);
+      }
+
       dispatchSignUpForm({ type: Actions.ResetData })
     } else {
       if (!validationResult?.error?.details.length) {
-        // TODO: toast
         console.error('Unexpected error')
       }
 
@@ -89,6 +93,7 @@ export function SignUpDLC(props: ISignUpProps) {
       onPasswordChange={changePasswordHandler}
       onRepeatedPasswordChange={changeRepeatedPasswordHandler}
       onSubmit={submitFormHandler}
+      isLoading={loading}
     />
   )
 }

@@ -1,14 +1,14 @@
 import { useReducer, ChangeEvent } from 'react'
+import { useMutation } from '@apollo/client'
 
 import { useSignInValidation } from '@root/hooks/validation/useSignInValidation'
 
 import { SignInForm } from './SignInForm'
-
-import { ISignInFormData } from '@root/interfaces/user'
+import { SIGN_IN } from '@root/api/mutations/sign-in'
 import { signInReducer } from './reducer/reducer'
 import { Actions, defaultState } from './reducer/state'
 export interface ISignInProps {
-  onSubmit: (data: ISignInFormData) => void
+  onSubmit: (token: string) => void
 }
 
 export function SignInDLC(props: ISignInProps): JSX.Element {
@@ -18,19 +18,25 @@ export function SignInDLC(props: ISignInProps): JSX.Element {
     { password, email, emailError, passwordError, rememberMe },
     dispatchSignInForm,
   ] = useReducer(signInReducer, defaultState)
+  const [signInUser, { loading }] = useMutation(SIGN_IN)
 
   const signInFormValidate = useSignInValidation({ email, password })
 
-  const submitFormHandler = () => {
+  const submitFormHandler = async () => {
     dispatchSignInForm({ type: Actions.ResetErrors })
     const validationResult = signInFormValidate()
 
     if (!validationResult.error) {
-      onSubmit({ email, password, rememberMe })
-      dispatchSignInForm({ type: Actions.ResetData })
+      try {
+        const { data } = await signInUser({ variables: { signInInput: { email, password } }})
+
+        onSubmit(data.signIn.token)
+        dispatchSignInForm({ type: Actions.ResetData })
+      } catch (err) {
+        console.error(err)
+      }
     } else {
       if (!validationResult?.error?.details.length) {
-        // TODO: toast
         console.error('Unexpected error')
       }
 
@@ -58,16 +64,19 @@ export function SignInDLC(props: ISignInProps): JSX.Element {
   }
 
   return (
-    <SignInForm
-      rememberMe={rememberMe}
-      email={email}
-      password={password}
-      onSetRememberMe={changeRememberMeHandler}
-      onEmailChange={changeEmailHandler}
-      onPasswordChange={changePasswordHandler}
-      onSubmit={submitFormHandler}
-      emailError={emailError}
-      passwordError={passwordError}
-    />
+    <>
+      <SignInForm
+        isLoading={loading}
+        rememberMe={rememberMe}
+        email={email}
+        password={password}
+        onSetRememberMe={changeRememberMeHandler}
+        onEmailChange={changeEmailHandler}
+        onPasswordChange={changePasswordHandler}
+        onSubmit={submitFormHandler}
+        emailError={emailError}
+        passwordError={passwordError}
+      />
+    </>
   )
 }

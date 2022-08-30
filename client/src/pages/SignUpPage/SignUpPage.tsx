@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router-dom'
+
 import { SignUpDLC } from '@components/SignUp'
-import { ISignUpFormData } from '@root/interfaces/user'
 
 export function SignUpPage() {
-  const submitHandler = (data: ISignUpFormData) => {
-    console.log(data)
+  const navigateTo = useNavigate()
+
+  const submitHandler = () => {
+    navigateTo('/sign-in')
   }
 
   return (
