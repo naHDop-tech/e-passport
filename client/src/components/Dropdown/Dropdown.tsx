@@ -34,6 +34,7 @@ export function Dropdown(props: PropsWithChildren<DropdownProps>) {
             <Component
               key={item.title}
               title={item.title}
+              routePath={item.routePath}
               // disabled={}
               onClick={() => onSelect(item)}
             />

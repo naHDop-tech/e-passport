@@ -4,6 +4,7 @@ export type SvgComponent = FC<SVGAttributes<SVGElement>>
 
 export interface IGenericDropdownItemProps {
   title: string
+  routePath: string
   icon?: SvgComponent
 }
 
