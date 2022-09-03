@@ -1,5 +1,5 @@
 .Box {
-  /* width: 100%; */
+  width: 100%;
   background-color: var(--color-background);
   position: absolute;
   display: none;

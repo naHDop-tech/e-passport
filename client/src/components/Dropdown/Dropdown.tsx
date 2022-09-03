@@ -1,4 +1,4 @@
-import { HTMLAttributes, PropsWithChildren } from 'react'
+import { HTMLAttributes, PropsWithChildren, useState, useEffect, useRef } from 'react'
 import cn from 'classnames';
 
 import s from './DropdownStyle.module.css'
@@ -21,21 +21,37 @@ interface IAdditionDropdownProps {
 export type DropdownProps = IAdditionDropdownProps & Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'>
 
 export function Dropdown(props: PropsWithChildren<DropdownProps>) {
-  const { component: Component, content, onClick, isOpen, onSelect, children, className, ...rest} = props
+  const {
+    component: Component,
+    content,
+    onClick,
+    isOpen,
+    onSelect,
+    children,
+    className,
+    ...rest
+  } = props
+  const [width, setWidth] = useState(0);
+  const parentRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if(parentRef.current){
+      setWidth(parentRef.current.offsetWidth)
+    }
+  }, [parentRef.current?.clientWidth]);
 
   return (
     <>
-      <div onClick={onClick} className={styles.RelativeBlock}>
+      <div ref={parentRef} onClick={onClick} className={styles.RelativeBlock}>
         {children}
       </div>
-      <div className={cn(styles.Box, {[styles.Visible]: isOpen}, className)} {...rest}>
+      <div style={{ width }} className={cn(styles.Box, {[styles.Visible]: isOpen}, className)} {...rest}>
         {content.map((item) => {
           return (
             <Component
               key={item.title}
               title={item.title}
               routePath={item.routePath}
-              // disabled={}
               onClick={() => onSelect(item)}
             />
           )
