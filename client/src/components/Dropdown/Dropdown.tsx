@@ -13,9 +13,9 @@ interface IDropdownStyle {
 
 interface IAdditionDropdownProps<T> {
   isOpen: boolean
-  onSelect: (v: T) => void
-  content: T[]
-  component: (props: GenericDropdownItemProps<T>) => JSX.Element
+  onSelect: (item: GenericDropdownItemProps) => void
+  content: GenericDropdownItemProps[]
+  component: (props: GenericDropdownItemProps) => JSX.Element
 }
 
 export type DropdownProps<T> = IAdditionDropdownProps<T> & Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'>
@@ -33,6 +33,7 @@ export function Dropdown<T>(props: PropsWithChildren<DropdownProps<T>>) {
           return (
             <Component
               key={String(item)}
+              title={item.title}
               // disabled={}
               onClick={() => onSelect(item)}
             />

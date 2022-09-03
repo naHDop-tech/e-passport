@@ -17,10 +17,11 @@ interface ICustomerHeaderStyle {
   UserCardBox: string
 }
 
-function Component<T>(data: GenericDropdownItemProps<T>) {
+function Component(props: GenericDropdownItemProps) {
+  const { title, onClick } = props
   return (
-    <div onClick={data.onClick}>
-      <h1>Hello</h1>
+    <div style={{ cursor: 'pointer' }} onClick={onClick}>
+      <h1>{title}</h1>
     </div>
   )
 }
@@ -41,7 +42,7 @@ export function CustomerHeader() {
         <Dropdown
           isOpen={isDropdownOpen}
           component={Component}
-          content={[{foo: 'foo'}]}
+          content={[{title: 'Hello'}]}
           onClick={() => setIsDropdownOpen((ps) => !ps)}
           onSelect={(data) => console.log(data)}
         >
