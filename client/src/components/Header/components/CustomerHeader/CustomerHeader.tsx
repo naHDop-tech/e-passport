@@ -21,7 +21,7 @@ function Component(props: GenericDropdownItemProps) {
   const { title, onClick } = props
   return (
     <div style={{ cursor: 'pointer' }} onClick={onClick}>
-      <h1>{title}</h1>
+      <p>{title}</p>
     </div>
   )
 }
@@ -42,7 +42,7 @@ export function CustomerHeader() {
         <Dropdown
           isOpen={isDropdownOpen}
           component={Component}
-          content={[{title: 'Hello'}]}
+          content={[{title: 'Settings'}, {title: 'Update'}, {title: 'Logout'}]}
           onClick={() => setIsDropdownOpen((ps) => !ps)}
           onSelect={(data) => console.log(data)}
         >

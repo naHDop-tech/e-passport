@@ -32,7 +32,7 @@ export function Dropdown(props: PropsWithChildren<DropdownProps>) {
         {content.map((item) => {
           return (
             <Component
-              key={String(item)}
+              key={item.title}
               title={item.title}
               // disabled={}
               onClick={() => onSelect(item)}
