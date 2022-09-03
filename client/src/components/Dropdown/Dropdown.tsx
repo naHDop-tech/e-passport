@@ -11,16 +11,16 @@ interface IDropdownStyle {
   RelativeBlock: string
 }
 
-interface IAdditionDropdownProps<T> {
+interface IAdditionDropdownProps {
   isOpen: boolean
   onSelect: (item: GenericDropdownItemProps) => void
   content: GenericDropdownItemProps[]
   component: (props: GenericDropdownItemProps) => JSX.Element
 }
 
-export type DropdownProps<T> = IAdditionDropdownProps<T> & Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'>
+export type DropdownProps = IAdditionDropdownProps & Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'>
 
-export function Dropdown<T>(props: PropsWithChildren<DropdownProps<T>>) {
+export function Dropdown(props: PropsWithChildren<DropdownProps>) {
   const { component: Component, content, onClick, isOpen, onSelect, children, className, ...rest} = props
 
   return (
