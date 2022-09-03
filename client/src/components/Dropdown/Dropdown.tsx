@@ -1,36 +1,44 @@
-import { HTMLAttributes } from 'react'
+import { HTMLAttributes, PropsWithChildren } from 'react'
 import cn from 'classnames';
 
 import s from './DropdownStyle.module.css'
 const styles = s as unknown as IDropdownStyle
-import { IGenericDropdownItemProps } from './types'
+import { GenericDropdownItemProps } from './types'
 
 interface IDropdownStyle {
   Box: string
   Visible: string
+  RelativeBlock: string
 }
 
 interface IAdditionDropdownProps<T> {
   isOpen: boolean
   onSelect: (v: T) => void
   content: T[]
-  component: (props: IGenericDropdownItemProps<T>) => JSX.Element
+  component: (props: GenericDropdownItemProps<T>) => JSX.Element
 }
 
-export type ButtonProps<T> = IAdditionDropdownProps<T> & Omit<HTMLAttributes<HTMLDivElement>, 'onSelect' | 'onClick'>
+export type DropdownProps<T> = IAdditionDropdownProps<T> & Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'>
 
-export function Dropdown<T>(props: ButtonProps<T>) {
-  const { component: Component, content, isOpen, onSelect, className, ...rest} = props
+export function Dropdown<T>(props: PropsWithChildren<DropdownProps<T>>) {
+  const { component: Component, content, onClick, isOpen, onSelect, children, className, ...rest} = props
+
   return (
-    <div className={cn(styles.Box, {[styles.Visible]: isOpen}, className)} {...rest}>
-      {content.map((item) => {
-        return (
-          <Component
-            // disabled={}
-            onClick={() => onSelect(item)}
-          />
-        )
-      })}
-    </div>
+    <>
+      <div onClick={onClick} className={styles.RelativeBlock}>
+        {children}
+      </div>
+      <div className={cn(styles.Box, {[styles.Visible]: isOpen}, className)} {...rest}>
+        {content.map((item) => {
+          return (
+            <Component
+              key={String(item)}
+              // disabled={}
+              onClick={() => onSelect(item)}
+            />
+          )
+        })}
+      </div>
+    </>
   )
 }
