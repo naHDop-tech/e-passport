@@ -28,14 +28,14 @@ function Component(props: GenericDropdownItemProps) {
   )
 }
 
-export function CustomerHeader() {
-  // TODO: delete
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const navigateTo = useNavigate()
+export interface ICustomerHeaderProps {
+  isDropdownOpen: boolean,
+  onDropdownClick: () => void
+  onDropdownSelect: (data: GenericDropdownItemProps) => void
+}
 
-  const onDropdownItemClickHandler = (data: GenericDropdownItemProps) => {
-    navigateTo(data.routePath)
-  }
+export function CustomerHeader(props: ICustomerHeaderProps) {
+  const { isDropdownOpen, onDropdownClick, onDropdownSelect } = props
 
   return (
     <div className={styles.GridBox}>
@@ -50,12 +50,29 @@ export function CustomerHeader() {
           isOpen={isDropdownOpen}
           component={Component}
           content={USER_MENU}
-          onClick={() => setIsDropdownOpen((ps) => !ps)}
-          onSelect={onDropdownItemClickHandler}
+          onClick={onDropdownClick}
+          onSelect={onDropdownSelect}
         >
           <CustomerInfo />
         </Dropdown>
       </div>
     </div>
+  )
+}
+
+export const CustomerHeaderDLC = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const navigateTo = useNavigate()
+
+  const onDropdownItemClickHandler = (data: GenericDropdownItemProps) => {
+    navigateTo(data.routePath)
+  }
+
+  return (
+    <CustomerHeader
+      isDropdownOpen={isDropdownOpen}
+      onDropdownClick={() => setIsDropdownOpen((ps) => !ps)}
+      onDropdownSelect={onDropdownItemClickHandler}
+    />
   )
 }

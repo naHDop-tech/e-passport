@@ -1,1 +1,1 @@
-export { CustomerHeader } from './CustomerHeader'
+export { CustomerHeader, CustomerHeaderDLC } from './CustomerHeader'

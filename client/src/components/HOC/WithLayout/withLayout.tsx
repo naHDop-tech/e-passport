@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 
 import { MainLayoutGrid } from '@components/layouts/MainLayout/MainLayoutGrid'
 import { BaseHeader } from '@components/Header'
-import { CustomerHeader } from '@components/Header'
+import { CustomerHeaderDLC } from '@components/Header'
 import { useUserInfo } from '@hooks/useUserInfo'
 import { withTheme } from '@components/HOC/WithTheme'
 import { ThemeToggle as TT } from '@components/ThemeToggle'
@@ -28,7 +28,7 @@ export function withLayout() {
       </>
     )
   
-    const header = () => !isAuth ? <BaseHeader /> : <CustomerHeader />
+    const header = () => !isAuth ? <BaseHeader /> : <CustomerHeaderDLC />
   
     const navbar = () => (
       <ul>
