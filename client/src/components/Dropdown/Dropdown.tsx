@@ -35,7 +35,7 @@ export function Dropdown(props: PropsWithChildren<DropdownProps>) {
   const parentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if(parentRef.current){
+    if(parentRef.current?.clientWidth){
       setWidth(parentRef.current.offsetWidth)
     }
   }, [parentRef.current?.clientWidth]);
