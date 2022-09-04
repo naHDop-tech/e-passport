@@ -59,20 +59,3 @@ export function CustomerHeader(props: ICustomerHeaderProps) {
     </div>
   )
 }
-
-export const CustomerHeaderDLC = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const navigateTo = useNavigate()
-
-  const onDropdownItemClickHandler = (data: GenericDropdownItemProps) => {
-    navigateTo(data.routePath)
-  }
-
-  return (
-    <CustomerHeader
-      isDropdownOpen={isDropdownOpen}
-      onDropdownClick={() => setIsDropdownOpen((ps) => !ps)}
-      onDropdownSelect={onDropdownItemClickHandler}
-    />
-  )
-}

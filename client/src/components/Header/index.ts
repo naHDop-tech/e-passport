@@ -1,2 +1,3 @@
 export { BaseHeader } from './components/BaseHeader'
-export { CustomerHeader, CustomerHeaderDLC } from './components/CustomerHeader'
+export { CustomerHeader } from './components/CustomerHeader'
+export { CustomerHeaderDLC } from './components/CustomerHeaderDLC'
