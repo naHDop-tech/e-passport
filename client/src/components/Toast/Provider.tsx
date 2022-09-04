@@ -2,7 +2,7 @@ import { useState, useMemo, PropsWithChildren } from 'react';
 import { createPortal } from 'react-dom';
 
 import { ToastContext } from './Context';
-import { Toast, ToastPosition, ToastType, IToastProps } from './Toast';
+import { Toast, IToastProps } from './Toast';
 
 // Create a random ID
 function generateUEID() {
@@ -21,6 +21,7 @@ interface IToast extends IToastProps {
 export const ToastProvider = (props: PropsWithChildren<{}>) => {
   const [toasts, setToasts] = useState<IToast[]>([]);
 
+  console.log(toasts);
   const open = (props: IToastProps) =>
     setToasts((currentToasts: IToast[]) => [
       ...currentToasts,

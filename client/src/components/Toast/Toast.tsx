@@ -7,6 +7,8 @@ import s from './ToastStyle.module.css'
 const styles = s as ToastStyles
 
 interface ToastStyles {
+  Box: string
+
   Success: string
   Warning: string
   Error: string
@@ -69,15 +71,16 @@ const getPosition = (position: ToastPosition): string => {
 
 
 export function Toast(props: PropsWithChildren<IToastProps>) {
-  const { close, children, type = ToastType.Info, position = ToastPosition.BottomRight } = props
+  const { content, close, children, type = ToastType.Info, position = ToastPosition.TopRight } = props
   if (close) {
     useTimeout(close, 5000);
   }
 
   return (
-    <div className={cn(getColor(type), getPosition(position))}>
+    <div className={cn(styles.Box, getColor(type), getPosition(position))}>
       <div>{children}</div>
       <div>
+        {content}
         <button onClick={close}>X</button>
       </div>
     </div>
