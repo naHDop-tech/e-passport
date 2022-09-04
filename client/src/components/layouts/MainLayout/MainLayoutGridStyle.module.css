@@ -41,9 +41,8 @@ nav ul {
 }
 
 .Navbar {
-  /* background-color: var(--color-primary-purple); */
-  /* opacity: 0.1; */
-  background: rgba(106, 75, 255, 0.1);
+  background-color: var(--color-purple-light);
+  /* background: rgba(106, 75, 255, 0.1); */
   grid-area: nav;
 }
 
