@@ -21,7 +21,6 @@ interface IToast extends IToastProps {
 export const ToastProvider = (props: PropsWithChildren<{}>) => {
   const [toasts, setToasts] = useState<IToast[]>([]);
 
-  console.log(toasts);
   const open = (props: IToastProps) =>
     setToasts((currentToasts: IToast[]) => [
       ...currentToasts,
