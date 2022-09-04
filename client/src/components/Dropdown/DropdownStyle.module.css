@@ -1,0 +1,21 @@
+.Box {
+  width: 100%;
+  background-color: var(--color-background);
+  position: absolute;
+  display: none;
+
+  border: 1px solid var(--color-text-grey);
+  border-radius: 14px;
+
+  /* box-shadow: 0px 8px 16px 0px rgba(106, 75, 255, 0.2); */
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.RelativeBlock {
+  position: relative;
+}
+
+.Visible {
+  display: block;
+}
