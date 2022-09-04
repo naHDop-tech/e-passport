@@ -9,7 +9,8 @@ interface IToast extends IToastProps {
   id: string
 }
 
-export function ToastProvider(props: PropsWithChildren<{}>) {
+export function ToastProvider(props: PropsWithChildren) {
+  const { children } = props
   const [toasts, setToasts] = useState<IToast[]>([]);
 
   const open = (props: IToastProps) =>
@@ -27,7 +28,7 @@ export function ToastProvider(props: PropsWithChildren<{}>) {
 
   return (
     <ToastContext.Provider value={contextValue}>
-      {props.children}
+      {children}
 
       {createPortal(
         <div>
