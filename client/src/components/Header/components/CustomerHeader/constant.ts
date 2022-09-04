@@ -6,8 +6,8 @@ export const USER_MENU: GenericDropdownItemProps[] = [
     routePath: 'dashboard/settings',
   },
   {
-    title: 'Update',
-    routePath: 'dashboard/update',
+    title: 'My passport',
+    routePath: 'dashboard/passport',
   },
   {
     title: 'Logout',
