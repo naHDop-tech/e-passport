@@ -3,22 +3,13 @@ import { createPortal } from 'react-dom';
 
 import { ToastContext } from './Context';
 import { Toast, IToastProps } from './Toast';
-
-// Create a random ID
-function generateUEID() {
-  const first = (Math.random() * 46656) | 0;
-  const second = (Math.random() * 46656) | 0;
-  const third = ('000' + first.toString(36)).slice(-3);
-  const fourth = ('000' + second.toString(36)).slice(-3);
-
-  return third + fourth;
-}
+import { generateUEID } from './utils'
 
 interface IToast extends IToastProps {
   id: string
 }
 
-export const ToastProvider = (props: PropsWithChildren<{}>) => {
+export function ToastProvider(props: PropsWithChildren<{}>) {
   const [toasts, setToasts] = useState<IToast[]>([]);
 
   const open = (props: IToastProps) =>
@@ -39,7 +30,7 @@ export const ToastProvider = (props: PropsWithChildren<{}>) => {
       {props.children}
 
       {createPortal(
-        <div className="toasts-wrapper">
+        <div>
           {toasts.map((toast: IToast) => (
             <Toast 
               key={toast.id}
