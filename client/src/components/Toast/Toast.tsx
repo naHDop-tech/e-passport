@@ -70,15 +70,14 @@ const getPosition = (position: ToastPosition): string => {
 }
 
 
-export function Toast(props: PropsWithChildren<IToastProps>) {
-  const { content, close, children, type = ToastType.Info, position = ToastPosition.TopRight } = props
+export function Toast(props: IToastProps) {
+  const { content, close, type = ToastType.Info, position = ToastPosition.TopRight } = props
   if (close) {
     useTimeout(close, 5000);
   }
 
   return (
     <div className={cn(styles.Box, getColor(type), getPosition(position))}>
-      <div>{children}</div>
       <div>
         {content}
         <button onClick={close}>X</button>
