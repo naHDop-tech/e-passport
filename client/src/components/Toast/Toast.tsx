@@ -1,6 +1,6 @@
-import { PropsWithChildren } from 'react'
 import cn from 'classnames'
 
+// import { Button } from '@components/Button'
 import { useTimeout } from '@hooks/useTimeout'
 
 import s from './ToastStyle.module.css'
@@ -80,7 +80,7 @@ export function Toast(props: IToastProps) {
     <div className={cn(styles.Box, getColor(type), getPosition(position))}>
       <div>
         {content}
-        <button onClick={close}>X</button>
+        {/* <Button onClick={close} title="X" outline /> */}
       </div>
     </div>
   )

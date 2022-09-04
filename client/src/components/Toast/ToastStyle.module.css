@@ -3,24 +3,30 @@
   position: fixed;
   z-index: 99;
   padding: 8px 14px;
+
+  border-radius: 10px;
 }
 
 .Success {
+  border: 1px solid var(--color-green);
   background-color: var(--color-green-light);
   color: var(--color-green);
 }
 
 .Warning {
+  border: 1px solid var(--color-yellow);
   background-color: var(--color-yellow-light);
   color: var(--color-yellow);
 }
 
 .Error {
+  border: 1px solid var(--color-red);
   background-color: var(--color-red-light);
   color: var(--color-red);
 }
 
 .Info {
+  border: 1px solid var(--color-blue);
   background-color: var(--color-blue-light);
   color: var(--color-blue);
 }
