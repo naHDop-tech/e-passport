@@ -113,9 +113,8 @@ input:focus {
   --color-text-black: rgba(37, 84, 111, 1);
   --color-text-dark-grey: rgba(105, 102, 116, 1);
   --color-text-grey: rgba(146, 146, 157, 1);
-  --color-text-line-dark: rgba(234, 234, 234, 1);
-  --color-text-white-grey: rgba(241, 241, 245, 1);
-  --color-text-white: #ffffff;
+  --color-text-light-grey: rgba(234, 234, 234, 1);
+  --color-text-white: rgba(255, 255, 255, 1);
 
   --color-text: var(--color-text-white);
   --color-accent: var(--color-primary-dark);
