@@ -9,10 +9,8 @@ interface INotFoundPageStyle {
 
 export function NotFoundPage() {
   return (
-    <>
-      <div className={styles.FlexBox}>
-        <img src={NotFoundImage} />
-      </div>
-    </>
+    <div className={styles.FlexBox}>
+      <img src={NotFoundImage} />
+    </div>
   )
 }
