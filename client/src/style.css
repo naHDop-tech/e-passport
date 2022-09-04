@@ -93,22 +93,28 @@ input:focus {
   --color-primary-black-accent: rgba(29, 35, 53, 1);
 
   --color-purple: rgba(106, 75, 255, 1);
-  --color-purple-light: rgba(106, 75, 255, 0.1);
+  --color-purple-light: #c0b3fc;
+  --color-purple-light-rgba-alfa1: rgba(106, 75, 255, 0.1);
 
   --color-yellow: rgba(246, 201, 73, 1);
-  --color-yellow-light: rgba(246, 201, 73, 0.1);
+  --color-yellow-light: #f7e7ba;
+  --color-yellow-light-rgba-alfa1: rgba(246, 201, 73, 0.1);
 
   --color-red: rgba(255, 114, 86, 1);
-  --color-red-light: rgba(255, 114, 86, 0.1);
+  --color-red-light: #f5c0b5;
+  --color-red-light-rgba-alfa1: rgba(255, 114, 86, 0.1);
 
   --color-green: rgba(59, 201, 99, 1);
-  --color-green-light: rgba(59, 201, 99, 0.1);
+  --color-green-light: #84c496;
+  --color-green-light-rgba-alfa1: rgba(59, 201, 99, 0.1);
 
   --color-orange: rgba(255, 107, 44, 1);
-  --color-orange-light: rgba(255, 107, 44, 0.1);
+  --color-orange-light: #fac2aa;
+  --color-orange-light-rgba-alfa1: rgba(255, 107, 44, 0.1);
 
   --color-blue: rgba(29, 146, 241, 1);
-  --color-blue-light: rgba(29, 146, 241, 0.1);
+  --color-blue-light: #acd7fa;
+  --color-blue-light-rgba-alfa1: rgba(29, 146, 241, 0.1);
 
   --color-text-black: rgba(37, 84, 111, 1);
   --color-text-dark-grey: rgba(105, 102, 116, 1);

@@ -41,7 +41,7 @@ nav ul {
 }
 
 .Navbar {
-  background-color: var(--color-purple-light);
+  background-color: var(--color-purple-light-rgba-alfa1);
   grid-area: nav;
 }
 
