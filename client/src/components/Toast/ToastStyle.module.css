@@ -1,0 +1,71 @@
+.Box {
+  box-sizing: border-box;
+  position: fixed;
+  z-index: 99;
+}
+
+.Success {
+  background-color: var(--color-green);
+  color: var(--color-text-white);
+}
+
+.Warning {
+  background-color: var(--color-yellow);
+  color: var(--color-text-white);
+}
+
+.Error {
+  background-color: var(--color-red);
+  color: var(--color-text-white);
+}
+
+.Info {
+  background-color: var(--color-blue);
+  color: var(--color-text-white);
+}
+
+.TopRight {
+  top: 12px;
+  right: 12px;
+  transition: transform 0.6s ease-in-out;
+  animation: toast-in-right 0.7s;
+}
+
+.BottomRight {
+  bottom: 12px;
+  right: 12px;
+  transition: transform 0.6s ease-in-out;
+  animation: toast-in-right 0.7s;
+}
+
+.TopLeft {
+  top: 12px;
+  left: 12px;
+  transition: transform 0.6s ease-in;
+  animation: toast-in-left 0.7s;
+}
+
+.BottomLeft {
+  bottom: 12px;
+  left: 12px;
+  transition: transform 0.6s ease-in;
+  animation: toast-in-left 0.7s;
+}
+
+@keyframes toast-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes toast-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
