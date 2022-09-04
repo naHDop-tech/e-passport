@@ -94,10 +94,19 @@ input:focus {
   --color-primary-black-accent: #1d2335;
 
   --color-yellow: #f6c949;
+  --color-yellow-light: #f7e7ba;
+
   --color-red: #ff7256;
+  --color-red-light: #fac0b4;
+
   --color-green: #3bc963;
+  --color-green-light: #8ac299;
+
   --color-orange: #ff6b2c;
+  --color-orange-light: #fcc9b3;
+
   --color-blue: #1d92f1;
+  --color-blue-light: #b6dcfa;
 
   --color-text-black: #25546f;
   --color-text-dark-grey: #696674;

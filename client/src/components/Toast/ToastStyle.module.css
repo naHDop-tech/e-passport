@@ -6,23 +6,23 @@
 }
 
 .Success {
-  background-color: var(--color-green);
-  color: var(--color-text-white);
+  background-color: var(--color-green-light);
+  color: var(--color-green);
 }
 
 .Warning {
-  background-color: var(--color-yellow);
-  color: var(--color-text-white);
+  background-color: var(--color-yellow-light);
+  color: var(--color-yellow);
 }
 
 .Error {
-  background-color: var(--color-red);
-  color: var(--color-text-white);
+  background-color: var(--color-red-light);
+  color: var(--color-red);
 }
 
 .Info {
-  background-color: var(--color-blue);
-  color: var(--color-text-white);
+  background-color: var(--color-blue-light);
+  color: var(--color-blue);
 }
 
 .TopRight {
