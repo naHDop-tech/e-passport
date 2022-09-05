@@ -3,8 +3,8 @@
   border: 1px solid var(--color-text-grey);
   display: grid;
   grid-template-areas:
-    'avatar full-name'
-    'avatar email';
+    'avatar avatar'
+    'avatar avatar';
 
   border-radius: 20px;
 
@@ -18,21 +18,41 @@
 }
 
 .EmailBox {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-
-  font-size: 12px;
-  align-self: start;
-  grid-area: email;
+  display: none;
 }
 
 .FullNameBox {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+  display: none;
+}
 
-  font-size: 18px;
-  align-self: end;
-  grid-area: full-name;
+@media (min-width: 700px) {
+  .Box {
+    grid-template-areas:
+      'avatar full-name'
+      'avatar email';
+  }
+
+  .EmailBox {
+    display: block;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    font-size: 12px;
+    align-self: start;
+    grid-area: email;
+  }
+
+  .FullNameBox {
+    display: block;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    font-size: 18px;
+    align-self: end;
+    grid-area: full-name;
+  }
 }
