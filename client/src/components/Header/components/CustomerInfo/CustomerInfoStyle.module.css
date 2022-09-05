@@ -1,10 +1,26 @@
 .Box {
   width: 100%;
-  border: 2px solid var(--color-text-grey);
+  border: 1px solid var(--color-text-grey);
+  display: grid;
+  grid-template-areas:
+    'avatar full-name'
+    '.      email';
 
   border-radius: 20px;
 
   height: 80px;
 
   cursor: pointer;
+}
+
+.AvatarBox {
+  grid-area: avatar;
+}
+
+.EmailBox {
+  grid-area: email;
+}
+
+.FullNameBox {
+  grid-area: full-name;
 }

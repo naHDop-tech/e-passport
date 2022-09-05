@@ -1,0 +1,17 @@
+.Box {
+}
+
+.Small {
+  width: 12px;
+  height: 12px;
+}
+
+.Medium {
+  width: 18px;
+  height: 18px;
+}
+
+.Large {
+  width: 24px;
+  height: 24px;
+}
