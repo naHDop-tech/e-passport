@@ -1,11 +1,9 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-
 import { Search } from '@components/Header/components/Search'
 import { CustomerInfo } from '@components/Header/components/CustomerInfo'
 import { FilterButton } from '@components/Header/components/FilterButton'
 import { Dropdown } from '@components/Dropdown'
 
+import { IUser } from '@store/auth/atoms'
 import { GenericDropdownItemProps } from '@components/Dropdown/types'
 import { USER_MENU } from '@components/Header/components/CustomerHeader/constant'
 
@@ -29,13 +27,14 @@ function Component(props: GenericDropdownItemProps) {
 }
 
 export interface ICustomerHeaderProps {
+  user: IUser
   isDropdownOpen: boolean,
   onDropdownClick: () => void
   onDropdownSelect: (data: GenericDropdownItemProps) => void
 }
 
 export function CustomerHeader(props: ICustomerHeaderProps) {
-  const { isDropdownOpen, onDropdownClick, onDropdownSelect } = props
+  const { isDropdownOpen, onDropdownClick, onDropdownSelect, user } = props
 
   return (
     <div className={styles.GridBox}>
@@ -53,7 +52,11 @@ export function CustomerHeader(props: ICustomerHeaderProps) {
           onClick={onDropdownClick}
           onSelect={onDropdownSelect}
         >
-          <CustomerInfo />
+          <CustomerInfo
+            imgSrc={user.imgSrc}
+            email={user.email}
+            customerFullName={`${user.firstName} ${user.lastName}`}
+          />
         </Dropdown>
       </div>
     </div>

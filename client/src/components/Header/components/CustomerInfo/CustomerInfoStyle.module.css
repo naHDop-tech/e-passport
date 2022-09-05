@@ -4,7 +4,7 @@
   display: grid;
   grid-template-areas:
     'avatar full-name'
-    '.      email';
+    'avatar email';
 
   border-radius: 20px;
 

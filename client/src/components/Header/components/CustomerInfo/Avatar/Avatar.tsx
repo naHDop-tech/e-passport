@@ -23,7 +23,7 @@ interface IAvatarProps {
   size?: AvatarSizeType
 }
 
-function getAvatarSize(size: AvatarSizeType) {
+const getAvatarSize = (size: AvatarSizeType): string => {
   if (size === AvatarSizeType.Large) {
     return styles.Large
   }
@@ -31,7 +31,7 @@ function getAvatarSize(size: AvatarSizeType) {
     return styles.Medium
   }
 
-  return AvatarSizeType.Small
+  return styles.Small
 }
 
 export type AvatarProps = IAvatarProps & HtmlHTMLAttributes<HTMLDivElement>
@@ -41,7 +41,7 @@ export function Avatar(props: AvatarProps) {
 
   return (
     <div className={cn(styles.Box, getAvatarSize(size), className)} {...rest}>
-      <img src={imgSrc} />
+      <img className={styles.Box} alt='Customer image' src={imgSrc} />
     </div>
   )
 }
