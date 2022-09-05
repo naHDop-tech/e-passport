@@ -1,5 +1,7 @@
 .Box {
   border-radius: 100px;
+  align-self: center;
+  justify-self: center;
   /* border: 1px solid var(--color-blue); */
 }
 

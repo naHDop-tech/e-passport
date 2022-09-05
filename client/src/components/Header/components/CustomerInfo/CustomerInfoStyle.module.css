@@ -18,9 +18,21 @@
 }
 
 .EmailBox {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+
+  font-size: 12px;
+  align-self: start;
   grid-area: email;
 }
 
 .FullNameBox {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+
+  font-size: 18px;
+  align-self: end;
   grid-area: full-name;
 }
