@@ -1,9 +1,11 @@
 import { useReducer, ChangeEvent } from 'react'
 import { useMutation } from '@apollo/client';
 
-import { SignUpForm } from './SignUpForm'
-
 import { useSignUpValidation } from '@root/hooks/validation/userSignUpValidation'
+import { useToast } from '@hooks/useToast'
+import { ToastType } from '@components/Toast/Toast'
+
+import { SignUpForm } from './SignUpForm'
 import { SIGN_UP } from '@root/api/mutations/sign-up'
 import { signUpReducer } from './reducer/reducer'
 import { Actions, defaultState } from './reducer/state'
@@ -29,6 +31,7 @@ export function SignUpDLC(props: ISignUpProps) {
 
   const [signUpUser, { loading }] = useMutation(SIGN_UP)
   const signUpFormValidate = useSignUpValidation({ email, password, repeatedPassword })
+  const toast = useToast()
 
   const submitFormHandler = async () => {
     dispatchSignUpForm({ type: Actions.ResetErrors })
@@ -39,7 +42,8 @@ export function SignUpDLC(props: ISignUpProps) {
         await signUpUser({ variables: { createApplicantInput: { email, password } }})
 
         onSubmit()
-      } catch (err) {
+      } catch (err: any) {
+        toast.open({ content: err.message, type: ToastType.Error })
         console.error(err);
       }
 

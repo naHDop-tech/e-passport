@@ -2,6 +2,8 @@ import { useReducer, ChangeEvent } from 'react'
 import { useMutation } from '@apollo/client'
 
 import { useSignInValidation } from '@root/hooks/validation/useSignInValidation'
+import { useToast } from '@hooks/useToast'
+import { ToastType } from '@components/Toast/Toast'
 
 import { SignInForm } from './SignInForm'
 import { SIGN_IN } from '@root/api/mutations/sign-in'
@@ -19,6 +21,7 @@ export function SignInDLC(props: ISignInProps): JSX.Element {
     dispatchSignInForm,
   ] = useReducer(signInReducer, defaultState)
   const [signInUser, { loading }] = useMutation(SIGN_IN)
+  const toast = useToast()
 
   const signInFormValidate = useSignInValidation({ email, password })
 
@@ -32,7 +35,8 @@ export function SignInDLC(props: ISignInProps): JSX.Element {
 
         onSubmit(data.signIn.token)
         dispatchSignInForm({ type: Actions.ResetData })
-      } catch (err) {
+      } catch (err: any) {
+        toast.open({ content: err.message, type: ToastType.Error })
         console.error(err)
       }
     } else {
