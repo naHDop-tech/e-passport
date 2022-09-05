@@ -5,6 +5,11 @@
   padding: 8px 14px;
 
   border-radius: 10px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-betwen;
+  align-items: center;
 }
 
 .Success {
@@ -57,6 +62,11 @@
   left: 12px;
   transition: transform 0.6s ease-in;
   animation: toast-in-left 0.7s;
+}
+
+.Pointer {
+  cursor: pointer;
+  margin-left: 14px;
 }
 
 @keyframes toast-in-right {

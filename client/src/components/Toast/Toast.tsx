@@ -18,6 +18,8 @@ interface ToastStyles {
   BottomRight: string
   TopLeft: string
   BottomLeft: string
+
+  Pointer: string
 }
 
 export enum ToastType {
@@ -78,10 +80,8 @@ export function Toast(props: IToastProps) {
 
   return (
     <div className={cn(styles.Box, getColor(type), getPosition(position))}>
-      <div>
-        {content}
-        {/* <Button onClick={close} title="X" outline /> */}
-      </div>
+      <div>{content}</div>
+      <div className={styles.Pointer} onClick={close}>X</div>
     </div>
   )
 }
