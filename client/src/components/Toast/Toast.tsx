@@ -1,6 +1,5 @@
 import cn from 'classnames'
 
-// import { Button } from '@components/Button'
 import { useTimeout } from '@hooks/useTimeout'
 
 import s from './ToastStyle.module.css'
