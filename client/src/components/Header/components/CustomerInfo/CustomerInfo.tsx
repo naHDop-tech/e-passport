@@ -22,7 +22,7 @@ export function CustomerInfo(props: ICustomerInfoProps) {
 
   return (
     <div className={styles.Box}>
-      <Avatar className={styles.AvatarBox} imgSrc={imgSrc} />
+      <Avatar className={styles.AvatarBox} imgSrc={imgSrc} isSrcAllowed={!!imgSrc} />
       <div className={styles.FullNameBox}>{customerFullName}</div>
       <div className={styles.EmailBox}>{email}</div>
     </div>

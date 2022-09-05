@@ -18,3 +18,12 @@
   width: 256px;
   height: 256px;
 }
+
+.FakeAvatarBox {
+  font-size: 24px;
+  background-color: var(--color-purple);
+  color: var(--color-text-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
