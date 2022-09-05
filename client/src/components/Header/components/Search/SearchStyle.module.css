@@ -12,7 +12,7 @@
 
 .SearchElement {
   border: none;
-  background: var(--color-purple-light-rgba-alfa1);
+  background: transparent;
   width: 95%;
   color: var(--color-text);
 }
