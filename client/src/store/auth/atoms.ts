@@ -3,7 +3,7 @@ import { localStorageEffect } from '@store/effect'
 
 export const token = atom({
   key: 'token',
-  default: 'ksdhjf',
+  default: 'asd',
   effects: [
     localStorageEffect('token')
   ]

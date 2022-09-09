@@ -1,1 +1,1 @@
-export { GuardRouteDlc } from './GuardRouteDlc'
+export { GuardRoute } from './GuardRoute'

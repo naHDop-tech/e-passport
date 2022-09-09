@@ -1,27 +1,23 @@
-import { useUserInfo } from '@hooks/useUserInfo'
 import { Navigate, Route } from 'react-router-dom'
+import { PropsWithChildren } from 'react'
 
-import { IGuardRouteDlcProps } from './GuardRouteDlc'
+import { useUserInfo } from '@hooks/useUserInfo'
 
-enum UserAuthStatus {
-  Login,
-  Logout,
-  Unset,
+interface IGuardRouteProps {
+  authPath?: string
 }
 
-export function GuardRoute(props: IGuardRouteDlcProps) {
-  const { authPath, ...rest } = props
-  const authStatus = useUserAuthStatus()
+export function GuardRoute(props: PropsWithChildren<IGuardRouteProps>): JSX.Element {
+  const { authPath = '/sign-in', children } = props
+  const { isAuth } = useUserInfo()
 
-  if (authStatus === UserAuthStatus.Logout) {
+  if (!isAuth) {
     return <Navigate to={`${authPath}`} replace />
   }
 
-  return <Route {...rest} />
-}
-
-function useUserAuthStatus(): UserAuthStatus {
-  const { isAuth } = useUserInfo()
-
-  return isAuth ? UserAuthStatus.Login : UserAuthStatus.Logout
+  return (
+    <>
+      {children}
+    </>
+  )
 }
