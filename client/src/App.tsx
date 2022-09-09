@@ -1,8 +1,9 @@
-import { BrowserRouter as RouterProvider, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter as RouterProvider, Routes, Route } from 'react-router-dom'
 import './style.css'
 
 import { ToastProvider } from '@components/Toast/Provider'
 import { GuardRoute } from '@components/GuardRoute'
+import { DashboardRouter } from '@root/routes'
 import { NotFoundPage } from '@pages/NotFoundPage'
 import { SignInPage } from '@pages/SignInPage'
 import { SignUpPage } from '@pages/SignUpPage'
@@ -26,8 +27,7 @@ export function App(): JSX.Element {
             <Route path='/terms-of-conditions' element={<TermsOfConditions />} />
 
             {/* guard routes */}
-            <Route path='/dashboard/settings' element={<GuardRoute><p>settings</p></GuardRoute>} />
-            <Route path='/dashboard/passport' element={<GuardRoute><p>passport</p></GuardRoute>} />
+            <Route path='/dashboard/*' element={<DashboardRouter />} />
             <Route path='/logout' element={<GuardRoute><p>logout</p></GuardRoute>} />
 
             {/* not found route */}

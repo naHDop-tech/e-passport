@@ -5,8 +5,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
   entry: path.resolve(__dirname, 'src', 'index.tsx'),
   output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
+    // path: path.resolve(__dirname, 'build'),
+    // filename: 'bundle.js',
+    publicPath: 'http://localhost:3001/',
   },
   mode: 'development',
   devtool: 'inline-source-map',
