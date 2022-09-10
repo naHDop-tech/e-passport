@@ -12,6 +12,6 @@ export function useUserInfo(): IUseUserInfo {
 
   return {
     isAuth,
-    userEmail: email
+    userEmail: email || ''
   }
 }
