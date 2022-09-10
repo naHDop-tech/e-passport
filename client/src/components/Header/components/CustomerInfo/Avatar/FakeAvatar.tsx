@@ -17,7 +17,7 @@ export function FakeAvatar(props: IFakeAvatarProps) {
   const { user } = useRecoilValue(userSelector)
   const fN = user?.firstName?.[0] || 'U'
   const lN = user?.lastName?.[0] || 'U'
-  const initials = `${fN}${lN}`
+  const initials = fN+lN
 
   return (
     <div className={cn(styles.Box, getAvatarSize(size), styles.FakeAvatarBox)}>{initials}</div>

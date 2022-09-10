@@ -11,7 +11,6 @@ export function SignInPage() {
 
   const submitFormHandler = (token: string, userId: string) => {
     setToken(token)
-    // const info = parseToken(token)
     setUserInfo({
       id: userId
     })

@@ -32,8 +32,7 @@ export function SignInDLC(props: ISignInProps): JSX.Element {
     if (!validationResult.error) {
       try {
         const { data } = await signInUser({ variables: { signInInput: { email, password } }})
-        console.log('data', data);
-        
+
         onSubmit(data.signIn.token, data.signIn.userId)
         dispatchSignInForm({ type: Actions.ResetData })
       } catch (err: any) {
