@@ -4,6 +4,7 @@ import { JwtUserDto } from '~/jwt/dto/jwt-user.dto';
 import { UserService } from '~/user/user.service';
 import { ApplicantService } from '~/applicant/applicant.service';
 import { JwtService } from '~/jwt/jwt.service';
+import { CryptoService } from '~/utils/crypto.service';
 import { SignInInput, JwtToken } from '~/graphql.schema';
 
 @Injectable()
@@ -12,6 +13,7 @@ export class JwtAuthService {
     private readonly userService: UserService,
     private readonly applicantService: ApplicantService,
     private readonly jwtService: JwtService,
+    private readonly cryptoService: CryptoService,
   ) {}
 
   async signIn(payload: SignInInput): Promise<JwtToken> {
@@ -26,6 +28,16 @@ export class JwtAuthService {
       existsApplicant?.email !== payload.email
     ) {
       throw new NotFoundException('User don not exist');
+    }
+
+    const userPassword = applicant?.password || existsApplicant?.password;
+    const isPasswordCompared = await this.cryptoService.comparePasswords(
+      payload.password,
+      userPassword,
+    );
+
+    if (!isPasswordCompared) {
+      throw new NotFoundException('Bad password');
     }
 
     let tokenData: JwtUserDto;
