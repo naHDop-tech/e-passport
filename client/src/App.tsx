@@ -13,6 +13,9 @@ import { withLayout } from '@components/HOC/WithLayout'
 
 const MainLayoutWrapper = withLayout()
 
+console.log(process.env.JWT_SECRET_KEY);
+
+
 export function App(): JSX.Element {
   return (
     <RouterProvider>
