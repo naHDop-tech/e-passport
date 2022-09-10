@@ -36,6 +36,9 @@ export interface ICustomerHeaderProps {
 export function CustomerHeader(props: ICustomerHeaderProps) {
   const { isDropdownOpen, onDropdownClick, onDropdownSelect, user } = props
 
+  const fN = user?.firstName || 'Unset'
+  const lN = user?.lastName || 'User'
+
   return (
     <div className={styles.GridBox}>
       <div className={styles.SearchBox}>
@@ -55,7 +58,7 @@ export function CustomerHeader(props: ICustomerHeaderProps) {
           <CustomerInfo
             imgSrc={user.imgSrc}
             email={user.email}
-            customerFullName={`${user.firstName} ${user.lastName}`}
+            customerFullName={`${fN} ${lN}`}
           />
         </Dropdown>
       </div>

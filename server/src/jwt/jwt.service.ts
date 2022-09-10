@@ -4,6 +4,7 @@ import * as jwt from 'jsonwebtoken';
 
 import { PROVIDE_JWT_KEY } from '~/jwt/dto/jwt-user.dto';
 import { JwtUserDto } from '~/jwt/dto/jwt-user.dto';
+import { JwtToken } from '~/graphql.schema';
 
 @Injectable()
 export class JwtService {
@@ -12,7 +13,7 @@ export class JwtService {
     private readonly jwtSecret: string,
   ) {}
 
-  generateToken(user: JwtUserDto): string {
+  generateToken(user: JwtUserDto): JwtToken {
     if (!user) {
       throw new ConflictException('No user data');
     }
@@ -26,7 +27,7 @@ export class JwtService {
 
     const token = jwt.sign(data, this.jwtSecret, { expiresIn: '4d' }) as string;
 
-    return token;
+    return { token, userId: user.id };
   }
 
   validateToken(token: string): boolean {

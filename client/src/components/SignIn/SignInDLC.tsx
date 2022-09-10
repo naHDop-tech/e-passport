@@ -10,7 +10,7 @@ import { SIGN_IN } from '@root/api/mutations/sign-in'
 import { signInReducer } from './reducer/reducer'
 import { Actions, defaultState } from './reducer/state'
 export interface ISignInProps {
-  onSubmit: (token: string) => void
+  onSubmit: (token: string, userId: string) => void
 }
 
 export function SignInDLC(props: ISignInProps): JSX.Element {
@@ -32,8 +32,9 @@ export function SignInDLC(props: ISignInProps): JSX.Element {
     if (!validationResult.error) {
       try {
         const { data } = await signInUser({ variables: { signInInput: { email, password } }})
-
-        onSubmit(data.signIn.token)
+        console.log('data', data);
+        
+        onSubmit(data.signIn.token, data.signIn.userId)
         dispatchSignInForm({ type: Actions.ResetData })
       } catch (err: any) {
         toast.open({ content: err.message, type: ToastType.Error })
