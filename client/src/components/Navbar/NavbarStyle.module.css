@@ -29,6 +29,10 @@
   display: none;
 }
 
+.Margin24 {
+  margin: 0 24px;
+}
+
 @media (min-width: 700px) {
   .Box {
     grid-template-areas: 'navigation';
@@ -52,5 +56,6 @@
 
   .NavbarMenuHeader {
     display: block;
+    margin-bottom: 32px;
   }
 }
