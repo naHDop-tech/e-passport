@@ -54,7 +54,11 @@ export class JwtAuthService {
         isDraft: true,
       };
     }
+    const token = await this.jwtService.generateToken(tokenData);
 
-    return await this.jwtService.generateToken(tokenData);
+    return {
+      token,
+      userId: tokenData.id,
+    };
   }
 }

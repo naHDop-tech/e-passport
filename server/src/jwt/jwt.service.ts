@@ -13,7 +13,7 @@ export class JwtService {
     private readonly jwtSecret: string,
   ) {}
 
-  generateToken(user: JwtUserDto): JwtToken {
+  generateToken(user: JwtUserDto): string {
     if (!user) {
       throw new ConflictException('No user data');
     }
@@ -27,7 +27,7 @@ export class JwtService {
 
     const token = jwt.sign(data, this.jwtSecret, { expiresIn: '4d' }) as string;
 
-    return { token, userId: user.id };
+    return token;
   }
 
   validateToken(token: string): boolean {
