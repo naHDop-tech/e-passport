@@ -19,9 +19,9 @@ export class JwtService {
 
     const data = {
       dateTime: Date(),
-      userId: user.id,
-      applicantId: user.applicantId,
+      id: user.id,
       email: user.email,
+      idDraft: user.isDraft,
     };
 
     const token = jwt.sign(data, this.jwtSecret, { expiresIn: '4d' }) as string;

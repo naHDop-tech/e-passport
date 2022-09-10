@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
+import { JwtUserDto } from '~/jwt/dto/jwt-user.dto';
 import { UserService } from '~/user/user.service';
 import { ApplicantService } from '~/applicant/applicant.service';
 import { JwtService } from '~/jwt/jwt.service';
@@ -27,7 +28,7 @@ export class JwtAuthService {
       throw new NotFoundException('User don not exist');
     }
 
-    let tokenData;
+    let tokenData: JwtUserDto;
 
     if (applicant) {
       tokenData = {
