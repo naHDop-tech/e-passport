@@ -23,10 +23,9 @@ export class JwtAuthService {
       payload.email,
     );
 
-    if (
-      applicant?.email !== payload.email &&
-      existsApplicant?.email !== payload.email
-    ) {
+    const userEmail = applicant?.email || existsApplicant?.email;
+
+    if (userEmail !== payload.email) {
       throw new NotFoundException('User don not exist');
     }
 
