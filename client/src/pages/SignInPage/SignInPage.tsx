@@ -1,15 +1,18 @@
 import { useNavigate } from 'react-router-dom'
-import { useRecoilState } from 'recoil'
+import { useSetRecoilState } from 'recoil'
 
-import { token } from '@store/auth/atoms'
+import { token, userInfo, parseToken } from '@store/auth/atoms'
 import { SignInDLC } from '@root/components/SignIn/SignInDLC'
 
 export function SignInPage() {
   const navigateTo = useNavigate()
-  const [_, setToken] = useRecoilState(token)
+  const setToken = useSetRecoilState(token)
+  const setUserInfo = useSetRecoilState(userInfo)
 
   const submitFormHandler = (token: string) => {
     setToken(token)
+    const info = parseToken(token)
+    setUserInfo(info)
     navigateTo('/dashboard')
   }
 

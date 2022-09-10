@@ -34,7 +34,10 @@ export class JwtService {
       throw new ConflictException('Token not provided');
     }
 
-    const verified = jwt.verify(token, this.jwtSecret) as boolean;
+    const verified = jwt.verify(token, this.jwtSecret) as Record<
+      string,
+      string
+    >;
 
     if (verified) {
       return true;

@@ -1,7 +1,8 @@
 import { atom } from 'recoil'
 import { localStorageEffect } from '@store/effect'
+import * as jwt from 'jsonwebtoken';
 
-export const token = atom({
+export const token = atom<string>({
   key: 'token',
   default: 'asd',
   effects: [
@@ -9,9 +10,11 @@ export const token = atom({
   ]
 })
 
-export const userInfo = atom({
+export const userInfo = atom<Partial<IUser>>({
   key: 'userInfo',
   default: {
+    applicantId: '',
+    userId: '',
     email: 'grigory@maroo.us', // TODO: get true info
     firstName: 'Greg', // TODO: get true info
     lastName: 'Tarasoff', // TODO: get true info
@@ -22,9 +25,22 @@ export const userInfo = atom({
   ]
 })
 
+export const parseToken = (token: string): Partial<IUser> => {
+  const jwtSecret = process.env.JWT_SECRET_KEY as string
+  const verified = jwt.verify(token, jwtSecret) as Partial<IUser>;
+  
+  return {
+    userId: verified.userId,
+    applicantId: verified.applicantId,
+    email: verified.email,
+  }
+}
+
 export interface IUser {
   email: string
   firstName: string
   lastName: string
   imgSrc: string
+  userId?: string
+  applicantId?: string
 }
