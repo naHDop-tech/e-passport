@@ -37,7 +37,7 @@ export const navbarItems = atom({
 
 export const activeItemId = atom({
   key: 'navbarActiveItem',
-  default: 1,
+  default: 0,
   effects: [
     localStorageEffect('active_navbar_item')
   ]

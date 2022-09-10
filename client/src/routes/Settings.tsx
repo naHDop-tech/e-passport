@@ -12,6 +12,7 @@ export function SettingsRouter() {
       <Route path='/preferences' element={<GuardRoute><p>preferences</p></GuardRoute>} />
       <Route path='/notification' element={<GuardRoute><p>notification</p></GuardRoute>} />
       <Route path='/security' element={<GuardRoute><p>security</p></GuardRoute>} />
+      <Route path='/delete-account' element={<GuardRoute><p>Delete Account</p></GuardRoute>} />
 
       {/* not found route */}
       <Route path="/*" element={<NotFoundPage />} />
