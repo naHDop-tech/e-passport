@@ -27,7 +27,7 @@ export function useResolveContent(): IUserResolveContent {
   const onSelectItem = useActiveItem()
   const { items, itemId } = useRecoilValue(navbarItemsStateSelector)
 
-  const menuList = useMemo(() => {
+  const settingMenuList = useMemo(() => {
     return items.map((item) => {
       return (
         <MenuItem
@@ -52,7 +52,7 @@ export function useResolveContent(): IUserResolveContent {
         navigation: () => (
           <>
             <h1 className={styles.NavbarMenuHeader}>Settings</h1>
-            {menuList}
+            {settingMenuList}
           </>
         ),
         bottomAction: () => (
