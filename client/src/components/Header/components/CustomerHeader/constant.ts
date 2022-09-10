@@ -12,5 +12,9 @@ export const USER_MENU: GenericDropdownItemProps[] = [
   {
     title: 'Logout',
     routePath: 'logout',
+  },
+  {
+    title: 'Delete account',
+    routePath: 'dashboard/settings/delete-account',
   }
 ]

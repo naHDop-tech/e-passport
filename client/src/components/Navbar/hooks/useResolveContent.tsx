@@ -30,16 +30,14 @@ export function useResolveContent(): IUserResolveContent {
   const settingMenuList = useMemo(() => {
     return items.map((item) => {
       return (
-        <>
+        <div key={item.id} className={commonStyle.Margin24}>
           <MenuItem
-            key={item.id}
             onClick={() => onSelectItem(item)}
             isActive={item.id === itemId}
           >
             {item.title}
           </MenuItem>
-          <div className={commonStyle.Margin24} />
-        </>
+        </div>
       )
     })
   }, [itemId])
@@ -53,13 +51,13 @@ export function useResolveContent(): IUserResolveContent {
           </div>
         ),
         navigation: () => (
-          <div className={styles.Margin24}>
+          <>
             <h1 className={styles.NavbarMenuHeader}>Settings</h1>
             {settingMenuList}
-          </div>
+          </>
         ),
         bottomAction: () => (
-          <div className={styles.Margin24}>
+          <div style={{ margin: '0 24px'}}>
             <MenuItem
               key={deleteAccountItem.id}
               onClick={() => onSelectItem(deleteAccountItem)}
