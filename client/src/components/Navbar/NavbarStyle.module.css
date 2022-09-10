@@ -30,7 +30,10 @@
 
   .Header {
     height: 100px;
-    display: block;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
 
   .Navigation {

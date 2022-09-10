@@ -1,5 +1,3 @@
-import { Item } from '@store/header/types'
-
 import s from './NavbarStyle.module.css'
 const styles = s as unknown as INavbarStyle
 
@@ -11,22 +9,23 @@ interface INavbarStyle {
 }
 
 export interface INavbarProps {
-  onNavigate: (item: any) => void
+  header: () => JSX.Element
+  navigation: () => JSX.Element
+  bottomAction: () => JSX.Element
 }
 
 export function Navbar(props: INavbarProps) {
+  const { header: Header, navigation: Navigate, bottomAction: BottomAction } = props
   return (
     <div className={styles.Box}>
       <div className={styles.Header}>
-        <p>HH</p>
+        <Header />
       </div>
       <div className={styles.Navigation}>
-        <p className='foo'>Link1</p>
-        <p>Link2</p>
-        <p>Link3</p>
+        <Navigate />
       </div>
       <div className={styles.BottomAction}>
-        <p>Action</p>
+        <BottomAction />
       </div>
     </div>
   )
