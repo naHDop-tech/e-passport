@@ -5,8 +5,13 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { MenuItem } from '@components/Header/components/MenuItem'
 import { Logo } from '@components/Logo'
 import { navbarItemsStateSelector } from '@store/navbar/selector'
+import { deleteAccountItem } from '@store/navbar/atoms'
 import { useActiveItem } from './useActiveItem'
 
+import cs from '@components/CommonStyle.module.css'
+import { ICommonStyle } from '@components/common-style-types'
+
+const commonStyle = cs as ICommonStyle
 
 import styles from '../NavbarStyle.module.css'
 
@@ -40,7 +45,7 @@ export function useResolveContent(): IUserResolveContent {
     if (pathname.includes('/dashboard/settings')) {
       return {
         header: () => (
-          <div style={{ cursor: 'pointer' }} onClick={() => navigateTo('/dashboard')}>
+          <div className={commonStyle.CursorPointer} onClick={() => navigateTo('/dashboard')}>
             {'< Back'}
           </div>
         ),
@@ -51,9 +56,13 @@ export function useResolveContent(): IUserResolveContent {
           </>
         ),
         bottomAction: () => (
-          <>
-            <p>Delete account</p>
-          </>
+          <MenuItem
+            key={deleteAccountItem.id}
+            onClick={() => onSelectItem(deleteAccountItem)}
+            isActive={deleteAccountItem.id === itemId}
+          >
+            {deleteAccountItem.title}
+          </MenuItem>
         )
       }
     }

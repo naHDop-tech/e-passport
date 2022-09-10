@@ -1,6 +1,12 @@
 import { atom } from 'recoil'
 import { localStorageEffect } from '@store/effect'
 
+export const deleteAccountItem = {
+  id: 5,
+  title: 'Delete Account',
+  url: '/dashboard/settings/delete-account'
+}
+
 export const ITEMS = Object.freeze([
   {
     id: 1,

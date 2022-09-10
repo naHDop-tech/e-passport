@@ -7,4 +7,5 @@ export interface ICommonStyle {
   FlexBetween: string
   TextWhiteGrey: string
   TextPrimary: string
+  CursorPointer: string
 }

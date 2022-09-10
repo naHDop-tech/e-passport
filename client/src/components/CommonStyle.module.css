@@ -31,3 +31,7 @@
 .TextPrimary {
   color: var(--color-purple);
 }
+
+.CursorPointer {
+  cursor: pointer;
+}
