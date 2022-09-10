@@ -1,5 +1,6 @@
 .Box {
   display: grid;
+  grid-template-rows: 100px 70vh auto;
   grid-template-areas:
     'header'
     'navigation'
@@ -13,6 +14,7 @@
 
 .Navigation {
   grid-aria: navigation;
+
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -29,7 +31,6 @@
   }
 
   .Header {
-    height: 100px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -38,6 +39,7 @@
 
   .Navigation {
     flex-direction: column;
+    justify-content: start;
   }
 
   .BottomAction {
