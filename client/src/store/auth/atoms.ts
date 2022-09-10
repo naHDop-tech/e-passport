@@ -1,21 +1,22 @@
 import { atom } from 'recoil'
 import { localStorageEffect } from '@store/effect'
 
-export const token = atom({
+export const token = atom<string>({
   key: 'token',
-  default: 'asd',
+  default: '',
   effects: [
     localStorageEffect('token')
   ]
 })
 
-export const userInfo = atom({
+export const userInfo = atom<Partial<IUser>>({
   key: 'userInfo',
   default: {
-    email: 'grigory@maroo.us', // TODO: get true info
-    firstName: 'Greg', // TODO: get true info
-    lastName: 'Tarasoff', // TODO: get true info
-    imgSrc: 'https://www.w3schools.com/howto/img_avatar.png', // TODO: get true info
+    id: '',
+    email: '',
+    firstName: '',
+    lastName: '',
+    imgSrc: '', // https://www.w3schools.com/howto/img_avatar.png
   },
   effects: [
     localStorageEffect('user')
@@ -23,6 +24,7 @@ export const userInfo = atom({
 })
 
 export interface IUser {
+  id: string
   email: string
   firstName: string
   lastName: string

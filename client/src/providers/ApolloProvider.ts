@@ -22,6 +22,7 @@ const typeDefs = gql`
 
   extend type JwtToken {
     token: String!
+    userId: String!
   }
 
   extend type SignInInput {

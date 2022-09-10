@@ -213,6 +213,7 @@ export class Fingerprint {
 
 export class JwtToken {
     token: string;
+    userId: string;
 }
 
 export class Passport {

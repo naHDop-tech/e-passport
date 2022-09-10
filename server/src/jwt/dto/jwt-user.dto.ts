@@ -1,4 +1,10 @@
-import { IsUUID, IsNotEmpty, IsEmail } from 'class-validator';
+import {
+  IsUUID,
+  IsNotEmpty,
+  IsEmail,
+  IsOptional,
+  IsBoolean,
+} from 'class-validator';
 
 export const PROVIDE_JWT_KEY = 'JWT_SECRET';
 
@@ -7,11 +13,10 @@ export class JwtUserDto {
   @IsEmail()
   email: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsUUID()
   id?: string;
 
-  @IsNotEmpty()
-  @IsUUID()
-  applicantId?: string;
+  @IsBoolean()
+  isDraft: boolean;
 }

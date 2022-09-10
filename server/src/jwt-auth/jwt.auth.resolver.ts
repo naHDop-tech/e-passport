@@ -10,7 +10,7 @@ export class JwtAuthResolver {
 
   @Mutation('signIn')
   async signIn(@Args('signInInput') payload: JwtUserDto): Promise<JwtToken> {
-    const token = await this.jwtAuthService.signIn(payload);
-    return token;
+    const result = await this.jwtAuthService.signIn(payload);
+    return result;
   }
 }

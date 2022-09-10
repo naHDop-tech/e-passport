@@ -4,6 +4,7 @@ import * as jwt from 'jsonwebtoken';
 
 import { PROVIDE_JWT_KEY } from '~/jwt/dto/jwt-user.dto';
 import { JwtUserDto } from '~/jwt/dto/jwt-user.dto';
+import { JwtToken } from '~/graphql.schema';
 
 @Injectable()
 export class JwtService {
@@ -19,9 +20,9 @@ export class JwtService {
 
     const data = {
       dateTime: Date(),
-      userId: user.id,
-      applicantId: user.applicantId,
+      id: user.id,
       email: user.email,
+      idDraft: user.isDraft,
     };
 
     const token = jwt.sign(data, this.jwtSecret, { expiresIn: '4d' }) as string;
@@ -34,7 +35,10 @@ export class JwtService {
       throw new ConflictException('Token not provided');
     }
 
-    const verified = jwt.verify(token, this.jwtSecret) as boolean;
+    const verified = jwt.verify(token, this.jwtSecret) as Record<
+      string,
+      string
+    >;
 
     if (verified) {
       return true;

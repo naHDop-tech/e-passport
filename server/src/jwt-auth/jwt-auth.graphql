@@ -1,5 +1,6 @@
 type JwtToken {
   token: String!
+  userId: String!
 }
 
 input SignInInput {
