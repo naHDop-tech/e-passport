@@ -4,13 +4,20 @@ import s from './NotFoundPageStyle.module.css'
 const styles = s as unknown as INotFoundPageStyle
 
 interface INotFoundPageStyle {
-  FlexBox: string
+  TextBox: string
+  ImgBox: string
 }
 
 export function NotFoundPage() {
   return (
-    <div className={styles.FlexBox}>
-      <img src={NotFoundImage} />
+    <div>
+      <div className={styles.TextBox}>
+        <h1>Page not found</h1>
+        <p>Guess you try to visit not found page</p>
+      </div>
+      <div className={styles.ImgBox}>
+        <img src={NotFoundImage} />
+      </div>
     </div>
   )
 }
