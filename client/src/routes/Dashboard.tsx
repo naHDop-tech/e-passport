@@ -7,6 +7,7 @@ export function DashboardRouter() {
   return (
     <Routes>
       {/* guard routes */}
+      <Route path='/' element={<GuardRoute><p>dashboard</p></GuardRoute>} />
       <Route path='/settings' element={<GuardRoute><p>settings</p></GuardRoute>} />
       <Route path='/passport' element={<GuardRoute><p>passport</p></GuardRoute>} />
 
