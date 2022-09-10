@@ -13,8 +13,7 @@ export const token = atom<string>({
 export const userInfo = atom<Partial<IUser>>({
   key: 'userInfo',
   default: {
-    applicantId: '',
-    userId: '',
+    id: '',
     email: 'grigory@maroo.us', // TODO: get true info
     firstName: 'Greg', // TODO: get true info
     lastName: 'Tarasoff', // TODO: get true info
@@ -30,17 +29,15 @@ export const parseToken = (token: string): Partial<IUser> => {
   const verified = jwt.verify(token, jwtSecret) as Partial<IUser>;
   
   return {
-    userId: verified.userId,
-    applicantId: verified.applicantId,
+    id: verified.id,
     email: verified.email,
   }
 }
 
 export interface IUser {
+  id: string
   email: string
   firstName: string
   lastName: string
   imgSrc: string
-  userId?: string
-  applicantId?: string
 }
