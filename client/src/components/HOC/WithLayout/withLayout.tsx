@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
 import { useLocation } from 'react-router-dom'
 
-import { MainLayoutGrid } from '@components/layouts/MainLayout/MainLayoutGrid'
+import { MainLayout } from '@components/layouts/MainLayout'
 import { BaseHeader } from '@components/Header'
 import { CustomerHeaderDLC } from '@components/Header'
 import { useUserInfo } from '@hooks/useUserInfo'
@@ -49,7 +49,7 @@ export function withLayout() {
     )
   
     return (
-      <MainLayoutGrid
+      <MainLayout
         ad={ad}
         footer={footer}
         navbar={navbar}
@@ -61,7 +61,7 @@ export function withLayout() {
         <div style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
           <ThemeToggle />
         </div>
-      </MainLayoutGrid>
+      </MainLayout>
     )
   }
 }
