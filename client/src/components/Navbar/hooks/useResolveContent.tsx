@@ -1,12 +1,14 @@
 import { useRecoilValue } from 'recoil'
 import { useMemo } from 'react'
-
 import { useLocation, useNavigate } from 'react-router-dom'
+
 import { MenuItem } from '@components/Header/components/MenuItem'
+import { Logo } from '@components/Logo'
 import { navbarItemsStateSelector } from '@store/navbar/selector'
 import { useActiveItem } from './useActiveItem'
 
-import { Logo } from '@components/Logo'
+
+import styles from '../NavbarStyle.module.css'
 
 export interface IUserResolveContent {
   header: () => JSX.Element
@@ -44,7 +46,7 @@ export function useResolveContent(): IUserResolveContent {
         ),
         navigation: () => (
           <>
-            <h1>Settings</h1>
+            <h1 className={styles.NavbarMenuHeader}>Settings</h1>
             {menuList}
           </>
         ),

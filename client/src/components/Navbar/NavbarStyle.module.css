@@ -25,6 +25,10 @@
   grid-aria: bottom-action;
 }
 
+.NavbarMenuHeader {
+  display: none;
+}
+
 @media (min-width: 700px) {
   .Box {
     grid-template-areas: 'navigation';
@@ -43,6 +47,10 @@
   }
 
   .BottomAction {
+    display: block;
+  }
+
+  .NavbarMenuHeader {
     display: block;
   }
 }
