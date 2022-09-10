@@ -126,4 +126,13 @@ input:focus {
   --color-accent: var(--color-primary-dark);
   --color-background: var(--color-primary-black-accent);
   --color-form-background: var(--color-primary-dark);
+
+  --mobile-breakpoint-xs: 500px;
+  --mobile-breakpoint-s: 630px;
+
+  --tablet-breakpoint-s: 700px;
+  --tablet-breakpoint-m: 900px;
+
+  --desktop-breakpoint-s: 1100px;
+  --desktop-breakpoint-m: 1280px;
 }

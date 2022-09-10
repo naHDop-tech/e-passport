@@ -1,0 +1,1 @@
+export { NavbarDlc } from './NavbarDlc'

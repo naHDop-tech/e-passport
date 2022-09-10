@@ -1,0 +1,43 @@
+.Box {
+  display: grid;
+  grid-template-areas:
+    'header'
+    'navigation'
+    'bottom-action';
+}
+
+.Header {
+  display: none;
+  grid-aria: header;
+}
+
+.Navigation {
+  grid-aria: navigation;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.BottomAction {
+  display: none;
+  grid-aria: bottom-action;
+}
+
+@media (min-width: 700px) {
+  .Box {
+    grid-template-areas: 'navigation';
+  }
+
+  .Header {
+    height: 100px;
+    display: block;
+  }
+
+  .Navigation {
+    flex-direction: column;
+  }
+
+  .BottomAction {
+    display: block;
+  }
+}
