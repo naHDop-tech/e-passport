@@ -27,7 +27,7 @@ function Component(props: GenericDropdownItemProps) {
 }
 
 export interface ICustomerHeaderProps {
-  user: IUser
+  user: Partial<IUser>
   isDropdownOpen: boolean,
   onDropdownClick: () => void
   onDropdownSelect: (data: GenericDropdownItemProps) => void
@@ -56,8 +56,8 @@ export function CustomerHeader(props: ICustomerHeaderProps) {
           onSelect={onDropdownSelect}
         >
           <CustomerInfo
-            imgSrc={user.imgSrc}
-            email={user.email}
+            imgSrc={user.imgSrc || ''}
+            email={user.email || ''}
             customerFullName={`${fN} ${lN}`}
           />
         </Dropdown>

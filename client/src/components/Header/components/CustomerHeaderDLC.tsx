@@ -5,13 +5,23 @@ import { useRecoilValue } from 'recoil'
 import { userSelector } from '@store/auth/selector'
 import { GenericDropdownItemProps } from '@components/Dropdown/types'
 import { CustomerHeader } from '@components/Header/components/CustomerHeader/CustomerHeader'
+import { useActiveNavbarItem } from '@components/Navbar/hooks/useActiveItem'
 
 export function CustomerHeaderDLC() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const navigateTo = useNavigate()
+  const onSelectItem = useActiveNavbarItem()
   const { user } = useRecoilValue(userSelector)
 
   const onDropdownItemClickHandler = (data: GenericDropdownItemProps) => {
+    // TODO: workaround
+    if (data.routePath === 'dashboard/settings/delete-account') {
+      onSelectItem({
+        id: 5,
+        title: data.title,
+        url: data.routePath
+      })
+    }
     navigateTo(data.routePath)
   }
 

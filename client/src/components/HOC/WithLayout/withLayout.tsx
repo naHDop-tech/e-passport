@@ -8,6 +8,7 @@ import { useUserInfo } from '@hooks/useUserInfo'
 import { withTheme } from '@components/HOC/WithTheme'
 import { ThemeToggle as TT } from '@components/ThemeToggle'
 import { Footer } from '@components/Footer'
+import { NavbarDlc } from '@components/Navbar'
 
 import { useActiveItem } from '@hooks/useActiveItem'
 
@@ -30,13 +31,7 @@ export function withLayout() {
   
     const header = () => !isAuth ? <BaseHeader /> : <CustomerHeaderDLC />
   
-    const navbar = () => (
-      <ul>
-        <li><a href="">Nav 1</a></li>
-        <li><a href="">Nav 2</a></li>
-        <li><a href="">Nav 3</a></li>
-      </ul>
-    )
+    const navbar = () => <NavbarDlc />
   
     const footer = () => <Footer onNavigate={setActiveItem} />
   

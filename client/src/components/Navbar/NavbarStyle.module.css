@@ -1,0 +1,58 @@
+.Box {
+  display: grid;
+  grid-template-rows: 100px 70vh auto;
+  grid-template-areas:
+    'header'
+    'navigation'
+    'bottom-action';
+}
+
+.Header {
+  display: none;
+  grid-aria: header;
+}
+
+.Navigation {
+  grid-aria: navigation;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  margin: 0 24px;
+}
+
+.BottomAction {
+  display: none;
+  grid-aria: bottom-action;
+}
+
+.NavbarMenuHeader {
+  display: none;
+}
+
+@media (min-width: 700px) {
+  .Box {
+    grid-template-areas: 'navigation';
+  }
+
+  .Header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .Navigation {
+    flex-direction: column;
+    justify-content: start;
+  }
+
+  .BottomAction {
+    display: block;
+  }
+
+  .NavbarMenuHeader {
+    display: block;
+  }
+}
