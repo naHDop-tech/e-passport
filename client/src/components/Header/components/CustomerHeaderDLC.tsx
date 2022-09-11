@@ -16,11 +16,11 @@ export function CustomerHeaderDLC() {
 
   const onDropdownItemClickHandler = (data: GenericDropdownItemProps) => {
     // TODO: workaround
-    if (data.routePath === 'dashboard/settings/delete-account') {
+    if (data.url === 'dashboard/settings/delete-account') {
       onSelectItem(DeleteItem)
     }
 
-    navigateTo(data.routePath)
+    navigateTo(data.url)
   }
 
   return (

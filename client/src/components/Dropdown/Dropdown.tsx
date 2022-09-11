@@ -49,9 +49,9 @@ export function Dropdown(props: PropsWithChildren<DropdownProps>) {
         {content.map((item) => {
           return (
             <Component
-              key={item.title}
+              key={`${item.title}_${item.url}`}
               title={item.title}
-              routePath={item.routePath}
+              url={item.url}
               onClick={() => onSelect(item)}
             />
           )

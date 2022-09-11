@@ -3,22 +3,22 @@ import { GenericDropdownItemProps } from '@components/Dropdown/types'
 export const USER_MENU: GenericDropdownItemProps[] = [
   {
     title: 'Dashboard',
-    routePath: 'dashboard',
+    url: 'dashboard',
   },
   {
     title: 'Settings',
-    routePath: 'dashboard/settings',
+    url: 'dashboard/settings',
   },
   {
     title: 'My passport',
-    routePath: 'dashboard/passport',
+    url: 'dashboard/passport',
   },
   {
     title: 'Logout',
-    routePath: 'logout',
+    url: 'logout',
   },
   {
     title: 'Delete account',
-    routePath: 'dashboard/settings/delete-account',
+    url: 'dashboard/settings/delete-account',
   }
 ]

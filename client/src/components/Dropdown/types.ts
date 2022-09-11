@@ -1,10 +1,11 @@
 import { HTMLAttributes, SVGAttributes, FC } from 'react'
+import { IItem } from '@store/menu-items/constants'
 
 export type SvgComponent = FC<SVGAttributes<SVGElement>>
 
 export interface IGenericDropdownItemProps {
   title: string
-  routePath: string
+  url: string
   icon?: SvgComponent
 }
 
