@@ -5,12 +5,12 @@ import { useRecoilValue } from 'recoil'
 import { userSelector } from '@store/auth/selector'
 import { GenericDropdownItemProps } from '@components/Dropdown/types'
 import { CustomerHeader } from '@components/Header/components/CustomerHeader/CustomerHeader'
-import { useActiveItem } from '@components/Navbar/hooks/useActiveItem'
+import { useActiveNavbarItem } from '@components/Navbar/hooks/useActiveItem'
 
 export function CustomerHeaderDLC() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const navigateTo = useNavigate()
-  const onSelectItem = useActiveItem()
+  const onSelectItem = useActiveNavbarItem()
   const { user } = useRecoilValue(userSelector)
 
   const onDropdownItemClickHandler = (data: GenericDropdownItemProps) => {

@@ -2,6 +2,10 @@ import { GenericDropdownItemProps } from '@components/Dropdown/types'
 
 export const USER_MENU: GenericDropdownItemProps[] = [
   {
+    title: 'Dashboard',
+    routePath: 'dashboard',
+  },
+  {
     title: 'Settings',
     routePath: 'dashboard/settings',
   },
