@@ -105,7 +105,6 @@ export function useResolveContent(): IUserResolveContent {
       ),
       navigation: () => (
         <>
-          <h1 className={nstyles.NavbarMenuHeader}>Dashboard</h1>
           {dashboardMenuList}
         </>
       ),

@@ -12,6 +12,7 @@ export function DashboardRouter() {
       <Route path='/' element={<GuardRoute><Dashboard /></GuardRoute>} />
       <Route path='/settings/*' element={<SettingsRouter />} />
       <Route path='/passport' element={<GuardRoute><p>passport</p></GuardRoute>} />
+      <Route path='/fingerprint' element={<GuardRoute><p>fingerprint</p></GuardRoute>} />
 
       {/* not found route */}
       <Route path="/*" element={<NotFoundPage />} />
