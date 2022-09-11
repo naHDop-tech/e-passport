@@ -13,6 +13,7 @@ import { SignUpPage } from '@pages/SignUpPage'
 import { ResetPasswordPage } from '@pages/ResetPasswordPage'
 import { TermsOfConditions } from '@pages/TermsOfConditions'
 import { LogoutPage } from '@pages/LogoutPage'
+import { useWeb3 } from '@hooks/useWeb3'
 
 const MainLayoutWrapper = withLayout()
 
