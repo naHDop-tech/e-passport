@@ -1,18 +1,19 @@
 import { useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom'
 
-import { activeItemId, menuOpenStatus } from '@store/header/atoms'
-import { Item } from '@store/header/types'
+import { activeItemId } from '@store/menu-items/atoms'
+import { menuOpenStatus } from '@store/header/atoms'
+import { IItem } from '@store/menu-items/constants'
 
 export function useActiveItem() {
   const setActiveItem = useSetRecoilState(activeItemId)
-  const setIsCheckboxActive = useSetRecoilState(menuOpenStatus)
+  const setMenuOpenSTatus = useSetRecoilState(menuOpenStatus)
 
   const navigateTo = useNavigate()
 
-  return (item: Item) => {
-    setIsCheckboxActive(false)
-    setActiveItem(item.id)
-    navigateTo(item.url)
+  return (item: IItem) => {
+    setMenuOpenSTatus(false)
+    setActiveItem(item.Id)
+    navigateTo(item.Url)
   }
 }

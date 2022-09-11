@@ -6,7 +6,7 @@ import { Button } from '@components/Button'
 import { MenuItem } from '@components/Header/components/MenuItem'
 import { useActiveItem } from '@hooks/useActiveItem'
 import { menuOpenStatus } from '@store/header/atoms'
-import { headerItemsStateSelector } from '@store/header/selector'
+import { itemsStateSelector } from '@store/menu-items/selector'
 
 import s from './BaseHeaderStyle.module.css'
 const styles = s as unknown as IEIconStyle
@@ -24,23 +24,23 @@ interface IEIconStyle {
 
 export function BaseHeader() {
   const [isCheckboxActive, setIsCheckboxActive] = useRecoilState(menuOpenStatus)
-  const { items, itemId } = useRecoilValue(headerItemsStateSelector)
+  const { items, itemId } = useRecoilValue(itemsStateSelector)
 
   const onSelectItem = useActiveItem()
 
   const menuList = useMemo(() => {
-    return items.map((item) => {
-      if (item.id === 4) {
-        return <Button key={item.id} onClick={() => onSelectItem(item)} title={item.title} />
+    return items.header.map((item) => {
+      if (item.Id === 4) {
+        return <Button key={item.Id} onClick={() => onSelectItem(item)} title={item.Title as string} />
       }
 
       return (
         <MenuItem
-          key={item.id}
+          key={item.Id}
           onClick={() => onSelectItem(item)}
-          isActive={item.id === itemId}
+          isActive={item.Id === itemId}
         >
-          {item.title}
+          {item.Title}
         </MenuItem>
       )
     })
@@ -62,7 +62,7 @@ export function BaseHeader() {
 
   return (
     <div className={styles.FlexBox}>
-      <div className={styles.LeftContent} onClick={() => onSelectItem(items[0])}>
+      <div className={styles.LeftContent} onClick={() => onSelectItem(items.header[0])}>
         <Logo />
         <div className={styles.LeftText}>Passport</div>
       </div>
@@ -76,13 +76,13 @@ export function BaseHeader() {
         {isCheckboxActive && (
           <div className={styles.CollapsedContentBox}>
             {
-              items.map((item) => (
+              items.header.map((item) => (
                 <MenuItem
-                  key={item.id}
+                  key={item.Id}
                   onClick={() => onSelectItem(item)}
-                  isActive={item.id === itemId}
+                  isActive={item.Id === itemId}
                 >
-                  {item.title}
+                  {item.Title}
                 </MenuItem>
               ))
             }

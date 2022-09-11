@@ -1,14 +1,12 @@
-import { useRecoilValue, useResetRecoilState } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { useMemo } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { MenuItem } from '@components/Header/components/MenuItem'
 import { DItem } from '../components/DItem'
 import { Logo } from '@components/Logo'
-import { navbarItemsStateSelector } from '@store/navbar/selector'
-import { dashboardItemsStateSelector } from '@store/navbar/dashboard/selector'
-import { deleteAccountItem } from '@store/navbar/atoms'
-import { useActiveNavbarItem, useActiveDashboardItem } from './useActiveItem'
+import { itemsStateSelector } from '@store/menu-items/selector'
+import { useActiveItem } from '@hooks/useActiveItem'
 
 import cs from '@components/CommonStyle.module.css'
 import { ICommonStyle } from '@components/common-style-types'
@@ -18,8 +16,28 @@ const commonStyle = cs as ICommonStyle
 import nstyles from '../NavbarStyle.module.css'
 import dstyles from '../components/DItem/DItemStyle.module.css'
 
-import LogoutIcon from '@static/icons/logout-icon.svg'
+import {
+  LogoutItemItem,
+  SettingsItem,
+  DashboardItem,
+  FingerprintItem,
+  PassportItem,
+  DeleteItem,
+} from '@store/menu-items/constants'
 
+import LogoutIcon from '@static/icons/logout-icon.svg'
+import SettingsIcon from '@static/icons/settings-icon.svg'
+import DashboardIcon from '@static/icons/dashboard-icon.svg'
+import FingerPrintIcon from '@static/icons/fingerprint-icon.svg'
+import PassportIcon from '@static/icons/passport-icon.svg'
+
+const IconMap = {
+  [LogoutItemItem.Id]: LogoutIcon,
+  [SettingsItem.Id]: SettingsIcon,
+  [DashboardItem.Id]: DashboardIcon,
+  [FingerprintItem.Id]: FingerPrintIcon,
+  [PassportItem.Id]: PassportIcon,
+}
 export interface IUserResolveContent {
   header: () => JSX.Element
   navigation: () => JSX.Element
@@ -29,44 +47,42 @@ export interface IUserResolveContent {
 export function useResolveContent(): IUserResolveContent {
   const { pathname } = useLocation()
   const navigateTo = useNavigate()
-  const onSelectNavbarItem = useActiveNavbarItem()
-  const onSelectDashboardItem = useActiveDashboardItem()
-  const { items: nItems, itemId: nItemId } = useRecoilValue(navbarItemsStateSelector)
-  const { items: dItems, itemId: dItemId } = useRecoilValue(dashboardItemsStateSelector)
+  const { items, itemId } = useRecoilValue(itemsStateSelector)
+  const onSelectItem = useActiveItem()
 
   const settingMenuList = useMemo(() => {
-    return nItems.map((item) => {
+    return items.settings.map((item) => {
       return (
-        <div key={item.id} className={commonStyle.Margin24}>
+        <div key={item.Id} className={commonStyle.Margin24}>
           <MenuItem
-            onClick={() => onSelectNavbarItem(item)}
-            isActive={item.id === nItemId}
+            onClick={() => onSelectItem(item)}
+            isActive={item.Id === itemId}
           >
-            {item.title}
+            {item.Title}
           </MenuItem>
         </div>
       )
     })
-  }, [nItemId])
+  }, [itemId])
 
   const dashboardMenuList = useMemo(() => {
-    return dItems.map((dItem) => {
-      const Icon = dItem.icon
+    return items.dashboard.map((item) => {
+      const Icon = IconMap[item.Id]
       return (
-        <div key={dItem.id} className={commonStyle.Margin24}>
+        <div key={item.Id} className={commonStyle.Margin24}>
           <DItem
-            onClick={() => onSelectDashboardItem(dItem)}
-            isActive={dItem.id === dItemId}
+            onClick={() => onSelectItem(item)}
+            isActive={item.Id === itemId}
           >
             <div className={dstyles.ItemBox}>
                 <Icon color='rgba(29, 146, 241, 1)' />
-                {dItem.title}
+                {item.Title}
             </div>
           </DItem>
         </div>
       )
     })
-  }, [dItemId])
+  }, [itemId])
 
   const content = useMemo<IUserResolveContent>(() => {
     if (pathname.includes('/dashboard/settings')) {
@@ -85,11 +101,11 @@ export function useResolveContent(): IUserResolveContent {
         bottomAction: () => (
           <div style={{ margin: '0 24px'}}>
             <MenuItem
-              key={deleteAccountItem.id}
-              onClick={() => onSelectNavbarItem(deleteAccountItem)}
-              isActive={deleteAccountItem.id === nItemId}
+              key={DeleteItem.Id}
+              onClick={() => onSelectItem(DeleteItem)}
+              isActive={DeleteItem.Id === itemId}
             >
-              {deleteAccountItem.title}
+              {DeleteItem.Title}
             </MenuItem>
           </div>
         )

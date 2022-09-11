@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
 import { useRecoilValue } from 'recoil';
 
-import { Item } from '@store/header/types'
+import { IItem } from '@store/menu-items/constants'
 import { MenuItem } from '@components/Header/components/MenuItem'
-import { headerItemsStateSelector } from '@store/header/selector'
+import { itemsStateSelector } from '@store/menu-items/selector'
 
 import cs from '@components/CommonStyle.module.css'
 import { ICommonStyle } from '@components/common-style-types'
@@ -25,22 +25,22 @@ interface IFooterStyle {
 }
 
 export interface IFooterProps {
-  onNavigate: (data: Item) => void
+  onNavigate: (data: IItem) => void
 }
 
 export function Footer(props: IFooterProps) {
   const { onNavigate } = props
-  const { items, itemId } = useRecoilValue(headerItemsStateSelector)
+  const { items, itemId } = useRecoilValue(itemsStateSelector)
 
   const menuList = useMemo(() => {
-    return items.map((item) => {
+    return items.header.map((item) => {
       return (
         <MenuItem
-          key={item.id}
+          key={item.Id}
           onClick={() => onNavigate(item)}
-          isActive={item.id === itemId}
+          isActive={item.Id === itemId}
         >
-          {item.title}
+          {item.Title}
         </MenuItem>
       )
     })
