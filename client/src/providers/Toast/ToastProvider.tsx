@@ -2,8 +2,8 @@ import { useState, useMemo, PropsWithChildren } from 'react';
 import { createPortal } from 'react-dom';
 
 import { ToastContext } from './Context';
-import { Toast, IToastProps } from './Toast';
-import { generateUEID } from './utils'
+import { Toast, IToastProps } from '../../components/Toast/Toast';
+import { generateUEID } from '../../components/Toast/utils'
 
 interface IToast extends IToastProps {
   id: string

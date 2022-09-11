@@ -3,7 +3,7 @@ import './style.css'
 
 import { DashboardRouter } from '@root/routes'
 
-import { ToastProvider } from '@components/Toast/Provider'
+import { ToastProvider } from '@root/providers'
 import { GuardRoute } from '@components/GuardRoute'
 import { withLayout } from '@components/HOC/WithLayout'
 
