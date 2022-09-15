@@ -6,7 +6,7 @@ type User {
   lastName: String!
   birthDate: String!
   createdAt: String!
-  updatedAt: String!
+  updatedAt: String
   countryResident: String!
   age: Int!
   isVerified: Boolean!
