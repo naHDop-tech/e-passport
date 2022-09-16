@@ -1,6 +1,7 @@
 import {
   Injectable,
   NotFoundException,
+  ForbiddenException,
   ConflictException,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
@@ -10,7 +11,6 @@ import { UserEntity } from '~/user/user.entity';
 import { CreateUserDto } from '~/user/dto/create-user.dto';
 import { DateCalculatorService } from '~/utils/date-calculator.service';
 import { ApplicantService } from '~/applicant/applicant.service';
-import { CryptoService } from '~/utils/crypto.service';
 import { UpdateUserInput } from '~/graphql.schema';
 import { UserFactory } from '~/user/user.factory';
 @Injectable()
@@ -19,7 +19,6 @@ export class UserService {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     private readonly dateCalculatorService: DateCalculatorService,
-    private readonly cryptoService: CryptoService,
     private readonly applicantService: ApplicantService,
     private readonly userFactory: UserFactory,
   ) {}
@@ -54,9 +53,12 @@ export class UserService {
     }
 
     user.age = this.dateCalculatorService.getAgeFromBirthDate(user.birthDate);
-    const passwordHash = await this.cryptoService.generateHash(user.password);
 
-    user.password = passwordHash;
+    if (user.age < 18) {
+      throw new ForbiddenException('Your age should be more then 18 years');
+    }
+
+    user.password = existsApplicant.password;
     const newUser = this.userRepository.create(user);
 
     newUser.applicant = existsApplicant;

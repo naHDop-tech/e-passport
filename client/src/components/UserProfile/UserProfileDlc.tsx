@@ -12,6 +12,6 @@ export function UserProfileDlc() {
       firstName={user.firstName}
       lastName={user.lastName}
       imgSrc={user.imgSrc}
-      />
+    />
   )
 }
