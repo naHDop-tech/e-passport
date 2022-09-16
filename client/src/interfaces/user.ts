@@ -21,4 +21,6 @@ export interface IUserProfile {
   firstName: string
   birthDate: string
   countryResident: string
+  id: string
+  imgSrc: string
 }

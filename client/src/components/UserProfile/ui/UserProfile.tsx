@@ -10,7 +10,6 @@ import cs from '@components/CommonStyle.module.css'
 import { ICommonStyle } from '@components/common-style-types'
 import { Button } from '@root/components/Button'
 import { IUserProfile } from '@root/interfaces/user'
-import { IUser } from '@store/auth/atoms'
 
 const commonStyle = cs as ICommonStyle
 
@@ -27,7 +26,7 @@ export interface IUserProfileProps {
 
   changedUserFiled: Partial<IUserProfile>
 
-  user: Partial<IUser>
+  user: Partial<IUserProfile>
   errors?: Partial<Record<FormFiledIds, string>>
 }
 
