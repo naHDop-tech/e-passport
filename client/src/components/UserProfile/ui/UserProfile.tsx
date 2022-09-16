@@ -1,4 +1,5 @@
 import { Avatar, AvatarSizeType } from '@components/Header/components/CustomerInfo/Avatar'
+import { TextInput } from '@components/Inputs/TextInput'
 
 import s from './UserProfileStyle.module.css'
 const styles = s as UserProfileStyle
@@ -12,6 +13,7 @@ interface UserProfileStyle {
   PageBox: string
   MainInfoBox: string
   FormBox: string
+  MainInfo: string
 }
 
 export interface IUserProfileProps {
@@ -26,20 +28,28 @@ export function UserProfile(props: IUserProfileProps) {
 
   return (
     <div className={styles.PageBox}>
-      <h1>Profile</h1>
+      <h1>My Profile</h1>
 
       <div className={commonStyle.Margin24} />
 
       <div className={styles.MainInfoBox}>
         <Avatar isSrcAllowed={!!imgSrc} imgSrc={imgSrc} size={AvatarSizeType.Medium} />
-        <div>
+        <div className={styles.MainInfo}>
           <p>{`${firstName} ${lastName}`}</p>
           <p>{email}</p>
         </div>
       </div>
 
+      <div className={commonStyle.Margin64}/>
+
       <div className={styles.FormBox}>
-        {/* forms */}
+        <h1>Edit profile</h1>
+
+        <div className={commonStyle.Margin24} />
+
+        <TextInput label='First name' />
+        <div className={commonStyle.Margin24} />
+        <TextInput label='Last name' />
       </div>
     </div>
   )
