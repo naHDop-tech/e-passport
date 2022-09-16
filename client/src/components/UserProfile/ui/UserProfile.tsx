@@ -101,6 +101,7 @@ export function UserProfile(props: IUserProfileProps) {
 
         <div className={commonStyle.Margin32} />
         <Button style={{ float: 'right' }} title='Save changes' onClick={onSave} />
+        <div className={commonStyle.ClearFix} />
       </div>
     </div>
   )

@@ -8,4 +8,5 @@ export interface ICommonStyle {
   TextWhiteGrey: string
   TextPrimary: string
   CursorPointer: string
+  ClearFix: string
 }

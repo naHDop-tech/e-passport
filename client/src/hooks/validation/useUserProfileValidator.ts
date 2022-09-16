@@ -8,8 +8,8 @@ type ValidatorReturnType = Partial<Record<FormFiledIds, string>>
 
 export function useUserProfileValidator(form: Partial<IUserProfile>): ValidatorReturnType {
   const schema = Joi.object({
-    [FormFiledIds.FirstName]: Joi.string().min(5).max(20),
-    [FormFiledIds.LastName]: Joi.string().min(5).max(30),
+    [FormFiledIds.FirstName]: Joi.string().min(3).max(20),
+    [FormFiledIds.LastName]: Joi.string().min(3).max(30),
     [FormFiledIds.BirthDate]: Joi.date().iso(),
     [FormFiledIds.CountryResident]: Joi.string()
   })

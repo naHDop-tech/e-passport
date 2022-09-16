@@ -1,5 +1,6 @@
 .PageBox {
   padding: 0 32px;
+  padding-bottom: 32px;
 }
 
 .MainInfoBox {
@@ -15,10 +16,21 @@
 }
 
 .FormBox {
+  width: 70%;
 }
 
 @media (max-width: 500px) {
   .MainInfoBox {
     flex-direction: column;
+  }
+
+  .FormBox {
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .FormBox {
+    width: 100%;
   }
 }
