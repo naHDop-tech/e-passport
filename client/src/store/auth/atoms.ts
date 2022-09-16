@@ -17,6 +17,8 @@ export const userInfo = atom<Partial<IUser>>({
     firstName: '',
     lastName: '',
     imgSrc: '', // https://www.w3schools.com/howto/img_avatar.png
+    birthDate: '',
+    countryResident: ''
   },
   effects: [
     localStorageEffect('user')
@@ -29,4 +31,6 @@ export interface IUser {
   firstName: string
   lastName: string
   imgSrc: string
+  birthDate: string
+  countryResident: string
 }

@@ -65,6 +65,7 @@ export function UserProfile(props: IUserProfileProps) {
         <TextInput
           label='First name'
           placeholder='i.e. "John"'
+          value={user.firstName}
           id={FormFiledIds.FirstName}
           onChange={onChange}
           errorText={errors?.[FormFiledIds.FirstName]}
@@ -73,6 +74,7 @@ export function UserProfile(props: IUserProfileProps) {
         <TextInput
           label='Last name'
           placeholder='i.e. "Doe"'
+          value={user.lastName}
           id={FormFiledIds.LastName}
           onChange={onChange}
           errorText={errors?.[FormFiledIds.LastName]}
@@ -81,6 +83,7 @@ export function UserProfile(props: IUserProfileProps) {
         <TextInput
           type="date"
           label='Birth date'
+          value={user.birthDate}
           id={FormFiledIds.BirthDate}
           onChange={onChange}
           errorText={errors?.[FormFiledIds.BirthDate]}
@@ -91,6 +94,7 @@ export function UserProfile(props: IUserProfileProps) {
         <TextInput
           label='Country resident'
           placeholder='i.e. "England"'
+          value={user.countryResident}
           id={FormFiledIds.CountryResident}
           onChange={onChange}
           errorText={errors?.[FormFiledIds.CountryResident]}

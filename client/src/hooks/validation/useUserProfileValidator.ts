@@ -16,6 +16,7 @@ export function useUserProfileValidator(form: Partial<IUserProfile>): ValidatorR
 
   const errorData: ValidatorReturnType = useMemo(() => {
     const validationResult = schema.validate(form, { abortEarly: false })
+
     if (validationResult?.error?.details.length) {
       for (const error of validationResult?.error?.details) {
         return {
