@@ -1,0 +1,18 @@
+.PageBox {
+}
+
+.MainInfoBox {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: center;
+}
+
+.FormBox {
+}
+
+@media (max-width: 500px) {
+  .MainInfoBox {
+    flex-direction: column;
+  }
+}
