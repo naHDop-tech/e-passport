@@ -14,3 +14,11 @@ export interface ISignUpFormData {
 export interface IResetPasswordData {
   email: string
 }
+
+export interface IUserProfile {
+  email: string,
+  lastName: string
+  firstName: string
+  birthDate: string
+  countryResident: string
+}
