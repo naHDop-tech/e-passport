@@ -36,10 +36,7 @@ export function UserProfileDlc() {
       changedUserFiled={userProfile}
       onChange={changeHandler}
       onSave={saveHandler}
-      email={user?.email}
-      firstName={user.firstName}
-      lastName={user.lastName}
-      imgSrc={user.imgSrc}
+      user={user}
     />
   )
 }

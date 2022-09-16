@@ -10,6 +10,7 @@ import cs from '@components/CommonStyle.module.css'
 import { ICommonStyle } from '@components/common-style-types'
 import { Button } from '@root/components/Button'
 import { IUserProfile } from '@root/interfaces/user'
+import { IUser } from '@store/auth/atoms'
 
 const commonStyle = cs as ICommonStyle
 
@@ -26,10 +27,7 @@ export interface IUserProfileProps {
 
   changedUserFiled: Partial<IUserProfile>
 
-  email?: string
-  firstName?: string
-  lastName?: string
-  imgSrc?: string
+  user: Partial<IUser>
   errors?: Partial<Record<FormFiledIds, string>>
 }
 
@@ -41,7 +39,7 @@ export enum FormFiledIds {
 }
 
 export function UserProfile(props: IUserProfileProps) {
-  const { email, firstName, lastName, imgSrc, errors, changedUserFiled, onSave, onChange } = props
+  const { user, errors, changedUserFiled, onSave, onChange } = props
 
   return (
     <div className={styles.PageBox}>
@@ -50,10 +48,10 @@ export function UserProfile(props: IUserProfileProps) {
       <div className={commonStyle.Margin24} />
 
       <div className={styles.MainInfoBox}>
-        <Avatar isSrcAllowed={!!imgSrc} imgSrc={imgSrc} size={AvatarSizeType.Medium} />
+        <Avatar isSrcAllowed={!!user.imgSrc} imgSrc={user.imgSrc} size={AvatarSizeType.Medium} />
         <div className={styles.MainInfo}>
-          <p>{`${firstName} ${lastName}`}</p>
-          <p>{email}</p>
+          <p>{`${user.firstName} ${user.lastName}`}</p>
+          <p>{user.email}</p>
         </div>
       </div>
 
