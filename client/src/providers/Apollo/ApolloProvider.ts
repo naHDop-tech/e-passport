@@ -1,44 +1,15 @@
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
 import { getMainDefinition } from '@apollo/client/utilities';
-import { split, HttpLink, concat, ApolloLink, gql } from '@apollo/client';
+import { split, HttpLink, concat, ApolloLink } from '@apollo/client';
+
+import { typeDefs } from './typeDefs'
+import { isThemeDark } from '@root/cache/theme/index'
 
 import {
   ApolloClient,
   InMemoryCache,
 } from "@apollo/client";
-
-const typeDefs = gql`
-  extend type Applicant {
-    id: ID!
-    email: String!
-    password: String!
-  }
-
-  extend type CreateApplicantInput {
-    email: String!
-    password: String!
-  }
-
-  extend type JwtToken {
-    token: String!
-    userId: String!
-  }
-
-  extend type SignInInput {
-    email: String!
-    password: String!
-  }
-
-  extend type Mutation {
-    createApplicant(createApplicantInput: CreateApplicantInput): Applicant
-    signIn(signInInput: SignInInput): JwtToken
-  }
-
-  extend type Query {
-    isApplicantExists(email: String): Boolean
-  }
-`;
 
 const httpLink = new HttpLink({
   uri: 'http://localhost:5005/graphql'
@@ -75,7 +46,19 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 export const apolloClient = new ApolloClient({
   link: concat(authMiddleware, splitLink),
   cache: new InMemoryCache({
-    addTypename: false
+    addTypename: false,
+    typePolicies: {
+      Query: {
+        fields: {
+          isDark: {
+            read() {
+              return isThemeDark();
+            },
+            
+          }
+        }
+      }
+    }
   }),
   typeDefs,
 });

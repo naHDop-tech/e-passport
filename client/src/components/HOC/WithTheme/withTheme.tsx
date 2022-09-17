@@ -1,18 +1,19 @@
 import { ChangeEvent } from 'react'
-import { useRecoilState } from 'recoil';
+import { useQuery } from '@apollo/client';
 
 import { ThemeToggleProps } from '@components/ThemeToggle'
+import { IS_DARK_THEME } from '@api/queries/theme'
+import { isThemeDark } from '@root/cache/theme'
 import { useTheme } from '@hooks/useTheme'
-import { isDarkMode } from '@store/theme/atoms'
-import { ThemeMode } from '@store/theme/types'
+import { ThemeMode } from '@root/cache/theme/types'
 
 export const withTheme = (Component: (props: ThemeToggleProps) => JSX.Element) => () => {
-  const [isDarkModeOn, setIsDarkMode] = useRecoilState(isDarkMode)
-  useTheme(isDarkModeOn ? ThemeMode.Dark : ThemeMode.Light);
+  const { data } = useQuery(IS_DARK_THEME, { fetchPolicy: 'cache-only' })
+  useTheme(data.isDark ? ThemeMode.Light : ThemeMode.Dark);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setIsDarkMode(e.target.checked)
+    isThemeDark(e.target.checked)
   }
 
-  return <Component isDarkModeOn={isDarkModeOn} onChange={onChangeHandler} />
+  return <Component isDarkModeOn={data.isDark} onChange={onChangeHandler} />
 };
