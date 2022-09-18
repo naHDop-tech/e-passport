@@ -13,7 +13,7 @@ import { IUserProfile } from '@root/interfaces/user'
 export interface IUseUserInfo {
   isAuth: boolean
   user: Partial<IUserProfile>
-  refetch: () => void
+  fetch: () => void
 }
 
 export function useUserInfo(): IUseUserInfo {
@@ -54,12 +54,9 @@ export function useUserInfo(): IUseUserInfo {
     [user.id]
   );
 
-  useListUsers()
-
-
   return {
     isAuth,
     user,
-    refetch: useListUsers,
+    fetch: useListUsers,
   }
 }
