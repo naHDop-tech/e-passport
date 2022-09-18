@@ -16,17 +16,17 @@ export function UserProfileDlc() {
   const [userProfileForm, setUserProfileForm] = useState<Partial<IUserProfile>>({})
   const errors = useUserProfileValidator(userProfileForm)
   const toast = useToast()
-  const { user, fetch } = useUserInfo()
+  const { user, fetchUserInfo } = useUserInfo()
 
   useEffect(() => {
     if (user.id) {
-      fetch()
+      fetchUserInfo()
     }
   }, [user.id])
 
   const saveHandler = () => {
     console.log(userProfileForm);
-    fetch()
+    fetchUserInfo()
     toast.open({ type: ToastType.Success, content: 'Your profiled has been saved' })
   }
 

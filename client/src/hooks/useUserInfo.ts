@@ -13,14 +13,14 @@ import { IUserProfile } from '@root/interfaces/user'
 export interface IUseUserInfo {
   isAuth: boolean
   user: Partial<IUserProfile>
-  fetch: () => void
+  fetchUserInfo: () => void
 }
 
 export function useUserInfo(): IUseUserInfo {
   const { isAuth } = useRecoilValue(authSelector)
   const user = useRecoilValue(userInfo)
 
-  const useListUsers = useRecoilCallback(
+  const fetchUserInfo = useRecoilCallback(
     ({ set }) => async () => {
 
       const userId = user.id
@@ -57,6 +57,6 @@ export function useUserInfo(): IUseUserInfo {
   return {
     isAuth,
     user,
-    fetch: useListUsers,
+    fetchUserInfo,
   }
 }
