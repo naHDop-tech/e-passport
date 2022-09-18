@@ -1,16 +1,13 @@
 import { ChangeEvent, useState, useEffect } from 'react'
-import { useRecoilValue, useRecoilState } from 'recoil'
 
-import { fetchUser } from '@store/auth/selector'
-import { userInfo } from '@store/auth/atoms'
 import { IUserProfile } from '@root/interfaces/user'
 
 import { useUserProfileValidator } from '@hooks/validation/useUserProfileValidator'
 import { useToast } from '@hooks/useToast'
 import { useUserInfo } from '@hooks/useUserInfo'
-import { ToastType } from '@components/Toast/Toast'
 
-import { UserProfile } from './ui/UserProfile'
+import { ToastType } from '@components/Toast/Toast'
+import { UserProfile } from '@components/UserProfile'
 
 export function UserProfileDlc() {
   const [userProfileForm, setUserProfileForm] = useState<Partial<IUserProfile>>({})

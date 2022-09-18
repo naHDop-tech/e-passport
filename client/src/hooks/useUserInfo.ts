@@ -22,10 +22,8 @@ export function useUserInfo(): IUseUserInfo {
 
   const fetchUserInfo = useRecoilCallback(
     ({ set }) => async () => {
-
       const userId = user.id
-      console.log('FETCH');
-      
+
       const userResponse = await apolloClient.query({
         query: GET_USER,
         variables: { id: userId },
