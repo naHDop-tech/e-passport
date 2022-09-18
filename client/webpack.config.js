@@ -54,7 +54,7 @@ module.exports = {
       '@hooks': path.resolve(__dirname, 'src/hooks'),
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@store': path.resolve(__dirname, 'src/store'),
-      '@api': path.resolve(__dirname, 'src/api'),
+      '@gql': path.resolve(__dirname, 'src/gql'),
       '@static': path.resolve(__dirname, 'static'),
     },
   },

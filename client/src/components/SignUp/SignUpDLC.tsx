@@ -6,7 +6,7 @@ import { useToast } from '@hooks/useToast'
 import { ToastType } from '@components/Toast/Toast'
 
 import { SignUpForm } from './SignUpForm'
-import { SIGN_UP } from '@root/api/mutations/sign-up'
+import { SIGN_UP } from '@root/gql/mutations/sign-up'
 import { signUpReducer } from './reducer/reducer'
 import { Actions, defaultState } from './reducer/state'
 

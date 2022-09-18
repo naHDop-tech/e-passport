@@ -9,6 +9,20 @@ import {
 } from "@apollo/client";
 
 const typeDefs = gql`
+  extend type User {
+    id: ID!
+    email: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+    birthDate: String!
+    createdAt: String!
+    updatedAt: String
+    countryResident: String!
+    age: Int!
+    isVerified: Boolean!
+  }
+
   extend type Applicant {
     id: ID!
     email: String!
@@ -36,6 +50,8 @@ const typeDefs = gql`
   }
 
   extend type Query {
+    user(id: ID!): User
+    applicant(id: ID!): Applicant
     isApplicantExists(email: String): Boolean
   }
 `;

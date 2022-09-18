@@ -1,7 +1,8 @@
-import { ChangeEvent, useState } from 'react'
-import { useRecoilValue } from 'recoil'
+import { ChangeEvent, useState, useEffect } from 'react'
+import { useRecoilValue, useRecoilState } from 'recoil'
 
-import { userSelector } from '@store/auth/selector'
+import { fetchUser } from '@store/auth/selector'
+import { userInfo } from '@store/auth/atoms'
 import { IUserProfile } from '@root/interfaces/user'
 
 import { useUserProfileValidator } from '@hooks/validation/useUserProfileValidator'
@@ -13,8 +14,15 @@ import { UserProfile } from './ui/UserProfile'
 export function UserProfileDlc() {
   const [userProfile, setUserProfile] = useState<Partial<IUserProfile>>({})
   const errors = useUserProfileValidator(userProfile)
-  const { user } = useRecoilValue(userSelector)
+  const [user, setUserInfo] = useRecoilState(userInfo)
   const toast = useToast()
+  const fetchedUser = useRecoilValue(fetchUser)
+
+  useEffect(() => {
+    if (fetchedUser) {
+      setUserInfo(fetchedUser)
+    }
+  }, [fetchedUser])
 
   const saveHandler = () => {
     console.log(userProfile);

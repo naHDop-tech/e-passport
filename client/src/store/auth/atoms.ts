@@ -6,7 +6,7 @@ export const token = atom<string>({
   key: 'token',
   default: '',
   effects: [
-    localStorageEffect('token')
+    localStorageEffect('token'),
   ]
 })
 
@@ -22,6 +22,6 @@ export const userInfo = atom<Partial<IUserProfile>>({
     countryResident: ''
   },
   effects: [
-    localStorageEffect('user')
+    localStorageEffect('user'),
   ]
 })
