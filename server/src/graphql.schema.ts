@@ -12,11 +12,6 @@ export class CreateApplicantInput {
     password: string;
 }
 
-export class CreateCatInput {
-    name?: Nullable<string>;
-    age?: Nullable<number>;
-}
-
 export class FingerprintInput {
     id: string;
     publicKey: string;
@@ -144,11 +139,9 @@ export class UpdateUserInput {
 }
 
 export abstract class IQuery {
-    abstract cats(): Nullable<Nullable<Cat>[]> | Promise<Nullable<Nullable<Cat>[]>>;
-
-    abstract cat(id: string): Nullable<Cat> | Promise<Nullable<Cat>>;
-
     abstract user(id: string): Nullable<User> | Promise<Nullable<User>>;
+
+    abstract applicant(id: string): Nullable<Applicant> | Promise<Nullable<Applicant>>;
 
     abstract isUserExists(email?: Nullable<string>): Nullable<boolean> | Promise<Nullable<boolean>>;
 
@@ -156,8 +149,6 @@ export abstract class IQuery {
 }
 
 export abstract class IMutation {
-    abstract createCat(createCatInput?: Nullable<CreateCatInput>): Nullable<Cat> | Promise<Nullable<Cat>>;
-
     abstract createUser(createUserInput?: Nullable<CreateUserInput>): Nullable<User> | Promise<Nullable<User>>;
 
     abstract createApplicant(createApplicantInput?: Nullable<CreateApplicantInput>): Nullable<Applicant> | Promise<Nullable<Applicant>>;
@@ -170,8 +161,6 @@ export abstract class IMutation {
 }
 
 export abstract class ISubscription {
-    abstract catCreated(): Nullable<Cat> | Promise<Nullable<Cat>>;
-
     abstract userCreated(): Nullable<User> | Promise<Nullable<User>>;
 
     abstract userUpdated(): Nullable<User> | Promise<Nullable<User>>;
@@ -189,20 +178,6 @@ export class Applicant {
     id: string;
     email: string;
     password: string;
-}
-
-export class Owner {
-    id: number;
-    name: string;
-    age?: Nullable<number>;
-    cats?: Nullable<Cat[]>;
-}
-
-export class Cat {
-    id?: Nullable<number>;
-    name?: Nullable<string>;
-    age?: Nullable<number>;
-    owner?: Nullable<Owner>;
 }
 
 export class Fingerprint {
@@ -255,7 +230,7 @@ export class User {
     lastName: string;
     birthDate: string;
     createdAt: string;
-    updatedAt: string;
+    updatedAt?: Nullable<string>;
     countryResident: string;
     age: number;
     isVerified: boolean;

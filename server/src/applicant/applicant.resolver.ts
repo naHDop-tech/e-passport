@@ -15,7 +15,7 @@ export class ApplicantResolver {
     return this.applicantService.isApplicantExists(email);
   }
 
-  @Query('user')
+  @Query('applicant')
   @UseGuards(ApplicantGuard)
   async findOneById(@Args('id') id: string): Promise<Applicant> {
     return this.applicantService.findById(id);
