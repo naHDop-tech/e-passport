@@ -12,8 +12,8 @@ import { ToastType } from '@components/Toast/Toast'
 import { UserProfile } from './ui/UserProfile'
 
 export function UserProfileDlc() {
-  const [userProfile, setUserProfile] = useState<Partial<IUserProfile>>({})
-  const errors = useUserProfileValidator(userProfile)
+  const [userProfileForm, setUserProfileForm] = useState<Partial<IUserProfile>>({})
+  const errors = useUserProfileValidator(userProfileForm)
   const [user, setUserInfo] = useRecoilState(userInfo)
   const toast = useToast()
   const fetchedUser = useRecoilValue(fetchUser)
@@ -25,12 +25,12 @@ export function UserProfileDlc() {
   }, [fetchedUser])
 
   const saveHandler = () => {
-    console.log(userProfile);
+    console.log(userProfileForm);
     toast.open({ type: ToastType.Success, content: 'Your profiled has been saved' })
   }
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setUserProfile((prevState) => {
+    setUserProfileForm((prevState) => {
       return {
         ...prevState,
         [e.target.id]: e.target.value,
@@ -41,7 +41,7 @@ export function UserProfileDlc() {
   return (
     <UserProfile
       errors={errors}
-      changedUserFiled={userProfile}
+      changedUserFiled={userProfileForm}
       onChange={changeHandler}
       onSave={saveHandler}
       user={user}
