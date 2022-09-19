@@ -23,4 +23,7 @@ export interface IUserProfile {
   countryResident: string
   id: string
   imgSrc: string
+
+  // frontend only
+  isDraft: boolean
 }

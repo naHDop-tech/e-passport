@@ -50,9 +50,9 @@ export const fetchUser = selector({
     }
 
     if (userResponse.data.user?.id) {
-      return userResponse.data.user
+      return { ...userResponse.data.user, isDraft: false }
     } else {
-      return applicantResponse.data.applicant
+      return { ...applicantResponse.data.applicant, isDraft: true }
     }
   },
 });

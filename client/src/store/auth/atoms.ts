@@ -19,7 +19,10 @@ export const userInfo = atom<Partial<IUserProfile>>({
     lastName: '',
     imgSrc: '', // https://www.w3schools.com/howto/img_avatar.png
     birthDate: '',
-    countryResident: ''
+    countryResident: '',
+
+    // frontend only
+    isDraft: true,
   },
   effects: [
     localStorageEffect('user'),

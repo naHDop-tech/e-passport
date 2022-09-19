@@ -16,10 +16,8 @@ export function UserProfileDlc() {
   const { user, fetchUserInfo } = useUserInfo()
 
   useEffect(() => {
-    if (user.id) {
-      fetchUserInfo()
-    }
-  }, [user.id])
+    fetchUserInfo()
+  }, [])
 
   const saveHandler = () => {
     console.log(userProfileForm);

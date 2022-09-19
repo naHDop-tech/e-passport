@@ -39,10 +39,10 @@ export function useUserInfo(): IUseUserInfo {
       }
 
       if (userResponse.data.user?.id) {
-        set(userInfo, userResponse.data.user)
+        set(userInfo, { ...userResponse.data.user, isDraft: false })
       } else {
 
-        set(userInfo, applicantResponse.data.applicant)
+        set(userInfo, { ...applicantResponse.data.applicant, isDraft: true })
       }
     },
     []
