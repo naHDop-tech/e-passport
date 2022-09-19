@@ -4,7 +4,6 @@ import * as jwt from 'jsonwebtoken';
 
 import { PROVIDE_JWT_KEY } from '~/jwt/dto/jwt-user.dto';
 import { JwtUserDto } from '~/jwt/dto/jwt-user.dto';
-import { JwtToken } from '~/graphql.schema';
 
 @Injectable()
 export class JwtService {
@@ -25,25 +24,35 @@ export class JwtService {
       idDraft: user.isDraft,
     };
 
-    const token = jwt.sign(data, this.jwtSecret, { expiresIn: '4d' }) as string;
+    const token = jwt.sign(data, this.jwtSecret, {
+      expiresIn: '4d',
+    }) as string;
 
     return token;
   }
 
-  validateToken(token: string): boolean {
+  validateToken(token: string): Record<string, string> {
     if (!token) {
       throw new ConflictException('Token not provided');
     }
 
-    const verified = jwt.verify(token, this.jwtSecret) as Record<
+    const verified = jwt.verify(token, this.jwtSecret, {}) as Record<
       string,
       string
     >;
 
-    if (verified) {
-      return true;
+    return verified;
+  }
+
+  isTokenValid(token: string): boolean {
+    if (!token) {
+      throw new ConflictException('Token not provided');
     }
 
-    return false;
+    try {
+      return !!jwt.verify(token, this.jwtSecret, { algorithms: ['RS256'] });
+    } catch {
+      return false;
+    }
   }
 }

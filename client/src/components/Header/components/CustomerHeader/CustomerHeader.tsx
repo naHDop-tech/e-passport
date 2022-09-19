@@ -3,7 +3,7 @@ import { CustomerInfo } from '@components/Header/components/CustomerInfo'
 import { FilterButton } from '@components/Header/components/FilterButton'
 import { Dropdown } from '@components/Dropdown'
 
-import { IUser } from '@store/auth/atoms'
+import { IUserProfile } from '@root/interfaces/user'
 import { GenericDropdownItemProps } from '@components/Dropdown/types'
 import { USER_MENU } from '@components/Header/components/CustomerHeader/constant'
 
@@ -27,7 +27,7 @@ function Component(props: GenericDropdownItemProps) {
 }
 
 export interface ICustomerHeaderProps {
-  user: Partial<IUser>
+  user: Partial<IUserProfile>
   isDropdownOpen: boolean,
   onDropdownClick: () => void
   onDropdownSelect: (data: GenericDropdownItemProps) => void
