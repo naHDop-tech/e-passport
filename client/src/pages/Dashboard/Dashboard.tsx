@@ -1,7 +1,11 @@
+import { useEffect } from 'react'
+
 import DashboardImage from '@static/illustrations/dashboard.png'
 
 import s from './DashboardStyle.module.css'
 const styles = s as unknown as INotFoundPageStyle
+
+import { useUserInfo } from '@hooks/useUserInfo'
 
 interface INotFoundPageStyle {
   TextBox: string
@@ -9,6 +13,14 @@ interface INotFoundPageStyle {
 }
 
 export function Dashboard() {
+  const { user, fetchUserInfo } = useUserInfo()
+
+  useEffect(() => {
+    if (!user.email) {
+      fetchUserInfo()
+    }
+  }, [user])
+
   return (
     <div>
       <div className={styles.TextBox}>
