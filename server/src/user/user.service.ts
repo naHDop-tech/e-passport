@@ -51,8 +51,8 @@ export class UserService {
 
     user.age = this.dateCalculatorService.getAgeFromBirthDate(user.birthDate);
 
-    if (user.age < 18) {
-      throw new ForbiddenException('Your age should be more then 18 years');
+    if (user.age < 21) {
+      throw new ForbiddenException('Your age should be more then 21 years');
     }
 
     user.password = existsApplicant.password;
