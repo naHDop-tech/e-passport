@@ -39,8 +39,7 @@ export enum FormFiledIds {
 
 export function UserProfile(props: IUserProfileProps) {
   const { user, errors, changedUserFiled, onSave, onChange } = props
-  console.log('changedUserFiled', changedUserFiled);
-  
+
   return (
     <div className={styles.PageBox}>
       <h1>My Profile</h1>
