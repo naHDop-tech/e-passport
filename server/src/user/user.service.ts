@@ -41,10 +41,7 @@ export class UserService {
 
     const existsApplicant = await this.applicantService.findByEmail(user.email);
 
-    if (
-      applicant?.email === user.email ||
-      existsApplicant?.email === user.email
-    ) {
+    if (applicant?.email === user.email) {
       throw new ConflictException('Email already using');
     }
 
@@ -62,6 +59,7 @@ export class UserService {
     const newUser = this.userRepository.create(user);
 
     newUser.applicant = existsApplicant;
+    newUser.isVerified = false;
     existsApplicant.user = newUser;
 
     const savedUser = await this.userRepository.save(newUser);
@@ -98,6 +96,21 @@ export class UserService {
 
   async updateById(id: string, payload: UpdateUserInput): Promise<UserEntity> {
     const user = await this.findById(id);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const updatedUser = this.userFactory.update(user, payload);
+
+    return this.userRepository.save(updatedUser);
+  }
+
+  async updateByEmail(
+    email: string,
+    payload: UpdateUserInput,
+  ): Promise<UserEntity> {
+    const user = await this.findByEmail(email);
 
     if (!user) {
       throw new NotFoundException('User not found');

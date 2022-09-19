@@ -16,12 +16,16 @@ export interface IResetPasswordData {
 }
 
 export interface IUserProfile {
-  email: string,
+  id: string
+  age: number
+  email: string
   lastName: string
   firstName: string
   birthDate: string
   countryResident: string
-  id: string
+  createdAt: string | null
+  updatedAt: string | null
+  isVerified: boolean
   imgSrc: string
 
   // frontend only

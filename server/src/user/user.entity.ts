@@ -20,7 +20,7 @@ export class UserEntity extends User {
   firstName: string;
 
   @Column({ name: 'last_name' })
-  secondName: string;
+  lastName: string;
 
   @Column()
   age: number;
@@ -43,7 +43,7 @@ export class UserEntity extends User {
   @Column({ name: 'country_resident' })
   countryResident: string;
 
-  @Column({ name: 'is_verified' })
+  @Column({ name: 'is_verified', default: false })
   isVerified: boolean;
 
   @OneToOne(() => ApplicantEntity, (applicant) => applicant.user)

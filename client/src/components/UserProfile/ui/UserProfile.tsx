@@ -39,7 +39,8 @@ export enum FormFiledIds {
 
 export function UserProfile(props: IUserProfileProps) {
   const { user, errors, changedUserFiled, onSave, onChange } = props
-
+  console.log('changedUserFiled', changedUserFiled);
+  
   return (
     <div className={styles.PageBox}>
       <h1>My Profile</h1>
@@ -64,7 +65,7 @@ export function UserProfile(props: IUserProfileProps) {
         <TextInput
           label='First name'
           placeholder='i.e. "John"'
-          value={user.firstName}
+          value={changedUserFiled.firstName}
           id={FormFiledIds.FirstName}
           onChange={onChange}
           errorText={errors?.[FormFiledIds.FirstName]}
@@ -73,7 +74,7 @@ export function UserProfile(props: IUserProfileProps) {
         <TextInput
           label='Last name'
           placeholder='i.e. "Doe"'
-          value={user.lastName}
+          value={changedUserFiled.lastName}
           id={FormFiledIds.LastName}
           onChange={onChange}
           errorText={errors?.[FormFiledIds.LastName]}
@@ -82,7 +83,7 @@ export function UserProfile(props: IUserProfileProps) {
         <TextInput
           type="date"
           label='Birth date'
-          value={user.birthDate}
+          value={changedUserFiled.birthDate}
           id={FormFiledIds.BirthDate}
           onChange={onChange}
           errorText={errors?.[FormFiledIds.BirthDate]}
@@ -93,7 +94,7 @@ export function UserProfile(props: IUserProfileProps) {
         <TextInput
           label='Country resident'
           placeholder='i.e. "England"'
-          value={user.countryResident}
+          value={changedUserFiled.countryResident}
           id={FormFiledIds.CountryResident}
           onChange={onChange}
           errorText={errors?.[FormFiledIds.CountryResident]}

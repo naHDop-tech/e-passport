@@ -23,6 +23,27 @@ const typeDefs = gql`
     isVerified: Boolean!
   }
 
+  extend type CreateUserInput {
+    email: String!
+    firstName: String!
+    lastName: String!
+    birthDate: String!
+    countryResident: String!
+  }
+
+  extend type DeleteUserInput {
+    id: ID!
+  }
+
+  extend type UpdateUserInput {
+    email: String
+    firstName: String
+    lastName: String
+    birthDate: String
+    countryResident: String
+    isVerified: Boolean
+  }
+
   extend type Applicant {
     id: ID!
     email: String!
@@ -47,6 +68,8 @@ const typeDefs = gql`
   extend type Mutation {
     createApplicant(createApplicantInput: CreateApplicantInput): Applicant
     signIn(signInInput: SignInInput): JwtToken
+    createUser(createUserInput: CreateUserInput): User
+    updateUser(updateUserInput: UpdateUserInput): User
   }
 
   extend type Query {

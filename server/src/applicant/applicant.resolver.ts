@@ -5,7 +5,7 @@ import { Applicant } from '~/graphql.schema';
 import { ApplicantGuard } from '~/applicant/applicant.guard';
 import { ApplicantService } from '~/applicant/applicant.service';
 import { CreateApplicantDto } from '~/applicant/dto/create-applicant.dto';
-import { UserId } from '~/decorators/user-id.decorator';
+import { UserEmail } from '~/decorators/user-email.decorator';
 
 @Resolver((of) => Applicant)
 export class ApplicantResolver {
@@ -18,8 +18,8 @@ export class ApplicantResolver {
 
   @Query('applicant')
   @UseGuards(ApplicantGuard)
-  async findOneById(@UserId() userId: string): Promise<Applicant> {
-    return this.applicantService.findById(userId);
+  async findOneById(@UserEmail() userEmail: string): Promise<Applicant> {
+    return this.applicantService.findByEmail(userEmail);
   }
 
   @Mutation('createApplicant')
