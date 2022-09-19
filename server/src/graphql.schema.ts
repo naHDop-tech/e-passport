@@ -139,9 +139,9 @@ export class UpdateUserInput {
 }
 
 export abstract class IQuery {
-    abstract user(id: string): Nullable<User> | Promise<Nullable<User>>;
+    abstract user(): Nullable<User> | Promise<Nullable<User>>;
 
-    abstract applicant(id: string): Nullable<Applicant> | Promise<Nullable<Applicant>>;
+    abstract applicant(): Nullable<Applicant> | Promise<Nullable<Applicant>>;
 
     abstract isUserExists(email?: Nullable<string>): Nullable<boolean> | Promise<Nullable<boolean>>;
 

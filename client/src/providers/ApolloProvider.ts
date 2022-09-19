@@ -50,8 +50,8 @@ const typeDefs = gql`
   }
 
   extend type Query {
-    user(id: ID!): User
-    applicant(id: ID!): Applicant
+    user: User
+    applicant: Applicant
     isApplicantExists(email: String): Boolean
   }
 `;

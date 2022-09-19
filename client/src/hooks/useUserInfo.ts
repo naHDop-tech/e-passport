@@ -22,17 +22,13 @@ export function useUserInfo(): IUseUserInfo {
 
   const fetchUserInfo = useRecoilCallback(
     ({ set }) => async () => {
-      const userId = user.id
-
       const userResponse = await apolloClient.query({
         query: GET_USER,
-        variables: { id: userId },
         fetchPolicy: 'network-only'
       })
 
       const applicantResponse = await apolloClient.query({
         query: GET_APPLICANT,
-        variables: { id: userId },
         fetchPolicy: 'network-only'
       })
 
@@ -49,7 +45,7 @@ export function useUserInfo(): IUseUserInfo {
         set(userInfo, applicantResponse.data.applicant)
       }
     },
-    [user.id]
+    []
   );
 
   return {

@@ -1,6 +1,6 @@
 type Query {
-  user(id: ID!): User
-  applicant(id: ID!): Applicant
+  user: User
+  applicant: Applicant
   isUserExists(email: String): Boolean
   isApplicantExists(email: String): Boolean
 }

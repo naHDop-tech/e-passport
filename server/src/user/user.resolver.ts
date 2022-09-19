@@ -7,6 +7,7 @@ import { UserGuard } from '~/user/user.guard';
 import { UserService } from '~/user/user.service';
 import { CreateUserDto } from '~/user/dto/create-user.dto';
 import { UpdateUserDto } from '~/user/dto/update-user.dto';
+import { UserId } from '~/decorators/user-id.decorator';
 
 @Resolver((of) => User)
 export class UserResolver {
@@ -19,8 +20,8 @@ export class UserResolver {
 
   @Query('user')
   @UseGuards(UserGuard)
-  async findOneById(@Args('id') id: string): Promise<User> {
-    return this.userService.findById(id);
+  async findOneById(@UserId() userId: string): Promise<User> {
+    return this.userService.findById(userId);
   }
 
   @Mutation('createUser')

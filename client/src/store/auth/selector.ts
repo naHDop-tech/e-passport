@@ -32,18 +32,14 @@ export const userSelector = selector({
 
 export const fetchUser = selector({
   key: 'FetchUserData',
-  get: async ({ get }) => {
-    const currentUser = get(userInfo)
-
+  get: async () => {
     const userResponse = await apolloClient.query({
       query: GET_USER,
-      variables: { id: currentUser.id },
       fetchPolicy: 'network-only'
     })
 
     const applicantResponse = await apolloClient.query({
       query: GET_APPLICANT,
-      variables: { id: currentUser.id },
       fetchPolicy: 'network-only'
     })
 
