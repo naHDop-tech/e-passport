@@ -51,8 +51,12 @@ export function UserProfile(props: IUserProfileProps) {
 
       <div className={styles.MainInfoBox}>
         <div className={commonStyle.PositionRelative}>
-          <Avatar isSrcAllowed={!!changedUserFiled.imgSrc} imgSrc={changedUserFiled.imgSrc} size={AvatarSizeType.Medium} />
-          <ImageUploader component={BorderPen} setImage={onSetImage} />
+          <Avatar
+            isSrcAllowed={!!changedUserFiled.imgSrc}
+            imgSrc={changedUserFiled.imgSrc}
+            size={AvatarSizeType.Medium}
+          />
+          <ImageUploader setImage={onSetImage} />
         </div>
         <div className={styles.MainInfo}>
           <p>{`${user.firstName} ${user.lastName}`}</p>
