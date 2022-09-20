@@ -51,7 +51,7 @@ export function UserProfile(props: IUserProfileProps) {
 
       <div className={styles.MainInfoBox}>
         <div className={commonStyle.PositionRelative}>
-          <Avatar isSrcAllowed={!!user.imgSrc} imgSrc={user.imgSrc} size={AvatarSizeType.Medium} />
+          <Avatar isSrcAllowed={!!changedUserFiled.imgSrc} imgSrc={changedUserFiled.imgSrc} size={AvatarSizeType.Medium} />
           <ImageUploader component={BorderPen} setImage={onSetImage} />
         </div>
         <div className={styles.MainInfo}>

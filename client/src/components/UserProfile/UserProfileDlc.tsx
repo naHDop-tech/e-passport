@@ -31,12 +31,15 @@ export function UserProfileDlc() {
     if (image) {
       const newImage = URL.createObjectURL(image)
       setImageSrc(newImage)
+
+      setUserProfileForm((prevState) => {
+        return {
+          ...prevState,
+          imgSrc: newImage
+        }
+      })
     }
   }, [image])
-
-  console.log('imageSrc', imageSrc);
-  console.log('image', image);
-  
 
   const saveHandler = async () => {
     try {
