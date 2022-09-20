@@ -2,6 +2,7 @@ import { ChangeEvent } from 'react'
 
 import { Avatar, AvatarSizeType } from '@components/Header/components/CustomerInfo/Avatar'
 import { TextInput } from '@components/Inputs/TextInput'
+import { ImageUploader } from '@components/ImageUploader'
 
 import s from './UserProfileStyle.module.css'
 const styles = s as UserProfileStyle
@@ -23,6 +24,7 @@ interface UserProfileStyle {
 export interface IUserProfileProps {
   onSave: () => void
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  onSetImage: (e: File) => void
 
   changedUserFiled: Partial<IUserProfile>
 
@@ -38,7 +40,7 @@ export enum FormFiledIds {
 }
 
 export function UserProfile(props: IUserProfileProps) {
-  const { user, errors, changedUserFiled, onSave, onChange } = props
+  const { user, errors, changedUserFiled, onSave, onChange, onSetImage } = props
 
   return (
     <div className={styles.PageBox}>
@@ -48,6 +50,7 @@ export function UserProfile(props: IUserProfileProps) {
 
       <div className={styles.MainInfoBox}>
         <Avatar isSrcAllowed={!!user.imgSrc} imgSrc={user.imgSrc} size={AvatarSizeType.Medium} />
+        <ImageUploader component={() => <div>Upload</div>} setImage={onSetImage} />
         <div className={styles.MainInfo}>
           <p>{`${user.firstName} ${user.lastName}`}</p>
           <p>{user.email}</p>
