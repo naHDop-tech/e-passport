@@ -1,22 +1,23 @@
 import { ChangeEvent, useRef } from 'react'
 
+import { BorderPen } from './ui'
+
 import s from './ImageUploaderStyle.module.css'
 const styles = s as unknown as IImageUploaderStyle
 
 interface IImageUploaderStyle {
   ButtonWrapper: string
   HiddenInput: string
-  InputLabel: string
 }
 
 export interface IImageUploaderProps {
   setImage: (e: File) => void
-  component: () => JSX.Element
+  component?: () => JSX.Element
   file?: File
 }
 
 export function ImageUploader(props: IImageUploaderProps) {
-  const { setImage, component: Component } = props
+  const { setImage, component: Component = BorderPen } = props
   const inputRef = useRef<HTMLInputElement>(null)
 
   const handleClick = () => {
@@ -32,7 +33,7 @@ export function ImageUploader(props: IImageUploaderProps) {
 
   return (
     <div className={styles.ButtonWrapper}>
-      <div onClick={handleClick} className={styles.InputLabel}>
+      <div onClick={handleClick}>
         <Component />
         <input
           className={styles.HiddenInput}
