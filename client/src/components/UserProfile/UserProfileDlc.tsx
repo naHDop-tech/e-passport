@@ -13,6 +13,8 @@ import { UserProfile } from '@components/UserProfile'
 import { useMutation } from '@apollo/client'
 
 export function UserProfileDlc() {
+  const [image, setImage] = useState<File>()
+  const [imageSrc, setImageSrc] = useState<string>()
   const { user, fetchUserInfo } = useUserInfo()
   const [userProfileForm, setUserProfileForm] = useState<Partial<IUserProfile>>(user)
   const errors = useUserProfileValidator(userProfileForm)
@@ -25,6 +27,17 @@ export function UserProfileDlc() {
     fetchUserInfo()
   }, [])
 
+  useEffect(() => {
+    if (image) {
+      const newImage = URL.createObjectURL(image)
+      setImageSrc(newImage)
+    }
+  }, [image])
+
+  console.log('imageSrc', imageSrc);
+  console.log('image', image);
+  
+
   const saveHandler = async () => {
     try {
       if (user.isDraft) {
@@ -36,9 +49,7 @@ export function UserProfileDlc() {
           countryResident: userProfileForm.countryResident,
         } } })
         if (createdUser.errors?.length) {
-          toast.open({ type: ToastType.Error, content: createdUser.errors[0].message })
-        } else {
-          toast.open({ type: ToastType.Success, content: 'User profile were updated' })
+          throw new Error(createdUser.errors[0].message)
         }
       } else {
         const updatedUser = await updateUserFx({ variables: { updateUserInput: {
@@ -50,12 +61,11 @@ export function UserProfileDlc() {
         } }})
 
         if (updatedUser.errors?.length) {
-          toast.open({ type: ToastType.Error, content: updatedUser.errors[0].message })
-        } else {
-          toast.open({ type: ToastType.Success, content: 'User profile were updated' })
+          throw new Error(updatedUser.errors[0].message)
         }
       }
       fetchUserInfo()
+      toast.open({ type: ToastType.Success, content: 'User profile were updated' })
     } catch (err: any) {
       toast.open({ type: ToastType.Error, content: err.message })
     }
@@ -72,6 +82,7 @@ export function UserProfileDlc() {
 
   return (
     <UserProfile
+      onSetImage={setImage}
       errors={errors}
       changedUserFiled={userProfileForm}
       onChange={changeHandler}
