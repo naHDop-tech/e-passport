@@ -14,8 +14,10 @@
   "license": "ISC",
   "dependencies": {
     "@apollo/client": "^3.6.9",
+    "@metamask/providers": "^9.1.0",
     "classnames": "^2.3.1",
     "dotenv": "^16.0.2",
+    "ethers": "^5.7.0",
     "graphql": "^16.6.0",
     "graphql-ws": "^5.9.1",
     "joi": "^17.6.0",
