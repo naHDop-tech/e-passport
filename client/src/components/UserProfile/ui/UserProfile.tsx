@@ -3,6 +3,7 @@ import { ChangeEvent } from 'react'
 import { Avatar, AvatarSizeType } from '@components/Header/components/CustomerInfo/Avatar'
 import { TextInput } from '@components/Inputs/TextInput'
 import { ImageUploader } from '@components/ImageUploader'
+import { BorderPen } from '@components/ImageUploader/ui'
 
 import s from './UserProfileStyle.module.css'
 const styles = s as UserProfileStyle
@@ -49,8 +50,10 @@ export function UserProfile(props: IUserProfileProps) {
       <div className={commonStyle.Margin24} />
 
       <div className={styles.MainInfoBox}>
-        <Avatar isSrcAllowed={!!user.imgSrc} imgSrc={user.imgSrc} size={AvatarSizeType.Medium} />
-        <ImageUploader component={() => <div>Upload</div>} setImage={onSetImage} />
+        <div className={commonStyle.PositionRelative}>
+          <Avatar isSrcAllowed={!!user.imgSrc} imgSrc={user.imgSrc} size={AvatarSizeType.Medium} />
+          <ImageUploader component={BorderPen} setImage={onSetImage} />
+        </div>
         <div className={styles.MainInfo}>
           <p>{`${user.firstName} ${user.lastName}`}</p>
           <p>{user.email}</p>

@@ -39,3 +39,7 @@
 .ClearFix {
   clear: both;
 }
+
+.PositionRelative {
+  position: relative;
+}

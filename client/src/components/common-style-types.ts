@@ -9,4 +9,5 @@ export interface ICommonStyle {
   TextPrimary: string
   CursorPointer: string
   ClearFix: string
+  PositionRelative: string
 }
