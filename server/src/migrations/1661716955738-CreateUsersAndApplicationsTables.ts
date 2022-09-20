@@ -52,6 +52,7 @@ export class CreateUsersTable1661716955738 implements MigrationInterface {
           {
             name: 'is_verified',
             type: 'boolean',
+            default: false,
             isNullable: false,
           },
           {

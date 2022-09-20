@@ -1,6 +1,7 @@
 import {
   Injectable,
   NotFoundException,
+  ForbiddenException,
   ConflictException,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
@@ -10,7 +11,6 @@ import { UserEntity } from '~/user/user.entity';
 import { CreateUserDto } from '~/user/dto/create-user.dto';
 import { DateCalculatorService } from '~/utils/date-calculator.service';
 import { ApplicantService } from '~/applicant/applicant.service';
-import { CryptoService } from '~/utils/crypto.service';
 import { UpdateUserInput } from '~/graphql.schema';
 import { UserFactory } from '~/user/user.factory';
 @Injectable()
@@ -19,7 +19,6 @@ export class UserService {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     private readonly dateCalculatorService: DateCalculatorService,
-    private readonly cryptoService: CryptoService,
     private readonly applicantService: ApplicantService,
     private readonly userFactory: UserFactory,
   ) {}
@@ -42,10 +41,7 @@ export class UserService {
 
     const existsApplicant = await this.applicantService.findByEmail(user.email);
 
-    if (
-      applicant?.email === user.email ||
-      existsApplicant?.email === user.email
-    ) {
+    if (applicant?.email === user.email) {
       throw new ConflictException('Email already using');
     }
 
@@ -54,12 +50,16 @@ export class UserService {
     }
 
     user.age = this.dateCalculatorService.getAgeFromBirthDate(user.birthDate);
-    const passwordHash = await this.cryptoService.generateHash(user.password);
 
-    user.password = passwordHash;
+    if (user.age < 21) {
+      throw new ForbiddenException('Your age should be more then 21 years');
+    }
+
+    user.password = existsApplicant.password;
     const newUser = this.userRepository.create(user);
 
     newUser.applicant = existsApplicant;
+    newUser.isVerified = false;
     existsApplicant.user = newUser;
 
     const savedUser = await this.userRepository.save(newUser);
@@ -96,6 +96,21 @@ export class UserService {
 
   async updateById(id: string, payload: UpdateUserInput): Promise<UserEntity> {
     const user = await this.findById(id);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const updatedUser = this.userFactory.update(user, payload);
+
+    return this.userRepository.save(updatedUser);
+  }
+
+  async updateByEmail(
+    email: string,
+    payload: UpdateUserInput,
+  ): Promise<UserEntity> {
+    const user = await this.findByEmail(email);
 
     if (!user) {
       throw new NotFoundException('User not found');

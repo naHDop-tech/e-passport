@@ -14,3 +14,20 @@ export interface ISignUpFormData {
 export interface IResetPasswordData {
   email: string
 }
+
+export interface IUserProfile {
+  id: string
+  age: number
+  email: string
+  lastName: string
+  firstName: string
+  birthDate: string
+  countryResident: string
+  createdAt: string | null
+  updatedAt: string | null
+  isVerified: boolean
+  imgSrc: string
+
+  // frontend only
+  isDraft: boolean
+}

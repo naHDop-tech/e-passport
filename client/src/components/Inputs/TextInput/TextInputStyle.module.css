@@ -11,6 +11,20 @@
   line-height: 24px;
 }
 
+/* .Input::-webkit-calendar-picker-indicator {
+  color: transparent;
+  background: none;
+}
+
+.Input:before {
+  content: '\f073';
+  position: absolute;
+  top: 47px;
+  right: 14px;
+  content: '\1F4C5';
+  color: var(--color-text);
+} */
+
 .PositionRelative {
   position: relative;
 }

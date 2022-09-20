@@ -35,3 +35,7 @@
 .CursorPointer {
   cursor: pointer;
 }
+
+.ClearFix {
+  clear: both;
+}

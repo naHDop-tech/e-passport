@@ -1,14 +1,11 @@
 type Query {
-  cats: [Cat]
-  cat(id: ID!): Cat
-  user(id: ID!): User
+  user: User
+  applicant: Applicant
   isUserExists(email: String): Boolean
   isApplicantExists(email: String): Boolean
 }
 
 type Mutation {
-  createCat(createCatInput: CreateCatInput): Cat
-
   createUser(createUserInput: CreateUserInput): User
   createApplicant(createApplicantInput: CreateApplicantInput): Applicant
   updateUser(updateUserInput: UpdateUserInput): User
@@ -18,8 +15,6 @@ type Mutation {
 }
 
 type Subscription {
-  catCreated: Cat
-
   userCreated: User
   userUpdated: User
   userPhoneUpdated: User

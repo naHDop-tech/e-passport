@@ -7,6 +7,7 @@ import { UserGuard } from '~/user/user.guard';
 import { UserService } from '~/user/user.service';
 import { CreateUserDto } from '~/user/dto/create-user.dto';
 import { UpdateUserDto } from '~/user/dto/update-user.dto';
+import { UserEmail } from '~/decorators/user-email.decorator';
 
 @Resolver((of) => User)
 export class UserResolver {
@@ -19,8 +20,8 @@ export class UserResolver {
 
   @Query('user')
   @UseGuards(UserGuard)
-  async findOneById(@Args('id') id: string): Promise<User> {
-    return this.userService.findById(id);
+  async findOneById(@UserEmail() userEmail: string): Promise<User> {
+    return this.userService.findByEmail(userEmail);
   }
 
   @Mutation('createUser')
@@ -31,8 +32,14 @@ export class UserResolver {
   }
 
   @Mutation('updateUser')
-  async update(@Args('updateUserInput') payload: UpdateUserDto): Promise<User> {
-    const updatedUser = await this.userService.updateById(payload.id, payload);
+  async update(
+    @Args('updateUserInput') payload: UpdateUserDto,
+    @UserEmail() userEmail: string,
+  ): Promise<User> {
+    const updatedUser = await this.userService.updateByEmail(
+      userEmail,
+      payload,
+    );
     pubSub.publish('userUpdated', { updatedUser });
     return updatedUser;
   }

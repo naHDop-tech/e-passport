@@ -9,6 +9,41 @@ import {
 } from "@apollo/client";
 
 const typeDefs = gql`
+  extend type User {
+    id: ID!
+    email: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+    birthDate: String!
+    createdAt: String!
+    updatedAt: String
+    countryResident: String!
+    age: Int!
+    isVerified: Boolean!
+  }
+
+  extend type CreateUserInput {
+    email: String!
+    firstName: String!
+    lastName: String!
+    birthDate: String!
+    countryResident: String!
+  }
+
+  extend type DeleteUserInput {
+    id: ID!
+  }
+
+  extend type UpdateUserInput {
+    email: String
+    firstName: String
+    lastName: String
+    birthDate: String
+    countryResident: String
+    isVerified: Boolean
+  }
+
   extend type Applicant {
     id: ID!
     email: String!
@@ -33,9 +68,13 @@ const typeDefs = gql`
   extend type Mutation {
     createApplicant(createApplicantInput: CreateApplicantInput): Applicant
     signIn(signInInput: SignInInput): JwtToken
+    createUser(createUserInput: CreateUserInput): User
+    updateUser(updateUserInput: UpdateUserInput): User
   }
 
   extend type Query {
+    user: User
+    applicant: Applicant
     isApplicantExists(email: String): Boolean
   }
 `;
@@ -65,7 +104,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext(({ headers = {} }) => ({
     headers: {
       ...headers,
-      authorization: localStorage.getItem('token') || null,
+      authorization: localStorage.getItem('token')?.replace(/"/g, '') || null,
     }
   }));
 

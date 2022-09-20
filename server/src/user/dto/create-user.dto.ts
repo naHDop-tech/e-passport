@@ -22,12 +22,6 @@ export class CreateUserDto extends CreateUserInput {
 
   @IsNotEmpty()
   @IsString()
-  @MinLength(8)
-  @MaxLength(24)
-  password: string;
-
-  @IsNotEmpty()
-  @IsString()
   @MinLength(3)
   lastName: string;
 
@@ -40,7 +34,13 @@ export class CreateUserDto extends CreateUserInput {
   countryResident: string;
 
   @IsOptional()
+  @IsString()
+  @MinLength(8)
+  @MaxLength(24)
+  password: string;
+
+  @IsOptional()
   @IsNumber()
-  @Min(1)
+  @Min(18)
   age: number;
 }

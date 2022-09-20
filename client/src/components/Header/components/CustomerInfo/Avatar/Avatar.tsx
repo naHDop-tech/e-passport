@@ -25,7 +25,7 @@ export enum AvatarSizeType {
 }
 
 interface IAvatarProps {
-  imgSrc: string
+  imgSrc?: string
   size?: AvatarSizeType
   isSrcAllowed?: boolean
 }

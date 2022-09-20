@@ -6,7 +6,7 @@ import { useToast } from '@hooks/useToast'
 import { ToastType } from '@components/Toast/Toast'
 
 import { SignInForm } from './SignInForm'
-import { SIGN_IN } from '@root/api/mutations/sign-in'
+import { SIGN_IN } from '@root/gql/mutations/sign-in'
 import { signInReducer } from './reducer/reducer'
 import { Actions, defaultState } from './reducer/state'
 export interface ISignInProps {
