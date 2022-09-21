@@ -13,11 +13,10 @@ export interface ISpinnerProps {
 
 export function Spinner(props: PropsWithChildren<ISpinnerProps>) {
   const { children, isLoading } = props;
-  const { DualRing } = styles;
 
     return (
       <div>
-        {isLoading ? <div className={DualRing}></div> : children}
+        {isLoading ? <div className={styles.DualRing}></div> : children}
       </div>
     )
 }
