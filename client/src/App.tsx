@@ -24,8 +24,10 @@ export function App(): JSX.Element {
         <MainLayoutWrapper>
           <Routes>
             {/* common routes */}
-            {/* <Route path='/' element={<p>Hello</p>}/> */}
-            <Route path='/' element={<Spinner isLoading={true}/>}/>
+            <Route path='/' element={
+                              <Spinner isLoading={true}>
+                                <div>Hello</div>
+                              </Spinner>}/>
             <Route path='/sign-in' element={<SignInPage />}/>
             <Route path='/sign-up' element={<SignUpPage />}/>
             <Route path='/reset-password' element={<ResetPasswordPage />}/>
