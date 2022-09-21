@@ -1,10 +1,7 @@
 .DualRing {
   display: inline-block;
-  width: 80px;
-  height: 80px;
-  /* width: 128px;
-  height: 128px; */
-
+  width: 64px;
+  height: 64px;
 }
 
 .DualRing:after {
@@ -12,8 +9,6 @@
   display: block;
   width: 64px;
   height: 64px;
-  /* width: 128px;
-  height: 128px; */
   margin: 8px;
   border-radius: 50%;
   border: 6px solid var(--color-text);
@@ -33,27 +28,11 @@
 
 }
 
-.Small {
-  width: 64px;
-  height: 64px;
-}
-
-.Medium {
-  width: 128px;
-  height: 128px;
-}
-
 .Medium:after {
   width: 128px;
   height: 128px;
   border: 12px solid var(--color-text);
   border-color: var(--color-text) transparent var(--color-text) transparent;
-}
-
-
-.Large {
-  width: 256px;
-  height: 256px;
 }
 
 .Large:after {

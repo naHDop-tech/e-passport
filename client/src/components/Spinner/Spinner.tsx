@@ -38,12 +38,11 @@ export const getSpinnerSize = (size: SpinnerSizeType): string => {
 }
 
 export function Spinner(props: PropsWithChildren<ISpinnerProps>) {
-  const { children, isLoading, size =  SpinnerSizeType.Medium} = props;
+  const { children, isLoading, size =  SpinnerSizeType.Large} = props;
   const { DualRing } = styles;
 
-    return (
-      <div>
-        {isLoading ? <div className={cn(DualRing, getSpinnerSize(size))}></div> : children}
-      </div>
-    )
-}
+  return (
+    <>
+      {isLoading ? <div className={cn(DualRing, getSpinnerSize(size))}></div> : children}
+    </>
+  )}

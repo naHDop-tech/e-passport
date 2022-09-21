@@ -14,7 +14,6 @@ import { ResetPasswordPage } from '@pages/ResetPasswordPage'
 import { TermsOfConditions } from '@pages/TermsOfConditions'
 import { LogoutPage } from '@pages/LogoutPage'
 import { Spinner } from './components/Spinner'
-import { Avatar } from './components/Header/components/CustomerInfo/Avatar'
 
 const MainLayoutWrapper = withLayout()
 
