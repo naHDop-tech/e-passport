@@ -1,3 +1,2 @@
-export { Spinner } from './Spinner';
+export { Spinner, SpinnerSizeType } from './Spinner';
 export type { ISpinnerProps } from './Spinner'
-export type { SpinnerSizeType } from './Spinner'
