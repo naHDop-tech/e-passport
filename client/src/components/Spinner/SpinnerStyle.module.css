@@ -3,23 +3,11 @@
 }
 
 .DualRing:after {
-  content: " ";
+  content: '';
   display: block;
   margin: 8px;
   border-radius: 50%;
-  animation: DualRing 1.2s linear infinite;
-}
-
-@keyframes DualRing {
-
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-
+  animation: rotate-ring 1.2s linear infinite;
 }
 
 .Small {
@@ -56,4 +44,13 @@
   height: 256px;
   border: 24px solid var(--color-text);
   border-color: var(--color-text) transparent var(--color-text) transparent;
+}
+
+@keyframes rotate-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
