@@ -13,6 +13,7 @@ import { SignUpPage } from '@pages/SignUpPage'
 import { ResetPasswordPage } from '@pages/ResetPasswordPage'
 import { TermsOfConditions } from '@pages/TermsOfConditions'
 import { LogoutPage } from '@pages/LogoutPage'
+import { Spinner } from './components/Spinner'
 
 const MainLayoutWrapper = withLayout()
 
@@ -23,7 +24,10 @@ export function App(): JSX.Element {
         <MainLayoutWrapper>
           <Routes>
             {/* common routes */}
-            <Route path='/' element={<p>Hello</p>}/>
+            <Route path='/' element={
+                              <Spinner isLoading={true}>
+                                <div>Hello</div>
+                              </Spinner>}/>
             <Route path='/sign-in' element={<SignInPage />}/>
             <Route path='/sign-up' element={<SignUpPage />}/>
             <Route path='/reset-password' element={<ResetPasswordPage />}/>
