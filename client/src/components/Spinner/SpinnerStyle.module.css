@@ -1,18 +1,12 @@
 .DualRing {
   display: inline-block;
-  width: 64px;
-  height: 64px;
 }
 
 .DualRing:after {
   content: " ";
   display: block;
-  width: 64px;
-  height: 64px;
   margin: 8px;
   border-radius: 50%;
-  border: 6px solid var(--color-text);
-  border-color: var(--color-text) transparent var(--color-text) transparent;
   animation: DualRing 1.2s linear infinite;
 }
 
@@ -28,11 +22,33 @@
 
 }
 
+.Small {
+  width: 64px;
+  height: 64px;
+}
+
+.Small:after {
+  width: 64px;
+  height: 64px;
+  border: 6px solid var(--color-text);
+  border-color: var(--color-text) transparent var(--color-text) transparent;
+}
+
+.Medium {
+  width: 128px;
+  height: 128px;
+}
+
 .Medium:after {
   width: 128px;
   height: 128px;
   border: 12px solid var(--color-text);
   border-color: var(--color-text) transparent var(--color-text) transparent;
+}
+
+.Large {
+  width: 256px;
+  height: 256px;
 }
 
 .Large:after {
