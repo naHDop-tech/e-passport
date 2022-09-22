@@ -1,3 +1,11 @@
+scalar Upload
+
+type File {
+  filename: String!
+  mimetype: String!
+  encoding: String!
+}
+
 type Query {
   user: User
   applicant: Applicant
@@ -10,6 +18,8 @@ type Mutation {
   createApplicant(createApplicantInput: CreateApplicantInput): Applicant
   updateUser(updateUserInput: UpdateUserInput): User
   deleteUser(deleteUserId: ID!): User
+
+  uploadUserImage(file: Upload!): File!
 
   signIn(signInInput: SignInInput): JwtToken
 }

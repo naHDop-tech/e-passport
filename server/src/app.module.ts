@@ -22,6 +22,7 @@ import { JwtAuthModule } from '~/jwt-auth/jwt-auth.module';
     //GraphQl
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      csrfPrevention: true,
       subscriptions: {
         'graphql-ws': {
           path: '/subscription',
