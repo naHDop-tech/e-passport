@@ -136,6 +136,12 @@ export class UpdateUserInput {
     isVerified?: Nullable<boolean>;
 }
 
+export class File {
+    filename: string;
+    mimetype: string;
+    encoding: string;
+}
+
 export abstract class IQuery {
     abstract user(): Nullable<User> | Promise<Nullable<User>>;
 
@@ -154,6 +160,8 @@ export abstract class IMutation {
     abstract updateUser(updateUserInput?: Nullable<UpdateUserInput>): Nullable<User> | Promise<Nullable<User>>;
 
     abstract deleteUser(deleteUserId: string): Nullable<User> | Promise<Nullable<User>>;
+
+    abstract uploadUserImage(file: Upload): File | Promise<File>;
 
     abstract signIn(signInInput?: Nullable<SignInInput>): Nullable<JwtToken> | Promise<Nullable<JwtToken>>;
 }
@@ -238,4 +246,5 @@ export class User {
     photo?: Nullable<Photo>;
 }
 
+export type Upload = any;
 type Nullable<T> = T | null;
