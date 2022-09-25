@@ -1,5 +1,6 @@
 import { ChangeEvent, useState, useEffect } from 'react'
 
+import { toBase64 } from '@root/utils/files'
 import { IUserProfile } from '@root/interfaces/user'
 import { CREATE_USER } from '@root/gql/mutations/new-user'
 import { UPDATE_USER } from '@root/gql/mutations/update-user'
@@ -29,6 +30,13 @@ export function UserProfileDlc() {
 
   useEffect(() => {
     if (image) {
+      toBase64(image).then(data => {
+
+        console.log('myme type', image.type);
+        console.log('name', image.name);
+        console.log('encoding string', data);
+      })
+      
       const newImage = URL.createObjectURL(image)
       setImageSrc(newImage)
 

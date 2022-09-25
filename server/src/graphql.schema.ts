@@ -35,9 +35,6 @@ export class UserInput {
     countryResident: string;
     age: number;
     isVerified: boolean;
-    address?: Nullable<AddressInput>;
-    phone?: Nullable<PhoneInput>;
-    photo?: Nullable<PhotoInput>;
 }
 
 export class CreatePassportInput {
@@ -66,24 +63,18 @@ export class UpdatePhoneInput {
     number?: Nullable<number>;
 }
 
-export class PhotoInput {
-    id: string;
-    externalId: string;
-    name: string;
-    url: string;
-    isDeleted: boolean;
+export class FileInput {
+    filename: string;
+    mimetype: string;
+    encoding: string;
 }
 
 export class CreatePhotoInput {
-    externalId: string;
-    name: string;
-    url: string;
+    file: FileInput;
 }
 
 export class UpdatePhotoInput {
-    externalId: string;
-    name: string;
-    url: string;
+    file: FileInput;
 }
 
 export class MarkAsDeletePhotoInput {
@@ -136,12 +127,6 @@ export class UpdateUserInput {
     isVerified?: Nullable<boolean>;
 }
 
-export class File {
-    filename: string;
-    mimetype: string;
-    encoding: string;
-}
-
 export abstract class IQuery {
     abstract user(): Nullable<User> | Promise<Nullable<User>>;
 
@@ -161,7 +146,7 @@ export abstract class IMutation {
 
     abstract deleteUser(deleteUserId: string): Nullable<User> | Promise<Nullable<User>>;
 
-    abstract uploadUserImage(file: Upload): File | Promise<File>;
+    abstract uploadUserImage(file: CreatePhotoInput): Photo | Promise<Photo>;
 
     abstract signIn(signInInput?: Nullable<SignInInput>): Nullable<JwtToken> | Promise<Nullable<JwtToken>>;
 }
@@ -211,12 +196,18 @@ export class Phone {
     number: number;
 }
 
+export class FileType {
+    filename: string;
+    mimetype: string;
+    encoding: string;
+}
+
 export class Photo {
     id: string;
-    externalId: string;
-    name: string;
-    url: string;
-    isDeleted: boolean;
+    internalFile: FileType;
+    externalId?: Nullable<string>;
+    url?: Nullable<string>;
+    isDeleted?: Nullable<boolean>;
 }
 
 export class Address {
@@ -246,5 +237,4 @@ export class User {
     photo?: Nullable<Photo>;
 }
 
-export type Upload = any;
 type Nullable<T> = T | null;

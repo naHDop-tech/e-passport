@@ -2,7 +2,7 @@ import { selector } from 'recoil'
 
 import { GET_APPLICANT } from '@root/gql/queries/applicant'
 import { GET_USER } from '@root/gql/queries/user'
-import { apolloClient } from '@root/providers/ApolloProvider'
+import { apolloClient } from '@root/providers/Apollo/ApolloProvider'
 
 import { token } from './atoms'
 import { userInfo } from './atoms'

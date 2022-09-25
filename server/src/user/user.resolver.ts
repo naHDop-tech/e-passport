@@ -1,8 +1,5 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
-import { GraphQLUpload, FileUpload } from 'graphql-upload';
-import { finished } from 'stream/promises';
-import * as fs from 'fs';
 
 import { pubSub } from '~/pub-sub/pub-sub.provider';
 import { User } from '~/graphql.schema';
@@ -47,20 +44,21 @@ export class UserResolver {
     return updatedUser;
   }
 
-  @Mutation('uploadUserImage')
-  async uploadUserImage(
-    @Args('file', { type: () => GraphQLUpload }) file: FileUpload,
-  ) {
-    const { createReadStream, filename, mimetype, encoding } = await file;
+  // @Mutation('uploadUserImage')
+  // async uploadUserImage(
+  //   @Args('file', { type: () => gqlUpload.GraphQLUpload })
+  //   file: gqlUpload.FileUpload,
+  // ) {
+  //   const { createReadStream, filename, mimetype, encoding } = await file;
 
-    const stream = createReadStream();
+  //   const stream = createReadStream();
 
-    const out = fs.createWriteStream(`${filename}.${mimetype.split('/')[1]}`);
-    stream.pipe(out);
-    await finished(out);
+  //   const out = fs.createWriteStream(`${filename}.${mimetype.split('/')[1]}`);
+  //   stream.pipe(out);
+  //   await finished(out);
 
-    return { filename, mimetype, encoding };
-  }
+  //   return { filename, mimetype, encoding };
+  // }
 
   @Subscription((returns) => User, {
     name: 'userCreated',
