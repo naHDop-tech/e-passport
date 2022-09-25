@@ -22,10 +22,6 @@ input CreatePhotoInput {
   file: FileInput!
 }
 
-input UpdatePhotoInput {
-  file: FileInput!
-}
-
 input MarkAsDeletePhotoInput {
   id: ID!
 }

@@ -17,7 +17,11 @@ export const userInfo = atom<Partial<IUserProfile>>({
     email: '',
     firstName: '',
     lastName: '',
-    imgSrc: '', // https://www.w3schools.com/howto/img_avatar.png
+    photo: {
+      mimetype: '',
+      filename: '',
+      encoding: '',
+    },
     birthDate: '',
     countryResident: '',
 

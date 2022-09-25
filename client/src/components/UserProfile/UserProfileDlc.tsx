@@ -17,7 +17,6 @@ import { useMutation } from '@apollo/client'
 
 export function UserProfileDlc() {
   const [image, setImage] = useState<File>()
-  const [imageSrc, setImageSrc] = useState<string>()
   const { user, fetchUserInfo } = useUserInfo()
   const [userProfileForm, setUserProfileForm] = useState<Partial<IUserProfile>>(user)
   const errors = useUserProfileValidator(userProfileForm)
@@ -34,31 +33,30 @@ export function UserProfileDlc() {
   useEffect(() => {
     if (image) {
       toBase64(image).then(base64 => {
-
-        console.log('myme type', image.type);
-        console.log('name', image.name);
-        console.log('encoding string', base64);
-
-        uploadUserImageFx({ variables: { createPhotoInput: {
-          file: {
-            filename: image.name.replaceAll(' ', ''),
-            mimetype: image.type,
-            encoding: base64,
-          }
-        }}})
-
-        fetchUserInfo()
+        try {
+          uploadUserImageFx({ variables: { createPhotoInput: {
+            file: {
+              filename: image.name.replaceAll(' ', ''),
+              mimetype: image.type,
+              encoding: base64,
+            }
+          }}})
+  
+          // fetchUserInfo()
+          setUserProfileForm((prevState) => {
+            return {
+              ...prevState,
+              photo: {
+                encoding: base64,
+                filename: image.name.replaceAll(' ', ''),
+                mimetype: image.type,
+              }
+            }
+          })
+        } catch (error: any) {
+          toast.open({ type: ToastType.Error, content: error.message })
+        }
       })
-
-      // const newImage = URL.createObjectURL(image)
-      // setImageSrc(newImage)
-
-      // setUserProfileForm((prevState) => {
-      //   return {
-      //     ...prevState,
-      //     imgSrc: newImage
-      //   }
-      // })
     }
   }, [image])
 

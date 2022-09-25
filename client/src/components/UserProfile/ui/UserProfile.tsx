@@ -52,8 +52,8 @@ export function UserProfile(props: IUserProfileProps) {
       <div className={styles.MainInfoBox}>
         <div className={commonStyle.PositionRelative}>
           <Avatar
-            isSrcAllowed={!!changedUserFiled.imgSrc}
-            imgSrc={changedUserFiled.imgSrc}
+            isSrcAllowed={!!changedUserFiled.photo?.encoding}
+            imgSrc={changedUserFiled.photo?.encoding}
             size={AvatarSizeType.Medium}
           />
           <ImageUploader setImage={onSetImage} />
