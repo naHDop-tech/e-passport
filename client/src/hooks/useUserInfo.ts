@@ -3,7 +3,7 @@ import { useRecoilCallback, useRecoilValue } from 'recoil'
 
 import { GET_APPLICANT } from '@root/gql/queries/applicant'
 import { GET_USER } from '@root/gql/queries/user'
-import { apolloClient } from '@root/providers/ApolloProvider'
+import { apolloClient } from '@root/providers/Apollo/ApolloProvider'
 
 import { userInfo } from '@store/auth/atoms'
 import { authSelector } from '@store/auth/selector'
