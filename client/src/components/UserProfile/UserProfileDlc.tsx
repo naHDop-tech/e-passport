@@ -2,8 +2,10 @@ import { ChangeEvent, useState, useEffect } from 'react'
 
 import { toBase64 } from '@root/utils/files'
 import { IUserProfile } from '@root/interfaces/user'
-import { CREATE_USER } from '@root/gql/mutations/new-user'
-import { UPDATE_USER } from '@root/gql/mutations/update-user'
+
+import { CREATE_USER } from '@gql/mutations/new-user'
+import { UPDATE_USER } from '@gql/mutations/update-user'
+import { UPLOAD_USER_IMAGE } from '@gql/mutations/upload-user-Image'
 
 import { useUserProfileValidator } from '@hooks/validation/useUserProfileValidator'
 import { useToast } from '@hooks/useToast'
@@ -23,6 +25,7 @@ export function UserProfileDlc() {
 
   const [createUserFx] = useMutation(CREATE_USER)
   const [updateUserFx] = useMutation(UPDATE_USER)
+  const [uploadUserImageFx] = useMutation(UPLOAD_USER_IMAGE)
 
   useEffect(() => {
     fetchUserInfo()
@@ -30,22 +33,32 @@ export function UserProfileDlc() {
 
   useEffect(() => {
     if (image) {
-      toBase64(image).then(data => {
+      toBase64(image).then(base64 => {
 
         console.log('myme type', image.type);
         console.log('name', image.name);
-        console.log('encoding string', data);
-      })
-      
-      const newImage = URL.createObjectURL(image)
-      setImageSrc(newImage)
+        console.log('encoding string', base64);
 
-      setUserProfileForm((prevState) => {
-        return {
-          ...prevState,
-          imgSrc: newImage
-        }
+        uploadUserImageFx({ variables: { createPhotoInput: {
+          file: {
+            filename: image.name.replaceAll(' ', ''),
+            mimetype: image.type,
+            encoding: base64,
+          }
+        }}})
+
+        fetchUserInfo()
       })
+
+      // const newImage = URL.createObjectURL(image)
+      // setImageSrc(newImage)
+
+      // setUserProfileForm((prevState) => {
+      //   return {
+      //     ...prevState,
+      //     imgSrc: newImage
+      //   }
+      // })
     }
   }, [image])
 
