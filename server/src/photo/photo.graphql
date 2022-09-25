@@ -12,13 +12,15 @@ input FileInput {
 
 type Photo {
   id: ID!
-  internalFile: FileType!
-  externalId: String
-  url: String
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  createdAt: String!
+  updatedAt: String
   isDeleted: Boolean
 }
 
-input CreatePhotoInput {
+input UploadPhotoInput {
   file: FileInput!
 }
 
