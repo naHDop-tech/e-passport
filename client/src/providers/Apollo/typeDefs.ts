@@ -19,10 +19,6 @@ export const typeDefs = gql`
     file: File!
   }
 
-  extend type UpdatePhotoInput {
-    file: File!
-  }
-
   extend type MarkAsDeletePhotoInput {
     id: ID!
   }
@@ -88,7 +84,7 @@ export const typeDefs = gql`
     signIn(signInInput: SignInInput): JwtToken
     createUser(createUserInput: CreateUserInput): User
     updateUser(updateUserInput: UpdateUserInput): User
-    uploadUserImage(file: File!): Photo!
+    uploadUserImage(createPhotoInput: CreatePhotoInput!): Photo!
   }
 
   extend type Query {

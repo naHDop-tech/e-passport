@@ -146,7 +146,7 @@ export abstract class IMutation {
 
     abstract deleteUser(deleteUserId: string): Nullable<User> | Promise<Nullable<User>>;
 
-    abstract uploadUserImage(file: CreatePhotoInput): Photo | Promise<Photo>;
+    abstract uploadUserImage(createPhotoInput: CreatePhotoInput): Photo | Promise<Photo>;
 
     abstract signIn(signInInput?: Nullable<SignInInput>): Nullable<JwtToken> | Promise<Nullable<JwtToken>>;
 }
