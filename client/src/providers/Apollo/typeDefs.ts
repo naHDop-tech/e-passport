@@ -9,9 +9,11 @@ export const typeDefs = gql`
 
   extend type Photo {
     id: ID!
-    internalFile: File!
-    externalId: String
-    url: String
+    filename: String!
+    mimetype: String!
+    encoding: String!
+    createdAt: String!
+    updatedAt: String
     isDeleted: Boolean
   }
 
@@ -35,6 +37,7 @@ export const typeDefs = gql`
     countryResident: String!
     age: Int!
     isVerified: Boolean!
+    photo: Photo
   }
 
   extend type CreateUserInput {

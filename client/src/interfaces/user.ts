@@ -30,6 +30,9 @@ export interface IUserProfile {
     filename: string
     mimetype: string
     encoding: string
+    createdAt?: string
+    updatedAt?: string
+    isDeleted?: boolean
   }
 
   // frontend only

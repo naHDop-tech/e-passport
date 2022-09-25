@@ -69,11 +69,7 @@ export class FileInput {
     encoding: string;
 }
 
-export class CreatePhotoInput {
-    file: FileInput;
-}
-
-export class UpdatePhotoInput {
+export class UploadPhotoInput {
     file: FileInput;
 }
 
@@ -146,7 +142,7 @@ export abstract class IMutation {
 
     abstract deleteUser(deleteUserId: string): Nullable<User> | Promise<Nullable<User>>;
 
-    abstract uploadUserImage(createPhotoInput: CreatePhotoInput): Photo | Promise<Photo>;
+    abstract uploadUserImage(createPhotoInput: UploadPhotoInput): Photo | Promise<Photo>;
 
     abstract signIn(signInInput?: Nullable<SignInInput>): Nullable<JwtToken> | Promise<Nullable<JwtToken>>;
 }
@@ -204,9 +200,11 @@ export class FileType {
 
 export class Photo {
     id: string;
-    internalFile: FileType;
-    externalId?: Nullable<string>;
-    url?: Nullable<string>;
+    filename: string;
+    mimetype: string;
+    encoding: string;
+    createdAt: string;
+    updatedAt?: Nullable<string>;
     isDeleted?: Nullable<boolean>;
 }
 
