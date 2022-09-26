@@ -5,7 +5,7 @@ import { IUserProfile } from '@root/interfaces/user'
 
 import { CREATE_USER } from '@gql/mutations/new-user'
 import { UPDATE_USER } from '@gql/mutations/update-user'
-import { UPLOAD_USER_IMAGE } from '@gql/mutations/upload-user-Image'
+import { UPLOAD_USER_IMAGE } from '@gql/mutations/upload-user-image'
 
 import { useUserProfileValidator } from '@hooks/validation/useUserProfileValidator'
 import { useToast } from '@hooks/useToast'
@@ -25,37 +25,30 @@ export function UserProfileDlc() {
   const [createUserFx] = useMutation(CREATE_USER)
   const [updateUserFx] = useMutation(UPDATE_USER)
   const [uploadUserImageFx] = useMutation(UPLOAD_USER_IMAGE)
-
+  
   useEffect(() => {
     fetchUserInfo()
   }, [])
 
   useEffect(() => {
-    if (image) {
-      toBase64(image).then(base64 => {
+    ;(async() => {
+      if (image) {
+        const base64 = await toBase64(image)
+        
         try {
-          uploadUserImageFx({ variables: { createPhotoInput: {
+          await uploadUserImageFx({ variables: { createPhotoInput: {
               filename: image.name.replaceAll(' ', ''),
               mimetype: image.type,
               encoding: base64,
           }}})
 
-          fetchUserInfo()
-          // setUserProfileForm((prevState) => {
-          //   return {
-          //     ...prevState,
-          //     photo: {
-          //       encoding: base64,
-          //       filename: image.name.replaceAll(' ', ''),
-          //       mimetype: image.type,
-          //     }
-          //   }
-          // })
+          await fetchUserInfo()
+          toast.open({ type: ToastType.Success, content: 'Your photo was updated' })
         } catch (error: any) {
           toast.open({ type: ToastType.Error, content: error.message })
         }
-      })
-    }
+      }
+    })()
   }, [image])
 
   const saveHandler = async () => {

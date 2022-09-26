@@ -56,7 +56,7 @@ export function CustomerHeader(props: ICustomerHeaderProps) {
           onSelect={onDropdownSelect}
         >
           <CustomerInfo
-            imgSrc={user.imgSrc || ''}
+            imgSrc={user.photo?.encoding || ''}
             email={user.email || ''}
             customerFullName={`${fN} ${lN}`}
           />
