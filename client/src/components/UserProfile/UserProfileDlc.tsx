@@ -61,6 +61,7 @@ export function UserProfileDlc() {
           birthDate: userProfileForm.birthDate,
           countryResident: userProfileForm.countryResident,
         } } })
+
         if (createdUser.errors?.length) {
           throw new Error(createdUser.errors[0].message)
         }
@@ -71,7 +72,7 @@ export function UserProfileDlc() {
           lastName: userProfileForm.lastName,
           birthDate: userProfileForm.birthDate,
           countryResident: userProfileForm.countryResident,
-        } }})
+        } } })
 
         if (updatedUser.errors?.length) {
           throw new Error(updatedUser.errors[0].message)
