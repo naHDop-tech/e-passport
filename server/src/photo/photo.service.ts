@@ -2,25 +2,23 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { UserEntity } from '~/user/user.entity';
+import { UserService } from '~/user/user.service';
 import { PhotoEntity } from '~/photo/photo.entity';
 import { UploadUserPhotoDto } from '~/photo/dto/upload-user-photo.dto';
 
 @Injectable()
 export class UserPhotoService {
   constructor(
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(PhotoEntity)
     private readonly userImageRepository: Repository<PhotoEntity>,
+    private readonly userService: UserService,
   ) {}
 
   async updateUserPhoto(
     file: UploadUserPhotoDto,
     userId: string,
   ): Promise<PhotoEntity> {
-    const applicantUser = await this.userRepository.findOne({
-      where: { id: userId },
-    });
+    const applicantUser = await this.userService.findById(userId);
 
     if (!applicantUser) {
       throw new NotFoundException('User not found');
@@ -30,9 +28,11 @@ export class UserPhotoService {
       const newUserPhoto = this.userImageRepository.create(file);
       applicantUser.photo = newUserPhoto;
 
-      await this.userImageRepository.save(applicantUser);
+      const userImage = await this.userImageRepository.save(newUserPhoto);
 
-      return await this.userImageRepository.save(newUserPhoto);
+      await this.userService.save(applicantUser);
+
+      return userImage;
     } else {
       const userPhoto = await this.userImageRepository.findOne({
         where: { user: { id: applicantUser.id } },
@@ -66,6 +66,6 @@ export class UserPhotoService {
 
     userPhoto.isDeleted = true;
 
-    return this.userRepository.save(userPhoto);
+    return this.userImageRepository.save(userPhoto);
   }
 }

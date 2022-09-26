@@ -25,6 +25,13 @@ import { UserFactory } from '~/user/user.factory';
     },
     UserFactory,
   ],
-  exports: [UserService],
+  exports: [
+    UserService,
+    JwtService,
+    {
+      provide: PROVIDE_JWT_KEY,
+      useFactory: () => process.env.JWT_SECRET_KEY,
+    },
+  ],
 })
 export class UserModule {}

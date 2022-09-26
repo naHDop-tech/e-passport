@@ -1,14 +1,15 @@
 import { gql } from '@apollo/client'
 
 export const UPLOAD_USER_IMAGE = gql`
-  mutation CreateUser ($createPhotoInput: CreatePhotoInput!) {
+  mutation UploadUserPhoto ($createPhotoInput: FileInput) {
     uploadUserImage(createPhotoInput: $createPhotoInput) {
       id
-      internalFile {
-        filename
-        mimetype
-        encoding
-      }
+      filename
+      mimetype
+      encoding
+      createdAt
+      updatedAt
+      isDeleted
     }
   }
 `
