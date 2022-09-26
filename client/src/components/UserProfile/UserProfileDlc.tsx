@@ -35,24 +35,22 @@ export function UserProfileDlc() {
       toBase64(image).then(base64 => {
         try {
           uploadUserImageFx({ variables: { createPhotoInput: {
-            file: {
               filename: image.name.replaceAll(' ', ''),
               mimetype: image.type,
               encoding: base64,
-            }
           }}})
-  
-          // fetchUserInfo()
-          setUserProfileForm((prevState) => {
-            return {
-              ...prevState,
-              photo: {
-                encoding: base64,
-                filename: image.name.replaceAll(' ', ''),
-                mimetype: image.type,
-              }
-            }
-          })
+
+          fetchUserInfo()
+          // setUserProfileForm((prevState) => {
+          //   return {
+          //     ...prevState,
+          //     photo: {
+          //       encoding: base64,
+          //       filename: image.name.replaceAll(' ', ''),
+          //       mimetype: image.type,
+          //     }
+          //   }
+          // })
         } catch (error: any) {
           toast.open({ type: ToastType.Error, content: error.message })
         }

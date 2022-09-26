@@ -44,22 +44,6 @@ export class UserResolver {
     return updatedUser;
   }
 
-  // @Mutation('uploadUserImage')
-  // async uploadUserImage(
-  //   @Args('file', { type: () => gqlUpload.GraphQLUpload })
-  //   file: gqlUpload.FileUpload,
-  // ) {
-  //   const { createReadStream, filename, mimetype, encoding } = await file;
-
-  //   const stream = createReadStream();
-
-  //   const out = fs.createWriteStream(`${filename}.${mimetype.split('/')[1]}`);
-  //   stream.pipe(out);
-  //   await finished(out);
-
-  //   return { filename, mimetype, encoding };
-  // }
-
   @Subscription((returns) => User, {
     name: 'userCreated',
   })

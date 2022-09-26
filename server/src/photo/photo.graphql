@@ -1,9 +1,3 @@
-type FileType {
-  filename: String!
-  mimetype: String!
-  encoding: String!
-}
-
 input FileInput {
   filename: String!
   mimetype: String!
@@ -18,10 +12,6 @@ type Photo {
   createdAt: String!
   updatedAt: String
   isDeleted: Boolean
-}
-
-input UploadPhotoInput {
-  file: FileInput!
 }
 
 input MarkAsDeletePhotoInput {

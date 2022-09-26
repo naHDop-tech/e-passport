@@ -11,7 +11,7 @@ type Mutation {
   updateUser(updateUserInput: UpdateUserInput): User
   deleteUser(deleteUserId: ID!): User
 
-  uploadUserImage(createPhotoInput: UploadPhotoInput!): Photo!
+  uploadUserImage(createPhotoInput: FileInput): Photo
 
   signIn(signInInput: SignInInput): JwtToken
 }

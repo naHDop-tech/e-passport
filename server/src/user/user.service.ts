@@ -23,6 +23,10 @@ export class UserService {
     private readonly userFactory: UserFactory,
   ) {}
 
+  async save(user: UserEntity): Promise<UserEntity> {
+    return await this.userRepository.save(user);
+  }
+
   async isUserExists(email: string): Promise<boolean> {
     const applicant = await this.userRepository.findOne({
       where: { email },
@@ -81,7 +85,11 @@ export class UserService {
       throw new NotFoundException('User not found');
     }
 
-    return await this.userRepository.findOne({ where: { email } });
+    const user = await this.userRepository.findOne({
+      where: { email },
+    });
+    console.log(user);
+    return user;
   }
 
   async removeById(id: string) {

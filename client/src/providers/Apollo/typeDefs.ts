@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const typeDefs = gql`
-  extend type File {
+  extend type FileInput {
     filename: String!
     mimetype: String!
     encoding: String!
@@ -15,10 +15,6 @@ export const typeDefs = gql`
     createdAt: String!
     updatedAt: String
     isDeleted: Boolean
-  }
-
-  extend type CreatePhotoInput {
-    file: File!
   }
 
   extend type MarkAsDeletePhotoInput {
@@ -87,7 +83,7 @@ export const typeDefs = gql`
     signIn(signInInput: SignInInput): JwtToken
     createUser(createUserInput: CreateUserInput): User
     updateUser(updateUserInput: UpdateUserInput): User
-    uploadUserImage(createPhotoInput: CreatePhotoInput!): Photo!
+    uploadUserImage(createPhotoInput: FileInput): Photo
   }
 
   extend type Query {
