@@ -2,6 +2,8 @@
   border-radius: 150px;
   align-self: center;
   justify-self: center;
+
+  object-fit: cover;
 }
 
 .Small {

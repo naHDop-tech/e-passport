@@ -34,7 +34,7 @@ export function UserProfileDlc() {
     ;(async() => {
       if (image) {
         const base64 = await toBase64(image)
-        
+
         try {
           await uploadUserImageFx({ variables: { createPhotoInput: {
               filename: image.name.replaceAll(' ', ''),
