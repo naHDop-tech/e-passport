@@ -51,7 +51,10 @@ export class UserEntity extends User {
   @JoinColumn({ name: 'applicant_id', referencedColumnName: 'id' })
   applicant: ApplicantEntity;
 
-  @OneToOne(() => PhotoEntity, (photo) => photo.user)
+  @OneToOne(() => PhotoEntity, (photo) => photo.user, {
+    eager: true,
+    cascade: true,
+  })
   @JoinColumn({ name: 'photo_id', referencedColumnName: 'id' })
   photo: PhotoEntity;
 }
