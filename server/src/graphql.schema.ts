@@ -223,6 +223,7 @@ export class User {
     address?: Nullable<Address>;
     phone?: Nullable<Phone>;
     photo?: Nullable<Photo>;
+    token?: Nullable<string>;
 }
 
 type Nullable<T> = T | null;

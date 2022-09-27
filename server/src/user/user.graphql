@@ -14,6 +14,7 @@ type User {
   address: Address
   phone: Phone
   photo: Photo
+  token: String
 }
 
 input CreateUserInput {
