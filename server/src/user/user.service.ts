@@ -11,6 +11,7 @@ import { UserEntity } from '~/user/user.entity';
 import { CreateUserDto } from '~/user/dto/create-user.dto';
 import { DateCalculatorService } from '~/utils/date-calculator.service';
 import { ApplicantService } from '~/applicant/applicant.service';
+import { JwtService } from '~/jwt/jwt.service';
 import { UpdateUserInput } from '~/graphql.schema';
 import { UserFactory } from '~/user/user.factory';
 @Injectable()
@@ -21,6 +22,7 @@ export class UserService {
     private readonly dateCalculatorService: DateCalculatorService,
     private readonly applicantService: ApplicantService,
     private readonly userFactory: UserFactory,
+    private readonly jwtService: JwtService,
   ) {}
 
   async save(user: UserEntity): Promise<UserEntity> {
@@ -38,7 +40,7 @@ export class UserService {
     return false;
   }
 
-  async create(user: CreateUserDto): Promise<UserEntity> {
+  async create(user: CreateUserDto): Promise<UserEntity & { token: string }> {
     const applicant = await this.userRepository.findOne({
       where: { email: user.email },
     });
@@ -69,7 +71,13 @@ export class UserService {
     const savedUser = await this.userRepository.save(newUser);
     await this.applicantService.save(existsApplicant);
 
-    return savedUser;
+    const token = await this.jwtService.generateToken({
+      id: savedUser.id,
+      email: savedUser.email,
+      isDraft: false,
+    });
+
+    return { ...savedUser, token };
   }
 
   async findById(id: string): Promise<UserEntity> {

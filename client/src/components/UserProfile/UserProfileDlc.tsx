@@ -1,4 +1,6 @@
 import { ChangeEvent, useState, useEffect } from 'react'
+import { useMutation } from '@apollo/client'
+import { useSetRecoilState } from 'recoil'
 
 import { toBase64 } from '@root/utils/files'
 import { IUserProfile } from '@root/interfaces/user'
@@ -13,11 +15,12 @@ import { useUserInfo } from '@hooks/useUserInfo'
 
 import { ToastType } from '@components/Toast/Toast'
 import { UserProfile } from '@components/UserProfile'
-import { useMutation } from '@apollo/client'
+import { token } from '@store/auth/atoms'
 
 export function UserProfileDlc() {
   const [image, setImage] = useState<File>()
   const { user, fetchUserInfo } = useUserInfo()
+  const setToken = useSetRecoilState(token)
   const [userProfileForm, setUserProfileForm] = useState<Partial<IUserProfile>>(user)
   const errors = useUserProfileValidator(userProfileForm)
   const toast = useToast()
@@ -65,6 +68,11 @@ export function UserProfileDlc() {
         if (createdUser.errors?.length) {
           throw new Error(createdUser.errors[0].message)
         }
+
+        if (createdUser?.data) {
+          setToken(createdUser.data.createUser.token)
+        }
+
       } else {
         const updatedUser = await updateUserFx({ variables: { updateUserInput: {
           email: userProfileForm.email,
