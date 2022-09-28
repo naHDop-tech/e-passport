@@ -25,13 +25,19 @@ export function UserProfileDlc() {
   const errors = useUserProfileValidator(userProfileForm)
   const toast = useToast()
 
-  const [createUserFx] = useMutation(CREATE_USER)
+  const [createUserFx, { data: userCreatedData }] = useMutation(CREATE_USER)
   const [updateUserFx] = useMutation(UPDATE_USER)
   const [uploadUserImageFx] = useMutation(UPLOAD_USER_IMAGE)
   
   useEffect(() => {
     fetchUserInfo()
   }, [])
+
+  useEffect(() => {
+    if (userCreatedData?.createUser.token) {
+      setToken(userCreatedData.createUser.token)
+    }
+  }, [userCreatedData])
 
   useEffect(() => {
     ;(async() => {
@@ -68,11 +74,6 @@ export function UserProfileDlc() {
         if (createdUser.errors?.length) {
           throw new Error(createdUser.errors[0].message)
         }
-
-        if (createdUser?.data) {
-          setToken(createdUser.data.createUser.token)
-        }
-
       } else {
         const updatedUser = await updateUserFx({ variables: { updateUserInput: {
           email: userProfileForm.email,
