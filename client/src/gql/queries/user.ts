@@ -13,6 +13,15 @@ export const GET_USER = gql`
       countryResident
       age
       isVerified
+      photo {
+        id
+        filename
+        mimetype
+        encoding
+        createdAt
+        updatedAt
+        isDeleted
+      }
     }
   }
 `

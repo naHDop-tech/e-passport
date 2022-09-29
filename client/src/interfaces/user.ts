@@ -26,7 +26,14 @@ export interface IUserProfile {
   createdAt: string | null
   updatedAt: string | null
   isVerified: boolean
-  imgSrc: string
+  photo: {
+    filename: string
+    mimetype: string
+    encoding: string
+    createdAt?: string
+    updatedAt?: string
+    isDeleted?: boolean
+  }
 
   // frontend only
   isDraft: boolean

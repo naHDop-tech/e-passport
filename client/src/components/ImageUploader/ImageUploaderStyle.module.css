@@ -1,0 +1,10 @@
+.ButtonWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.HiddenInput {
+  opacity: 0;
+  visibility: hidden;
+  width: 0;
+}

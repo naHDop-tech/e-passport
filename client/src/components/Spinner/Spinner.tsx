@@ -23,7 +23,6 @@ export enum SpinnerSizeType {
 export interface ISpinnerProps {
   isLoading: boolean
   size?: SpinnerSizeType
-
 }
 
 export const getSpinnerSize = (size: SpinnerSizeType): string => {
@@ -38,7 +37,7 @@ export const getSpinnerSize = (size: SpinnerSizeType): string => {
 }
 
 export function Spinner(props: PropsWithChildren<ISpinnerProps>) {
-  const { children, isLoading, size = SpinnerSizeType.Medium} = props;
+  const { children, isLoading, size = SpinnerSizeType.Medium } = props;
   const { DualRing } = styles;
 
   return (

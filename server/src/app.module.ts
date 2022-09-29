@@ -11,6 +11,7 @@ import { upperDirectiveTransformer } from '~/common/directives/upper-case.direct
 import { UtilsModule } from '~/utils/utils.module';
 import { UserModule } from '~/user/user.module';
 import { ApplicantModule } from '~/applicant/applicant.module';
+import { PhotoModule } from '~/photo/photo.module';
 import { JwtAuthModule } from '~/jwt-auth/jwt-auth.module';
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { JwtAuthModule } from '~/jwt-auth/jwt-auth.module';
     //GraphQl
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      csrfPrevention: true,
       subscriptions: {
         'graphql-ws': {
           path: '/subscription',
@@ -79,6 +81,7 @@ import { JwtAuthModule } from '~/jwt-auth/jwt-auth.module';
     UserModule,
     JwtAuthModule,
     ApplicantModule,
+    PhotoModule,
   ],
 })
 export class AppModule {}

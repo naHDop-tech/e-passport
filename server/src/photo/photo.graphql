@@ -1,29 +1,17 @@
+input FileInput {
+  filename: String!
+  mimetype: String!
+  encoding: String!
+}
+
 type Photo {
   id: ID!
-  externalId: String!
-  name: String!
-  url: String!
-  isDeleted: Boolean!
-}
-
-input PhotoInput {
-  id: ID!
-  externalId: String!
-  name: String!
-  url: String!
-  isDeleted: Boolean!
-}
-
-input CreatePhotoInput {
-  externalId: String!
-  name: String!
-  url: String!
-}
-
-input UpdatePhotoInput {
-  externalId: String!
-  name: String!
-  url: String!
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  createdAt: String!
+  updatedAt: String
+  isDeleted: Boolean
 }
 
 input MarkAsDeletePhotoInput {

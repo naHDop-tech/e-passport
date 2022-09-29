@@ -35,9 +35,6 @@ export class UserInput {
     countryResident: string;
     age: number;
     isVerified: boolean;
-    address?: Nullable<AddressInput>;
-    phone?: Nullable<PhoneInput>;
-    photo?: Nullable<PhotoInput>;
 }
 
 export class CreatePassportInput {
@@ -66,24 +63,10 @@ export class UpdatePhoneInput {
     number?: Nullable<number>;
 }
 
-export class PhotoInput {
-    id: string;
-    externalId: string;
-    name: string;
-    url: string;
-    isDeleted: boolean;
-}
-
-export class CreatePhotoInput {
-    externalId: string;
-    name: string;
-    url: string;
-}
-
-export class UpdatePhotoInput {
-    externalId: string;
-    name: string;
-    url: string;
+export class FileInput {
+    filename: string;
+    mimetype: string;
+    encoding: string;
 }
 
 export class MarkAsDeletePhotoInput {
@@ -155,6 +138,8 @@ export abstract class IMutation {
 
     abstract deleteUser(deleteUserId: string): Nullable<User> | Promise<Nullable<User>>;
 
+    abstract uploadUserImage(createPhotoInput?: Nullable<FileInput>): Nullable<Photo> | Promise<Nullable<Photo>>;
+
     abstract signIn(signInInput?: Nullable<SignInInput>): Nullable<JwtToken> | Promise<Nullable<JwtToken>>;
 }
 
@@ -205,10 +190,12 @@ export class Phone {
 
 export class Photo {
     id: string;
-    externalId: string;
-    name: string;
-    url: string;
-    isDeleted: boolean;
+    filename: string;
+    mimetype: string;
+    encoding: string;
+    createdAt: string;
+    updatedAt?: Nullable<string>;
+    isDeleted?: Nullable<boolean>;
 }
 
 export class Address {
@@ -236,6 +223,7 @@ export class User {
     address?: Nullable<Address>;
     phone?: Nullable<Phone>;
     photo?: Nullable<Photo>;
+    token?: Nullable<string>;
 }
 
 type Nullable<T> = T | null;

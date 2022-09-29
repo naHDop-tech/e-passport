@@ -43,14 +43,13 @@ export const getAvatarSize = (size: AvatarSizeType): string => {
 
 export type AvatarProps = IAvatarProps & HtmlHTMLAttributes<HTMLDivElement>
 
-
 export function Avatar(props: AvatarProps) {
   const { imgSrc, size = AvatarSizeType.Small, isSrcAllowed, className, ...rest } = props
 
   return (
     <div className={cn(styles.Box, getAvatarSize(size), className)} {...rest}>
       {isSrcAllowed
-        ? <img className={styles.Box} alt='Customer image' src={imgSrc} /> 
+        ? <img className={cn(styles.Box, getAvatarSize(size))} alt='Customer image' src={imgSrc} /> 
         : <FakeAvatar size={size} />
       }
     </div>

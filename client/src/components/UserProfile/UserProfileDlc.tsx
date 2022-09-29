@@ -1,8 +1,13 @@
 import { ChangeEvent, useState, useEffect } from 'react'
+import { useMutation } from '@apollo/client'
+import { useSetRecoilState } from 'recoil'
 
+import { toBase64 } from '@root/utils/files'
 import { IUserProfile } from '@root/interfaces/user'
-import { CREATE_USER } from '@root/gql/mutations/new-user'
-import { UPDATE_USER } from '@root/gql/mutations/update-user'
+
+import { CREATE_USER } from '@gql/mutations/new-user'
+import { UPDATE_USER } from '@gql/mutations/update-user'
+import { UPLOAD_USER_IMAGE } from '@gql/mutations/upload-user-image'
 
 import { useUserProfileValidator } from '@hooks/validation/useUserProfileValidator'
 import { useToast } from '@hooks/useToast'
@@ -10,20 +15,50 @@ import { useUserInfo } from '@hooks/useUserInfo'
 
 import { ToastType } from '@components/Toast/Toast'
 import { UserProfile } from '@components/UserProfile'
-import { useMutation } from '@apollo/client'
+import { token } from '@store/auth/atoms'
 
 export function UserProfileDlc() {
+  const [image, setImage] = useState<File>()
   const { user, fetchUserInfo } = useUserInfo()
+  const setToken = useSetRecoilState(token)
   const [userProfileForm, setUserProfileForm] = useState<Partial<IUserProfile>>(user)
   const errors = useUserProfileValidator(userProfileForm)
   const toast = useToast()
 
-  const [createUserFx] = useMutation(CREATE_USER)
+  const [createUserFx, { data: userCreatedData }] = useMutation(CREATE_USER)
   const [updateUserFx] = useMutation(UPDATE_USER)
-
+  const [uploadUserImageFx] = useMutation(UPLOAD_USER_IMAGE)
+  
   useEffect(() => {
     fetchUserInfo()
   }, [])
+
+  useEffect(() => {
+    if (userCreatedData?.createUser.token) {
+      setToken(userCreatedData.createUser.token)
+    }
+  }, [userCreatedData])
+
+  useEffect(() => {
+    ;(async() => {
+      if (image) {
+        const base64 = await toBase64(image)
+
+        try {
+          await uploadUserImageFx({ variables: { createPhotoInput: {
+              filename: image.name.replaceAll(' ', ''),
+              mimetype: image.type,
+              encoding: base64,
+          }}})
+
+          await fetchUserInfo()
+          toast.open({ type: ToastType.Success, content: 'Your photo was updated' })
+        } catch (error: any) {
+          toast.open({ type: ToastType.Error, content: error.message })
+        }
+      }
+    })()
+  }, [image])
 
   const saveHandler = async () => {
     try {
@@ -35,10 +70,9 @@ export function UserProfileDlc() {
           birthDate: userProfileForm.birthDate,
           countryResident: userProfileForm.countryResident,
         } } })
+
         if (createdUser.errors?.length) {
-          toast.open({ type: ToastType.Error, content: createdUser.errors[0].message })
-        } else {
-          toast.open({ type: ToastType.Success, content: 'User profile were updated' })
+          throw new Error(createdUser.errors[0].message)
         }
       } else {
         const updatedUser = await updateUserFx({ variables: { updateUserInput: {
@@ -47,15 +81,14 @@ export function UserProfileDlc() {
           lastName: userProfileForm.lastName,
           birthDate: userProfileForm.birthDate,
           countryResident: userProfileForm.countryResident,
-        } }})
+        } } })
 
         if (updatedUser.errors?.length) {
-          toast.open({ type: ToastType.Error, content: updatedUser.errors[0].message })
-        } else {
-          toast.open({ type: ToastType.Success, content: 'User profile were updated' })
+          throw new Error(updatedUser.errors[0].message)
         }
       }
       fetchUserInfo()
+      toast.open({ type: ToastType.Success, content: 'User profile were updated' })
     } catch (err: any) {
       toast.open({ type: ToastType.Error, content: err.message })
     }
@@ -72,6 +105,7 @@ export function UserProfileDlc() {
 
   return (
     <UserProfile
+      onSetImage={setImage}
       errors={errors}
       changedUserFiled={userProfileForm}
       onChange={changeHandler}

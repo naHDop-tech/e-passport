@@ -18,9 +18,6 @@ input UserInput {
   countryResident: String!
   age: Int!
   isVerified: Boolean!
-  address: AddressInput
-  phone: PhoneInput
-  photo: PhotoInput
 }
 
 input CreatePassportInput {

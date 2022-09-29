@@ -1,7 +1,9 @@
 .Box {
-  border-radius: 100px;
+  border-radius: 150px;
   align-self: center;
   justify-self: center;
+
+  object-fit: cover;
 }
 
 .Small {
@@ -12,11 +14,15 @@
 .Medium {
   width: 128px;
   height: 128px;
+
+  font-size: 42px !important;
 }
 
 .Large {
   width: 256px;
   height: 256px;
+
+  font-size: 72px !important;
 }
 
 .FakeAvatarBox {
