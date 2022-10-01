@@ -3,7 +3,6 @@ import { ChangeEvent } from 'react'
 import { Avatar, AvatarSizeType } from '@components/Header/components/CustomerInfo/Avatar'
 import { TextInput } from '@components/Inputs/TextInput'
 import { ImageUploader } from '@components/ImageUploader'
-import { BorderPen } from '@components/ImageUploader/ui'
 
 import s from './UserProfileStyle.module.css'
 const styles = s as UserProfileStyle
@@ -48,8 +47,7 @@ export function UserProfile(props: IUserProfileProps) {
       <h1>My Profile</h1>
 
       <div className={commonStyle.Margin24} />
-
-      <div className={styles.MainInfoBox}>
+      {!user.isDraft && <div className={styles.MainInfoBox}>
         <div className={commonStyle.PositionRelative}>
           <Avatar
             isSrcAllowed={!!user.photo?.encoding}
@@ -62,8 +60,7 @@ export function UserProfile(props: IUserProfileProps) {
           <p>{`${user.firstName} ${user.lastName}`}</p>
           <p>{user.email}</p>
         </div>
-      </div>
-
+      </div> }
       <div className={commonStyle.Margin64}/>
 
       <div className={styles.FormBox}>
