@@ -15,7 +15,6 @@ import { IUserProfile } from '@root/interfaces/user'
 const commonStyle = cs as ICommonStyle
 
 interface UserProfileStyle {
-  PageBox: string
   MainInfoBox: string
   FormBox: string
   MainInfo: string
@@ -43,24 +42,23 @@ export function UserProfile(props: IUserProfileProps) {
   const { user, errors, changedUserFiled, onSave, onChange, onSetImage } = props
 
   return (
-    <div className={styles.PageBox}>
-      <h1>My Profile</h1>
-
-      <div className={commonStyle.Margin24} />
-      {!user.isDraft && <div className={styles.MainInfoBox}>
-        <div className={commonStyle.PositionRelative}>
-          <Avatar
-            isSrcAllowed={!!user.photo?.encoding}
-            imgSrc={user.photo?.encoding}
-            size={AvatarSizeType.Medium}
-          />
-          <ImageUploader setImage={onSetImage} />
+    <div>
+      {
+        !user.isDraft && <div className={styles.MainInfoBox}>
+          <div className={commonStyle.PositionRelative}>
+            <Avatar
+              isSrcAllowed={!!user.photo?.encoding}
+              imgSrc={user.photo?.encoding}
+              size={AvatarSizeType.Medium}
+            />
+            <ImageUploader setImage={onSetImage} />
+          </div>
+          <div className={styles.MainInfo}>
+            <p>{`${user.firstName} ${user.lastName}`}</p>
+            <p>{user.email}</p>
+          </div>
         </div>
-        <div className={styles.MainInfo}>
-          <p>{`${user.firstName} ${user.lastName}`}</p>
-          <p>{user.email}</p>
-        </div>
-      </div> }
+      }
       <div className={commonStyle.Margin64}/>
 
       <div className={styles.FormBox}>
