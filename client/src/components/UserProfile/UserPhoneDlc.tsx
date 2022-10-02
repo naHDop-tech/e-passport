@@ -26,6 +26,7 @@ export function UserPhoneDlc() {
   const saveHandler = async () => {
     try {
       // nothing
+      toast.open({ type: ToastType.Success, content: 'Your phone successfully changed' })
     } catch (err: any) {
       toast.open({ type: ToastType.Error, content: err.message })
     }

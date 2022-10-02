@@ -8,7 +8,7 @@ const styles = s as UserPhoneStyle
 import cs from '@components/CommonStyle.module.css'
 import { ICommonStyle } from '@components/common-style-types'
 import { Button } from '@root/components/Button'
-import { TextInput } from '@components/Inputs/TextInput'
+import { NumberInput } from '@components/Inputs/NumberInput'
 
 const commonStyle = cs as ICommonStyle
 
@@ -41,7 +41,7 @@ export function UserPhone(props: IUserPhoneProps) {
 
         <div className={commonStyle.Margin24} />
 
-        <TextInput
+        <NumberInput
           label='Phone'
           placeholder='i.e. "5462192"'
           value={changedUserFiled.phone?.number}
