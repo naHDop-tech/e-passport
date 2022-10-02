@@ -129,7 +129,7 @@ export abstract class IMutation {
 
     abstract uploadUserImage(createPhotoInput?: Nullable<FileInput>): Nullable<Photo> | Promise<Nullable<Photo>>;
 
-    abstract updateUserPhone(updateUserPhone?: Nullable<PhoneInput>): Nullable<Phone> | Promise<Nullable<Phone>>;
+    abstract updateUserPhone(updateUserPhoneInput?: Nullable<PhoneInput>): Nullable<Phone> | Promise<Nullable<Phone>>;
 
     abstract signIn(signInInput?: Nullable<SignInInput>): Nullable<JwtToken> | Promise<Nullable<JwtToken>>;
 }
@@ -177,6 +177,8 @@ export class Phone {
     id: string;
     countryCode: number;
     number: number;
+    createdAt?: Nullable<string>;
+    updatedAt?: Nullable<string>;
 }
 
 export class Photo {

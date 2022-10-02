@@ -8,8 +8,8 @@ type ValidatorReturnType = Partial<Record<FormFiledIds, string>>
 
 export function useUserPhoneValidator(form: Partial<IUserProfile['phone']>): ValidatorReturnType {
   const schema = Joi.object({
-    [FormFiledIds.Number]: Joi.string().length(10).pattern(/^[0-9]+$/),
-    [FormFiledIds.CountryCode]: Joi.string().min(1).max(3).pattern(/^[0-9]+$/),
+    [FormFiledIds.Number]: Joi.number(),
+    [FormFiledIds.CountryCode]: Joi.number(),
   })
 
   const errorData: ValidatorReturnType = useMemo(() => {

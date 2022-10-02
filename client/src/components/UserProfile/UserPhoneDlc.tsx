@@ -12,23 +12,22 @@ import { useUserPhoneValidator } from '@root/hooks/validation/userUserPhoneValid
 
 export function UserPhoneDlc() {
   const { user, fetchUserInfo } = useUserInfo()
-  const [userProfileForm, setUserProfileForm] = useState<Partial<IUserProfile['phone']>>({
+  const [userPhone, setUserPhone] = useState<Partial<IUserProfile['phone']>>({
     number: user.phone?.number,
     countryCode: user.phone?.countryCode
   })
-  const errors = useUserPhoneValidator(userProfileForm)
+  const errors = useUserPhoneValidator(userPhone)
   const toast = useToast()
 
   const [updateUserPhoneFx] = useMutation(UPDATE_USER_PHONE)
 
-  console.log(userProfileForm);
-  
-
   const saveHandler = async () => {
     try {
-      await updateUserPhoneFx({ variables: { updateUserPhone: {
-          countryCode: userProfileForm.countryCode,
-          number: userProfileForm.number,
+      console.log('userPhone', userPhone);
+      
+      await updateUserPhoneFx({ variables: { updateUserPhoneInput: {
+        countryCode: userPhone.countryCode,
+        number: userPhone.number,
       }}})
 
       await fetchUserInfo()
@@ -39,10 +38,10 @@ export function UserPhoneDlc() {
   }
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setUserProfileForm((prevState) => {
+    setUserPhone((prevState) => {
       return {
         ...prevState,
-        [e.target.id]: e.target.value,
+        [e.target.id]: Number(e.target.value),
       }
     })
   }
@@ -54,7 +53,7 @@ export function UserPhoneDlc() {
   return (
     <UserPhone
       errors={errors}
-      changedUserFiled={userProfileForm}
+      changedUserFiled={userPhone}
       onChange={changeHandler}
       onSave={saveHandler}
     />

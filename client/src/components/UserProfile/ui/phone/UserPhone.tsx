@@ -42,6 +42,7 @@ export function UserPhone(props: IUserPhoneProps) {
         <div className={commonStyle.Margin24} />
 
         <div className={styles.PhoneBox}>
+          {/* TODO: Dropdown */}
           <NumberInput
             label='Code'
             placeholder='i.e. "90"'

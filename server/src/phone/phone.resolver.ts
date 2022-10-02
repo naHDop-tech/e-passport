@@ -14,7 +14,7 @@ export class UserPhoneResolver {
   @Mutation('updateUserPhone')
   @UseGuards(PhoneGuard)
   async uploadUserImage(
-    @Args('createPhotoInput') payload: UpdateUserPhoneDto,
+    @Args('updateUserPhoneInput') payload: UpdateUserPhoneDto,
     @UserId() userId: string,
   ): Promise<Phone> {
     return await this.userPhoneService.updateUserPhone(payload, userId);

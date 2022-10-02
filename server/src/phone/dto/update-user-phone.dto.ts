@@ -1,12 +1,12 @@
-import { IsNumber, IsNotEmpty } from 'class-validator';
+import { IsInt, IsNotEmpty } from 'class-validator';
 import { PhoneInput } from '../../graphql.schema';
 
 export class UpdateUserPhoneDto extends PhoneInput {
   @IsNotEmpty()
-  @IsNumber()
+  @IsInt()
   countryCode: number;
 
   @IsNotEmpty()
-  @IsNumber()
+  @IsInt()
   number: number;
 }

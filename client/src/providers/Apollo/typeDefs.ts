@@ -5,6 +5,8 @@ export const typeDefs = gql`
     id: ID!
     countryCode: Int!
     number: Int!
+    createdAt: String
+    updatedAt: String
   }
 
   extend type PhoneInput {
@@ -96,7 +98,7 @@ export const typeDefs = gql`
     createUser(createUserInput: CreateUserInput): User
     updateUser(updateUserInput: UpdateUserInput): User
     uploadUserImage(createPhotoInput: FileInput): Photo
-    updateUserPhone(updateUserPhone: PhoneInput): Phone
+    updateUserPhone(updateUserPhoneInput: PhoneInput): Phone
   }
 
   extend type Query {
