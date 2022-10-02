@@ -5,6 +5,12 @@
   align-items: center;
 }
 
+.PhoneBox {
+  display: grid;
+  grid-template-columns: 100px auto;
+  gap: 10px;
+}
+
 .MainInfo > p:first-child {
   font-size: 24px;
   margin-bottom: 12px;

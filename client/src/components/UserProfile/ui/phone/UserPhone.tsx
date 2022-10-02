@@ -15,20 +15,20 @@ const commonStyle = cs as ICommonStyle
 interface UserPhoneStyle {
   MainInfoBox: string
   FormBox: string
+  PhoneBox: string
 }
 
 export interface IUserPhoneProps {
   onSave: () => void
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
 
-  changedUserFiled: Partial<IUserProfile>
-
-  user: Partial<IUserProfile>
+  changedUserFiled: Partial<IUserProfile['phone']>
   errors?: Partial<Record<FormFiledIds, string>>
 }
 
 export enum FormFiledIds {
-  Phone = 'phone',
+  Number = 'number',
+  CountryCode = 'countryCode'
 }
 
 export function UserPhone(props: IUserPhoneProps) {
@@ -41,14 +41,25 @@ export function UserPhone(props: IUserPhoneProps) {
 
         <div className={commonStyle.Margin24} />
 
-        <NumberInput
-          label='Phone'
-          placeholder='i.e. "5462192"'
-          value={changedUserFiled.phone?.number}
-          id={FormFiledIds.Phone}
-          onChange={onChange}
-          errorText={errors?.[FormFiledIds.Phone]}
-        />
+        <div className={styles.PhoneBox}>
+          <NumberInput
+            label='Code'
+            placeholder='i.e. "90"'
+            value={changedUserFiled.countryCode}
+            id={FormFiledIds.CountryCode}
+            onChange={onChange}
+            errorText={errors?.[FormFiledIds.CountryCode]}
+          />
+          <NumberInput
+            label='Phone'
+            placeholder='i.e. "5462192"'
+            value={changedUserFiled.number}
+            id={FormFiledIds.Number}
+            onChange={onChange}
+            errorText={errors?.[FormFiledIds.Number]}
+          />
+        </div>
+
 
         <div className={commonStyle.Margin32} />
         <Button style={{ float: 'right' }} title='Save phone' onClick={onSave} />
