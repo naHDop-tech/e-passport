@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 
 import { UserProfileDlc } from '@components/UserProfile'
 import { UserPhoneDlc } from '@components/UserProfile'
@@ -9,6 +9,7 @@ const styles = s as UserProfilePageStyle
 
 import cs from '@components/CommonStyle.module.css'
 import { ICommonStyle } from '@components/common-style-types'
+import { useUserInfo } from '@hooks/useUserInfo';
 
 const commonStyle = cs as ICommonStyle
 
@@ -17,6 +18,12 @@ interface UserProfilePageStyle {
 }
 
 export function UserProfilePage() {
+  const { fetchUserInfo } = useUserInfo()
+
+  useEffect(() => {
+    fetchUserInfo()
+  }, [])
+
   return (
     <Suspense fallback={<Spinner isLoading />}>
       <div className={styles.PageBox}>

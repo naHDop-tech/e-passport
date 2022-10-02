@@ -33,8 +33,7 @@ export enum FormFiledIds {
 
 export function UserPhone(props: IUserPhoneProps) {
   const { errors, changedUserFiled, onSave, onChange } = props
-  console.log(errors);
-  
+
   return (
     <div>
       <div className={styles.FormBox}>

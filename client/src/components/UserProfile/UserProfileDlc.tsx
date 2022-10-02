@@ -33,10 +33,6 @@ export function UserProfileDlc() {
   const [createUserFx, { data: userCreatedData }] = useMutation(CREATE_USER)
   const [updateUserFx] = useMutation(UPDATE_USER)
   const [uploadUserImageFx] = useMutation(UPLOAD_USER_IMAGE)
-  
-  useEffect(() => {
-    fetchUserInfo()
-  }, [])
 
   useEffect(() => {
     if (userCreatedData?.createUser.token) {

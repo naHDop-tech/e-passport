@@ -40,8 +40,7 @@ export enum FormFiledIds {
 
 export function UserProfile(props: IUserProfileProps) {
   const { user, errors, changedUserFiled, onSave, onChange, onSetImage } = props
-  console.log(errors);
-  
+
   return (
     <div>
       {
