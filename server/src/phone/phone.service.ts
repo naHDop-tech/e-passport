@@ -34,13 +34,13 @@ export class UserPhoneService {
 
       return userPhone;
     } else {
-      const userPhoto = await this.userPhoneRepository.findOne({
+      const userPhone = await this.userPhoneRepository.findOne({
         where: { user: { id: applicantUser.id } },
       });
-      userPhoto.countryCode = payload.countryCode;
-      userPhoto.number = payload.number;
+      userPhone.countryCode = payload.countryCode;
+      userPhone.number = payload.number;
 
-      return await this.userPhoneRepository.save(userPhoto);
+      return await this.userPhoneRepository.save(userPhone);
     }
   }
 
