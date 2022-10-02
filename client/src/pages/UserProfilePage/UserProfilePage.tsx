@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 
 import { UserProfileDlc } from '@components/UserProfile'
+import { UserPhoneDlc } from '@components/UserProfile'
 import { Spinner } from '@components/Spinner'
 
 import s from './UserProfilePageStyle.module.css'
@@ -27,8 +28,9 @@ export function UserProfilePage() {
         <UserProfileDlc />
 
         {/* Phone */}
-        {/* <UserPhoneDlc /> */}
+        <UserPhoneDlc />
         {/* Address */}
+        {/* <h1>My Address</h1> */}
         {/* <UserAddressDlc /> */}
       </div>
     </Suspense>
