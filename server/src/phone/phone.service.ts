@@ -46,7 +46,7 @@ export class UserPhoneService {
 
   async findByUserId(userId: string): Promise<PhoneEntity> {
     if (!userId) {
-      throw new NotFoundException('User photo not found');
+      throw new NotFoundException('User phone not found');
     }
 
     return await this.userPhoneRepository.findOne({
