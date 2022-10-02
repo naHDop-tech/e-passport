@@ -48,19 +48,8 @@ export class UpdatePassportInput {
 }
 
 export class PhoneInput {
-    id: string;
     countryCode: number;
     number: number;
-}
-
-export class CreatePhoneInput {
-    countryCode: number;
-    number: number;
-}
-
-export class UpdatePhoneInput {
-    countryCode?: Nullable<number>;
-    number?: Nullable<number>;
 }
 
 export class FileInput {
@@ -139,6 +128,8 @@ export abstract class IMutation {
     abstract deleteUser(deleteUserId: string): Nullable<User> | Promise<Nullable<User>>;
 
     abstract uploadUserImage(createPhotoInput?: Nullable<FileInput>): Nullable<Photo> | Promise<Nullable<Photo>>;
+
+    abstract updateUserPhone(updateUserPhone?: Nullable<PhoneInput>): Nullable<Phone> | Promise<Nullable<Phone>>;
 
     abstract signIn(signInInput?: Nullable<SignInInput>): Nullable<JwtToken> | Promise<Nullable<JwtToken>>;
 }
