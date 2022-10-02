@@ -3,15 +3,15 @@ import { gql } from "@apollo/client";
 export const typeDefs = gql`
   extend type Phone {
     id: ID!
-    countryCode: Int!
-    number: Int!
+    countryCode: String!
+    number: String!
     createdAt: String
     updatedAt: String
   }
 
   extend type PhoneInput {
-    countryCode: Int!
-    number: Int!
+    countryCode: String!
+    number: String!
   }
 
   extend type FileInput {

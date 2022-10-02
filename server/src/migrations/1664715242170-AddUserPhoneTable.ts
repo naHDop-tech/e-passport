@@ -21,12 +21,12 @@ export class AddUserPhoneTable1664715242170 implements MigrationInterface {
           },
           {
             name: 'country_code',
-            type: 'integer',
+            type: 'VARCHAR',
             isNullable: false,
           },
           {
             name: 'number',
-            type: 'integer',
+            type: 'VARCHAR',
             isNullable: false,
           },
           {

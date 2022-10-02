@@ -16,10 +16,10 @@ export class PhoneEntity extends Phone {
   id: string;
 
   @Column({ name: 'country_code' })
-  countryCode: number;
+  countryCode: string;
 
   @Column({ name: 'number' })
-  number: number;
+  number: string;
 
   @CreateDateColumn({ name: 'created_at', default: 'now()' })
   createdAt: string;

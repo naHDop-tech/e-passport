@@ -48,8 +48,8 @@ export class UpdatePassportInput {
 }
 
 export class PhoneInput {
-    countryCode: number;
-    number: number;
+    countryCode: string;
+    number: string;
 }
 
 export class FileInput {
@@ -175,8 +175,8 @@ export class Passport {
 
 export class Phone {
     id: string;
-    countryCode: number;
-    number: number;
+    countryCode: string;
+    number: string;
     createdAt?: Nullable<string>;
     updatedAt?: Nullable<string>;
 }

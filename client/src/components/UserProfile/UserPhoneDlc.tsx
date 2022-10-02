@@ -23,8 +23,6 @@ export function UserPhoneDlc() {
 
   const saveHandler = async () => {
     try {
-      console.log('userPhone', userPhone);
-      
       await updateUserPhoneFx({ variables: { updateUserPhoneInput: {
         countryCode: userPhone.countryCode,
         number: userPhone.number,
@@ -41,7 +39,7 @@ export function UserPhoneDlc() {
     setUserPhone((prevState) => {
       return {
         ...prevState,
-        [e.target.id]: Number(e.target.value),
+        [e.target.id]: e.target.value,
       }
     })
   }

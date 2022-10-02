@@ -1,12 +1,12 @@
 type Phone {
   id: ID!
-  countryCode: Int!
-  number: Int!
+  countryCode: String!
+  number: String!
   createdAt: String
   updatedAt: String
 }
 
 input PhoneInput {
-  countryCode: Int!
-  number: Int!
+  countryCode: String!
+  number: String!
 }

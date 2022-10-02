@@ -40,7 +40,8 @@ export enum FormFiledIds {
 
 export function UserProfile(props: IUserProfileProps) {
   const { user, errors, changedUserFiled, onSave, onChange, onSetImage } = props
-
+  console.log(errors);
+  
   return (
     <div>
       {
@@ -105,7 +106,7 @@ export function UserProfile(props: IUserProfileProps) {
         />
 
         <div className={commonStyle.Margin32} />
-        <Button style={{ float: 'right' }} title='Save profile' onClick={onSave} />
+        <Button disabled={!!Object.keys(errors as Object).length} style={{ float: 'right' }} title='Save profile' onClick={onSave} />
         <div className={commonStyle.ClearFix} />
       </div>
     </div>

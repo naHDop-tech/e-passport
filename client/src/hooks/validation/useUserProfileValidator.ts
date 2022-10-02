@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import Joi from 'joi'
 
-import { FormFiledIds } from '@root/components/UserProfile/ui/profile/UserProfile'
+import { FormFiledIds } from '@components/UserProfile/ui/profile/UserProfile'
 import { IUserProfile } from '@root/interfaces/user'
 
 type ValidatorReturnType = Partial<Record<FormFiledIds, string>>

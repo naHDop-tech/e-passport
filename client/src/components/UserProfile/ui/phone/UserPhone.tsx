@@ -33,7 +33,8 @@ export enum FormFiledIds {
 
 export function UserPhone(props: IUserPhoneProps) {
   const { errors, changedUserFiled, onSave, onChange } = props
-
+  console.log(errors);
+  
   return (
     <div>
       <div className={styles.FormBox}>
@@ -61,9 +62,8 @@ export function UserPhone(props: IUserPhoneProps) {
           />
         </div>
 
-
         <div className={commonStyle.Margin32} />
-        <Button style={{ float: 'right' }} title='Save phone' onClick={onSave} />
+        <Button disabled={!!Object.keys(errors as Object).length} style={{ float: 'right' }} title='Save phone' onClick={onSave} />
         <div className={commonStyle.ClearFix} />
       </div>
     </div>

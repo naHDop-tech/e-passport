@@ -35,8 +35,8 @@ export interface IUserProfile {
     isDeleted?: boolean
   }
   phone: {
-    countryCode: number
-    number: number
+    countryCode: string
+    number: string
   }
 
   // frontend only
