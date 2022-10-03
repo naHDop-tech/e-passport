@@ -178,14 +178,14 @@ export class Photo {
 }
 
 export class Address {
-    id?: Nullable<string>;
-    country?: Nullable<string>;
-    city?: Nullable<string>;
-    line1?: Nullable<string>;
-    line2?: Nullable<string>;
-    zip?: Nullable<string>;
-    createdAt?: Nullable<string>;
-    updatedAt?: Nullable<string>;
+    id: string;
+    country: string;
+    city: string;
+    line1: string;
+    line2: string;
+    zip: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export class User {
