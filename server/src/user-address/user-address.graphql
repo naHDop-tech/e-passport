@@ -4,7 +4,9 @@ type Address {
   city: String
   line1: String
   line2: String
-  zip: Int
+  zip: String
+  createdAt: String
+  updatedAt: String
 }
 
 input AddressInput {
@@ -13,21 +15,7 @@ input AddressInput {
   city: String!
   line1: String!
   line2: String!
-  zip: Int!
-}
-
-input CreateAddressInput {
-  country: String!
-  city: String!
-  line1: String!
-  line2: String!
-  zip: Int!
-}
-
-input UpdateAddressInput {
-  country: String
-  city: String
-  line1: String
-  line2: String
-  zip: Int
+  zip: String!
+  createdAt: String
+  updatedAt: String
 }

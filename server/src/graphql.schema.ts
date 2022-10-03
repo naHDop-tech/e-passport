@@ -68,23 +68,9 @@ export class AddressInput {
     city: string;
     line1: string;
     line2: string;
-    zip: number;
-}
-
-export class CreateAddressInput {
-    country: string;
-    city: string;
-    line1: string;
-    line2: string;
-    zip: number;
-}
-
-export class UpdateAddressInput {
-    country?: Nullable<string>;
-    city?: Nullable<string>;
-    line1?: Nullable<string>;
-    line2?: Nullable<string>;
-    zip?: Nullable<number>;
+    zip: string;
+    createdAt?: Nullable<string>;
+    updatedAt?: Nullable<string>;
 }
 
 export class CreateUserInput {
@@ -197,7 +183,9 @@ export class Address {
     city?: Nullable<string>;
     line1?: Nullable<string>;
     line2?: Nullable<string>;
-    zip?: Nullable<number>;
+    zip?: Nullable<string>;
+    createdAt?: Nullable<string>;
+    updatedAt?: Nullable<string>;
 }
 
 export class User {
