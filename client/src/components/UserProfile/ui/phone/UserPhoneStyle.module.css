@@ -1,13 +1,14 @@
-.PageBox {
-  padding: 0 32px;
-  padding-bottom: 32px;
-}
-
 .MainInfoBox {
   display: flex;
   flex-direction: row;
   gap: 24px;
   align-items: center;
+}
+
+.PhoneBox {
+  display: grid;
+  grid-template-columns: 100px auto;
+  gap: 10px;
 }
 
 .MainInfo > p:first-child {

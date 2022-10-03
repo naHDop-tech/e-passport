@@ -12,7 +12,7 @@ type Mutation {
   deleteUser(deleteUserId: ID!): User
 
   uploadUserImage(createPhotoInput: FileInput): Photo
-
+  updateUserPhone(updateUserPhoneInput: PhoneInput): Phone
   signIn(signInInput: SignInInput): JwtToken
 }
 

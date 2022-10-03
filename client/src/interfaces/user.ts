@@ -34,6 +34,10 @@ export interface IUserProfile {
     updatedAt?: string
     isDeleted?: boolean
   }
+  phone: {
+    countryCode: string
+    number: string
+  }
 
   // frontend only
   isDraft: boolean

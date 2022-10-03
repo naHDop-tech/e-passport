@@ -1,21 +1,12 @@
 type Phone {
   id: ID!
-  countryCode: Int!
-  number: Int!
+  countryCode: String!
+  number: String!
+  createdAt: String
+  updatedAt: String
 }
 
 input PhoneInput {
-  id: ID!
-  countryCode: Int!
-  number: Int!
-}
-
-input CreatePhoneInput {
-  countryCode: Int!
-  number: Int!
-}
-
-input UpdatePhoneInput {
-  countryCode: Int
-  number: Int
+  countryCode: String!
+  number: String!
 }

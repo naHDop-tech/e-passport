@@ -1,6 +1,19 @@
 import { gql } from "@apollo/client";
 
 export const typeDefs = gql`
+  extend type Phone {
+    id: ID!
+    countryCode: String!
+    number: String!
+    createdAt: String
+    updatedAt: String
+  }
+
+  extend type PhoneInput {
+    countryCode: String!
+    number: String!
+  }
+
   extend type FileInput {
     filename: String!
     mimetype: String!
@@ -34,6 +47,7 @@ export const typeDefs = gql`
     age: Int!
     isVerified: Boolean!
     photo: Photo
+    phone: Phone
   }
 
   extend type CreateUserInput {
@@ -84,6 +98,7 @@ export const typeDefs = gql`
     createUser(createUserInput: CreateUserInput): User
     updateUser(updateUserInput: UpdateUserInput): User
     uploadUserImage(createPhotoInput: FileInput): Photo
+    updateUserPhone(updateUserPhoneInput: PhoneInput): Phone
   }
 
   extend type Query {

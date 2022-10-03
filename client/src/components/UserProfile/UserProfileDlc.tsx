@@ -21,17 +21,18 @@ export function UserProfileDlc() {
   const [image, setImage] = useState<File>()
   const { user, fetchUserInfo } = useUserInfo()
   const setToken = useSetRecoilState(token)
-  const [userProfileForm, setUserProfileForm] = useState<Partial<IUserProfile>>(user)
+  const [userProfileForm, setUserProfileForm] = useState<Partial<IUserProfile>>({
+    firstName: user.firstName,
+    lastName: user.lastName,
+    birthDate: user.birthDate,
+    countryResident: user.countryResident,
+  })
   const errors = useUserProfileValidator(userProfileForm)
   const toast = useToast()
 
   const [createUserFx, { data: userCreatedData }] = useMutation(CREATE_USER)
   const [updateUserFx] = useMutation(UPDATE_USER)
   const [uploadUserImageFx] = useMutation(UPLOAD_USER_IMAGE)
-  
-  useEffect(() => {
-    fetchUserInfo()
-  }, [])
 
   useEffect(() => {
     if (userCreatedData?.createUser.token) {

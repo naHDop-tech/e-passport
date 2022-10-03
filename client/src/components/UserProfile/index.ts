@@ -1,3 +1,6 @@
-export { UserProfile } from './ui/UserProfile'
-export type { IUserProfileProps } from './ui/UserProfile'
+export { UserProfile } from './ui/profile/UserProfile'
+export { UserPhone } from './ui/phone/UserPhone'
+export type { IUserProfileProps } from './ui/profile/UserProfile'
+export type { IUserPhoneProps } from './ui/phone/UserPhone'
 export { UserProfileDlc } from './UserProfileDlc'
+export { UserPhoneDlc } from './UserPhoneDlc'
