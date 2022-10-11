@@ -1,6 +1,25 @@
 import { gql } from "@apollo/client";
 
 export const typeDefs = gql`
+  extend type Address {
+    id: ID!
+    country: String!
+    city: String!
+    line1: String!
+    line2: String!
+    zip: String!
+    createdAt: String!
+    updatedAt: String!
+  }
+
+  extend type AddressInput {
+    country: String!
+    city: String!
+    line1: String!
+    line2: String!
+    zip: String!
+  }
+
   extend type Phone {
     id: ID!
     countryCode: String!

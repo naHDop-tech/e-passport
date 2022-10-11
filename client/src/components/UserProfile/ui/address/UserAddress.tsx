@@ -38,7 +38,6 @@ export function UserAddress(props: IUserAddressProps) {
   const { errors, changedUserFiled, onSave, onChange } = props
 
   return (
-    <div>
       <div className={styles.FormBox}>
         <h1>Edit Address</h1>
 
@@ -91,6 +90,5 @@ export function UserAddress(props: IUserAddressProps) {
         <Button disabled={!!Object.keys(errors as Object).length} style={{ float: 'right' }} title='Save Address' onClick={onSave} />
         <div className={commonStyle.ClearFix} />
       </div>
-    </div>
   )
 }
