@@ -9,6 +9,7 @@ import cs from '@components/CommonStyle.module.css'
 import { ICommonStyle } from '@components/common-style-types'
 import { Button } from '@root/components/Button'
 import { TextInput } from '@components/Inputs/TextInput'
+import { NumberInput } from '@components/Inputs/NumberInput'
 
 const commonStyle = cs as ICommonStyle
 
@@ -61,7 +62,7 @@ export function UserAddress(props: IUserAddressProps) {
           />
           <div className={commonStyle.Margin24} />
           <TextInput
-            label='Line 1 address'
+            label='Line 1'
             placeholder='i.e. "Saint st."'
             value={changedUserFiled.line1}
             id={FormFiledIds.Line1}
@@ -70,7 +71,7 @@ export function UserAddress(props: IUserAddressProps) {
           />
           <div className={commonStyle.Margin24} />
           <TextInput
-            label='Line 2 address'
+            label='Line 2'
             placeholder='i.e. "123-2"'
             value={changedUserFiled.line2}
             id={FormFiledIds.Line2}
@@ -78,8 +79,8 @@ export function UserAddress(props: IUserAddressProps) {
             errorText={errors?.[FormFiledIds.Line2]}
           />
           <div className={commonStyle.Margin24} />
-          <TextInput
-            label='Zip code'
+          <NumberInput
+            label='Zip'
             placeholder='i.e. "23465"'
             value={changedUserFiled.zip}
             id={FormFiledIds.Zip}

@@ -27,7 +27,8 @@ export function UserAddressDlc() {
   const saveHandler = async () => {
     try {
       await updateUserAddressFx({ variables: { updateUserAddressInput: {
-        countryCode: userAddress.country,
+        country: userAddress.country,
+        city: userAddress.city,
         number: userAddress.city,
         line1: userAddress.line1,
         line2: userAddress.line2,
