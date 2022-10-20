@@ -36,6 +36,6 @@ export class AddressEntity extends Address {
   @UpdateDateColumn({ name: 'updated_at', default: 'now()' })
   updatedAt: string;
 
-  @OneToOne(() => UserEntity, (user) => user.photo)
+  @OneToOne(() => UserEntity, (user) => user.address)
   user: UserEntity;
 }

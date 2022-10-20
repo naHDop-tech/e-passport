@@ -118,6 +118,7 @@ export const typeDefs = gql`
     updateUser(updateUserInput: UpdateUserInput): User
     uploadUserImage(createPhotoInput: FileInput): Photo
     updateUserPhone(updateUserPhoneInput: PhoneInput): Phone
+    updateUserAddress(updateAddressInput: AddressInput): Address
   }
 
   extend type Query {
