@@ -67,6 +67,7 @@ export const typeDefs = gql`
     isVerified: Boolean!
     photo: Photo
     phone: Phone
+    address: Address
   }
 
   extend type CreateUserInput {

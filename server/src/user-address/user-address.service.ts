@@ -59,10 +59,8 @@ export class UserAddressService {
     const newUserAddress = this.userAddressRepository.create(payload);
     user.address = newUserAddress;
 
-    const userAddress = await this.userAddressRepository.save(newUserAddress);
-
     await this.userService.save(user);
 
-    return userAddress;
+    return user.address;
   }
 }

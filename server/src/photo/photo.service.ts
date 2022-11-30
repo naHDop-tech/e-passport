@@ -28,11 +28,9 @@ export class UserPhotoService {
       const newUserPhoto = this.userImageRepository.create(file);
       applicantUser.photo = newUserPhoto;
 
-      const userImage = await this.userImageRepository.save(newUserPhoto);
-
       await this.userService.save(applicantUser);
 
-      return userImage;
+      return applicantUser.photo;
     } else {
       const userPhoto = await this.userImageRepository.findOne({
         where: { user: { id: applicantUser.id } },

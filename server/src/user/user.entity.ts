@@ -71,6 +71,6 @@ export class UserEntity extends User {
     eager: true,
     cascade: true,
   })
-  @JoinColumn({ name: 'phone_id', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'address_id', referencedColumnName: 'id' })
   address: AddressEntity;
 }

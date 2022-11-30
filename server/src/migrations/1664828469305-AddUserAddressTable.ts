@@ -113,12 +113,12 @@ export class AddUserAddressTable1664828469305 implements MigrationInterface {
     const foreignKeyUsers = tableUsers.foreignKeys.find(
       (fk) => fk.columnNames.indexOf('address_id') !== -1,
     );
-    const foreignKeyUserPhones = tableUserAddresses.foreignKeys.find(
+    const foreignKeyUserAddresses = tableUserAddresses.foreignKeys.find(
       (fk) => fk.columnNames.indexOf('user_id') !== -1,
     );
 
     await queryRunner.dropForeignKey('users', foreignKeyUsers);
-    await queryRunner.dropForeignKey('user_addresses', foreignKeyUserPhones);
+    await queryRunner.dropForeignKey('user_addresses', foreignKeyUserAddresses);
 
     await queryRunner.dropColumn('users', 'address_id');
     await queryRunner.dropColumn('user_addresses', 'user_id');
