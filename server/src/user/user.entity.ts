@@ -12,6 +12,7 @@ import { User } from '~/graphql.schema';
 import { ApplicantEntity } from '~/applicant/applicant.entity';
 import { PhotoEntity } from '~/photo/photo.entity';
 import { PhoneEntity } from '~/phone/phone.entity';
+import { AddressEntity } from '~/user-address/user-address.entity';
 
 @Entity('users')
 export class UserEntity extends User {
@@ -65,4 +66,11 @@ export class UserEntity extends User {
   })
   @JoinColumn({ name: 'phone_id', referencedColumnName: 'id' })
   phone: PhoneEntity;
+
+  @OneToOne(() => AddressEntity, (address) => address.user, {
+    eager: true,
+    cascade: true,
+  })
+  @JoinColumn({ name: 'address_id', referencedColumnName: 'id' })
+  address: AddressEntity;
 }

@@ -23,8 +23,19 @@ export const GET_USER = gql`
         isDeleted
       }
       phone {
+        id
         number
         countryCode
+      }
+      address {
+        id
+        country
+        city
+        line1
+        line2
+        zip
+        createdAt
+        updatedAt
       }
     }
   }

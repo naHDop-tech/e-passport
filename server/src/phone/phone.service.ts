@@ -28,11 +28,9 @@ export class UserPhoneService {
       const newUserPhone = this.userPhoneRepository.create(payload);
       applicantUser.phone = newUserPhone;
 
-      const userPhone = await this.userPhoneRepository.save(newUserPhone);
-
       await this.userService.save(applicantUser);
 
-      return userPhone;
+      return applicantUser.phone;
     } else {
       const userPhone = await this.userPhoneRepository.findOne({
         where: { user: { id: applicantUser.id } },

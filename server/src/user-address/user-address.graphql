@@ -1,33 +1,18 @@
 type Address {
-  id: ID
-  country: String
-  city: String
-  line1: String
-  line2: String
-  zip: Int
-}
-
-input AddressInput {
   id: ID!
   country: String!
   city: String!
   line1: String!
   line2: String!
-  zip: Int!
+  zip: String!
+  createdAt: String!
+  updatedAt: String!
 }
 
-input CreateAddressInput {
+input AddressInput {
   country: String!
   city: String!
   line1: String!
   line2: String!
-  zip: Int!
-}
-
-input UpdateAddressInput {
-  country: String
-  city: String
-  line1: String
-  line2: String
-  zip: Int
+  zip: String!
 }

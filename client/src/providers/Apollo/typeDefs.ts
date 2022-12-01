@@ -1,6 +1,25 @@
 import { gql } from "@apollo/client";
 
 export const typeDefs = gql`
+  extend type Address {
+    id: ID!
+    country: String!
+    city: String!
+    line1: String!
+    line2: String!
+    zip: String!
+    createdAt: String!
+    updatedAt: String!
+  }
+
+  extend type AddressInput {
+    country: String!
+    city: String!
+    line1: String!
+    line2: String!
+    zip: String!
+  }
+
   extend type Phone {
     id: ID!
     countryCode: String!
@@ -48,6 +67,7 @@ export const typeDefs = gql`
     isVerified: Boolean!
     photo: Photo
     phone: Phone
+    address: Address
   }
 
   extend type CreateUserInput {
@@ -99,6 +119,7 @@ export const typeDefs = gql`
     updateUser(updateUserInput: UpdateUserInput): User
     uploadUserImage(createPhotoInput: FileInput): Photo
     updateUserPhone(updateUserPhoneInput: PhoneInput): Phone
+    updateUserAddress(updateAddressInput: AddressInput): Address
   }
 
   extend type Query {

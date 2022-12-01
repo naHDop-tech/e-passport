@@ -63,28 +63,11 @@ export class MarkAsDeletePhotoInput {
 }
 
 export class AddressInput {
-    id: string;
     country: string;
     city: string;
     line1: string;
     line2: string;
-    zip: number;
-}
-
-export class CreateAddressInput {
-    country: string;
-    city: string;
-    line1: string;
-    line2: string;
-    zip: number;
-}
-
-export class UpdateAddressInput {
-    country?: Nullable<string>;
-    city?: Nullable<string>;
-    line1?: Nullable<string>;
-    line2?: Nullable<string>;
-    zip?: Nullable<number>;
+    zip: string;
 }
 
 export class CreateUserInput {
@@ -130,6 +113,8 @@ export abstract class IMutation {
     abstract uploadUserImage(createPhotoInput?: Nullable<FileInput>): Nullable<Photo> | Promise<Nullable<Photo>>;
 
     abstract updateUserPhone(updateUserPhoneInput?: Nullable<PhoneInput>): Nullable<Phone> | Promise<Nullable<Phone>>;
+
+    abstract updateUserAddress(updateAddressInput?: Nullable<AddressInput>): Nullable<Address> | Promise<Nullable<Address>>;
 
     abstract signIn(signInInput?: Nullable<SignInInput>): Nullable<JwtToken> | Promise<Nullable<JwtToken>>;
 }
@@ -192,12 +177,14 @@ export class Photo {
 }
 
 export class Address {
-    id?: Nullable<string>;
-    country?: Nullable<string>;
-    city?: Nullable<string>;
-    line1?: Nullable<string>;
-    line2?: Nullable<string>;
-    zip?: Nullable<number>;
+    id: string;
+    country: string;
+    city: string;
+    line1: string;
+    line2: string;
+    zip: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export class User {
