@@ -10,8 +10,8 @@ export const GET_USER = gql`
       birthDate
       createdAt
       updatedAt
-      countryResident
-      age
+      nationality
+      sex
       isVerified
       photo {
         id

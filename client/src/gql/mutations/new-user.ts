@@ -11,8 +11,8 @@ export const CREATE_USER = gql`
       birthDate
       createdAt
       updatedAt
-      countryResident
-      age
+      nationality
+      sex
       isVerified
     }
   }

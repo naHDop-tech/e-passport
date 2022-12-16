@@ -1,6 +1,6 @@
 import { atom } from 'recoil'
 import { localStorageEffect } from '@store/effect'
-import { IUserProfile } from '@root/interfaces/user'
+import { IUserProfile, Sex } from '@root/interfaces/user'
 
 export const token = atom<string>({
   key: 'token',
@@ -23,7 +23,8 @@ export const userInfo = atom<Partial<IUserProfile>>({
       encoding: '',
     },
     birthDate: '',
-    countryResident: '',
+    sex: Sex.Unset,
+    nationality: '',
 
     // frontend only
     isDraft: true,

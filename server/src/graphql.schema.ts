@@ -32,8 +32,8 @@ export class UserInput {
     createdAt: string;
     updatedAt: string;
     birthDate: string;
-    countryResident: string;
-    age: number;
+    sex: string;
+    nationality: string;
     isVerified: boolean;
 }
 
@@ -41,6 +41,11 @@ export class CreatePassportInput {
     user: UserInput;
     identifier: string;
     number: string;
+    code: string;
+    issueDate: string;
+    expirationDate: string;
+    placeOfBirth: string;
+    type: string;
 }
 
 export class UpdatePassportInput {
@@ -75,7 +80,8 @@ export class CreateUserInput {
     firstName: string;
     lastName: string;
     birthDate: string;
-    countryResident: string;
+    nationality: string;
+    sex: string;
 }
 
 export class DeleteUserInput {
@@ -87,7 +93,8 @@ export class UpdateUserInput {
     firstName?: Nullable<string>;
     lastName?: Nullable<string>;
     birthDate?: Nullable<string>;
-    countryResident?: Nullable<string>;
+    nationality?: Nullable<string>;
+    sex?: Nullable<string>;
     isVerified?: Nullable<boolean>;
 }
 
@@ -154,6 +161,11 @@ export class Passport {
     id: string;
     identifier: string;
     number: string;
+    code: string;
+    issueDate: string;
+    expirationDate: string;
+    type: string;
+    placeOfBirth: string;
     user: User;
     fingerprint: Fingerprint;
 }
@@ -196,8 +208,8 @@ export class User {
     birthDate: string;
     createdAt: string;
     updatedAt?: Nullable<string>;
-    countryResident: string;
-    age: number;
+    nationality: string;
+    sex: string;
     isVerified: boolean;
     passport?: Nullable<Passport>;
     address?: Nullable<Address>;

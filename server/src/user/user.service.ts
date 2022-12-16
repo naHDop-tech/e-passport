@@ -55,9 +55,9 @@ export class UserService {
       throw new ConflictException('Draft user not exists');
     }
 
-    user.age = this.dateCalculatorService.getAgeFromBirthDate(user.birthDate);
+    const age = this.dateCalculatorService.getAgeFromBirthDate(user.birthDate);
 
-    if (user.age < 21) {
+    if (age < 21) {
       throw new ForbiddenException('Your age should be more then 21 years');
     }
 
@@ -71,7 +71,7 @@ export class UserService {
     const savedUser = await this.userRepository.save(newUser);
     await this.applicantService.save(existsApplicant);
 
-    const token = await this.jwtService.generateToken({
+    const token = this.jwtService.generateToken({
       id: savedUser.id,
       email: savedUser.email,
       isDraft: false,

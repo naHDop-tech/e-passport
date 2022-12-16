@@ -12,4 +12,8 @@ export class DateCalculatorService {
 
     return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
+
+  static getAgeFromDate(date: string): number {
+    return DateCalculatorService.getAgeFromDate(date);
+  }
 }

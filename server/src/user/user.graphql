@@ -7,8 +7,8 @@ type User {
   birthDate: String!
   createdAt: String!
   updatedAt: String
-  countryResident: String!
-  age: Int!
+  nationality: String!
+  sex: String!
   isVerified: Boolean!
   passport: Passport
   address: Address
@@ -22,7 +22,8 @@ input CreateUserInput {
   firstName: String!
   lastName: String!
   birthDate: String!
-  countryResident: String!
+  nationality: String!
+  sex: String!
 }
 
 input DeleteUserInput {
@@ -34,6 +35,7 @@ input UpdateUserInput {
   firstName: String
   lastName: String
   birthDate: String
-  countryResident: String
+  nationality: String
+  sex: String
   isVerified: Boolean
 }

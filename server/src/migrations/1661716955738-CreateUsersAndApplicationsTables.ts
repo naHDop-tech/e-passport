@@ -30,11 +30,6 @@ export class CreateUsersTable1661716955738 implements MigrationInterface {
             isNullable: false,
           },
           {
-            name: 'age',
-            type: 'int',
-            isNullable: false,
-          },
-          {
             name: 'email',
             type: 'VARCHAR',
             isNullable: false,
@@ -45,7 +40,12 @@ export class CreateUsersTable1661716955738 implements MigrationInterface {
             isNullable: false,
           },
           {
-            name: 'country_resident',
+            name: 'nationality',
+            type: 'VARCHAR',
+            isNullable: false,
+          },
+          {
+            name: 'sex',
             type: 'VARCHAR',
             isNullable: false,
           },
@@ -68,7 +68,7 @@ export class CreateUsersTable1661716955738 implements MigrationInterface {
           {
             name: 'birth_date',
             type: 'VARCHAR',
-            isNullable: true,
+            isNullable: false,
           },
         ],
       }),

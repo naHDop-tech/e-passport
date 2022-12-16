@@ -14,7 +14,8 @@ export function useUserProfileValidator(form: Partial<IUserProfile>): ValidatorR
     [FormFiledIds.FirstName]: Joi.string().min(3).max(20),
     [FormFiledIds.LastName]: Joi.string().min(3).max(30),
     [FormFiledIds.BirthDate]: Joi.date().iso().max(cutoffDate),
-    [FormFiledIds.CountryResident]: Joi.string()
+    [FormFiledIds.Nationality]: Joi.string(),
+    [FormFiledIds.Sex]: Joi.string(),
   })
 
   const errorData: ValidatorReturnType = useMemo(() => {

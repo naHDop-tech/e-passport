@@ -5,7 +5,8 @@ import {
   IsEmail,
   IsBoolean,
 } from 'class-validator';
-import { UpdateUserInput } from '../../graphql.schema';
+import { UpdateUserInput } from '~/graphql.schema';
+import { Sex } from '../user.interfaces';
 
 export class UpdateUserDto extends UpdateUserInput {
   @IsOptional()
@@ -28,9 +29,13 @@ export class UpdateUserDto extends UpdateUserInput {
 
   @IsOptional()
   @IsString()
-  countryResident: string;
+  nationality: string;
 
   @IsOptional()
   @IsBoolean()
   isVerified: boolean;
+
+  @IsOptional()
+  @IsString()
+  sex: Sex;
 }

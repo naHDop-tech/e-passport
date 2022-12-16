@@ -8,6 +8,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 
+import { Sex } from './user.interfaces';
 import { User } from '~/graphql.schema';
 import { ApplicantEntity } from '~/applicant/applicant.entity';
 import { PhotoEntity } from '~/photo/photo.entity';
@@ -26,9 +27,6 @@ export class UserEntity extends User {
   lastName: string;
 
   @Column()
-  age: number;
-
-  @Column()
   email: string;
 
   @Column()
@@ -43,8 +41,11 @@ export class UserEntity extends User {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: string;
 
-  @Column({ name: 'country_resident' })
-  countryResident: string;
+  @Column()
+  nationality: string;
+
+  @Column()
+  sex: Sex;
 
   @Column({ name: 'is_verified', default: false })
   isVerified: boolean;
