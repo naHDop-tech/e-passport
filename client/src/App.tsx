@@ -13,7 +13,7 @@ import { SignUpPage } from '@pages/SignUpPage'
 import { ResetPasswordPage } from '@pages/ResetPasswordPage'
 import { TermsOfConditions } from '@pages/TermsOfConditions'
 import { LogoutPage } from '@pages/LogoutPage'
-import { Spinner } from './components/Spinner'
+import { Spinner } from '@components/Spinner'
 
 const MainLayoutWrapper = withLayout()
 

@@ -2,6 +2,11 @@ type Passport {
   id: ID!
   identifier: String!
   number: String!
+  code: String!
+  issueDate: String!
+  expirationDate: String!
+  type: String!
+  placeOfBirth: String!
   user: User!
   fingerprint: Fingerprint!
 }
@@ -15,8 +20,8 @@ input UserInput {
   createdAt: String!
   updatedAt: String!
   birthDate: String!
-  countryResident: String!
-  age: Int!
+  sex: String!
+  nationality: String!
   isVerified: Boolean!
 }
 
@@ -24,6 +29,11 @@ input CreatePassportInput {
   user: UserInput!
   identifier: String!
   number: String!
+  code: String!
+  issueDate: String!
+  expirationDate: String!
+  placeOfBirth: String!
+  type: String!
 }
 
 input UpdatePassportInput {

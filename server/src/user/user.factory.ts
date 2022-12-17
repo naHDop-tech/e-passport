@@ -13,9 +13,12 @@ export class UserFactory {
     user.isVerified = updateOptions.isVerified
       ? updateOptions.isVerified
       : user.isVerified;
-    user.countryResident = updateOptions.countryResident
-      ? updateOptions.countryResident
-      : user.countryResident;
+    user.nationality = updateOptions.nationality
+      ? updateOptions.nationality
+      : user.nationality;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    user.sex = updateOptions.sex ? updateOptions.sex : user.sex;
 
     return user;
   }

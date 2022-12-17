@@ -38,6 +38,14 @@ export interface IAddress {
   createdAt: string;
   updatedAt: string;
 }
+
+export enum Sex {
+  Male = 'Male',
+  Female = 'Female',
+  It = 'It',
+  Unset = 'Unset',
+}
+
 export interface IUserProfile {
   id: string
   age: number
@@ -45,7 +53,8 @@ export interface IUserProfile {
   lastName: string
   firstName: string
   birthDate: string
-  countryResident: string
+  nationality: string
+  sex: Sex
   createdAt: string | null
   updatedAt: string | null
   isVerified: boolean

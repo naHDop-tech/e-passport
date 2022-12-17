@@ -35,7 +35,8 @@ export enum FormFiledIds {
   FirstName = 'firstName',
   LastName = 'lastName',
   BirthDate = 'birthDate',
-  CountryResident = 'countryResident'
+  Nationality = 'nationality',
+  Sex = 'sex',
 }
 
 export function UserProfile(props: IUserProfileProps) {
@@ -98,10 +99,20 @@ export function UserProfile(props: IUserProfileProps) {
         <TextInput
           label='Country resident'
           placeholder='i.e. "England"'
-          value={changedUserFiled.countryResident}
-          id={FormFiledIds.CountryResident}
+          value={changedUserFiled.nationality}
+          id={FormFiledIds.Nationality}
           onChange={onChange}
-          errorText={errors?.[FormFiledIds.CountryResident]}
+          errorText={errors?.[FormFiledIds.Nationality]}
+        />
+
+        {/* TODO: SELECTOR */}
+        <TextInput
+            label='Sex'
+            placeholder='i.e. "Male"'
+            value={changedUserFiled.sex}
+            id={FormFiledIds.Sex}
+            onChange={onChange}
+            errorText={errors?.[FormFiledIds.Sex]}
         />
 
         <div className={commonStyle.Margin32} />

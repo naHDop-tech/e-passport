@@ -25,7 +25,8 @@ export function UserProfileDlc() {
     firstName: user.firstName,
     lastName: user.lastName,
     birthDate: user.birthDate,
-    countryResident: user.countryResident,
+    nationality: user.nationality,
+    sex: user.sex,
   })
   const errors = useUserProfileValidator(userProfileForm)
   const toast = useToast()
@@ -69,7 +70,8 @@ export function UserProfileDlc() {
           firstName: userProfileForm.firstName,
           lastName: userProfileForm.lastName,
           birthDate: userProfileForm.birthDate,
-          countryResident: userProfileForm.countryResident,
+          nationality: userProfileForm.nationality,
+          sex: userProfileForm.sex,
         } } })
 
         if (createdUser.errors?.length) {
@@ -81,7 +83,8 @@ export function UserProfileDlc() {
           firstName: userProfileForm.firstName,
           lastName: userProfileForm.lastName,
           birthDate: userProfileForm.birthDate,
-          countryResident: userProfileForm.countryResident,
+          nationality: userProfileForm.nationality,
+          sex: userProfileForm.sex,
         } } })
 
         if (updatedUser.errors?.length) {
