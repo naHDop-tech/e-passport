@@ -37,5 +37,4 @@ input UpdateUserInput {
   birthDate: String
   nationality: String
   sex: String
-  isVerified: Boolean
 }
