@@ -142,7 +142,7 @@ export class JwtToken {
 
 export class Passport {
     id: string;
-    identifier: string;
+    mrz: string;
     uNumber: string;
     pNumber: string;
     nationalityCode: string;

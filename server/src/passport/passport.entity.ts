@@ -19,8 +19,8 @@ export class PassportEntity extends Passport {
     @Column({ name: 'issuing_organization'})
     issuingOrganization: string
 
-    @Column({ name: 'identifier' })
-    identifier: string;
+    @Column({ name: 'mrz' })
+    mrz: string;
 
     @Column({ name: 'u_number' })
     uNumber: string;

@@ -1,6 +1,6 @@
 type Passport {
   id: ID!
-  identifier: String!
+  mrz: String!
   uNumber: String!
   pNumber: String!
   nationalityCode: String!

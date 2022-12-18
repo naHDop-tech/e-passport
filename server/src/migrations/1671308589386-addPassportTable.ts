@@ -20,7 +20,7 @@ export class addPassportTable1671308589386 implements MigrationInterface {
                         default: 'uuid_generate_v4()',
                     },
                     {
-                        name: 'identifier',
+                        name: 'mrz',
                         type: 'VARCHAR',
                         isNullable: false,
                     },
@@ -112,8 +112,8 @@ export class addPassportTable1671308589386 implements MigrationInterface {
         await queryRunner.createIndex(
             'passports',
             new TableIndex({
-                name: 'IDX_PASSPORT_INDETIFIER',
-                columnNames: ['identifier'],
+                name: 'IDX_PASSPORT_MRZ',
+                columnNames: ['mrz'],
             }),
         );
 
@@ -233,7 +233,7 @@ export class addPassportTable1671308589386 implements MigrationInterface {
 
         await queryRunner.dropTable('passports');
         await queryRunner.dropTable('fingerprints');
-        await queryRunner.dropIndex('passports', 'IDX_PASSPORT_INDETIFIER');
+        await queryRunner.dropIndex('passports', 'IDX_PASSPORT_MRZ');
         await queryRunner.dropIndex('fingerprints', 'IDX_FINGERPRINT_PUBLIC_KEY');
     }
 }

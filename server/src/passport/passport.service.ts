@@ -69,8 +69,8 @@ export class UserPassportService {
         const passport: Omit<PassportEntity, 'id' | 'createdAt' | 'updatedAt'> = {
             nationalityCode,
             placeOfBirth,
-            issuingOrganization: '',
-            identifier: '',
+            issuingOrganization: 'International Digital Doc',
+            mrz: '',
             uNumber: '',
             pNumber: '',
             issueDate: dateNow.toISOString(),
