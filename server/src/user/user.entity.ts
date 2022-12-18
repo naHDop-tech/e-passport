@@ -14,6 +14,7 @@ import { ApplicantEntity } from '~/applicant/applicant.entity';
 import { PhotoEntity } from '~/photo/photo.entity';
 import { PhoneEntity } from '~/phone/phone.entity';
 import { AddressEntity } from '~/user-address/user-address.entity';
+import { PassportEntity } from '~/passport/passport.entity';
 
 @Entity('users')
 export class UserEntity extends User {
@@ -65,6 +66,7 @@ export class UserEntity extends User {
     eager: true,
     cascade: true,
   })
+
   @JoinColumn({ name: 'phone_id', referencedColumnName: 'id' })
   phone: PhoneEntity;
 
@@ -74,4 +76,11 @@ export class UserEntity extends User {
   })
   @JoinColumn({ name: 'address_id', referencedColumnName: 'id' })
   address: AddressEntity;
+
+  @OneToOne(() => PassportEntity, (passport) => passport.user, {
+    eager: true,
+    cascade: true,
+  })
+  @JoinColumn({ name: 'passport_id', referencedColumnName: 'id' })
+  passport: PassportEntity;
 }

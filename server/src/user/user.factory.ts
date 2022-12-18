@@ -10,9 +10,6 @@ export class UserFactory {
     user.lastName = updateOptions.lastName
       ? updateOptions.lastName
       : user.lastName;
-    user.isVerified = updateOptions.isVerified
-      ? updateOptions.isVerified
-      : user.isVerified;
     user.nationality = updateOptions.nationality
       ? updateOptions.nationality
       : user.nationality;

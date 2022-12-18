@@ -23,25 +23,11 @@ export class SignInInput {
     password: string;
 }
 
-export class UserInput {
-    id: string;
-    email: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    createdAt: string;
-    updatedAt: string;
-    birthDate: string;
-    sex: string;
-    nationality: string;
-    isVerified: boolean;
-}
-
 export class CreatePassportInput {
-    user: UserInput;
     identifier: string;
-    number: string;
-    code: string;
+    uNumber: string;
+    pNumber: string;
+    nationalityCode: string;
     issueDate: string;
     expirationDate: string;
     placeOfBirth: string;
@@ -49,7 +35,14 @@ export class CreatePassportInput {
 }
 
 export class UpdatePassportInput {
-    fingerprint: FingerprintInput;
+    identifier: string;
+    uNumber: string;
+    pNumber: string;
+    nationalityCode: string;
+    issueDate: string;
+    expirationDate: string;
+    placeOfBirth: string;
+    type: string;
 }
 
 export class PhoneInput {
@@ -95,7 +88,6 @@ export class UpdateUserInput {
     birthDate?: Nullable<string>;
     nationality?: Nullable<string>;
     sex?: Nullable<string>;
-    isVerified?: Nullable<boolean>;
 }
 
 export abstract class IQuery {
@@ -160,14 +152,14 @@ export class JwtToken {
 export class Passport {
     id: string;
     identifier: string;
-    number: string;
-    code: string;
+    uNumber: string;
+    pNumber: string;
+    nationalityCode: string;
     issueDate: string;
     expirationDate: string;
     type: string;
     placeOfBirth: string;
-    user: User;
-    fingerprint: Fingerprint;
+    user?: Nullable<User>;
 }
 
 export class Phone {
@@ -211,7 +203,6 @@ export class User {
     nationality: string;
     sex: string;
     isVerified: boolean;
-    passport?: Nullable<Passport>;
     address?: Nullable<Address>;
     phone?: Nullable<Phone>;
     photo?: Nullable<Photo>;
