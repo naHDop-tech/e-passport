@@ -15,6 +15,7 @@ type Mutation {
   updateUserPhone(updateUserPhoneInput: PhoneInput): Phone
   updateUserAddress(updateAddressInput: AddressInput): Address
   updateUserPassport(updatePassportInput: UpdatePassportInput): Passport
+  updateFingerprint(updateFingerprintInput: FingerprintInput): Fingerprint
   signIn(signInInput: SignInInput): JwtToken
 }
 
