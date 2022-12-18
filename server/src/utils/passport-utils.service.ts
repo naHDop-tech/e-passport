@@ -27,7 +27,7 @@ export class PassportUtilsService {
         let mrzL1 = ''
         let mrzL2 = ''
         
-        if (payload.nationality.length > 3 || payload.countryCode.length > 3) {
+        if (payload.nationality.length !== 3 || payload.countryCode.length !== 3) {
             throw new Error("Nationality or country code should have 3 letter of length")
         }
         
