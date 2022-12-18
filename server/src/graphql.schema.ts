@@ -13,9 +13,7 @@ export class CreateApplicantInput {
 }
 
 export class FingerprintInput {
-    id: string;
     publicKey: string;
-    privateKey: string;
 }
 
 export class SignInInput {

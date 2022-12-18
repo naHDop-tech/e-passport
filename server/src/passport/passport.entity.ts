@@ -4,11 +4,12 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     PrimaryGeneratedColumn,
-    OneToOne,
+    OneToOne, JoinColumn,
 } from 'typeorm';
 
 import { Passport } from '~/graphql.schema';
 import { UserEntity } from '~/user/user.entity';
+import { FingerprintEntity } from '~/fingerprint/fingerprint.entity';
 
 @Entity('passports')
 export class PassportEntity extends Passport {
@@ -50,4 +51,11 @@ export class PassportEntity extends Passport {
 
     @OneToOne(() => UserEntity, (user) => user.passport)
     user: UserEntity;
+
+    @OneToOne(() => FingerprintEntity, (fingerprint) => fingerprint.passport, {
+        eager: true,
+        cascade: true,
+    })
+    @JoinColumn({ name: 'fingerprint_id', referencedColumnName: 'id' })
+    fingerprint: FingerprintEntity;
 }
