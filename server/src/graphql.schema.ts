@@ -133,7 +133,6 @@ export class Applicant {
 export class Fingerprint {
     id: string;
     publicKey: string;
-    privateKey: string;
 }
 
 export class JwtToken {

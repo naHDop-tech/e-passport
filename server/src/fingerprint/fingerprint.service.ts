@@ -2,8 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { UserPassportService } from '~/passport/passport.service';
-import { PassportEntity } from '~/passport/passport.entity';
 import { FingerprintEntity } from '~/fingerprint/fingerprint.entity';
 import { UpdateFingerprintDto } from '~/fingerprint/dto/update-fingerprint.dto';
 
@@ -21,6 +19,10 @@ export class FingerprintService {
         const fingerprint = await this.fingerprintRepository.findOne({
             where: { passport: { id: passportId } },
         });
+        
+        if (!fingerprint) {
+            throw new NotFoundException("Fingerprint not found")
+        }
         fingerprint.publicKey = payload.publicKey;
 
         return await this.fingerprintRepository.save(fingerprint);
