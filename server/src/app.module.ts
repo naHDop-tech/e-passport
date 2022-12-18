@@ -9,6 +9,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { upperDirectiveTransformer } from '~/common/directives/upper-case.directive';
 import { UtilsModule } from '~/utils/utils.module';
+import { PassportUtilsService } from '~/utils/passport-utils.service';
 import { UserModule } from '~/user/user.module';
 import { ApplicantModule } from '~/applicant/applicant.module';
 import { PhotoModule } from '~/photo/photo.module';
@@ -82,6 +83,7 @@ import { JwtAuthModule } from '~/jwt-auth/jwt-auth.module';
     }),
     // Application modules
     UtilsModule,
+    PassportUtilsService,
     UserModule,
     JwtAuthModule,
     ApplicantModule,

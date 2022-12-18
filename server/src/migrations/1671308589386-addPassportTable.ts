@@ -20,7 +20,12 @@ export class addPassportTable1671308589386 implements MigrationInterface {
                         default: 'uuid_generate_v4()',
                     },
                     {
-                        name: 'mrz',
+                        name: 'mrz_l1',
+                        type: 'VARCHAR',
+                        isNullable: false,
+                    },
+                    {
+                        name: 'mrz_l2',
                         type: 'VARCHAR',
                         isNullable: false,
                     },

@@ -3,6 +3,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { UserService } from '~/user/user.service';
+import { PassportUtilsService } from '~/utils/passport-utils.service';
 import { PassportEntity } from '~/passport/passport.entity';
 import { FingerprintService } from '~/fingerprint/fingerprint.service';
 import { UserEntity } from '~/user/user.entity';
@@ -17,6 +18,7 @@ export class UserPassportService {
         private readonly dateCalculatorService: DateCalculatorService,
         private readonly userService: UserService,
         private readonly fingerprintService: FingerprintService,
+        private readonly passportUtilsService: PassportUtilsService
     ) {}
 
     async save(passport: PassportEntity): Promise<PassportEntity> {
@@ -65,16 +67,33 @@ export class UserPassportService {
     ): Promise<PassportEntity> {
         const { nationalityCode, placeOfBirth, publicKey } = payload
         const dateNow = new Date()
+        const issueDate = dateNow.toISOString()
+        const expirationDate = this.dateCalculatorService.getDateInFuture(dateNow).toISOString()
         const fingerprint = await this.fingerprintService.createFingerprint({ publicKey })
+        const pNumber = ''
+        const uNumber = ''
+        const { mrzL2, mrzL1 } = this.passportUtilsService.getMachineReadableZoneLines({
+            type: 'P',
+            sex: user.sex,
+            countryCode: user.nationality,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            pNumber,
+            uNumber,
+            nationality: user.nationality,
+            expirationDate,
+            dateOfBirth: user.birthDate
+        })
         const passport: Omit<PassportEntity, 'id' | 'createdAt' | 'updatedAt'> = {
             nationalityCode,
             placeOfBirth,
-            issuingOrganization: 'International Digital Doc',
-            mrz: '',
-            uNumber: '',
-            pNumber: '',
-            issueDate: dateNow.toISOString(),
-            expirationDate: this.dateCalculatorService.getDateInFuture(dateNow).toISOString(),
+            issuingOrganization: 'International Digital Docs',
+            mrzL1,
+            mrzL2,
+            uNumber,
+            pNumber,
+            issueDate,
+            expirationDate,
             type: 'P',
             fingerprint,
             user,

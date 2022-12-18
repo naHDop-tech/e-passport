@@ -1,6 +1,7 @@
 type Passport {
   id: ID!
-  mrz: String!
+  mrzL1: String!
+  mrzL2: String!
   uNumber: String!
   pNumber: String!
   nationalityCode: String!
