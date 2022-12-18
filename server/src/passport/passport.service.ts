@@ -68,8 +68,8 @@ export class UserPassportService {
             pNumber: userPassport.pNumber,
             uNumber: userPassport.uNumber,
             nationality: user.nationality,
-            expirationDate: userPassport.expirationDate,
-            dateOfBirth: user.birthDate
+            expirationDate: new Date(userPassport.expirationDate),
+            dateOfBirth: new Date(user.birthDate)
         })
 
         userPassport.mrzL1 = mrzL1
@@ -84,8 +84,8 @@ export class UserPassportService {
     ): Promise<PassportEntity> {
         const { nationalityCode, placeOfBirth, publicKey } = payload
         const dateNow = new Date()
-        const issueDate = dateNow.toISOString()
-        const expirationDate = this.dateCalculatorService.getDateInFuture(dateNow).toISOString()
+        const issueDate = dateNow
+        const expirationDate = this.dateCalculatorService.getDateInFuture(dateNow)
         const fingerprint = await this.fingerprintService.createFingerprint({ publicKey })
         const pNumber = ''
         const uNumber = ''
@@ -99,7 +99,7 @@ export class UserPassportService {
             uNumber,
             nationality: user.nationality,
             expirationDate,
-            dateOfBirth: user.birthDate
+            dateOfBirth: new Date(user.birthDate)
         })
         const passport: Omit<PassportEntity, 'id' | 'createdAt' | 'updatedAt'> = {
             nationalityCode,
@@ -109,8 +109,8 @@ export class UserPassportService {
             mrzL2,
             uNumber,
             pNumber,
-            issueDate,
-            expirationDate,
+            issueDate: issueDate.toISOString(),
+            expirationDate: expirationDate.toISOString(),
             type: 'P',
             fingerprint,
             user,

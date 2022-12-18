@@ -15,8 +15,8 @@ export interface IMRZLinesProps {
     pNumber: string
     uNumber: string
     nationality: string
-    expirationDate: string
-    dateOfBirth: string
+    expirationDate: Date
+    dateOfBirth: Date
 }
 
 const LINE_LENGTH = 44
@@ -27,10 +27,17 @@ export class PassportUtilsService {
         let mrzL1 = ''
         let mrzL2 = ''
         
+        if (payload.nationality.length > 3 || payload.countryCode.length > 3) {
+            throw new Error("Nationality or country code should have 3 letter of length")
+        }
+        
         const check1 = this.randomIntFromInterval(1, 9)
         const check2 = this.randomIntFromInterval(1, 9)
         const check3 = this.randomIntFromInterval(1, 9)
         const checkSum = this.simpleHash(`${check1}${check2}${check3}`)
+        const sexId = payload.sex.charAt(0)
+        const dateOfBirth = `${payload.dateOfBirth.getFullYear().toString().slice(-2)}${payload.dateOfBirth.getMonth()}${payload.dateOfBirth.getDate()}`
+        const expirationDate = `${payload.expirationDate.getFullYear().toString().slice(-2)}${payload.expirationDate.getMonth()}${payload.expirationDate.getDate()}`
 
         // Build line 1
         mrzL1 += `${payload.type}<${payload.countryCode}${payload.firstName}<<${payload.lastName}`
@@ -41,10 +48,9 @@ export class PassportUtilsService {
         while (mrzL1.length < LINE_LENGTH) {
             mrzL1 += '<'
         }
-        
-        const sexId = payload.sex.charAt(0)
+
         // Build line 2
-        mrzL2 += `${payload.pNumber}<${check1}${payload.nationality}${payload.dateOfBirth}${check2}${sexId}${payload.expirationDate}${check3}${payload.uNumber}`
+        mrzL2 += `${payload.pNumber}<${check1}${payload.nationality}${dateOfBirth}${check2}${sexId}${expirationDate}${check3}${payload.uNumber}`
 
         if (mrzL1.length >= LINE_LENGTH) {
             throw new Error('Data for line 2 is too long')
