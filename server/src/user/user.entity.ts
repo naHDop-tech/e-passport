@@ -66,7 +66,6 @@ export class UserEntity extends User {
     eager: true,
     cascade: true,
   })
-
   @JoinColumn({ name: 'phone_id', referencedColumnName: 'id' })
   phone: PhoneEntity;
 

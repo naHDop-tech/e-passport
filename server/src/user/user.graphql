@@ -16,6 +16,14 @@ type User {
   token: String
 }
 
+type Nationality {
+  num_code: Int!
+  alpha_2_code: String!
+  alpha_3_code: String!
+  en_short_name: String!
+  nationality: String!
+}
+
 input CreateUserInput {
   email: String!
   firstName: String!

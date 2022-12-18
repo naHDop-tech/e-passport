@@ -9,15 +9,13 @@ export class CryptoService {
   }
 
   async generateHash(password: string): Promise<string> {
-    const hash = await bcrypt.hash(password, this.salt);
-    return hash;
+    return await bcrypt.hash(password, this.salt);
   }
 
   async comparePasswords(
     password: string,
     passwordHash: string,
   ): Promise<boolean> {
-    const result: boolean = await bcrypt.compare(password, passwordHash);
-    return result;
+    return await bcrypt.compare(password, passwordHash);
   }
 }

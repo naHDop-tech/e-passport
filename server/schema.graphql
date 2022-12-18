@@ -3,6 +3,7 @@ type Query {
   applicant: Applicant
   isUserExists(email: String): Boolean
   isApplicantExists(email: String): Boolean
+  nationalities: Nationality
 }
 
 type Mutation {

@@ -2,7 +2,7 @@ import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 
 import { pubSub } from '~/pub-sub/pub-sub.provider';
-import { User } from '~/graphql.schema';
+import { User, Nationality } from '~/graphql.schema';
 import { UserGuard } from '~/user/user.guard';
 import { UserService } from '~/user/user.service';
 import { CreateUserDto } from '~/user/dto/create-user.dto';
@@ -22,6 +22,12 @@ export class UserResolver {
   @UseGuards(UserGuard)
   async findOneById(@UserEmail() userEmail: string): Promise<User> {
     return this.userService.findByEmail(userEmail);
+  }
+
+  @Query('nationalities')
+  @UseGuards(UserGuard)
+  async getNationalityList(): Promise<Nationality[]> {
+    return this.userService.getNationalityList()
   }
 
   @Mutation('createUser')
