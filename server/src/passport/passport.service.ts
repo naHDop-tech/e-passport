@@ -49,14 +49,31 @@ export class UserPassportService {
         const userPassport = await this.userPassportRepository.findOne({
             where: { user: { id: userId } },
         });
+        const user = await this.userService.findById(userId)
         userPassport.nationalityCode = payload.nationalityCode;
         userPassport.placeOfBirth = payload.placeOfBirth;
-        
+
         if (payload.publicKey) {
             userPassport.fingerprint = await this.fingerprintService.updateFingerPrint({
                 publicKey: payload.publicKey
             }, userPassport.id)
         }
+
+        const { mrzL2, mrzL1 } = this.passportUtilsService.getMachineReadableZoneLines({
+            type: 'P',
+            sex: user.sex,
+            countryCode: user.nationality,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            pNumber: userPassport.pNumber,
+            uNumber: userPassport.uNumber,
+            nationality: user.nationality,
+            expirationDate: userPassport.expirationDate,
+            dateOfBirth: user.birthDate
+        })
+
+        userPassport.mrzL1 = mrzL1
+        userPassport.mrzL2 = mrzL2
 
         return await this.userPassportRepository.save(userPassport);
     }
