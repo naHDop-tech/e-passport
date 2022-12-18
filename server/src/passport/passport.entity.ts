@@ -7,13 +7,16 @@ import {
     OneToOne,
 } from 'typeorm';
 
-import { Phone } from '~/graphql.schema';
+import { Passport } from '~/graphql.schema';
 import { UserEntity } from '~/user/user.entity';
 
 @Entity('passports')
-export class PassportEntity {
+export class PassportEntity extends Passport {
     @PrimaryGeneratedColumn('uuid')
     id: string;
+    
+    @Column({ name: 'issuing_organization'})
+    issuingOrganization: string
 
     @Column({ name: 'identifier' })
     identifier: string;

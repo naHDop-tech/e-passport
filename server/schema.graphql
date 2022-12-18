@@ -14,6 +14,7 @@ type Mutation {
   uploadUserImage(createPhotoInput: FileInput): Photo
   updateUserPhone(updateUserPhoneInput: PhoneInput): Phone
   updateUserAddress(updateAddressInput: AddressInput): Address
+  updateUserPassport(updatePassportInput: UpdatePassportInput): Passport
   signIn(signInInput: SignInInput): JwtToken
 }
 

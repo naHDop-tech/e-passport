@@ -35,14 +35,8 @@ export class CreatePassportInput {
 }
 
 export class UpdatePassportInput {
-    identifier: string;
-    uNumber: string;
-    pNumber: string;
     nationalityCode: string;
-    issueDate: string;
-    expirationDate: string;
     placeOfBirth: string;
-    type: string;
 }
 
 export class PhoneInput {

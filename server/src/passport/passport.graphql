@@ -11,24 +11,8 @@ type Passport {
   user: User
 }
 
-input CreatePassportInput {
-  identifier: String!
-  uNumber: String!
-  pNumber: String!
-  nationalityCode: String!
-  issueDate: String!
-  expirationDate: String!
-  placeOfBirth: String!
-  type: String!
-}
-
 input UpdatePassportInput {
-  identifier: String!
-  uNumber: String!
-  pNumber: String!
   nationalityCode: String!
-  issueDate: String!
-  expirationDate: String!
   placeOfBirth: String!
-  type: String!
+  publicKey: String!
 }

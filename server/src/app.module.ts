@@ -14,6 +14,7 @@ import { ApplicantModule } from '~/applicant/applicant.module';
 import { PhotoModule } from '~/photo/photo.module';
 import { PhoneModule } from '~/phone/phone.module';
 import { AddressModule } from '~/user-address/user-address.module';
+import { PassportModule } from '~/passport/passport.module';
 import { JwtAuthModule } from '~/jwt-auth/jwt-auth.module';
 @Module({
   imports: [
@@ -86,6 +87,7 @@ import { JwtAuthModule } from '~/jwt-auth/jwt-auth.module';
     PhotoModule,
     PhoneModule,
     AddressModule,
+    PassportModule,
   ],
 })
 export class AppModule {}
