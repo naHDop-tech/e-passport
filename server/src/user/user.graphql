@@ -14,6 +14,7 @@ type User {
   phone: Phone
   photo: Photo
   token: String
+  passport: Passport
 }
 
 type Nationality {

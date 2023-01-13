@@ -117,8 +117,16 @@ export class addPassportTable1671308589386 implements MigrationInterface {
         await queryRunner.createIndex(
             'passports',
             new TableIndex({
-                name: 'IDX_PASSPORT_MRZ',
-                columnNames: ['mrz'],
+                name: 'IDX_PASSPORT_MRZ1',
+                columnNames: ['mrz_l1'],
+            }),
+        );
+
+        await queryRunner.createIndex(
+            'passports',
+            new TableIndex({
+                name: 'IDX_PASSPORT_MRZ2',
+                columnNames: ['mrz_l2'],
             }),
         );
 
@@ -238,7 +246,8 @@ export class addPassportTable1671308589386 implements MigrationInterface {
 
         await queryRunner.dropTable('passports');
         await queryRunner.dropTable('fingerprints');
-        await queryRunner.dropIndex('passports', 'IDX_PASSPORT_MRZ');
+        await queryRunner.dropIndex('passports', 'IDX_PASSPORT_MRZ1');
+        await queryRunner.dropIndex('passports', 'IDX_PASSPORT_MRZ2');
         await queryRunner.dropIndex('fingerprints', 'IDX_FINGERPRINT_PUBLIC_KEY');
     }
 }
