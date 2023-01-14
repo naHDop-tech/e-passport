@@ -1,3 +1,5 @@
+import cn from 'classnames';
+
 import s from './Passport.module.css'
 const styles = s as unknown as IPassportStyle
 
@@ -30,6 +32,7 @@ interface IPassportStyle {
     PassportNumber: string
     LongItemLeft: string
     LongItemRight: string
+    Signature: string
 }
 
 export interface IPassportProps {
@@ -45,7 +48,9 @@ export function Passport(props: IPassportProps) {
                     <div className={styles.MainUInfo}>
                         <div className={styles.PhotoSide}>
                             <div className={styles.PhotoInfo}>Passport</div>
-                            <div className={styles.PhotoZone}></div>
+                            <div className={styles.PhotoZone}>
+                                <img width = "165" height = "215" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT80lmS918O4AJ-A197bvSjLY9CTHZNmyi4AA&usqp=CAU" alt="Holder's photo"/>
+                            </div>
                         </div>
                         <div className={styles.InfoSide}>
                             <div className={styles.InfoRow}>
@@ -103,7 +108,7 @@ export function Passport(props: IPassportProps) {
                             <div className={styles.InfoRow}>
                                 <div className={styles.DateOfIssue}>
                                     <div className={styles.Label}>Date of issue</div>
-                                    <div className={styles.Field}>16 APR 2032</div>
+                                    <div className={styles.Field}>16 APR 2022</div>
                                 </div>
                                 <div className={styles.PassportNumber}>
                                     <div className={styles.Label}>Authority</div>
@@ -113,11 +118,11 @@ export function Passport(props: IPassportProps) {
                             <div className={styles.LastInfoRow}>
                                 <div className={styles.DateOfExpiry}>
                                     <div className={styles.Label}>Date of expiry</div>
-                                    <div className={styles.Field}>16 APR 2022</div>
+                                    <div className={styles.Field}>16 APR 2032</div>
                                 </div>
                                 <div className={styles.PassportNumber}>
                                     <div className={styles.Label}>Holder's signature</div>
-                                    <div className={styles.Field}>Anna Maria Eriksson</div>
+                                    <div className={cn(styles.Field, styles.Signature)}>Anna Maria Eriksson</div>
                                 </div>
                             </div>
                         </div>
