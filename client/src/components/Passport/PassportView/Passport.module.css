@@ -18,7 +18,7 @@
     /* plus 2px - border*/
     padding: calc(10px + 2px);
 
-    background-color: #acd7fa;
+    /*background-color: #acd7fa;*/
 }
 
 .Mrz {
@@ -27,35 +27,35 @@
     padding-top: 37.5px;
     
     height: 116px;
-    background-color: #c0b3fc;
+    /*background-color: #c0b3fc;*/
 }
 
 .Uinfo {
     height: calc(100% - 116px);
-    background-color: #f5c0b5;
+    /*background-color: #f5c0b5;*/
 }
 
 .Z1 {
     height: 27.75px;
     
-    background-color: antiquewhite;
+    /*background-color: antiquewhite;*/
 }
 
 .PhotoSide {
     width: 175px;
-    background-color: azure;
+    /*background-color: azure;*/
 }
 
 .PhotoInfo {
     height: 60px;
     text-align: center;
     padding-top: 10px;
-    background-color: aquamarine;
+    /*background-color: aquamarine;*/
 }
 
 .InfoSide {
     width: calc(100% - 175px);
-    background-color: bisque;
+    /*background-color: bisque;*/
 }
 
 .MainUInfo {
@@ -70,7 +70,7 @@
     
     letter-spacing: 4px;
     
-    background-color: aqua;
+    /*background-color: aqua;*/
 }
 
 .Mrl2 {
@@ -79,7 +79,7 @@
     
     letter-spacing: 4px;
 
-    background-color: aqua;
+    /*background-color: aqua;*/
 }
 
 .MrlDelimiter {
@@ -91,7 +91,7 @@
     height: 225px;
     
     padding: 10px 10px 0 10px;
-    background-color: burlywood;
+    /*background-color: burlywood;*/
 }
 
 .PhotoZone img {
@@ -100,26 +100,26 @@
 
 .InfoRow {
     height: 36px;
-    border-bottom: 1px solid black;
+    /*border-bottom: 1px solid black;*/
     
     display: flex;
     flex-direction: row;
 }
 
 .Type {
-    border-right: 1px solid black;
+    /*border-right: 1px solid black;*/
     width: 76px;
     height: 100%;
 }
 
 .Z4 {
-    border-right: 1px solid black;
+    /*border-right: 1px solid black;*/
     width: 139px;
     height: 100%;
 }
 
 .DateOfBirth {
-    border-right: 1px solid black;
+    /*border-right: 1px solid black;*/
     width: 215px;
     height: 100%;
 }
@@ -135,7 +135,7 @@
 }
 
 .Sex {
-    border-right: 1px solid black;
+    /*border-right: 1px solid black;*/
     width: 76px;
     height: 100%;
 }
@@ -146,13 +146,13 @@
 }
 
 .DateOfIssue {
-    border-right: 1px solid black;
+    /*border-right: 1px solid black;*/
     width: 215px;
     height: 100%;
 }
 
 .DateOfExpiry {
-    border-right: 1px solid black;
+    /*border-right: 1px solid black;*/
     width: 215px;
     height: 100%;
 }

@@ -64,7 +64,10 @@ export function Passport(props: IPassportProps) {
                     <div className={styles.Z1}>{props.authorityOrg}</div>
                     <div className={styles.MainUInfo}>
                         <div className={styles.PhotoSide}>
-                            <div className={styles.PhotoInfo}>Passport</div>
+                            <div className={styles.PhotoInfo}>
+                                <p>Digital</p>
+                                <p>Passport</p>
+                            </div>
                             <div className={styles.PhotoZone}>
                                 <img width = "165" height = "215" src={props.photoSrc} alt="Holder's photo"/>
                             </div>
