@@ -1,7 +1,7 @@
-import { Passport } from '@components/Passport'
+import { PassportDlc } from '@components/Passport'
 
 export function PassportPage() {
     return (
-        <Passport />
+        <PassportDlc />
     )
 }

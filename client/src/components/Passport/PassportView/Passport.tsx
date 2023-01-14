@@ -36,7 +36,24 @@ interface IPassportStyle {
 }
 
 export interface IPassportProps {
-    //
+    authorityOrg: string
+    photoSrc: string
+    type: string
+    countryCode: string
+    pNumber: string
+    uNumber: string
+    firstName: string
+    lastName: string
+    nationality: string
+    dateOfBirth: string
+    sex: string
+    placeOfBirth: string
+    dateOfIssue: string
+    authorityFull: string
+    dateOfExpiry: string
+    signature: string
+    mrl1: string
+    mrl2: string
 }
 
 export function Passport(props: IPassportProps) {
@@ -44,94 +61,94 @@ export function Passport(props: IPassportProps) {
         <div className={styles.Box}>
             <div className={styles.Passport}>
                 <div className={styles.Uinfo}>
-                    <div className={styles.Z1}>Digital documents Inc.</div>
+                    <div className={styles.Z1}>{props.authorityOrg}</div>
                     <div className={styles.MainUInfo}>
                         <div className={styles.PhotoSide}>
                             <div className={styles.PhotoInfo}>Passport</div>
                             <div className={styles.PhotoZone}>
-                                <img width = "165" height = "215" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT80lmS918O4AJ-A197bvSjLY9CTHZNmyi4AA&usqp=CAU" alt="Holder's photo"/>
+                                <img width = "165" height = "215" src={props.photoSrc} alt="Holder's photo"/>
                             </div>
                         </div>
                         <div className={styles.InfoSide}>
                             <div className={styles.InfoRow}>
                                 <div className={styles.Type}>
                                     <div className={styles.Label}>Type</div>
-                                    <div className={styles.Field}>P</div>
+                                    <div className={styles.Field}>{props.type}</div>
                                 </div>
                                 <div className={styles.Z4}>
                                     <div className={styles.Label}>Country code</div>
-                                    <div className={styles.Field}>UTO</div>
+                                    <div className={styles.Field}>{props.countryCode}</div>
                                 </div>
                                 <div className={styles.PassportNumber}>
                                     <div className={styles.Label}>Passport No</div>
-                                    <div className={styles.Field}>L898902C3</div>
+                                    <div className={styles.Field}>{props.pNumber}</div>
                                 </div>
                             </div>
                             <div className={styles.InfoRow}>
                                 <div className={styles.LongItemLeft}>
                                     <div className={styles.Label}>Surname</div>
-                                    <div className={styles.Field}>ERIKSSON</div>
+                                    <div className={styles.Field}>{props.lastName}</div>
                                 </div>
                             </div>
                             <div className={styles.InfoRow}>
                                 <div className={styles.LongItemLeft}>
                                     <div className={styles.Label}>Name</div>
-                                    <div className={styles.Field}>ANNA MARIA</div>
+                                    <div className={styles.Field}>{props.firstName}</div>
                                 </div>
                             </div>
                             <div className={styles.InfoRow}>
                                 <div className={styles.LongItemLeft}>
                                     <div className={styles.Label}>Nationality</div>
-                                    <div className={styles.Field}>UTOPIAN</div>
+                                    <div className={styles.Field}>{props.nationality}</div>
                                 </div>
                             </div>
                             <div className={styles.InfoRow}>
                                 <div className={styles.DateOfBirth}>
                                     <div className={styles.Label}>Date of birth</div>
-                                    <div className={styles.Field}>12 AUG 1974</div>
+                                    <div className={styles.Field}>{props.dateOfBirth}</div>
                                 </div>
                                 <div className={styles.PassportNumber}>
                                     <div className={styles.Label}>Personal number</div>
-                                    <div className={styles.Field}>ZE184266B</div>
+                                    <div className={styles.Field}>{props.uNumber}</div>
                                 </div>
                             </div>
                             <div className={styles.InfoRow}>
                                 <div className={styles.Sex}>
                                     <div className={styles.Label}>Sex</div>
-                                    <div className={styles.Field}>F</div>
+                                    <div className={styles.Field}>{props.sex}</div>
                                 </div>
                                 <div className={styles.LongItemRight}>
                                     <div className={styles.Label}>Place of birth</div>
-                                    <div className={styles.Field}>ZENITH</div>
+                                    <div className={styles.Field}>{props.placeOfBirth}</div>
                                 </div>
                             </div>
                             <div className={styles.InfoRow}>
                                 <div className={styles.DateOfIssue}>
                                     <div className={styles.Label}>Date of issue</div>
-                                    <div className={styles.Field}>16 APR 2022</div>
+                                    <div className={styles.Field}>{props.dateOfIssue}</div>
                                 </div>
                                 <div className={styles.PassportNumber}>
                                     <div className={styles.Label}>Authority</div>
-                                    <div className={styles.Field}>PASSPORT OFFICE</div>
+                                    <div className={styles.Field}>{props.authorityFull}</div>
                                 </div>
                             </div>
                             <div className={styles.LastInfoRow}>
                                 <div className={styles.DateOfExpiry}>
                                     <div className={styles.Label}>Date of expiry</div>
-                                    <div className={styles.Field}>16 APR 2032</div>
+                                    <div className={styles.Field}>{props.dateOfExpiry}</div>
                                 </div>
                                 <div className={styles.PassportNumber}>
                                     <div className={styles.Label}>Holder's signature</div>
-                                    <div className={cn(styles.Field, styles.Signature)}>Anna Maria Eriksson</div>
+                                    <div className={cn(styles.Field, styles.Signature)}>{props.signature}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className={styles.Mrz}>
-                    <div className={styles.Mrl1}>{'P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<'}</div>
+                    <div className={styles.Mrl1}>{props.mrl1}</div>
                     <div className={styles.MrlDelimiter}></div>
-                    <div className={styles.Mrl2}>{'L898902C36<UTO7408122F1604229ZE184266B<<<<10'}</div>
+                    <div className={styles.Mrl2}>{props.mrl2}</div>
                 </div>
             </div>
         </div>

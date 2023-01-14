@@ -1,1 +1,1 @@
-export * from './Passport'
+export * from './PassportDLC'
