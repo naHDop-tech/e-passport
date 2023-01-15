@@ -50,8 +50,12 @@ export class UserPassportService {
             where: { user: { id: userId } },
         });
         const user = await this.userService.findById(userId)
-        userPassport.nationalityCode = payload.nationalityCode;
-        userPassport.placeOfBirth = payload.placeOfBirth;
+        if (payload.nationalityCode) {
+            userPassport.nationalityCode = payload.nationalityCode;
+        }
+        if (payload.placeOfBirth) {
+            userPassport.placeOfBirth = payload.placeOfBirth;
+        }
 
         if (payload.publicKey) {
             userPassport.fingerprint = await this.fingerprintService.updateFingerPrint({
@@ -62,7 +66,7 @@ export class UserPassportService {
         const { mrzL2, mrzL1 } = this.passportUtilsService.getMachineReadableZoneLines({
             type: 'P',
             sex: user.sex,
-            countryCode: user.nationality,
+            countryCode: userPassport.nationalityCode,
             firstName: user.firstName,
             lastName: user.lastName,
             pNumber: userPassport.pNumber,

@@ -4,6 +4,7 @@ type Passport {
   mrzL2: String!
   uNumber: String!
   pNumber: String!
+  issuingOrganization: String!
   nationalityCode: String!
   issueDate: String!
   expirationDate: String!
@@ -13,7 +14,7 @@ type Passport {
 }
 
 input UpdatePassportInput {
-  nationalityCode: String!
-  placeOfBirth: String!
-  publicKey: String!
+  nationalityCode: String
+  placeOfBirth: String
+  publicKey: String
 }
