@@ -8,8 +8,6 @@ export function PassportDlc() {
     const holderBirthDate = usePassportDateFormat(new Date(user.birthDate as string))
     const holderExpireDate = usePassportDateFormat(new Date(user.passport?.expirationDate as string))
     const holderIssueDate = usePassportDateFormat(new Date(user.passport?.issueDate as string))
-
-    console.log(user)
     
     const data: IPassportProps = {
         authorityFull: "PASSPORT OFFICE",
