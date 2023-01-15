@@ -1,7 +1,7 @@
 import { join as joinPath } from 'path';
 
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { Module } from '@nestjs/common';
+import { Module} from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { ConfigModule, ConfigService } from '@nestjs/config';

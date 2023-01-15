@@ -10,6 +10,7 @@ import * as fs from 'fs/promises'
 
 import { UserEntity } from '~/user/user.entity';
 import { CreateUserDto } from '~/user/dto/create-user.dto';
+// import { UserPassportService } from '~/passport/passport.service'
 import { DateCalculatorService } from '~/utils/date-calculator.service';
 import { ApplicantService } from '~/applicant/applicant.service';
 import { JwtService } from '~/jwt/jwt.service';
@@ -24,6 +25,7 @@ export class UserService {
     private readonly applicantService: ApplicantService,
     private readonly userFactory: UserFactory,
     private readonly jwtService: JwtService,
+    // private readonly passportService: UserPassportService,
   ) {}
 
   async save(user: UserEntity): Promise<UserEntity> {
@@ -144,6 +146,7 @@ export class UserService {
     }
 
     const updatedUser = this.userFactory.update(user, payload);
+    // await this.passportService.changeUserPassport({}, updatedUser.id)
 
     return this.userRepository.save(updatedUser);
   }

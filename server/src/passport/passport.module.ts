@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { UserModule } from '~/user/user.module';
@@ -10,9 +10,9 @@ import { PassportEntity } from '~/passport/passport.entity';
 
 @Module({
     imports: [
-        UserModule,
-        FingerprintModule,
         UtilsModule,
+        FingerprintModule,
+        UserModule,
         TypeOrmModule.forFeature([PassportEntity])
     ],
     providers: [UserPassportResolver, UserPassportService],

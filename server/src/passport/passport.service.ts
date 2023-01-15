@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -53,7 +53,6 @@ export class UserPassportService {
         if (payload.placeOfBirth) {
             userPassport.placeOfBirth = payload.placeOfBirth;
         }
-
         if (payload.publicKey) {
             userPassport.fingerprint = await this.fingerprintService.updateFingerPrint({
                 publicKey: payload.publicKey
