@@ -76,7 +76,6 @@ export class PassportUtilsService {
         }
 
         while (mrzL2.length < LINE_LENGTH) {
-            console.log('length', mrzL2.length)
             if (mrzL2.length === 42) {
                 mrzL2 += checkSum
                 break
