@@ -14,7 +14,7 @@ export class UserPassportResolver {
     @Mutation('updateUserPassport')
     @UseGuards(PassportGuard)
     async uploadUserImage(
-        @Args('updateUserPassportInput') payload: UpdatePassportDto,
+        @Args('updatePassportInput') payload: UpdatePassportDto,
         @UserId() userId: string,
     ): Promise<Passport> {
         return await this.userPassportService.changeUserPassport(payload, userId);

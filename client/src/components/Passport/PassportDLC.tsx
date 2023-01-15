@@ -1,27 +1,41 @@
 import { Passport, IPassportProps } from './PassportView'
+import { useUserInfo } from "@hooks/useUserInfo";
+import { usePassportDateFormat } from '@hooks/usePassportDateFormat'
+import { PassportFormDlc } from "@components/Passport/PassportView/PassportForm/PassportFormDLC";
 
 export function PassportDlc() {
+    const { user } = useUserInfo()
+    const holderBirthDate = usePassportDateFormat(new Date(user.birthDate as string))
+    const holderExpireDate = usePassportDateFormat(new Date(user.passport?.expirationDate as string))
+    const holderIssueDate = usePassportDateFormat(new Date(user.passport?.issueDate as string))
+
+    console.log(user)
+    
     const data: IPassportProps = {
         authorityFull: "PASSPORT OFFICE",
         authorityOrg: "Digital documents Inc.",
-        countryCode: "UTO",
-        dateOfBirth: "12 AUG 1974",
-        dateOfExpiry: "16 APR 2032",
-        dateOfIssue: "16 APR 2022",
-        firstName: "ANNA MARIA",
-        lastName: "ERIKSSON",
-        nationality: "UTOPIAN",
-        pNumber: "L898902C3",
-        photoSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT80lmS918O4AJ-A197bvSjLY9CTHZNmyi4AA&usqp=CAU",
-        placeOfBirth: "ZENITH",
-        sex: "F",
-        signature: "Anna Maria Eriksson",
+        countryCode: user.passport?.countryCode as string,
+        dateOfBirth: holderBirthDate,
+        dateOfExpiry: holderExpireDate,
+        dateOfIssue: holderIssueDate,
+        firstName: user.firstName?.toUpperCase() as string,
+        lastName: user.lastName?.toUpperCase() as string,
+        nationality: user.nationality?.toUpperCase() as string,
+        pNumber: user.passport?.pNumber as string,
+        photoSrc: user.photo?.encoding as string,
+        placeOfBirth: user.passport?.placeOfBirth as string,
+        sex: user.sex?.toUpperCase().slice(0, 1) as string,
+        signature: `${user.firstName} ${user.lastName}`,
         type: "P",
-        uNumber: "ZE184266B",
-        mrl1: 'P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<',
-        mrl2: 'L898902C36<UTO7408122F1604229ZE184266B<<<<10',
+        uNumber: user.passport?.uNumber as string,
+        mrl1: user.passport?.mrzL1 as string,
+        mrl2: user.passport?.mrzL2 as string,
     }
+
     return (
-        <Passport {...data} />
+        <>
+            <Passport {...data} />
+            <PassportFormDlc />
+        </>
     );
 }

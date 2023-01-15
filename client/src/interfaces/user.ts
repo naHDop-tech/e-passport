@@ -46,6 +46,25 @@ export enum Sex {
   Unset = 'Unset',
 }
 
+export interface IPassport {
+  mrzL1: string;
+  mrzL2: string;
+  uNumber: string;
+  pNumber: string;
+  issuingOrganization: string;
+  countryCode: string;
+  issueDate: string;
+  expirationDate: string;
+  type: string;
+  placeOfBirth: string;
+  fingerprint: IFingerprint
+}
+
+export interface IFingerprint {
+  id: string;
+  publicKey: string;
+}
+
 export interface IUserProfile {
   id: string
   age: number
@@ -61,6 +80,7 @@ export interface IUserProfile {
   photo: IPhoto
   phone: IPhone
   address: IAddress
+  passport: IPassport
   // frontend only
   isDraft: boolean
 }

@@ -53,8 +53,8 @@ export class PassportUtilsService {
         const check3 = this.randomIntFromInterval(1, 9)
         const checkSum = this.simpleHash(`${check1}${check2}${check3}`).slice(0, 2)
         const sexId = payload.sex.charAt(0)
-        const dateOfBirth = `${payload.dateOfBirth.getFullYear().toString().slice(-2)}${payload.dateOfBirth.getMonth()}${payload.dateOfBirth.getDate()}`
-        const expirationDate = `${payload.expirationDate.getFullYear().toString().slice(-2)}${payload.expirationDate.getMonth()}${payload.expirationDate.getDate()}`
+        const dateOfBirth = `${payload.dateOfBirth.getFullYear().toString().slice(-2)}${("0" + (payload.dateOfBirth.getMonth() + 1)).slice(-2)}${("0" + payload.dateOfBirth.getDate()).slice(-2)}`
+        const expirationDate = `${payload.expirationDate.getFullYear().toString().slice(-2)}${("0" + (payload.expirationDate.getMonth() + 1)).slice(-2)}${("0" + payload.expirationDate.getDate()).slice(-2)}`
         const lastName = payload.lastName.replace(' ', '<')
         // Build line 1
         mrzL1 += `${payload.type}<${payload.countryCode}${payload.firstName}<<${lastName}`
@@ -75,8 +75,9 @@ export class PassportUtilsService {
             throw new Error('Data for line 2 is too long')
         }
 
-        while (mrzL1.length < LINE_LENGTH) {
-            if (mrzL2.length === 43) {
+        while (mrzL2.length < LINE_LENGTH) {
+            console.log('length', mrzL2.length)
+            if (mrzL2.length === 42) {
                 mrzL2 += checkSum
                 break
             }

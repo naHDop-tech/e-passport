@@ -22,7 +22,6 @@ export class SignInInput {
 }
 
 export class UpdatePassportInput {
-    countryCode?: Nullable<string>;
     placeOfBirth?: Nullable<string>;
     publicKey?: Nullable<string>;
 }
@@ -81,7 +80,7 @@ export abstract class IQuery {
 
     abstract isApplicantExists(email?: Nullable<string>): Nullable<boolean> | Promise<Nullable<boolean>>;
 
-    abstract nationalities(): Nullable<Nationality> | Promise<Nullable<Nationality>>;
+    abstract nationalities(): Nullable<Nullable<Nationality>[]> | Promise<Nullable<Nullable<Nationality>[]>>;
 }
 
 export abstract class IMutation {
@@ -148,6 +147,7 @@ export class Passport {
     expirationDate: string;
     type: string;
     placeOfBirth: string;
+    fingerprint: Fingerprint;
     user?: Nullable<User>;
 }
 

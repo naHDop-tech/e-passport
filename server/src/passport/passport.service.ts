@@ -50,9 +50,6 @@ export class UserPassportService {
             where: { user: { id: userId } },
         });
         const user = await this.userService.findById(userId)
-        if (payload.countryCode) {
-            userPassport.countryCode = payload.countryCode;
-        }
         if (payload.placeOfBirth) {
             userPassport.placeOfBirth = payload.placeOfBirth;
         }
@@ -67,11 +64,11 @@ export class UserPassportService {
             type: 'P',
             sex: user.sex,
             countryCode: userPassport.countryCode,
-            firstName: user.firstName,
-            lastName: user.lastName,
+            firstName: user.firstName.toUpperCase(),
+            lastName: user.lastName.toUpperCase(),
             pNumber: userPassport.pNumber,
             uNumber: userPassport.uNumber,
-            nationality: user.nationality,
+            nationality: user.nationality.slice(0, 3).toUpperCase(),
             expirationDate: new Date(userPassport.expirationDate),
             dateOfBirth: new Date(user.birthDate)
         })
@@ -86,10 +83,9 @@ export class UserPassportService {
         payload: UpdatePassportDto,
         user: UserEntity,
     ): Promise<PassportEntity> {
-        const { countryCode, placeOfBirth, publicKey } = payload
-        const dateNow = new Date()
-        const issueDate = dateNow
-        const expirationDate = this.dateCalculatorService.getDateInFuture(dateNow)
+        const { placeOfBirth, publicKey } = payload
+        const issueDate = new Date()
+        const expirationDate = this.dateCalculatorService.getDateInFuture(new Date())
         const fingerprint = await this.fingerprintService.createFingerprint({ publicKey })
         const pNumber = this.passportUtilsService.getPassportNumber()
         const uNumber = this.passportUtilsService.getUserNumber({
@@ -100,17 +96,17 @@ export class UserPassportService {
         const { mrzL2, mrzL1 } = this.passportUtilsService.getMachineReadableZoneLines({
             type: 'P',
             sex: user.sex,
-            countryCode: user.nationality,
-            firstName: user.firstName,
-            lastName: user.lastName,
+            countryCode: user.nationality.slice(0, 3).toUpperCase(),
+            firstName: user.firstName.toUpperCase(),
+            lastName: user.lastName.toUpperCase(),
             pNumber,
             uNumber,
-            nationality: user.nationality,
+            nationality: user.nationality.slice(0, 3).toUpperCase(),
             expirationDate,
             dateOfBirth: new Date(user.birthDate)
         })
         const passport: Omit<PassportEntity, 'id' | 'createdAt' | 'updatedAt'> = {
-            countryCode,
+            countryCode: 'UTO',
             placeOfBirth,
             issuingOrganization: 'International Digital Docs',
             mrzL1,

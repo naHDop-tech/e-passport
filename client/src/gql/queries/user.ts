@@ -37,6 +37,22 @@ export const GET_USER = gql`
         createdAt
         updatedAt
       }
+      passport {
+        id
+        mrzL1
+        mrzL2
+        uNumber
+        pNumber
+        issuingOrganization
+        countryCode
+        issueDate
+        expirationDate
+        type
+        placeOfBirth
+        fingerprint {
+          publicKey
+        }
+      }
     }
   }
 `

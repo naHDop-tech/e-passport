@@ -1,6 +1,28 @@
 import { gql } from "@apollo/client";
 
 export const typeDefs = gql`
+  extend type Passport {
+    id: ID!
+    mrzL1: String!
+    mrzL2: String!
+    uNumber: String!
+    pNumber: String!
+    issuingOrganization: String!
+    countryCode: String!
+    issueDate: String!
+    expirationDate: String!
+    type: String!
+    placeOfBirth: String!
+    user: User
+    fingerprint: Fingerprint
+  }
+
+  extend type UpdatePassportInput {
+    countryCode: String
+    placeOfBirth: String
+    publicKey: String
+  }
+
   extend type Address {
     id: ID!
     country: String!
@@ -49,6 +71,15 @@ export const typeDefs = gql`
     isDeleted: Boolean
   }
 
+  extend type Fingerprint {
+    id: ID!
+    publicKey: String!
+  }
+
+  extend type FingerprintInput {
+    publicKey: String!
+  }
+
   extend type MarkAsDeletePhotoInput {
     id: ID!
   }
@@ -68,6 +99,7 @@ export const typeDefs = gql`
     photo: Photo
     phone: Phone
     address: Address
+    passport: Passport
   }
 
   extend type CreateUserInput {
@@ -112,6 +144,14 @@ export const typeDefs = gql`
     password: String!
   }
 
+  extend type Nationality {
+    num_code: Int!
+    alpha_2_code: String!
+    alpha_3_code: String!
+    en_short_name: String!
+    nationality: String!
+  }
+
   extend type Mutation {
     createApplicant(createApplicantInput: CreateApplicantInput): Applicant
     signIn(signInInput: SignInInput): JwtToken
@@ -120,11 +160,14 @@ export const typeDefs = gql`
     uploadUserImage(createPhotoInput: FileInput): Photo
     updateUserPhone(updateUserPhoneInput: PhoneInput): Phone
     updateUserAddress(updateAddressInput: AddressInput): Address
+    updateUserPassport(updatePassportInput: UpdatePassportInput): Passport
+    updateFingerprint(updateFingerprintInput: FingerprintInput): Fingerprint
   }
 
   extend type Query {
     user: User
     applicant: Applicant
     isApplicantExists(email: String): Boolean
+    nationalities: [Nationality]
   }
 `;
