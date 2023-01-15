@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Sex } from "~/user/user.interfaces";
 
 export interface IMRZLines {
@@ -19,10 +19,27 @@ export interface IMRZLinesProps {
     dateOfBirth: Date
 }
 
+export interface IUserNumberProps {
+    firstName: string
+    lastName: string
+    placeOfBirth: string
+}
+
 const LINE_LENGTH = 44
 
 @Injectable()
 export class PassportUtilsService {
+    private readonly logger = new Logger(PassportUtilsService.name)
+    
+    getUserNumber(payload: IUserNumberProps): string {
+        const hash = this.simpleHash(`${payload.firstName}${payload.lastName}`)
+        return `${payload.placeOfBirth.slice(0, 2)}${hash}`.toUpperCase()
+    }
+    
+    getPassportNumber(): string {
+        return this.randomIntFromInterval(100000000, 999999999).toString()
+    }
+
     getMachineReadableZoneLines(payload: IMRZLinesProps): IMRZLines {
         let mrzL1 = ''
         let mrzL2 = ''
@@ -34,29 +51,32 @@ export class PassportUtilsService {
         const check1 = this.randomIntFromInterval(1, 9)
         const check2 = this.randomIntFromInterval(1, 9)
         const check3 = this.randomIntFromInterval(1, 9)
-        const checkSum = this.simpleHash(`${check1}${check2}${check3}`)
+        const checkSum = this.simpleHash(`${check1}${check2}${check3}`).slice(0, 2)
         const sexId = payload.sex.charAt(0)
         const dateOfBirth = `${payload.dateOfBirth.getFullYear().toString().slice(-2)}${payload.dateOfBirth.getMonth()}${payload.dateOfBirth.getDate()}`
         const expirationDate = `${payload.expirationDate.getFullYear().toString().slice(-2)}${payload.expirationDate.getMonth()}${payload.expirationDate.getDate()}`
-
+        const lastName = payload.lastName.replace(' ', '<')
         // Build line 1
-        mrzL1 += `${payload.type}<${payload.countryCode}${payload.firstName}<<${payload.lastName}`
+        mrzL1 += `${payload.type}<${payload.countryCode}${payload.firstName}<<${lastName}`
         
-        if (mrzL1.length >= LINE_LENGTH) {
-            throw new Error('Data for line 1 is too long')
-        }
-        while (mrzL1.length < LINE_LENGTH) {
-            mrzL1 += '<'
+        if (mrzL1.length > LINE_LENGTH) {
+            this.logger.warn('Data for line 1 is too long')
+            mrzL1 = mrzL1.slice(0, LINE_LENGTH)
+        } else {
+            while (mrzL1.length < LINE_LENGTH) {
+                mrzL1 += '<'
+            }
         }
 
         // Build line 2
         mrzL2 += `${payload.pNumber}<${check1}${payload.nationality}${dateOfBirth}${check2}${sexId}${expirationDate}${check3}${payload.uNumber}`
 
-        if (mrzL1.length >= LINE_LENGTH) {
+        if (mrzL1.length > LINE_LENGTH) {
             throw new Error('Data for line 2 is too long')
         }
+
         while (mrzL1.length < LINE_LENGTH) {
-            if (mrzL2.length === 41) {
+            if (mrzL2.length === 43) {
                 mrzL2 += checkSum
                 break
             }

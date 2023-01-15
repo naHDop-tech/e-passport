@@ -87,8 +87,12 @@ export class UserPassportService {
         const issueDate = dateNow
         const expirationDate = this.dateCalculatorService.getDateInFuture(dateNow)
         const fingerprint = await this.fingerprintService.createFingerprint({ publicKey })
-        const pNumber = ''
-        const uNumber = ''
+        const pNumber = this.passportUtilsService.getPassportNumber()
+        const uNumber = this.passportUtilsService.getUserNumber({
+            firstName: user.firstName,
+            lastName: user.lastName,
+            placeOfBirth,
+        })
         const { mrzL2, mrzL1 } = this.passportUtilsService.getMachineReadableZoneLines({
             type: 'P',
             sex: user.sex,
