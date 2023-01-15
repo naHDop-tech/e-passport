@@ -22,9 +22,9 @@ export class SignInInput {
 }
 
 export class UpdatePassportInput {
-    nationalityCode: string;
-    placeOfBirth: string;
-    publicKey: string;
+    countryCode?: Nullable<string>;
+    placeOfBirth?: Nullable<string>;
+    publicKey?: Nullable<string>;
 }
 
 export class PhoneInput {
@@ -142,7 +142,8 @@ export class Passport {
     mrzL2: string;
     uNumber: string;
     pNumber: string;
-    nationalityCode: string;
+    issuingOrganization: string;
+    countryCode: string;
     issueDate: string;
     expirationDate: string;
     type: string;
@@ -196,6 +197,7 @@ export class User {
     phone?: Nullable<Phone>;
     photo?: Nullable<Photo>;
     token?: Nullable<string>;
+    passport?: Nullable<Passport>;
 }
 
 export class Nationality {

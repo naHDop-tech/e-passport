@@ -45,7 +45,7 @@ export class addPassportTable1671308589386 implements MigrationInterface {
                         isNullable: false,
                     },
                     {
-                        name: 'nationality_code',
+                        name: 'country_code',
                         type: 'VARCHAR',
                         isNullable: false,
                     },

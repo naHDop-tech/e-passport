@@ -4,7 +4,7 @@ import { UpdatePassportInput } from '~/graphql.schema';
 export class UpdatePassportDto extends UpdatePassportInput {
     @IsString()
     @IsNotEmpty()
-    nationalityCode: string;
+    countryCode: string;
     
     @IsString()
     @IsNotEmpty()

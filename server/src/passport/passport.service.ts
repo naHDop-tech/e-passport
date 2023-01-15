@@ -50,8 +50,8 @@ export class UserPassportService {
             where: { user: { id: userId } },
         });
         const user = await this.userService.findById(userId)
-        if (payload.nationalityCode) {
-            userPassport.nationalityCode = payload.nationalityCode;
+        if (payload.countryCode) {
+            userPassport.countryCode = payload.countryCode;
         }
         if (payload.placeOfBirth) {
             userPassport.placeOfBirth = payload.placeOfBirth;
@@ -66,7 +66,7 @@ export class UserPassportService {
         const { mrzL2, mrzL1 } = this.passportUtilsService.getMachineReadableZoneLines({
             type: 'P',
             sex: user.sex,
-            countryCode: userPassport.nationalityCode,
+            countryCode: userPassport.countryCode,
             firstName: user.firstName,
             lastName: user.lastName,
             pNumber: userPassport.pNumber,
@@ -86,7 +86,7 @@ export class UserPassportService {
         payload: UpdatePassportDto,
         user: UserEntity,
     ): Promise<PassportEntity> {
-        const { nationalityCode, placeOfBirth, publicKey } = payload
+        const { countryCode, placeOfBirth, publicKey } = payload
         const dateNow = new Date()
         const issueDate = dateNow
         const expirationDate = this.dateCalculatorService.getDateInFuture(dateNow)
@@ -110,7 +110,7 @@ export class UserPassportService {
             dateOfBirth: new Date(user.birthDate)
         })
         const passport: Omit<PassportEntity, 'id' | 'createdAt' | 'updatedAt'> = {
-            nationalityCode,
+            countryCode,
             placeOfBirth,
             issuingOrganization: 'International Digital Docs',
             mrzL1,

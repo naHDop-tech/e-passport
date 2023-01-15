@@ -31,8 +31,8 @@ export class PassportEntity extends Passport {
     @Column({ name: 'p_number' })
     pNumber: string;
 
-    @Column({ name: 'nationality_code' })
-    nationalityCode: string;
+    @Column({ name: 'country_code' })
+    countryCode: string;
 
     @Column({ name: 'issue_date' })
     issueDate: string;
