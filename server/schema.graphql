@@ -3,6 +3,7 @@ type Query {
   applicant: Applicant
   isUserExists(email: String): Boolean
   isApplicantExists(email: String): Boolean
+  nationalities: [Nationality]
 }
 
 type Mutation {
@@ -14,6 +15,8 @@ type Mutation {
   uploadUserImage(createPhotoInput: FileInput): Photo
   updateUserPhone(updateUserPhoneInput: PhoneInput): Phone
   updateUserAddress(updateAddressInput: AddressInput): Address
+  updateUserPassport(updatePassportInput: UpdatePassportInput): Passport
+  updateFingerprint(updateFingerprintInput: FingerprintInput): Fingerprint
   signIn(signInInput: SignInInput): JwtToken
 }
 

@@ -56,9 +56,9 @@ export class UserAddressService {
     payload: UpdateUserAddressDto,
     user: UserEntity,
   ): Promise<AddressEntity> {
-    const newUserAddress = this.userAddressRepository.create(payload);
+    const newUserAddress: AddressEntity = this.userAddressRepository.create(payload);
     user.address = newUserAddress;
-
+    newUserAddress.user = user
     await this.userService.save(user);
 
     return user.address;

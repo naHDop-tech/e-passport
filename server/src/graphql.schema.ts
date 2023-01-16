@@ -13,9 +13,7 @@ export class CreateApplicantInput {
 }
 
 export class FingerprintInput {
-    id: string;
     publicKey: string;
-    privateKey: string;
 }
 
 export class SignInInput {
@@ -23,33 +21,9 @@ export class SignInInput {
     password: string;
 }
 
-export class UserInput {
-    id: string;
-    email: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    createdAt: string;
-    updatedAt: string;
-    birthDate: string;
-    sex: string;
-    nationality: string;
-    isVerified: boolean;
-}
-
-export class CreatePassportInput {
-    user: UserInput;
-    identifier: string;
-    number: string;
-    code: string;
-    issueDate: string;
-    expirationDate: string;
-    placeOfBirth: string;
-    type: string;
-}
-
 export class UpdatePassportInput {
-    fingerprint: FingerprintInput;
+    placeOfBirth?: Nullable<string>;
+    publicKey?: Nullable<string>;
 }
 
 export class PhoneInput {
@@ -95,7 +69,6 @@ export class UpdateUserInput {
     birthDate?: Nullable<string>;
     nationality?: Nullable<string>;
     sex?: Nullable<string>;
-    isVerified?: Nullable<boolean>;
 }
 
 export abstract class IQuery {
@@ -106,6 +79,8 @@ export abstract class IQuery {
     abstract isUserExists(email?: Nullable<string>): Nullable<boolean> | Promise<Nullable<boolean>>;
 
     abstract isApplicantExists(email?: Nullable<string>): Nullable<boolean> | Promise<Nullable<boolean>>;
+
+    abstract nationalities(): Nullable<Nullable<Nationality>[]> | Promise<Nullable<Nullable<Nationality>[]>>;
 }
 
 export abstract class IMutation {
@@ -122,6 +97,10 @@ export abstract class IMutation {
     abstract updateUserPhone(updateUserPhoneInput?: Nullable<PhoneInput>): Nullable<Phone> | Promise<Nullable<Phone>>;
 
     abstract updateUserAddress(updateAddressInput?: Nullable<AddressInput>): Nullable<Address> | Promise<Nullable<Address>>;
+
+    abstract updateUserPassport(updatePassportInput?: Nullable<UpdatePassportInput>): Nullable<Passport> | Promise<Nullable<Passport>>;
+
+    abstract updateFingerprint(updateFingerprintInput?: Nullable<FingerprintInput>): Nullable<Fingerprint> | Promise<Nullable<Fingerprint>>;
 
     abstract signIn(signInInput?: Nullable<SignInInput>): Nullable<JwtToken> | Promise<Nullable<JwtToken>>;
 }
@@ -149,7 +128,6 @@ export class Applicant {
 export class Fingerprint {
     id: string;
     publicKey: string;
-    privateKey: string;
 }
 
 export class JwtToken {
@@ -159,15 +137,18 @@ export class JwtToken {
 
 export class Passport {
     id: string;
-    identifier: string;
-    number: string;
-    code: string;
+    mrzL1: string;
+    mrzL2: string;
+    uNumber: string;
+    pNumber: string;
+    issuingOrganization: string;
+    countryCode: string;
     issueDate: string;
     expirationDate: string;
     type: string;
     placeOfBirth: string;
-    user: User;
     fingerprint: Fingerprint;
+    user?: Nullable<User>;
 }
 
 export class Phone {
@@ -197,6 +178,7 @@ export class Address {
     zip: string;
     createdAt: string;
     updatedAt: string;
+    user?: Nullable<User>;
 }
 
 export class User {
@@ -211,11 +193,19 @@ export class User {
     nationality: string;
     sex: string;
     isVerified: boolean;
-    passport?: Nullable<Passport>;
     address?: Nullable<Address>;
     phone?: Nullable<Phone>;
     photo?: Nullable<Photo>;
     token?: Nullable<string>;
+    passport?: Nullable<Passport>;
+}
+
+export class Nationality {
+    num_code: number;
+    alpha_2_code: string;
+    alpha_3_code: string;
+    en_short_name: string;
+    nationality: string;
 }
 
 type Nullable<T> = T | null;

@@ -1,41 +1,20 @@
 type Passport {
   id: ID!
-  identifier: String!
-  number: String!
-  code: String!
+  mrzL1: String!
+  mrzL2: String!
+  uNumber: String!
+  pNumber: String!
+  issuingOrganization: String!
+  countryCode: String!
   issueDate: String!
   expirationDate: String!
   type: String!
   placeOfBirth: String!
-  user: User!
   fingerprint: Fingerprint!
-}
-
-input UserInput {
-  id: ID!
-  email: String!
-  password: String!
-  firstName: String!
-  lastName: String!
-  createdAt: String!
-  updatedAt: String!
-  birthDate: String!
-  sex: String!
-  nationality: String!
-  isVerified: Boolean!
-}
-
-input CreatePassportInput {
-  user: UserInput!
-  identifier: String!
-  number: String!
-  code: String!
-  issueDate: String!
-  expirationDate: String!
-  placeOfBirth: String!
-  type: String!
+  user: User
 }
 
 input UpdatePassportInput {
-  fingerprint: FingerprintInput!
+  placeOfBirth: String
+  publicKey: String
 }

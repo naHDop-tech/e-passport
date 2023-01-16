@@ -10,11 +10,19 @@ type User {
   nationality: String!
   sex: String!
   isVerified: Boolean!
-  passport: Passport
   address: Address
   phone: Phone
   photo: Photo
   token: String
+  passport: Passport
+}
+
+type Nationality {
+  num_code: Int!
+  alpha_2_code: String!
+  alpha_3_code: String!
+  en_short_name: String!
+  nationality: String!
 }
 
 input CreateUserInput {
@@ -37,5 +45,4 @@ input UpdateUserInput {
   birthDate: String
   nationality: String
   sex: String
-  isVerified: Boolean
 }

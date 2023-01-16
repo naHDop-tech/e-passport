@@ -6,13 +6,15 @@ import {
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import * as fs from 'fs/promises'
 
 import { UserEntity } from '~/user/user.entity';
 import { CreateUserDto } from '~/user/dto/create-user.dto';
+// import { UserPassportService } from '~/passport/passport.service'
 import { DateCalculatorService } from '~/utils/date-calculator.service';
 import { ApplicantService } from '~/applicant/applicant.service';
 import { JwtService } from '~/jwt/jwt.service';
-import { UpdateUserInput } from '~/graphql.schema';
+import { UpdateUserInput, Nationality } from '~/graphql.schema';
 import { UserFactory } from '~/user/user.factory';
 @Injectable()
 export class UserService {
@@ -23,10 +25,23 @@ export class UserService {
     private readonly applicantService: ApplicantService,
     private readonly userFactory: UserFactory,
     private readonly jwtService: JwtService,
+    // private readonly passportService: UserPassportService,
   ) {}
 
   async save(user: UserEntity): Promise<UserEntity> {
     return await this.userRepository.save(user);
+  }
+  
+  async getNationalityList(): Promise<Nationality[]> {
+    return new Promise<Nationality[]>((resolve, reject) => {
+      fs.readFile(`${__dirname}/nationalities.json`)
+          .then((data) => {
+            resolve(JSON.parse(data.toString('utf-8')))
+          })
+          .catch((err) => {
+            reject(err.message)
+          });
+    })
   }
 
   async isUserExists(email: string): Promise<boolean> {
@@ -93,11 +108,9 @@ export class UserService {
       throw new NotFoundException('User not found');
     }
 
-    const user = await this.userRepository.findOne({
+    return await this.userRepository.findOne({
       where: { email },
     });
-
-    return user;
   }
 
   async removeById(id: string) {
@@ -133,6 +146,7 @@ export class UserService {
     }
 
     const updatedUser = this.userFactory.update(user, payload);
+    // await this.passportService.changeUserPassport({}, updatedUser.id)
 
     return this.userRepository.save(updatedUser);
   }

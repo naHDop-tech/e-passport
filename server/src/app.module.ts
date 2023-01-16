@@ -1,7 +1,7 @@
 import { join as joinPath } from 'path';
 
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { Module } from '@nestjs/common';
+import { Module} from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -14,6 +14,8 @@ import { ApplicantModule } from '~/applicant/applicant.module';
 import { PhotoModule } from '~/photo/photo.module';
 import { PhoneModule } from '~/phone/phone.module';
 import { AddressModule } from '~/user-address/user-address.module';
+import { PassportModule } from '~/passport/passport.module';
+import { FingerprintModule } from '~/fingerprint/fingerprint.module';
 import { JwtAuthModule } from '~/jwt-auth/jwt-auth.module';
 @Module({
   imports: [
@@ -86,6 +88,8 @@ import { JwtAuthModule } from '~/jwt-auth/jwt-auth.module';
     PhotoModule,
     PhoneModule,
     AddressModule,
+    PassportModule,
+    FingerprintModule,
   ],
 })
 export class AppModule {}
