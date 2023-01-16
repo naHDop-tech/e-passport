@@ -8,6 +8,7 @@ import { IUserProfile } from '@root/interfaces/user'
 import { CREATE_USER } from '@gql/mutations/new-user'
 import { UPDATE_USER } from '@gql/mutations/update-user'
 import { UPLOAD_USER_IMAGE } from '@gql/mutations/upload-user-image'
+import { UPDATE_USER_PASSPORT } from "@gql/mutations/update-user-passport";
 
 import { useUserProfileValidator } from '@hooks/validation/useUserProfileValidator'
 import { useToast } from '@hooks/useToast'
@@ -33,6 +34,8 @@ export function UserProfileDlc() {
 
   const [createUserFx, { data: userCreatedData }] = useMutation(CREATE_USER)
   const [updateUserFx] = useMutation(UPDATE_USER)
+  // TODO: replace to backend
+  const [updateUserPassportFx] = useMutation(UPDATE_USER_PASSPORT)
   const [uploadUserImageFx] = useMutation(UPLOAD_USER_IMAGE)
 
   useEffect(() => {
@@ -52,7 +55,10 @@ export function UserProfileDlc() {
               mimetype: image.type,
               encoding: base64,
           }}})
-
+          // TODO: replace to backend
+          if (!user.isDraft && user.passport?.type) {
+            await updateUserPassportFx({ variables: { updatePassportInput: {}}})
+          }
           await fetchUserInfo()
           toast.open({ type: ToastType.Success, content: 'Your photo was updated' })
         } catch (error: any) {
@@ -90,6 +96,10 @@ export function UserProfileDlc() {
         if (updatedUser.errors?.length) {
           throw new Error(updatedUser.errors[0].message)
         }
+      }
+      // TODO: replace to backend
+      if (!user.isDraft && user.passport?.type) {
+        await updateUserPassportFx({ variables: { updatePassportInput: {}}})
       }
       fetchUserInfo()
       toast.open({ type: ToastType.Success, content: 'User profile were updated' })
