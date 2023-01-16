@@ -105,7 +105,7 @@ export class UserPassportService {
             dateOfBirth: new Date(user.birthDate)
         })
         const passport: Omit<PassportEntity, 'id' | 'createdAt' | 'updatedAt'> = {
-            countryCode: 'UTO',
+            countryCode: user.nationality.slice(0, 3).toUpperCase(),
             placeOfBirth,
             issuingOrganization: 'International Digital Docs',
             mrzL1,
