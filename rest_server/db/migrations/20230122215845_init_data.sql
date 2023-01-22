@@ -3,22 +3,22 @@
 SELECT 'up SQL query';
 
 INSERT INTO "classes" VALUES
-    ('Draft', 'Waiting for verify confirmation from user')
+    ('Draft', 'Waiting for verify confirmation from user');
 INSERT INTO "classes" VALUES
-    ('Base', 'Confirmed user')
+    ('Base', 'Confirmed user');
 INSERT INTO "classes" VALUES
-    ('Full', 'User have added all additional info, like phone, address, passport data and ready to get the NFT')
+    ('Full', 'User have added all additional info, like phone, address, passport data and ready to get the NFT');
 INSERT INTO "classes" VALUES
-    ('Nft', 'User have got the NFT')
+    ('Nft', 'User have got the NFT');
 
 INSERT INTO "user_sex" VALUES
-    ('Male')
+    ('Male');
 INSERT INTO "user_sex" VALUES
-    ('Female')
+    ('Female');
 INSERT INTO "user_sex" VALUES
-    ('It')
+    ('It');
 INSERT INTO "user_sex" VALUES
-    ('Unset')
+    ('Unset');
 
 INSERT INTO "nationalities" (code,alpha_2,alpha_3,nationality) VALUES (0,'UT','UTO','Utopian');
 INSERT INTO "nationalities" (code,alpha_2,alpha_3,nationality) VALUES (4,'AF','AFG','Afghan');
