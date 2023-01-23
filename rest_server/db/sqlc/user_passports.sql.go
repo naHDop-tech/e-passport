@@ -105,7 +105,7 @@ func (q *Queries) GetUserPassport(ctx context.Context, id uuid.UUID) (UserPasspo
 	return i, err
 }
 
-const updateUserPassport = `-- name: UpdateUserPassport :one
+const updateUserPassport = `-- name: UpdateUserPassport :exec
 UPDATE user_passports SET
     country_code = $1,
     issuing_organization = $2,
@@ -117,8 +117,9 @@ UPDATE user_passports SET
     expiration_date = $8,
     place_of_birth = $9,
     "type" = $10,
-    finger_print_id = $11
-WHERE id = $12 RETURNING id, country_code, issuing_organization, mrz_l1, mrz_l2, u_number, p_number, issue_date, expiration_date, place_of_birth, type, finger_print_id, created_at, updated_at
+    finger_print_id = $11,
+    updated_at = $12
+WHERE id = $13
 `
 
 type UpdateUserPassportParams struct {
@@ -133,11 +134,12 @@ type UpdateUserPassportParams struct {
 	PlaceOfBirth        string         `json:"place_of_birth"`
 	Type                string         `json:"type"`
 	FingerPrintID       uuid.NullUUID  `json:"finger_print_id"`
+	UpdatedAt           sql.NullTime   `json:"updated_at"`
 	ID                  uuid.UUID      `json:"id"`
 }
 
-func (q *Queries) UpdateUserPassport(ctx context.Context, arg UpdateUserPassportParams) (UserPassport, error) {
-	row := q.db.QueryRowContext(ctx, updateUserPassport,
+func (q *Queries) UpdateUserPassport(ctx context.Context, arg UpdateUserPassportParams) error {
+	_, err := q.db.ExecContext(ctx, updateUserPassport,
 		arg.CountryCode,
 		arg.IssuingOrganization,
 		arg.MrzL1,
@@ -149,24 +151,8 @@ func (q *Queries) UpdateUserPassport(ctx context.Context, arg UpdateUserPassport
 		arg.PlaceOfBirth,
 		arg.Type,
 		arg.FingerPrintID,
+		arg.UpdatedAt,
 		arg.ID,
 	)
-	var i UserPassport
-	err := row.Scan(
-		&i.ID,
-		&i.CountryCode,
-		&i.IssuingOrganization,
-		&i.MrzL1,
-		&i.MrzL2,
-		&i.UNumber,
-		&i.PNumber,
-		&i.IssueDate,
-		&i.ExpirationDate,
-		&i.PlaceOfBirth,
-		&i.Type,
-		&i.FingerPrintID,
-		&i.CreatedAt,
-		&i.UpdatedAt,
-	)
-	return i, err
+	return err
 }

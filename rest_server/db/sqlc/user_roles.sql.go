@@ -54,16 +54,17 @@ func (q *Queries) GetUserRole(ctx context.Context, id uuid.UUID) (UserRole, erro
 }
 
 const updateUserRole = `-- name: UpdateUserRole :exec
-UPDATE user_roles SET "class" = $1
-WHERE id = $2
+UPDATE user_roles SET "class" = $1, updated_at = $2
+WHERE id = $3
 `
 
 type UpdateUserRoleParams struct {
-	Class sql.NullString `json:"class"`
-	ID    uuid.UUID      `json:"id"`
+	Class     sql.NullString `json:"class"`
+	UpdatedAt sql.NullTime   `json:"updated_at"`
+	ID        uuid.UUID      `json:"id"`
 }
 
 func (q *Queries) UpdateUserRole(ctx context.Context, arg UpdateUserRoleParams) error {
-	_, err := q.db.ExecContext(ctx, updateUserRole, arg.Class, arg.ID)
+	_, err := q.db.ExecContext(ctx, updateUserRole, arg.Class, arg.UpdatedAt, arg.ID)
 	return err
 }
