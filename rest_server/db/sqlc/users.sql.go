@@ -258,8 +258,8 @@ func (q *Queries) GetUserById(ctx context.Context, id uuid.UUID) (GetUserByIdRow
 
 const updateUser = `-- name: UpdateUser :exec
 UPDATE users
-SET first_name = $1, last_name = $2, birth_date = $3, nationality = $4, sex = $5
-WHERE id = $6
+SET first_name = $1, last_name = $2, birth_date = $3, nationality = $4, sex = $5, updated_at = $6
+WHERE id = $7
 `
 
 type UpdateUserParams struct {
@@ -268,6 +268,7 @@ type UpdateUserParams struct {
 	BirthDate   sql.NullTime   `json:"birth_date"`
 	Nationality sql.NullInt32  `json:"nationality"`
 	Sex         sql.NullString `json:"sex"`
+	UpdatedAt   sql.NullTime   `json:"updated_at"`
 	ID          uuid.UUID      `json:"id"`
 }
 
@@ -278,6 +279,7 @@ func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) error {
 		arg.BirthDate,
 		arg.Nationality,
 		arg.Sex,
+		arg.UpdatedAt,
 		arg.ID,
 	)
 	return err

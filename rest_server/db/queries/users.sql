@@ -85,5 +85,5 @@ VALUES ($1, $2, $3) RETURNING id, email;
 
 -- name: UpdateUser :exec
 UPDATE users
-SET first_name = $1, last_name = $2, birth_date = $3, nationality = $4, sex = $5
-WHERE id = $6;
+SET first_name = $1, last_name = $2, birth_date = $3, nationality = $4, sex = $5, updated_at = $6
+WHERE id = $7;
