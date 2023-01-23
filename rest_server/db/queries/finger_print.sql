@@ -4,8 +4,8 @@ WHERE id = $1 LIMIT 1;
 
 -- name: UpdateFingerPrint :exec
 UPDATE passport_finger_prints
-SET public_key = $1, updated_at = $2, updated_at = $3
-WHERE id = $4;
+SET public_key = $1, updated_at = $2
+WHERE id = $3;
 
 -- name: CreateFingerPrint :one
 INSERT INTO passport_finger_prints

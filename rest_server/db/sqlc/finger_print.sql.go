@@ -49,23 +49,17 @@ func (q *Queries) GetFingerPrint(ctx context.Context, id uuid.UUID) (PassportFin
 
 const updateFingerPrint = `-- name: UpdateFingerPrint :exec
 UPDATE passport_finger_prints
-SET public_key = $1, updated_at = $2, updated_at = $3
-WHERE id = $4
+SET public_key = $1, updated_at = $2
+WHERE id = $3
 `
 
 type UpdateFingerPrintParams struct {
-	PublicKey   string       `json:"public_key"`
-	UpdatedAt   sql.NullTime `json:"updated_at"`
-	UpdatedAt_2 sql.NullTime `json:"updated_at_2"`
-	ID          uuid.UUID    `json:"id"`
+	PublicKey string       `json:"public_key"`
+	UpdatedAt sql.NullTime `json:"updated_at"`
+	ID        uuid.UUID    `json:"id"`
 }
 
 func (q *Queries) UpdateFingerPrint(ctx context.Context, arg UpdateFingerPrintParams) error {
-	_, err := q.db.ExecContext(ctx, updateFingerPrint,
-		arg.PublicKey,
-		arg.UpdatedAt,
-		arg.UpdatedAt_2,
-		arg.ID,
-	)
+	_, err := q.db.ExecContext(ctx, updateFingerPrint, arg.PublicKey, arg.UpdatedAt, arg.ID)
 	return err
 }
