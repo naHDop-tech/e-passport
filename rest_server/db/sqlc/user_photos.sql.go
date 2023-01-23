@@ -40,7 +40,7 @@ func (q *Queries) CreateUserPhoto(ctx context.Context, arg CreateUserPhotoParams
 
 const getUserPhoto = `-- name: GetUserPhoto :one
 SELECT id, file_name, mime_type, url, created_at, updated_at FROM user_photos
-WHERE id = $1
+WHERE id = $1 LIMIT 1
 `
 
 func (q *Queries) GetUserPhoto(ctx context.Context, id uuid.UUID) (UserPhoto, error) {

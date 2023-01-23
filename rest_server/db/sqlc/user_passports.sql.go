@@ -80,7 +80,7 @@ func (q *Queries) CreateUserPassport(ctx context.Context, arg CreateUserPassport
 
 const getUserPassport = `-- name: GetUserPassport :one
 SELECT id, country_code, issuing_organization, mrz_l1, mrz_l2, u_number, p_number, issue_date, expiration_date, place_of_birth, type, finger_print_id, created_at, updated_at FROM user_passports
-WHERE id = $1
+WHERE id = $1 LIMIT 1
 `
 
 func (q *Queries) GetUserPassport(ctx context.Context, id uuid.UUID) (UserPassport, error) {

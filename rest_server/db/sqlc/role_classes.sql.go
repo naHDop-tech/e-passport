@@ -23,7 +23,7 @@ func (q *Queries) CreateRoleClass(ctx context.Context, class string) (RoleClass,
 
 const getRoleClass = `-- name: GetRoleClass :one
 SELECT class, description, created_at FROM role_classes
-WHERE "class" = $1
+WHERE "class" = $1 LIMIT 1
 `
 
 func (q *Queries) GetRoleClass(ctx context.Context, class string) (RoleClass, error) {

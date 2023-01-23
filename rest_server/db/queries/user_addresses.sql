@@ -1,6 +1,6 @@
 -- name: GetUserAddress :one
 SELECT * FROM user_addresses
-WHERE id = $1;
+WHERE id = $1 LIMIT 1;
 
 -- name: CreateUserAddress :one
 INSERT INTO user_addresses

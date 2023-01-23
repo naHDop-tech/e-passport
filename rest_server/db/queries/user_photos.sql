@@ -1,6 +1,6 @@
 -- name: GetUserPhoto :one
 SELECT * FROM user_photos
-WHERE id = $1;
+WHERE id = $1 LIMIT 1;
 
 -- name: CreateUserPhoto :one
 INSERT INTO user_photos

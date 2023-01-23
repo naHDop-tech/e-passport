@@ -38,11 +38,11 @@ type RoleClass struct {
 
 type User struct {
 	ID           uuid.UUID      `json:"id"`
-	FirstName    string         `json:"first_name"`
-	LastName     string         `json:"last_name"`
+	FirstName    sql.NullString `json:"first_name"`
+	LastName     sql.NullString `json:"last_name"`
 	Email        string         `json:"email"`
 	PasswordHash string         `json:"password_hash"`
-	BirthDate    time.Time      `json:"birth_date"`
+	BirthDate    sql.NullTime   `json:"birth_date"`
 	Nationality  sql.NullInt32  `json:"nationality"`
 	Sex          sql.NullString `json:"sex"`
 	RoleID       uuid.NullUUID  `json:"role_id"`

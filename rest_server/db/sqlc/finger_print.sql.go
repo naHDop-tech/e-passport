@@ -47,10 +47,10 @@ func (q *Queries) GetFingerPrint(ctx context.Context, id uuid.UUID) (PassportFin
 	return i, err
 }
 
-const updateFingerPrint = `-- name: UpdateFingerPrint :one
+const updateFingerPrint = `-- name: UpdateFingerPrint :exec
 UPDATE passport_finger_prints
 SET public_key = $1, updated_at = $2, updated_at = $3
-WHERE id = $4 RETURNING id, public_key, created_at, updated_at
+WHERE id = $4
 `
 
 type UpdateFingerPrintParams struct {
@@ -60,19 +60,12 @@ type UpdateFingerPrintParams struct {
 	ID          uuid.UUID    `json:"id"`
 }
 
-func (q *Queries) UpdateFingerPrint(ctx context.Context, arg UpdateFingerPrintParams) (PassportFingerPrint, error) {
-	row := q.db.QueryRowContext(ctx, updateFingerPrint,
+func (q *Queries) UpdateFingerPrint(ctx context.Context, arg UpdateFingerPrintParams) error {
+	_, err := q.db.ExecContext(ctx, updateFingerPrint,
 		arg.PublicKey,
 		arg.UpdatedAt,
 		arg.UpdatedAt_2,
 		arg.ID,
 	)
-	var i PassportFingerPrint
-	err := row.Scan(
-		&i.ID,
-		&i.PublicKey,
-		&i.CreatedAt,
-		&i.UpdatedAt,
-	)
-	return i, err
+	return err
 }

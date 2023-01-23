@@ -50,7 +50,7 @@ func (q *Queries) CreateUserAddress(ctx context.Context, arg CreateUserAddressPa
 
 const getUserAddress = `-- name: GetUserAddress :one
 SELECT id, country, city, line_1, line_2, zip, created_at, updated_at FROM user_addresses
-WHERE id = $1
+WHERE id = $1 LIMIT 1
 `
 
 func (q *Queries) GetUserAddress(ctx context.Context, id uuid.UUID) (UserAddress, error) {

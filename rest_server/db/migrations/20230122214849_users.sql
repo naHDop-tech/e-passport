@@ -4,11 +4,11 @@ SELECT 'up SQL query';
 
 CREATE TABLE "users" (
     "id" uuid PRIMARY KEY DEFAULT (gen_random_uuid()),
-    "first_name" varchar NOT NULL,
-    "last_name" varchar NOT NULL,
+    "first_name" varchar,
+    "last_name" varchar,
     "email" varchar NOT NULL,
     "password_hash" varchar NOT NULL,
-    "birth_date" timestamptz NOT NULL,
+    "birth_date" timestamptz,
     "nationality" int,
     "sex" varchar(5),
     "role_id" uuid,

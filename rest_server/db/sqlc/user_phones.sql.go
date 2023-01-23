@@ -38,7 +38,7 @@ func (q *Queries) CreateUserPhone(ctx context.Context, arg CreateUserPhoneParams
 
 const getUserPhone = `-- name: GetUserPhone :one
 SELECT id, country_code, number, created_at, updated_at FROM user_phones
-WHERE id = $1
+WHERE id = $1 LIMIT 1
 `
 
 func (q *Queries) GetUserPhone(ctx context.Context, id uuid.UUID) (UserPhone, error) {

@@ -1,6 +1,6 @@
 -- name: GetUserPassport :one
 SELECT * FROM user_passports
-WHERE id = $1;
+WHERE id = $1 LIMIT 1;
 
 -- name: CreateUserPassport :one
 INSERT INTO user_passports
