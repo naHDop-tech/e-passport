@@ -3,7 +3,7 @@
 SELECT 'up SQL query';
 
 CREATE TABLE "countries" (
-    "code" varchar(5) PRIMARY KEY,
+    "code" varchar(10) PRIMARY KEY,
     "name" varchar NOT NULL
 );
 -- +goose StatementEnd

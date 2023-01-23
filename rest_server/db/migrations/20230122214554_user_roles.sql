@@ -17,7 +17,7 @@ ALTER TABLE "user_roles" ADD FOREIGN KEY ("class") REFERENCES "role_classes" ("c
 -- +goose StatementBegin
 SELECT 'down SQL query';
 
-ALTER TABLE "user_roles" DROP CONSTRAINT "class";
+ALTER TABLE "user_roles" DROP CONSTRAINT IF EXISTS "class";
 
 DROP TABLE IF EXISTS "user_roles";
 -- +goose StatementEnd

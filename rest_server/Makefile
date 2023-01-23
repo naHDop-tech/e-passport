@@ -11,6 +11,6 @@ sqlc_init:
 sqlc:
 	sqlc generate
 migration_up:
-	goose -dir=./db/migrations postgres "host=$(BD_HOST) user=$(DB_USER) password=$(DB_PASS) dbname=$(DB_NAME) sslmode=disable" up
+	goose -dir=./db/migrations postgres "host=$(DB_HOST) user=$(DB_USER) password=$(DB_PASS) dbname=$(DB_NAME) sslmode=disable" up
 migration_down:
-	goose -dir=./db/migrations postgres "host=$(BD_HOST) user=$(DB_USER) password=$(DB_PASS) dbname=$(DB_NAME) sslmode=disable" down
+	goose -dir=./db/migrations postgres "host=$(DB_HOST) user=$(DB_USER) password=$(DB_PASS) dbname=$(DB_NAME) sslmode=disable" down

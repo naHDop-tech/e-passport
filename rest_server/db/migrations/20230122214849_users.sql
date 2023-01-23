@@ -10,7 +10,7 @@ CREATE TABLE "users" (
     "password_hash" varchar NOT NULL,
     "birth_date" timestamptz,
     "nationality" int,
-    "sex" varchar(5),
+    "sex" varchar(15),
     "role_id" uuid,
     "photo_id" uuid,
     "phone_id" uuid,
@@ -39,13 +39,13 @@ ALTER TABLE "users" ADD FOREIGN KEY ("passport_id") REFERENCES "user_passports" 
 -- +goose StatementBegin
 SELECT 'down SQL query';
 
-ALTER TABLE "users" DROP CONSTRAINT "nationality";
-ALTER TABLE "users" DROP CONSTRAINT "sex";
-ALTER TABLE "users" DROP CONSTRAINT "role_id";
-ALTER TABLE "users" DROP CONSTRAINT "photo_id";
-ALTER TABLE "users" DROP CONSTRAINT "phone_id";
-ALTER TABLE "users" DROP CONSTRAINT "address_id";
-ALTER TABLE "users" DROP CONSTRAINT "passport_id";
+ALTER TABLE "users" DROP CONSTRAINT IF EXISTS "nationality";
+ALTER TABLE "users" DROP CONSTRAINT IF EXISTS "sex";
+ALTER TABLE "users" DROP CONSTRAINT IF EXISTS "role_id";
+ALTER TABLE "users" DROP CONSTRAINT IF EXISTS "photo_id";
+ALTER TABLE "users" DROP CONSTRAINT IF EXISTS "phone_id";
+ALTER TABLE "users" DROP CONSTRAINT IF EXISTS "address_id";
+ALTER TABLE "users" DROP CONSTRAINT IF EXISTS "passport_id";
 
 DROP TABLE IF EXISTS "users";
 -- +goose StatementEnd

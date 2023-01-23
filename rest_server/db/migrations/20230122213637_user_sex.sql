@@ -3,7 +3,7 @@
 SELECT 'up SQL query';
 
 CREATE TABLE "user_sex" (
-    "value" varchar(5) PRIMARY KEY
+    "value" varchar(20) PRIMARY KEY
 );
 -- +goose StatementEnd
 

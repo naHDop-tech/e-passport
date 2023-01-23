@@ -4,7 +4,7 @@ SELECT 'up SQL query';
 
 CREATE TABLE "user_addresses" (
     "id" uuid PRIMARY KEY DEFAULT (gen_random_uuid()),
-    "country" varchar(5),
+    "country" varchar(10),
     "city" varchar NOT NULL,
     "line_1" varchar NOT NULL,
     "line_2" varchar NOT NULL,
@@ -20,7 +20,7 @@ ALTER TABLE "user_addresses" ADD FOREIGN KEY ("country") REFERENCES "countries" 
 -- +goose StatementBegin
 SELECT 'down SQL query';
 
-ALTER TABLE "user_addresses" DROP CONSTRAINT "country";
+ALTER TABLE "user_addresses" DROP CONSTRAINT IF EXISTS "country";
 
 DROP TABLE IF EXISTS "user_addresses";
 -- +goose StatementEnd
