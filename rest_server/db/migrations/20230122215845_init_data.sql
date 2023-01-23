@@ -2,13 +2,13 @@
 -- +goose StatementBegin
 SELECT 'up SQL query';
 
-INSERT INTO "classes" VALUES
+INSERT INTO "role_classes" VALUES
     ('Draft', 'Waiting for verify confirmation from user');
-INSERT INTO "classes" VALUES
+INSERT INTO "role_classes" VALUES
     ('Base', 'Confirmed user');
-INSERT INTO "classes" VALUES
+INSERT INTO "role_classes" VALUES
     ('Full', 'User have added all additional info, like phone, address, passport data and ready to get the NFT');
-INSERT INTO "classes" VALUES
+INSERT INTO "role_classes" VALUES
     ('Nft', 'User have got the NFT');
 
 INSERT INTO "user_sex" VALUES
