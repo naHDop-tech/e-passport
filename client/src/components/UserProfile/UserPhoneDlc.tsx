@@ -9,6 +9,7 @@ import { UPDATE_USER_PHONE } from '@gql/mutations/update-user-phone'
 
 import { UserPhone } from './ui/phone/UserPhone'
 import { useUserPhoneValidator } from '@root/hooks/validation/userUserPhoneValidator'
+import { useIsFieldWasTouched } from '@hooks/useIsFieldWasTouched'
 
 export function UserPhoneDlc() {
   const { user, fetchUserInfo } = useUserInfo()
@@ -18,6 +19,14 @@ export function UserPhoneDlc() {
   })
   const errors = useUserPhoneValidator(userPhone)
   const toast = useToast()
+
+  const shortCurrentUserField = {
+    number: user.phone?.number,
+    countryCode: user.phone?.countryCode,
+  }
+
+  const isFieldWasTouched = useIsFieldWasTouched(shortCurrentUserField, userPhone);
+  const isButtonDisabled = !!Object.keys(errors as Object).length || !isFieldWasTouched;
 
   const [updateUserPhoneFx] = useMutation(UPDATE_USER_PHONE)
 
@@ -50,6 +59,7 @@ export function UserPhoneDlc() {
 
   return (
     <UserPhone
+    isButtonDisabled={isButtonDisabled}
       errors={errors}
       changedUserFiled={userPhone}
       onChange={changeHandler}

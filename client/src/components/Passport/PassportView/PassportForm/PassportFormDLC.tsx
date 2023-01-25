@@ -9,6 +9,7 @@ import { UPDATE_USER_PASSPORT } from '@gql/mutations/update-user-passport'
 
 import { PassportForm } from './PassportForm'
 import { useUserPassportValidator } from '@root/hooks/validation/useUserPassportValidator'
+import { useIsFieldWasTouched } from '@hooks/useIsFieldWasTouched'
 
 export function PassportFormDlc() {
     const { user, fetchUserInfo } = useUserInfo()
@@ -18,6 +19,14 @@ export function PassportFormDlc() {
     })
     const errors = useUserPassportValidator(userPassport)
     const toast = useToast()
+
+    const shortCurrentUserField = {
+        placeOfBirth: user.passport?.placeOfBirth,
+        publicKey: user.passport?.fingerprint.publicKey
+      }
+    
+    const isFieldWasTouched = useIsFieldWasTouched(shortCurrentUserField, userPassport);
+    const isButtonDisabled = !!Object.keys(errors as Object).length || !isFieldWasTouched;
 
     const [updateUserPassportFx] = useMutation(UPDATE_USER_PASSPORT)
 
@@ -49,6 +58,7 @@ export function PassportFormDlc() {
 
     return (
         <PassportForm
+            isButtonDisabled={isButtonDisabled}
             errors={errors}
             changedPassportFiled={userPassport}
             onChange={changeHandler}

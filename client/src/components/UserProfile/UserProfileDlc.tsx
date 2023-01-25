@@ -42,7 +42,7 @@ export function UserProfileDlc() {
   }
 
   const isFieldWasTouched = useIsFieldWasTouched(shortCurrentUserField, userProfileForm);
-  const isButtonDisabled = !!Object.keys(errors as Object).length || isFieldWasTouched;
+  const isButtonDisabled = !!Object.keys(errors as Object).length || !isFieldWasTouched;
 
   const [createUserFx, { data: userCreatedData }] = useMutation(CREATE_USER)
   const [updateUserFx] = useMutation(UPDATE_USER)
