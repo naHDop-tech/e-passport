@@ -22,6 +22,8 @@ export interface IUserPhoneProps {
   onSave: () => void
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
 
+  isButtonDisabled: boolean
+
   changedUserFiled: Partial<IUserProfile['phone']>
   errors?: Partial<Record<FormFiledIds, string>>
 }
@@ -32,7 +34,7 @@ export enum FormFiledIds {
 }
 
 export function UserPhone(props: IUserPhoneProps) {
-  const { errors, changedUserFiled, onSave, onChange } = props
+  const { errors, changedUserFiled, isButtonDisabled, onSave, onChange } = props
 
   return (
     <div>
@@ -62,7 +64,7 @@ export function UserPhone(props: IUserPhoneProps) {
         </div>
 
         <div className={commonStyle.Margin32} />
-        <Button disabled={!!Object.keys(errors as Object).length} style={{ float: 'right' }} title='Save phone' onClick={onSave} />
+        <Button disabled={isButtonDisabled} style={{ float: 'right' }} title='Save phone' onClick={onSave} />
         <div className={commonStyle.ClearFix} />
       </div>
     </div>

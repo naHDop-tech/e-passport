@@ -13,6 +13,7 @@ import { UPDATE_USER_PASSPORT } from "@gql/mutations/update-user-passport";
 import { useUserProfileValidator } from '@hooks/validation/useUserProfileValidator'
 import { useToast } from '@hooks/useToast'
 import { useUserInfo } from '@hooks/useUserInfo'
+import { useIsFieldWasTouched } from '@hooks/useIsFieldWasTouched'
 
 import { ToastType } from '@components/Toast/Toast'
 import { UserProfile } from '@components/UserProfile'
@@ -31,6 +32,17 @@ export function UserProfileDlc() {
   })
   const errors = useUserProfileValidator(userProfileForm)
   const toast = useToast()
+  
+  const shortCurrentUserField = {
+    firstName: user.firstName,
+    lastName: user.lastName,
+    birthDate: user.birthDate,
+    nationality: user.nationality,
+    sex: user.sex,
+  }
+
+  const isFieldWasTouched = useIsFieldWasTouched<Partial<IUserProfile>>(shortCurrentUserField, userProfileForm);
+  const isButtonDisabled = !!Object.keys(errors as Object).length || !isFieldWasTouched;
 
   const [createUserFx, { data: userCreatedData }] = useMutation(CREATE_USER)
   const [updateUserFx] = useMutation(UPDATE_USER)
@@ -119,6 +131,7 @@ export function UserProfileDlc() {
 
   return (
     <UserProfile
+      isButtonDisabled={isButtonDisabled}
       onSetImage={setImage}
       errors={errors}
       changedUserFiled={userProfileForm}

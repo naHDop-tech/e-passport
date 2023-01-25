@@ -13,6 +13,8 @@ export interface IUserPassportProps {
     onSave: () => void
     onChange: (e: ChangeEvent<HTMLInputElement>) => void
 
+    isButtonDisabled: boolean
+
     changedPassportFiled: Partial<IPassport & { publicKey: string }>
     errors?: Partial<Record<FormFiledIds, string>>
 }
@@ -23,7 +25,7 @@ export enum FormFiledIds {
 }
 
 export function PassportForm(props: IUserPassportProps) {
-    const { errors, changedPassportFiled, onSave, onChange } = props
+    const { errors, changedPassportFiled, isButtonDisabled, onSave, onChange } = props
 
     return (
         <div>
@@ -49,7 +51,7 @@ export function PassportForm(props: IUserPassportProps) {
                 errorText={errors?.[FormFiledIds.PublicKey]}
             />
             <div className={commonStyle.Margin32} />
-            <Button disabled={!!Object.keys(errors as Object).length} style={{ float: 'right' }} title='Update info' onClick={onSave} />
+            <Button disabled={isButtonDisabled} style={{ float: 'right' }} title='Update info' onClick={onSave} />
             <div className={commonStyle.ClearFix} />
         </div>
     );

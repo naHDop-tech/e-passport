@@ -23,6 +23,8 @@ export interface IUserAddressProps {
   onSave: () => void
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
 
+  isButtonDisabled: boolean
+
   changedUserFiled: Partial<IAddress>
   errors?: Partial<Record<FormFiledIds, string>>
 }
@@ -36,7 +38,7 @@ export enum FormFiledIds {
 }
 
 export function UserAddress(props: IUserAddressProps) {
-  const { errors, changedUserFiled, onSave, onChange } = props
+  const { errors, changedUserFiled, isButtonDisabled, onSave, onChange } = props
 
   return (
       <div className={styles.FormBox}>
@@ -88,7 +90,7 @@ export function UserAddress(props: IUserAddressProps) {
             errorText={errors?.[FormFiledIds.Zip]}
           />
         <div className={commonStyle.Margin32} />
-        <Button disabled={!!Object.keys(errors as Object).length} style={{ float: 'right' }} title='Save Address' onClick={onSave} />
+        <Button disabled={isButtonDisabled} style={{ float: 'right' }} title='Save Address' onClick={onSave} />
         <div className={commonStyle.ClearFix} />
       </div>
   )

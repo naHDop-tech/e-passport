@@ -9,6 +9,7 @@ import { UPDATE_USER_ADDRESS } from '@gql/mutations/update-user-address'
 
 import { UserAddress } from './ui/address/UserAddress'
 import { useUserAddressValidator } from '@root/hooks/validation/useUserAddressValidator'
+import { useIsFieldWasTouched } from '@hooks/useIsFieldWasTouched'
 
 export function UserAddressDlc() {
   const { user, fetchUserInfo } = useUserInfo()
@@ -21,6 +22,17 @@ export function UserAddressDlc() {
   })
   const errors = useUserAddressValidator(userAddress)
   const toast = useToast()
+
+  const shortCurrentUserField = {
+    city: user.address?.city,
+    country: user.address?.country,
+    line1: user.address?.line1,
+    line2: user.address?.line2,
+    zip: user.address?.zip,
+  }
+
+  const isFieldWasTouched = useIsFieldWasTouched<Partial<IAddress>>(shortCurrentUserField, userAddress);
+  const isButtonDisabled = !!Object.keys(errors as Object).length || !isFieldWasTouched;
 
   const [updateUserAddressFx] = useMutation(UPDATE_USER_ADDRESS)
 
@@ -56,6 +68,7 @@ export function UserAddressDlc() {
 
   return (
     <UserAddress
+      isButtonDisabled={isButtonDisabled}
       errors={errors}
       changedUserFiled={userAddress}
       onChange={changeHandler}
