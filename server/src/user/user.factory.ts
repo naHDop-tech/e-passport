@@ -10,6 +10,9 @@ export class UserFactory {
     user.lastName = updateOptions.lastName
       ? updateOptions.lastName
       : user.lastName;
+      user.birthDate = updateOptions.birthDate
+      ? updateOptions.birthDate
+      : user.birthDate;
     user.nationality = updateOptions.nationality
       ? updateOptions.nationality
       : user.nationality;
