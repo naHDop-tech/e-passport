@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import {IUserProfile} from "@root/interfaces/user";
 
 export function useIsFieldWasTouched<T>(
     currentUserFields: T,
