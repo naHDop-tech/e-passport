@@ -6,40 +6,56 @@ import (
 	"github.com/google/uuid"
 )
 
+type ClassName string
+type RoleName string
+
+const (
+	Draft ClassName = "Draft"
+	Base            = "Base"
+	Full            = "Full"
+	Nft             = "Nft"
+)
+
+const (
+	Customer RoleName = "Customer"
+	Admin             = "Admin"
+	Manager           = "Manager"
+	Noname            = "Noname"
+)
+
 type CreateDraftUserParams struct {
-	Email    string `json:"email"`
-	Password string `json:"password_hash"`
+	Email     string
+	Password  string
+	ClassName ClassName
+	RoleName  RoleName
 }
 
 func (s *Store) CreateUserTx(ctx context.Context, arg CreateDraftUserParams) (CreateUserRow, error) {
-	var user CreateUserRow
-	return user, nil
+	var result CreateUserRow
+	return result, nil
 
 	err := s.execTx(ctx, func(q *Queries) error {
 		var err error
 		var class RoleClass
-		class, err = q.GetRoleClass(ctx, "Draft")
+		class, err = q.GetRoleClass(ctx, string(arg.ClassName))
 		if err != nil {
 			return err
 		}
 
 		var roleId uuid.UUID
 		roleId, err = q.CreateUserRole(ctx, CreateUserRoleParams{
-			Name:  "Client",
+			Name:  string(arg.RoleName),
 			Class: sql.NullString{String: class.Class, Valid: true},
 		})
 		if err != nil {
 			return err
 		}
 
-		userRoleId := uuid.NullUUID{
-			UUID:  roleId,
-			Valid: true,
-		}
-		user, err = q.CreateUser(ctx, CreateUserParams{
+		// TODO: Implement password hashing
+		result, err = q.CreateUser(ctx, CreateUserParams{
 			Email:        arg.Email,
 			PasswordHash: arg.Password,
-			RoleID:       userRoleId,
+			RoleID:       uuid.NullUUID{UUID: roleId, Valid: true},
 		})
 		if err != nil {
 			return err
@@ -48,5 +64,5 @@ func (s *Store) CreateUserTx(ctx context.Context, arg CreateDraftUserParams) (Cr
 		return nil
 	})
 
-	return user, err
+	return result, err
 }
