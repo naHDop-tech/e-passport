@@ -33,7 +33,7 @@ export function UserProfileDlc() {
   const errors = useUserProfileValidator(userProfileForm)
   const toast = useToast()
   
-  const thisUser = {
+  const shortCurrentUserField = {
     firstName: user.firstName,
     lastName: user.lastName,
     birthDate: user.birthDate,
@@ -41,7 +41,7 @@ export function UserProfileDlc() {
     sex: user.sex,
   }
 
-  const isFieldWasTouched = useIsFieldWasTouched(thisUser, userProfileForm);
+  const isFieldWasTouched = useIsFieldWasTouched(shortCurrentUserField, userProfileForm);
   const isButtonDisabled = !!Object.keys(errors as Object).length || isFieldWasTouched;
 
   const [createUserFx, { data: userCreatedData }] = useMutation(CREATE_USER)
