@@ -11,14 +11,13 @@ import (
 
 const createRoleClass = `-- name: CreateRoleClass :one
 INSERT INTO role_classes ("class")
-VALUES ($1) RETURNING class, description, created_at
+VALUES ($1) RETURNING "class"
 `
 
-func (q *Queries) CreateRoleClass(ctx context.Context, class string) (RoleClass, error) {
+func (q *Queries) CreateRoleClass(ctx context.Context, class string) (string, error) {
 	row := q.db.QueryRowContext(ctx, createRoleClass, class)
-	var i RoleClass
-	err := row.Scan(&i.Class, &i.Description, &i.CreatedAt)
-	return i, err
+	err := row.Scan(&class)
+	return class, err
 }
 
 const getRoleClass = `-- name: GetRoleClass :one

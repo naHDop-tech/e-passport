@@ -5,7 +5,7 @@ WHERE id = $1 LIMIT 1;
 -- name: CreateUserPhoto :one
 INSERT INTO user_photos
 (file_name, mime_type, url)
-VALUES ($1, $2, $3) RETURNING *;
+VALUES ($1, $2, $3) RETURNING id;
 
 -- name: UpdateUserPhoto :exec
 UPDATE user_photos

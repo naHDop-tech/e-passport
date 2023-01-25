@@ -15,19 +15,14 @@ import (
 const createFingerPrint = `-- name: CreateFingerPrint :one
 INSERT INTO passport_finger_prints
 (public_key)
-VALUES ($1) RETURNING id, public_key, created_at, updated_at
+VALUES ($1) RETURNING id
 `
 
-func (q *Queries) CreateFingerPrint(ctx context.Context, publicKey string) (PassportFingerPrint, error) {
+func (q *Queries) CreateFingerPrint(ctx context.Context, publicKey string) (uuid.UUID, error) {
 	row := q.db.QueryRowContext(ctx, createFingerPrint, publicKey)
-	var i PassportFingerPrint
-	err := row.Scan(
-		&i.ID,
-		&i.PublicKey,
-		&i.CreatedAt,
-		&i.UpdatedAt,
-	)
-	return i, err
+	var id uuid.UUID
+	err := row.Scan(&id)
+	return id, err
 }
 
 const getFingerPrint = `-- name: GetFingerPrint :one

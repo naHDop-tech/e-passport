@@ -15,7 +15,7 @@ import (
 const createUserPhoto = `-- name: CreateUserPhoto :one
 INSERT INTO user_photos
 (file_name, mime_type, url)
-VALUES ($1, $2, $3) RETURNING id, file_name, mime_type, url, created_at, updated_at
+VALUES ($1, $2, $3) RETURNING id
 `
 
 type CreateUserPhotoParams struct {
@@ -24,18 +24,11 @@ type CreateUserPhotoParams struct {
 	Url      string `json:"url"`
 }
 
-func (q *Queries) CreateUserPhoto(ctx context.Context, arg CreateUserPhotoParams) (UserPhoto, error) {
+func (q *Queries) CreateUserPhoto(ctx context.Context, arg CreateUserPhotoParams) (uuid.UUID, error) {
 	row := q.db.QueryRowContext(ctx, createUserPhoto, arg.FileName, arg.MimeType, arg.Url)
-	var i UserPhoto
-	err := row.Scan(
-		&i.ID,
-		&i.FileName,
-		&i.MimeType,
-		&i.Url,
-		&i.CreatedAt,
-		&i.UpdatedAt,
-	)
-	return i, err
+	var id uuid.UUID
+	err := row.Scan(&id)
+	return id, err
 }
 
 const getUserPhoto = `-- name: GetUserPhoto :one

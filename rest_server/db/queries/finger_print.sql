@@ -10,4 +10,4 @@ WHERE id = $3;
 -- name: CreateFingerPrint :one
 INSERT INTO passport_finger_prints
 (public_key)
-VALUES ($1) RETURNING *;
+VALUES ($1) RETURNING id;

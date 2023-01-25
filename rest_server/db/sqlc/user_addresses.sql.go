@@ -15,7 +15,7 @@ import (
 const createUserAddress = `-- name: CreateUserAddress :one
 INSERT INTO user_addresses
 (country, city, line_1, line_2, zip)
-VALUES ($1, $2, $3, $4, $5) RETURNING id, country, city, line_1, line_2, zip, created_at, updated_at
+VALUES ($1, $2, $3, $4, $5) RETURNING id
 `
 
 type CreateUserAddressParams struct {
@@ -26,7 +26,7 @@ type CreateUserAddressParams struct {
 	Zip     string         `json:"zip"`
 }
 
-func (q *Queries) CreateUserAddress(ctx context.Context, arg CreateUserAddressParams) (UserAddress, error) {
+func (q *Queries) CreateUserAddress(ctx context.Context, arg CreateUserAddressParams) (uuid.UUID, error) {
 	row := q.db.QueryRowContext(ctx, createUserAddress,
 		arg.Country,
 		arg.City,
@@ -34,18 +34,9 @@ func (q *Queries) CreateUserAddress(ctx context.Context, arg CreateUserAddressPa
 		arg.Line2,
 		arg.Zip,
 	)
-	var i UserAddress
-	err := row.Scan(
-		&i.ID,
-		&i.Country,
-		&i.City,
-		&i.Line1,
-		&i.Line2,
-		&i.Zip,
-		&i.CreatedAt,
-		&i.UpdatedAt,
-	)
-	return i, err
+	var id uuid.UUID
+	err := row.Scan(&id)
+	return id, err
 }
 
 const getUserAddress = `-- name: GetUserAddress :one

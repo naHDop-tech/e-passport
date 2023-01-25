@@ -1,6 +1,6 @@
 -- name: CreateUserRole :one
 INSERT INTO user_roles ("name", "class")
-VALUES ($1, $2) RETURNING *;
+VALUES ($1, $2) RETURNING id;
 
 -- name: UpdateUserRole :exec
 UPDATE user_roles SET "class" = $1, updated_at = $2

@@ -14,7 +14,7 @@ import (
 
 const createUserRole = `-- name: CreateUserRole :one
 INSERT INTO user_roles ("name", "class")
-VALUES ($1, $2) RETURNING id, name, class, created_at, updated_at
+VALUES ($1, $2) RETURNING id
 `
 
 type CreateUserRoleParams struct {
@@ -22,17 +22,11 @@ type CreateUserRoleParams struct {
 	Class sql.NullString `json:"class"`
 }
 
-func (q *Queries) CreateUserRole(ctx context.Context, arg CreateUserRoleParams) (UserRole, error) {
+func (q *Queries) CreateUserRole(ctx context.Context, arg CreateUserRoleParams) (uuid.UUID, error) {
 	row := q.db.QueryRowContext(ctx, createUserRole, arg.Name, arg.Class)
-	var i UserRole
-	err := row.Scan(
-		&i.ID,
-		&i.Name,
-		&i.Class,
-		&i.CreatedAt,
-		&i.UpdatedAt,
-	)
-	return i, err
+	var id uuid.UUID
+	err := row.Scan(&id)
+	return id, err
 }
 
 const getUserRole = `-- name: GetUserRole :one

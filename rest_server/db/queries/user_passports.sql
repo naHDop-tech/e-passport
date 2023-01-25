@@ -16,7 +16,7 @@ INSERT INTO user_passports
     place_of_birth,
     "type",
     finger_print_id
-) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *;
+) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id;
 
 -- name: UpdateUserPassport :exec
 UPDATE user_passports SET

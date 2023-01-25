@@ -15,7 +15,7 @@ import (
 const createUserPhone = `-- name: CreateUserPhone :one
 INSERT INTO user_phones
 (country_code, "number")
-VALUES ($1, $2) RETURNING id, country_code, number, created_at, updated_at
+VALUES ($1, $2) RETURNING id
 `
 
 type CreateUserPhoneParams struct {
@@ -23,17 +23,11 @@ type CreateUserPhoneParams struct {
 	Number      string `json:"number"`
 }
 
-func (q *Queries) CreateUserPhone(ctx context.Context, arg CreateUserPhoneParams) (UserPhone, error) {
+func (q *Queries) CreateUserPhone(ctx context.Context, arg CreateUserPhoneParams) (uuid.UUID, error) {
 	row := q.db.QueryRowContext(ctx, createUserPhone, arg.CountryCode, arg.Number)
-	var i UserPhone
-	err := row.Scan(
-		&i.ID,
-		&i.CountryCode,
-		&i.Number,
-		&i.CreatedAt,
-		&i.UpdatedAt,
-	)
-	return i, err
+	var id uuid.UUID
+	err := row.Scan(&id)
+	return id, err
 }
 
 const getUserPhone = `-- name: GetUserPhone :one

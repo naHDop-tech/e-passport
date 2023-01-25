@@ -5,7 +5,7 @@ WHERE id = $1 LIMIT 1;
 -- name: CreateUserPhone :one
 INSERT INTO user_phones
 (country_code, "number")
-VALUES ($1, $2) RETURNING *;
+VALUES ($1, $2) RETURNING id;
 
 -- name: UpdateUserPhone :exec
 UPDATE user_phones

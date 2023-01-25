@@ -8,4 +8,4 @@ WHERE "class" = $1 LIMIT 1;
 
 -- name: CreateRoleClass :one
 INSERT INTO role_classes ("class")
-VALUES ($1) RETURNING *;
+VALUES ($1) RETURNING "class";

@@ -27,7 +27,7 @@ INSERT INTO user_passports
     place_of_birth,
     "type",
     finger_print_id
-) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id, country_code, issuing_organization, mrz_l1, mrz_l2, u_number, p_number, issue_date, expiration_date, place_of_birth, type, finger_print_id, created_at, updated_at
+) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id
 `
 
 type CreateUserPassportParams struct {
@@ -44,7 +44,7 @@ type CreateUserPassportParams struct {
 	FingerPrintID       uuid.NullUUID  `json:"finger_print_id"`
 }
 
-func (q *Queries) CreateUserPassport(ctx context.Context, arg CreateUserPassportParams) (UserPassport, error) {
+func (q *Queries) CreateUserPassport(ctx context.Context, arg CreateUserPassportParams) (uuid.UUID, error) {
 	row := q.db.QueryRowContext(ctx, createUserPassport,
 		arg.CountryCode,
 		arg.IssuingOrganization,
@@ -58,24 +58,9 @@ func (q *Queries) CreateUserPassport(ctx context.Context, arg CreateUserPassport
 		arg.Type,
 		arg.FingerPrintID,
 	)
-	var i UserPassport
-	err := row.Scan(
-		&i.ID,
-		&i.CountryCode,
-		&i.IssuingOrganization,
-		&i.MrzL1,
-		&i.MrzL2,
-		&i.UNumber,
-		&i.PNumber,
-		&i.IssueDate,
-		&i.ExpirationDate,
-		&i.PlaceOfBirth,
-		&i.Type,
-		&i.FingerPrintID,
-		&i.CreatedAt,
-		&i.UpdatedAt,
-	)
-	return i, err
+	var id uuid.UUID
+	err := row.Scan(&id)
+	return id, err
 }
 
 const getUserPassport = `-- name: GetUserPassport :one
