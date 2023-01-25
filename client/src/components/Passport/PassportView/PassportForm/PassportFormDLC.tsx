@@ -25,7 +25,7 @@ export function PassportFormDlc() {
         publicKey: user.passport?.fingerprint.publicKey
       }
     
-    const isFieldWasTouched = useIsFieldWasTouched(shortCurrentUserField, userPassport);
+    const isFieldWasTouched = useIsFieldWasTouched<Partial<IPassport & { publicKey: string }>>(shortCurrentUserField, userPassport);
     const isButtonDisabled = !!Object.keys(errors as Object).length || !isFieldWasTouched;
 
     const [updateUserPassportFx] = useMutation(UPDATE_USER_PASSPORT)

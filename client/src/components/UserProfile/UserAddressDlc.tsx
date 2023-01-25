@@ -31,7 +31,7 @@ export function UserAddressDlc() {
     zip: user.address?.zip,
   }
 
-  const isFieldWasTouched = useIsFieldWasTouched(shortCurrentUserField, userAddress);
+  const isFieldWasTouched = useIsFieldWasTouched<Partial<IAddress>>(shortCurrentUserField, userAddress);
   const isButtonDisabled = !!Object.keys(errors as Object).length || !isFieldWasTouched;
 
   const [updateUserAddressFx] = useMutation(UPDATE_USER_ADDRESS)

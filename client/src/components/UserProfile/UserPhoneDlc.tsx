@@ -25,7 +25,7 @@ export function UserPhoneDlc() {
     countryCode: user.phone?.countryCode,
   }
 
-  const isFieldWasTouched = useIsFieldWasTouched(shortCurrentUserField, userPhone);
+  const isFieldWasTouched = useIsFieldWasTouched<Partial<IUserProfile['phone']>>(shortCurrentUserField, userPhone);
   const isButtonDisabled = !!Object.keys(errors as Object).length || !isFieldWasTouched;
 
   const [updateUserPhoneFx] = useMutation(UPDATE_USER_PHONE)

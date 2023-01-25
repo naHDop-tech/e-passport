@@ -41,7 +41,7 @@ export function UserProfileDlc() {
     sex: user.sex,
   }
 
-  const isFieldWasTouched = useIsFieldWasTouched(shortCurrentUserField, userProfileForm);
+  const isFieldWasTouched = useIsFieldWasTouched<Partial<IUserProfile>>(shortCurrentUserField, userProfileForm);
   const isButtonDisabled = !!Object.keys(errors as Object).length || !isFieldWasTouched;
 
   const [createUserFx, { data: userCreatedData }] = useMutation(CREATE_USER)

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import {IUserProfile} from "@root/interfaces/user";
 
-export function useIsFieldWasTouched(
-    currentUserFields: Record<string, any>,
-    applicantUserField: Record<string, any>
+export function useIsFieldWasTouched<T>(
+    currentUserFields: T,
+    applicantUserField: T
 ): boolean {
     const [isTouched, setIsTouched] = useState(false)
 
