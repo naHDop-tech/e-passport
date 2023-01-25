@@ -25,6 +25,8 @@ export interface IUserProfileProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
   onSetImage: (e: File) => void
 
+  isButtonDisabled: boolean
+
   changedUserFiled: Partial<IUserProfile>
 
   user: Partial<IUserProfile>
@@ -40,7 +42,7 @@ export enum FormFiledIds {
 }
 
 export function UserProfile(props: IUserProfileProps) {
-  const { user, errors, changedUserFiled, onSave, onChange, onSetImage } = props
+  const { user, errors, changedUserFiled, onSave, onChange, onSetImage, isButtonDisabled } = props
 
   return (
     <div>
@@ -115,8 +117,10 @@ export function UserProfile(props: IUserProfileProps) {
             errorText={errors?.[FormFiledIds.Sex]}
         />
 
+{/* !!Object.keys(errors as Object).length */}
+
         <div className={commonStyle.Margin32} />
-        <Button disabled={!!Object.keys(errors as Object).length} style={{ float: 'right' }} title='Save profile' onClick={onSave} />
+        <Button disabled={isButtonDisabled} style={{ float: 'right' }} title='Save profile' onClick={onSave} />
         <div className={commonStyle.ClearFix} />
       </div>
     </div>
