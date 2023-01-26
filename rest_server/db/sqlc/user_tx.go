@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"github.com/google/uuid"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type ClassName string
@@ -51,10 +52,13 @@ func (s *Store) CreateUserTx(ctx context.Context, arg CreateDraftUserParams) (Cr
 			return err
 		}
 
-		// TODO: Implement password hashing
+		pwdHash, err := bcrypt.GenerateFromPassword([]byte(arg.Password), bcrypt.MinCost)
+		if err != nil {
+			return err
+		}
 		result, err = q.CreateUser(ctx, CreateUserParams{
 			Email:        arg.Email,
-			PasswordHash: arg.Password,
+			PasswordHash: string(pwdHash),
 			RoleID:       uuid.NullUUID{UUID: roleId, Valid: true},
 		})
 		if err != nil {
