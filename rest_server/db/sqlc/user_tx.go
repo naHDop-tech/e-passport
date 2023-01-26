@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"github.com/google/uuid"
-	"golang.org/x/crypto/bcrypt"
+	"github.com/naHDop-tech/e-passport/utils"
 )
 
 type ClassName string
@@ -52,7 +52,7 @@ func (s *Store) CreateUserTx(ctx context.Context, arg CreateDraftUserParams) (Cr
 			return err
 		}
 
-		pwdHash, err := bcrypt.GenerateFromPassword([]byte(arg.Password), bcrypt.MinCost)
+		pwdHash, err := utils.HashAndSalt([]byte(arg.Password))
 		if err != nil {
 			return err
 		}
