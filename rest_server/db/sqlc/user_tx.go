@@ -33,18 +33,14 @@ type CreateDraftUserParams struct {
 
 func (s *Store) CreateUserTx(ctx context.Context, arg CreateDraftUserParams) (CreateUserRow, error) {
 	var result CreateUserRow
-	return result, nil
 
 	err := s.execTx(ctx, func(q *Queries) error {
-		var err error
-		var class RoleClass
-		class, err = q.GetRoleClass(ctx, string(arg.ClassName))
+		class, err := q.GetRoleClass(ctx, string(arg.ClassName))
 		if err != nil {
 			return err
 		}
 
-		var roleId uuid.UUID
-		roleId, err = q.CreateUserRole(ctx, CreateUserRoleParams{
+		roleId, err := q.CreateUserRole(ctx, CreateUserRoleParams{
 			Name:  string(arg.RoleName),
 			Class: sql.NullString{String: class.Class, Valid: true},
 		})
@@ -58,14 +54,14 @@ func (s *Store) CreateUserTx(ctx context.Context, arg CreateDraftUserParams) (Cr
 		}
 		result, err = q.CreateUser(ctx, CreateUserParams{
 			Email:        arg.Email,
-			PasswordHash: string(pwdHash),
+			PasswordHash: pwdHash,
 			RoleID:       uuid.NullUUID{UUID: roleId, Valid: true},
 		})
 		if err != nil {
 			return err
 		}
 
-		return nil
+		return err
 	})
 
 	return result, err
