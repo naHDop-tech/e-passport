@@ -54,8 +54,8 @@ func (s *Server) getById(ctx *gin.Context) {
 	}
 
 	var user db.GetUserByIdRow
-	_ID, _ := uuid.Parse(*req.ID)
-	user, err = s.store.GetUserById(ctx, _ID)
+	parsedUserId, _ := uuid.Parse(*req.ID)
+	user, err = s.store.GetUserById(ctx, parsedUserId)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			ctx.JSON(http.StatusNotFound, errorResponse(err))
