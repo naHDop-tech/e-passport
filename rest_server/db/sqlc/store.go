@@ -18,7 +18,7 @@ func NewStore(db *sql.DB) *Store {
 	}
 }
 
-func (s *Store) execTx(ctx context.Context, fn func(queries *Queries) error) error {
+func (s *Store) ExecTx(ctx context.Context, fn func(queries *Queries) error) error {
 	tx, err := s.db.BeginTx(ctx, nil)
 	if err != nil {
 		return err

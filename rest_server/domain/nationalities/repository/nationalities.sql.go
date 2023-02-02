@@ -3,7 +3,7 @@
 //   sqlc v1.16.0
 // source: nationalities.sql
 
-package db
+package repository
 
 import (
 	"context"

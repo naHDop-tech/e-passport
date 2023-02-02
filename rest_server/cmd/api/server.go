@@ -1,17 +1,17 @@
 package api
 
 import (
+	"database/sql"
 	"github.com/gin-gonic/gin"
-	db "github.com/naHDop-tech/e-passport/db/sqlc"
 )
 
 type Server struct {
-	store  *db.Store
-	router *gin.Engine
+	router  *gin.Engine
+	connect *sql.DB
 }
 
-func NewServer(db *db.Store) *Server {
-	server := &Server{store: db}
+func NewServer(conn *sql.DB) *Server {
+	server := &Server{connect: conn}
 	router := gin.Default()
 
 	router.POST("/user", server.createUser)

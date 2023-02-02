@@ -56,7 +56,7 @@ SELECT
     upn.country_code as "phone_country_code",
     upn.number as "phone_number",
     upt.url as "photo_url",
-    up.country_code as "passport_counry_code",
+    up.country_code as "passport_country_code",
     up.issuing_organization,
     up.mrz_l1,
     up.mrz_l2,
@@ -96,7 +96,7 @@ type GetUserByEmailRow struct {
 	PhoneCountryCode       sql.NullString `json:"phone_country_code"`
 	PhoneNumber            sql.NullString `json:"phone_number"`
 	PhotoUrl               sql.NullString `json:"photo_url"`
-	PassportCounryCode     sql.NullString `json:"passport_counry_code"`
+	PassportCountryCode    sql.NullString `json:"passport_country_code"`
 	IssuingOrganization    sql.NullString `json:"issuing_organization"`
 	MrzL1                  sql.NullString `json:"mrz_l1"`
 	MrzL2                  sql.NullString `json:"mrz_l2"`
@@ -131,7 +131,7 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (GetUserByEm
 		&i.PhoneCountryCode,
 		&i.PhoneNumber,
 		&i.PhotoUrl,
-		&i.PassportCounryCode,
+		&i.PassportCountryCode,
 		&i.IssuingOrganization,
 		&i.MrzL1,
 		&i.MrzL2,
@@ -166,7 +166,7 @@ SELECT
     upn.country_code as "phone_country_code",
     upn.number as "phone_number",
     upt.url as "photo_url",
-    up.country_code as "passport_counry_code",
+    up.country_code as "passport_country_code",
     up.issuing_organization,
     up.mrz_l1,
     up.mrz_l2,
@@ -206,7 +206,7 @@ type GetUserByIdRow struct {
 	PhoneCountryCode       sql.NullString `json:"phone_country_code"`
 	PhoneNumber            sql.NullString `json:"phone_number"`
 	PhotoUrl               sql.NullString `json:"photo_url"`
-	PassportCounryCode     sql.NullString `json:"passport_counry_code"`
+	PassportCountryCode    sql.NullString `json:"passport_country_code"`
 	IssuingOrganization    sql.NullString `json:"issuing_organization"`
 	MrzL1                  sql.NullString `json:"mrz_l1"`
 	MrzL2                  sql.NullString `json:"mrz_l2"`
@@ -241,7 +241,7 @@ func (q *Queries) GetUserById(ctx context.Context, id uuid.UUID) (GetUserByIdRow
 		&i.PhoneCountryCode,
 		&i.PhoneNumber,
 		&i.PhotoUrl,
-		&i.PassportCounryCode,
+		&i.PassportCountryCode,
 		&i.IssuingOrganization,
 		&i.MrzL1,
 		&i.MrzL2,

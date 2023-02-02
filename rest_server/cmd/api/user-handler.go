@@ -5,6 +5,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	db "github.com/naHDop-tech/e-passport/db/sqlc"
+	"github.com/naHDop-tech/e-passport/domain/role_classes"
+	"github.com/naHDop-tech/e-passport/domain/user"
+	"github.com/naHDop-tech/e-passport/domain/user_role"
 	"net/http"
 )
 
@@ -26,15 +29,17 @@ func (s *Server) createUser(ctx *gin.Context) {
 		return
 	}
 
-	arg := db.CreateDraftUserParams{
+	userDomain := user.NewUser(s.connect)
+
+	arg := user.CreateDraftUserParams{
 		Email:     req.Email,
 		Password:  req.Password,
-		ClassName: db.Draft,
-		RoleName:  db.Customer,
+		ClassName: role_classes.Draft,
+		RoleName:  user_role.Customer,
 	}
 
 	var draftUser db.CreateUserRow
-	draftUser, err = s.store.CreateUserTx(ctx, arg)
+	draftUser, err = userDomain.CreateUser(ctx, arg)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
@@ -53,9 +58,10 @@ func (s *Server) getById(ctx *gin.Context) {
 		return
 	}
 
-	var user db.GetUserByIdRow
+	userDomain := user.NewUser(s.connect)
+	var rawUser db.GetUserByIdRow
 	parsedUserId, _ := uuid.Parse(*req.ID)
-	user, err = s.store.GetUserById(ctx, parsedUserId)
+	rawUser, err = userDomain.GetUserById(ctx, parsedUserId)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			ctx.JSON(http.StatusNotFound, errorResponse(err))
@@ -64,6 +70,8 @@ func (s *Server) getById(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
+
+	user := userDomain.MarshallToObject(rawUser)
 
 	ctx.JSON(http.StatusOK, user)
 	return

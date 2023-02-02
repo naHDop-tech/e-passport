@@ -3,7 +3,7 @@
 //   sqlc v1.16.0
 // source: user_sex.sql
 
-package db
+package repository
 
 import (
 	"context"

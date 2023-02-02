@@ -5,7 +5,6 @@ import (
 	"fmt"
 	_ "github.com/lib/pq"
 	"github.com/naHDop-tech/e-passport/cmd/api"
-	db "github.com/naHDop-tech/e-passport/db/sqlc"
 	"log"
 )
 
@@ -35,8 +34,7 @@ func main() {
 		panic(err)
 	}
 
-	store := db.NewStore(conn)
-	server := api.NewServer(store)
+	server := api.NewServer(conn)
 
 	err = server.Start(serverAddress)
 	if err != nil {
