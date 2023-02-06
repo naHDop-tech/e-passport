@@ -71,7 +71,7 @@ func (s *Server) getById(ctx *gin.Context) {
 		return
 	}
 
-	user := userDomain.MarshallToObject(rawUser)
+	user := userDomain.MarshallToStruct(rawUser)
 
 	ctx.JSON(http.StatusOK, user)
 	return

@@ -22,6 +22,13 @@ type ClearRole struct {
 	Class string `json:"role_class"`
 }
 
+type ClearNationality struct {
+	Nationality string `json:"nationality"`
+	Code        int32  `json:"code"`
+	Alpha2      string `json:"alpha2"`
+	Alpha3      string `json:"alpha3"`
+}
+
 type ClearAddress struct {
 	Country string `json:"country"`
 	City    string `json:"city"`
@@ -45,22 +52,22 @@ type ClearPassport struct {
 }
 
 type ClearUser struct {
-	ID           string        `json:"id"`
-	FirstName    string        `json:"first_name"`
-	LastName     string        `json:"last_name"`
-	Email        string        `json:"email"`
-	PasswordHash string        `json:"password_hash"`
-	BirthDate    string        `json:"birth_date"`
-	Nationality  int32         `json:"nationality"`
-	Sex          string        `json:"sex"`
-	Passport     ClearPassport `json:"passport"`
-	Phone        ClearPhone    `json:"phone"`
-	Photo        ClearPhoto    `json:"photo"`
-	Address      ClearAddress  `json:"address"`
-	Role         ClearRole     `json:"role"`
+	ID           string           `json:"id"`
+	FirstName    string           `json:"first_name"`
+	LastName     string           `json:"last_name"`
+	Email        string           `json:"email"`
+	PasswordHash string           `json:"password_hash"`
+	BirthDate    string           `json:"birth_date"`
+	Sex          string           `json:"sex"`
+	Nationality  ClearNationality `json:"nationality"`
+	Passport     ClearPassport    `json:"passport"`
+	Phone        ClearPhone       `json:"phone"`
+	Photo        ClearPhoto       `json:"photo"`
+	Address      ClearAddress     `json:"address"`
+	Role         ClearRole        `json:"role"`
 }
 
-func (u *User) MarshallToObject(rawUser db.GetUserByIdRow) ClearUser {
+func (u *User) MarshallToStruct(rawUser db.GetUserByIdRow) ClearUser {
 	clearUser := ClearUser{
 		ID:           rawUser.ID.String(),
 		FirstName:    rawUser.FirstName.String,
@@ -68,8 +75,13 @@ func (u *User) MarshallToObject(rawUser db.GetUserByIdRow) ClearUser {
 		Email:        rawUser.Email,
 		PasswordHash: rawUser.PasswordHash,
 		BirthDate:    rawUser.BirthDate.Time.String(),
-		Nationality:  rawUser.Nationality.Int32,
 		Sex:          rawUser.Sex.String,
+		Nationality: ClearNationality{
+			Code:        rawUser.NationalityCode.Int32,
+			Nationality: rawUser.Nationality.String,
+			Alpha2:      rawUser.Alpha2.String,
+			Alpha3:      rawUser.Alpha3.String,
+		},
 		Passport: ClearPassport{
 			CountryCode:         rawUser.PassportCountryCode.String,
 			IssuingOrganization: rawUser.IssuingOrganization.String,

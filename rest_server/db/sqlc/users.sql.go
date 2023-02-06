@@ -44,8 +44,11 @@ SELECT
     u.email,
     u.password_hash,
     u.birth_date,
-    u.nationality,
     u.sex,
+    un.nationality,
+    un.code as "nationality_code",
+    un.alpha_2,
+    un.alpha_3,
     ur.name as "role_name",
     ur.class as "role_class",
     ua.country,
@@ -68,6 +71,7 @@ SELECT
     up.type as "passport_type",
     fp.public_key
 FROM users u
+LEFT JOIN nationalities un ON un.code = u.nationality
 LEFT JOIN user_roles ur ON ur.id = u.role_id
 LEFT JOIN user_addresses ua ON ua.id = u.address_id
 LEFT JOIN user_phones upn ON upn.id = u.phone_id
@@ -84,8 +88,11 @@ type GetUserByEmailRow struct {
 	Email                  string         `json:"email"`
 	PasswordHash           string         `json:"password_hash"`
 	BirthDate              sql.NullTime   `json:"birth_date"`
-	Nationality            sql.NullInt32  `json:"nationality"`
 	Sex                    sql.NullString `json:"sex"`
+	Nationality            sql.NullString `json:"nationality"`
+	NationalityCode        sql.NullInt32  `json:"nationality_code"`
+	Alpha2                 sql.NullString `json:"alpha_2"`
+	Alpha3                 sql.NullString `json:"alpha_3"`
 	RoleName               sql.NullString `json:"role_name"`
 	RoleClass              sql.NullString `json:"role_class"`
 	Country                sql.NullString `json:"country"`
@@ -119,8 +126,11 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (GetUserByEm
 		&i.Email,
 		&i.PasswordHash,
 		&i.BirthDate,
-		&i.Nationality,
 		&i.Sex,
+		&i.Nationality,
+		&i.NationalityCode,
+		&i.Alpha2,
+		&i.Alpha3,
 		&i.RoleName,
 		&i.RoleClass,
 		&i.Country,
@@ -154,8 +164,11 @@ SELECT
     u.email,
     u.password_hash,
     u.birth_date,
-    u.nationality,
     u.sex,
+    un.nationality,
+    un.code as "nationality_code",
+    un.alpha_2,
+    un.alpha_3,
     ur.name as "role_name",
     ur.class as "role_class",
     ua.country,
@@ -178,6 +191,7 @@ SELECT
     up.type as "passport_type",
     fp.public_key
 FROM users u
+LEFT JOIN nationalities un ON un.code = u.nationality
 LEFT JOIN user_roles ur ON ur.id = u.role_id
 LEFT JOIN user_addresses ua ON ua.id = u.address_id
 LEFT JOIN user_phones upn ON upn.id = u.phone_id
@@ -194,8 +208,11 @@ type GetUserByIdRow struct {
 	Email                  string         `json:"email"`
 	PasswordHash           string         `json:"password_hash"`
 	BirthDate              sql.NullTime   `json:"birth_date"`
-	Nationality            sql.NullInt32  `json:"nationality"`
 	Sex                    sql.NullString `json:"sex"`
+	Nationality            sql.NullString `json:"nationality"`
+	NationalityCode        sql.NullInt32  `json:"nationality_code"`
+	Alpha2                 sql.NullString `json:"alpha_2"`
+	Alpha3                 sql.NullString `json:"alpha_3"`
 	RoleName               sql.NullString `json:"role_name"`
 	RoleClass              sql.NullString `json:"role_class"`
 	Country                sql.NullString `json:"country"`
@@ -229,8 +246,11 @@ func (q *Queries) GetUserById(ctx context.Context, id uuid.UUID) (GetUserByIdRow
 		&i.Email,
 		&i.PasswordHash,
 		&i.BirthDate,
-		&i.Nationality,
 		&i.Sex,
+		&i.Nationality,
+		&i.NationalityCode,
+		&i.Alpha2,
+		&i.Alpha3,
 		&i.RoleName,
 		&i.RoleClass,
 		&i.Country,

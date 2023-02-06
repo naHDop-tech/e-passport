@@ -6,8 +6,11 @@ SELECT
     u.email,
     u.password_hash,
     u.birth_date,
-    u.nationality,
     u.sex,
+    un.nationality,
+    un.code as "nationality_code",
+    un.alpha_2,
+    un.alpha_3,
     ur.name as "role_name",
     ur.class as "role_class",
     ua.country,
@@ -30,6 +33,7 @@ SELECT
     up.type as "passport_type",
     fp.public_key
 FROM users u
+LEFT JOIN nationalities un ON un.code = u.nationality
 LEFT JOIN user_roles ur ON ur.id = u.role_id
 LEFT JOIN user_addresses ua ON ua.id = u.address_id
 LEFT JOIN user_phones upn ON upn.id = u.phone_id
@@ -46,8 +50,11 @@ SELECT
     u.email,
     u.password_hash,
     u.birth_date,
-    u.nationality,
     u.sex,
+    un.nationality,
+    un.code as "nationality_code",
+    un.alpha_2,
+    un.alpha_3,
     ur.name as "role_name",
     ur.class as "role_class",
     ua.country,
@@ -70,6 +77,7 @@ SELECT
     up.type as "passport_type",
     fp.public_key
 FROM users u
+LEFT JOIN nationalities un ON un.code = u.nationality
 LEFT JOIN user_roles ur ON ur.id = u.role_id
 LEFT JOIN user_addresses ua ON ua.id = u.address_id
 LEFT JOIN user_phones upn ON upn.id = u.phone_id
