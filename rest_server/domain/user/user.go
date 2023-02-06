@@ -3,6 +3,7 @@ package user
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"github.com/google/uuid"
 	"github.com/naHDop-tech/e-passport/db/sqlc"
 	"github.com/naHDop-tech/e-passport/domain/role_classes"
@@ -43,10 +44,22 @@ func (u *User) GetUserById(ctx context.Context, userId uuid.UUID) (db.GetUserByI
 	return user, nil
 }
 
+func (u *User) GetUserByEmail(ctx context.Context, email string) (db.GetUserByEmailRow, error) {
+	user, err := u.repository.GetUserByEmail(ctx, email)
+	if err != nil {
+		return db.GetUserByEmailRow{}, err
+	}
+	return user, nil
+}
+
 func (u *User) CreateUser(ctx context.Context, params CreateDraftUserParams) (db.CreateUserRow, error) {
 	var result db.CreateUserRow
 
 	err := u.repository.ExecTx(ctx, func(q *db.Queries) error {
+		existsUser, _ := q.GetUserByEmail(ctx, params.Email)
+		if existsUser.Email == params.Email {
+			return errors.New("user with this email already exists")
+		}
 		class, err := q.GetRoleClass(ctx, string(params.ClassName))
 		if err != nil {
 			return err
