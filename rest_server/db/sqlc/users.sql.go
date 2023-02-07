@@ -276,6 +276,54 @@ func (q *Queries) GetUserById(ctx context.Context, id uuid.UUID) (GetUserByIdRow
 	return i, err
 }
 
+const setAddressRelation = `-- name: SetAddressRelation :exec
+UPDATE users
+SET address_id = $1
+WHERE id = $2
+`
+
+type SetAddressRelationParams struct {
+	AddressID uuid.NullUUID `json:"address_id"`
+	ID        uuid.UUID     `json:"id"`
+}
+
+func (q *Queries) SetAddressRelation(ctx context.Context, arg SetAddressRelationParams) error {
+	_, err := q.db.ExecContext(ctx, setAddressRelation, arg.AddressID, arg.ID)
+	return err
+}
+
+const setPhoneRelation = `-- name: SetPhoneRelation :exec
+UPDATE users
+SET phone_id = $1
+WHERE id = $2
+`
+
+type SetPhoneRelationParams struct {
+	PhoneID uuid.NullUUID `json:"phone_id"`
+	ID      uuid.UUID     `json:"id"`
+}
+
+func (q *Queries) SetPhoneRelation(ctx context.Context, arg SetPhoneRelationParams) error {
+	_, err := q.db.ExecContext(ctx, setPhoneRelation, arg.PhoneID, arg.ID)
+	return err
+}
+
+const setPhotoRelation = `-- name: SetPhotoRelation :exec
+UPDATE users
+SET photo_id = $1
+WHERE id = $2
+`
+
+type SetPhotoRelationParams struct {
+	PhotoID uuid.NullUUID `json:"photo_id"`
+	ID      uuid.UUID     `json:"id"`
+}
+
+func (q *Queries) SetPhotoRelation(ctx context.Context, arg SetPhotoRelationParams) error {
+	_, err := q.db.ExecContext(ctx, setPhotoRelation, arg.PhotoID, arg.ID)
+	return err
+}
+
 const updateUser = `-- name: UpdateUser :exec
 UPDATE users
 SET first_name = $1, last_name = $2, birth_date = $3, nationality = $4, sex = $5, updated_at = $6

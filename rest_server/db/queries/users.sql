@@ -95,3 +95,18 @@ VALUES ($1, $2, $3) RETURNING id, email;
 UPDATE users
 SET first_name = $1, last_name = $2, birth_date = $3, nationality = $4, sex = $5, updated_at = $6
 WHERE id = $7;
+
+-- name: SetAddressRelation :exec
+UPDATE users
+SET address_id = $1
+WHERE id = $2;
+
+-- name: SetPhoneRelation :exec
+UPDATE users
+SET phone_id = $1
+WHERE id = $2;
+
+-- name: SetPhotoRelation :exec
+UPDATE users
+SET photo_id = $1
+WHERE id = $2;

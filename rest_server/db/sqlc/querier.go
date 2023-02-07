@@ -32,6 +32,9 @@ type Querier interface {
 	ListNationalities(ctx context.Context) ([]Nationality, error)
 	ListRoleClasses(ctx context.Context) ([]RoleClass, error)
 	ListUserSex(ctx context.Context) ([]string, error)
+	SetAddressRelation(ctx context.Context, arg SetAddressRelationParams) error
+	SetPhoneRelation(ctx context.Context, arg SetPhoneRelationParams) error
+	SetPhotoRelation(ctx context.Context, arg SetPhotoRelationParams) error
 	UpdateFingerPrint(ctx context.Context, arg UpdateFingerPrintParams) error
 	UpdateUser(ctx context.Context, arg UpdateUserParams) error
 	UpdateUserAddress(ctx context.Context, arg UpdateUserAddressParams) error
