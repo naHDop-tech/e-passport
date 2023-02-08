@@ -18,6 +18,8 @@ func NewServer(conn *sql.DB) *Server {
 	router.GET("/user/:id", server.getById)
 	router.POST("/login", server.login)
 
+	router.POST("/phone", server.createPhone)
+
 	server.router = router
 	return server
 }

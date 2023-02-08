@@ -33,6 +33,7 @@ func (p *Phone) CreatePhone(ctx context.Context, params CreateUserPhoneParams) e
 		if len(existsUser.PhoneNumber.String) > 1 {
 			return errors.New("user already have phone")
 		}
+
 		existsPhone, _ := q.GetUserPhoneByNumberAndCode(ctx, db.GetUserPhoneByNumberAndCodeParams{
 			CountryCode: params.CountryCode,
 			Number:      params.Number,
@@ -40,6 +41,7 @@ func (p *Phone) CreatePhone(ctx context.Context, params CreateUserPhoneParams) e
 		if existsPhone.Number == params.Number {
 			return errors.New("this phone number already using")
 		}
+
 		phoneId, err := q.CreateUserPhone(ctx, db.CreateUserPhoneParams{
 			CountryCode: params.CountryCode,
 			Number:      params.Number,
@@ -47,6 +49,7 @@ func (p *Phone) CreatePhone(ctx context.Context, params CreateUserPhoneParams) e
 		if err != nil {
 			return err
 		}
+
 		err = q.SetPhoneRelation(ctx, db.SetPhoneRelationParams{
 			PhoneID: uuid.NullUUID{UUID: phoneId, Valid: true},
 			ID:      params.UserID,
