@@ -48,6 +48,29 @@ func (q *Queries) GetUserPhone(ctx context.Context, id uuid.UUID) (UserPhone, er
 	return i, err
 }
 
+const getUserPhoneByNumberAndCode = `-- name: GetUserPhoneByNumberAndCode :one
+SELECT id, country_code, number, created_at, updated_at FROM user_phones
+WHERE number = $1 AND country_code = $2 LIMIT 1
+`
+
+type GetUserPhoneByNumberAndCodeParams struct {
+	Number      string `json:"number"`
+	CountryCode string `json:"country_code"`
+}
+
+func (q *Queries) GetUserPhoneByNumberAndCode(ctx context.Context, arg GetUserPhoneByNumberAndCodeParams) (UserPhone, error) {
+	row := q.db.QueryRowContext(ctx, getUserPhoneByNumberAndCode, arg.Number, arg.CountryCode)
+	var i UserPhone
+	err := row.Scan(
+		&i.ID,
+		&i.CountryCode,
+		&i.Number,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
 const updateUserPhone = `-- name: UpdateUserPhone :exec
 UPDATE user_phones
 SET country_code = $1, "number" = $2, updated_at = $3
