@@ -13,6 +13,7 @@ SELECT
     un.alpha_3,
     ur.name as "role_name",
     ur.class as "role_class",
+    ua.id as "address_id",
     ua.country,
     ua.city,
     ua.line_1,
@@ -20,7 +21,9 @@ SELECT
     ua.zip,
     upn.country_code as "phone_country_code",
     upn.number as "phone_number",
+    upt.id as "photo_id",
     upt.url as "photo_url",
+    up.id as "passport_id",
     up.country_code as "passport_country_code",
     up.issuing_organization,
     up.mrz_l1,
@@ -31,6 +34,7 @@ SELECT
     up.expiration_date as "passport_expiration_date",
     up.place_of_birth,
     up.type as "passport_type",
+    fp.id as "finger_print_id",
     fp.public_key
 FROM users u
 LEFT JOIN nationalities un ON un.code = u.nationality
@@ -57,6 +61,7 @@ SELECT
     un.alpha_3,
     ur.name as "role_name",
     ur.class as "role_class",
+    ua.id as "address_id",
     ua.country,
     ua.city,
     ua.line_1,
@@ -64,7 +69,9 @@ SELECT
     ua.zip,
     upn.country_code as "phone_country_code",
     upn.number as "phone_number",
+    upt.id as "photo_id",
     upt.url as "photo_url",
+    up.id as "passport_id",
     up.country_code as "passport_country_code",
     up.issuing_organization,
     up.mrz_l1,
@@ -75,6 +82,7 @@ SELECT
     up.expiration_date as "passport_expiration_date",
     up.place_of_birth,
     up.type as "passport_type",
+    fp.id as "finger_print_id",
     fp.public_key
 FROM users u
 LEFT JOIN nationalities un ON un.code = u.nationality

@@ -10,11 +10,13 @@ type ClearPhone struct {
 }
 
 type ClearPhoto struct {
-	Url string `json:"url"`
+	PhotoID string `json:"photo_id"`
+	Url     string `json:"url"`
 }
 
 type ClearFingerPrint struct {
-	PublicKey string `json:"public_key"`
+	FingerPrintID string `json:"finger_print_id"`
+	PublicKey     string `json:"public_key"`
 }
 
 type ClearRole struct {
@@ -30,14 +32,16 @@ type ClearNationality struct {
 }
 
 type ClearAddress struct {
-	Country string `json:"country"`
-	City    string `json:"city"`
-	Line1   string `json:"line_1"`
-	Line2   string `json:"line_2"`
-	Zip     string `json:"zip"`
+	AddressID string `json:"address_id"`
+	Country   string `json:"country"`
+	City      string `json:"city"`
+	Line1     string `json:"line_1"`
+	Line2     string `json:"line_2"`
+	Zip       string `json:"zip"`
 }
 
 type ClearPassport struct {
+	PassportID          string           `json:"passport_id"`
 	CountryCode         string           `json:"passport_country_code"`
 	IssuingOrganization string           `json:"issuing_organization"`
 	MrzL1               string           `json:"mrz_l1"`
@@ -83,6 +87,7 @@ func (u *User) MarshallToStruct(rawUser db.GetUserByIdRow) ClearUser {
 			Alpha3:      rawUser.Alpha3.String,
 		},
 		Passport: ClearPassport{
+			PassportID:          rawUser.PassportID.UUID.String(),
 			CountryCode:         rawUser.PassportCountryCode.String,
 			IssuingOrganization: rawUser.IssuingOrganization.String,
 			MrzL1:               rawUser.MrzL1.String,
@@ -94,7 +99,8 @@ func (u *User) MarshallToStruct(rawUser db.GetUserByIdRow) ClearUser {
 			PlaceOfBirth:        rawUser.PlaceOfBirth.String,
 			Type:                rawUser.PassportType.String,
 			FingerPrint: ClearFingerPrint{
-				PublicKey: rawUser.PublicKey.String,
+				FingerPrintID: rawUser.FingerPrintID.UUID.String(),
+				PublicKey:     rawUser.PublicKey.String,
 			},
 		},
 		Phone: ClearPhone{
@@ -102,14 +108,16 @@ func (u *User) MarshallToStruct(rawUser db.GetUserByIdRow) ClearUser {
 			Number:      rawUser.PhoneNumber.String,
 		},
 		Photo: ClearPhoto{
-			Url: rawUser.PhotoUrl.String,
+			PhotoID: rawUser.PhotoID.UUID.String(),
+			Url:     rawUser.PhotoUrl.String,
 		},
 		Address: ClearAddress{
-			Line1:   rawUser.Line1.String,
-			Line2:   rawUser.Line2.String,
-			Country: rawUser.Country.String,
-			City:    rawUser.City.String,
-			Zip:     rawUser.Zip.String,
+			AddressID: rawUser.AddressID.UUID.String(),
+			Line1:     rawUser.Line1.String,
+			Line2:     rawUser.Line2.String,
+			Country:   rawUser.Country.String,
+			City:      rawUser.City.String,
+			Zip:       rawUser.Zip.String,
 		},
 		Role: ClearRole{
 			Name:  rawUser.RoleName.String,

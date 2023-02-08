@@ -51,6 +51,7 @@ SELECT
     un.alpha_3,
     ur.name as "role_name",
     ur.class as "role_class",
+    ua.id as "address_id",
     ua.country,
     ua.city,
     ua.line_1,
@@ -58,7 +59,9 @@ SELECT
     ua.zip,
     upn.country_code as "phone_country_code",
     upn.number as "phone_number",
+    upt.id as "photo_id",
     upt.url as "photo_url",
+    up.id as "passport_id",
     up.country_code as "passport_country_code",
     up.issuing_organization,
     up.mrz_l1,
@@ -69,6 +72,7 @@ SELECT
     up.expiration_date as "passport_expiration_date",
     up.place_of_birth,
     up.type as "passport_type",
+    fp.id as "finger_print_id",
     fp.public_key
 FROM users u
 LEFT JOIN nationalities un ON un.code = u.nationality
@@ -95,6 +99,7 @@ type GetUserByEmailRow struct {
 	Alpha3                 sql.NullString `json:"alpha_3"`
 	RoleName               sql.NullString `json:"role_name"`
 	RoleClass              sql.NullString `json:"role_class"`
+	AddressID              uuid.NullUUID  `json:"address_id"`
 	Country                sql.NullString `json:"country"`
 	City                   sql.NullString `json:"city"`
 	Line1                  sql.NullString `json:"line_1"`
@@ -102,7 +107,9 @@ type GetUserByEmailRow struct {
 	Zip                    sql.NullString `json:"zip"`
 	PhoneCountryCode       sql.NullString `json:"phone_country_code"`
 	PhoneNumber            sql.NullString `json:"phone_number"`
+	PhotoID                uuid.NullUUID  `json:"photo_id"`
 	PhotoUrl               sql.NullString `json:"photo_url"`
+	PassportID             uuid.NullUUID  `json:"passport_id"`
 	PassportCountryCode    sql.NullString `json:"passport_country_code"`
 	IssuingOrganization    sql.NullString `json:"issuing_organization"`
 	MrzL1                  sql.NullString `json:"mrz_l1"`
@@ -113,6 +120,7 @@ type GetUserByEmailRow struct {
 	PassportExpirationDate sql.NullTime   `json:"passport_expiration_date"`
 	PlaceOfBirth           sql.NullString `json:"place_of_birth"`
 	PassportType           sql.NullString `json:"passport_type"`
+	FingerPrintID          uuid.NullUUID  `json:"finger_print_id"`
 	PublicKey              sql.NullString `json:"public_key"`
 }
 
@@ -133,6 +141,7 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (GetUserByEm
 		&i.Alpha3,
 		&i.RoleName,
 		&i.RoleClass,
+		&i.AddressID,
 		&i.Country,
 		&i.City,
 		&i.Line1,
@@ -140,7 +149,9 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (GetUserByEm
 		&i.Zip,
 		&i.PhoneCountryCode,
 		&i.PhoneNumber,
+		&i.PhotoID,
 		&i.PhotoUrl,
+		&i.PassportID,
 		&i.PassportCountryCode,
 		&i.IssuingOrganization,
 		&i.MrzL1,
@@ -151,6 +162,7 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (GetUserByEm
 		&i.PassportExpirationDate,
 		&i.PlaceOfBirth,
 		&i.PassportType,
+		&i.FingerPrintID,
 		&i.PublicKey,
 	)
 	return i, err
@@ -171,6 +183,7 @@ SELECT
     un.alpha_3,
     ur.name as "role_name",
     ur.class as "role_class",
+    ua.id as "address_id",
     ua.country,
     ua.city,
     ua.line_1,
@@ -178,7 +191,9 @@ SELECT
     ua.zip,
     upn.country_code as "phone_country_code",
     upn.number as "phone_number",
+    upt.id as "photo_id",
     upt.url as "photo_url",
+    up.id as "passport_id",
     up.country_code as "passport_country_code",
     up.issuing_organization,
     up.mrz_l1,
@@ -189,6 +204,7 @@ SELECT
     up.expiration_date as "passport_expiration_date",
     up.place_of_birth,
     up.type as "passport_type",
+    fp.id as "finger_print_id",
     fp.public_key
 FROM users u
 LEFT JOIN nationalities un ON un.code = u.nationality
@@ -215,6 +231,7 @@ type GetUserByIdRow struct {
 	Alpha3                 sql.NullString `json:"alpha_3"`
 	RoleName               sql.NullString `json:"role_name"`
 	RoleClass              sql.NullString `json:"role_class"`
+	AddressID              uuid.NullUUID  `json:"address_id"`
 	Country                sql.NullString `json:"country"`
 	City                   sql.NullString `json:"city"`
 	Line1                  sql.NullString `json:"line_1"`
@@ -222,7 +239,9 @@ type GetUserByIdRow struct {
 	Zip                    sql.NullString `json:"zip"`
 	PhoneCountryCode       sql.NullString `json:"phone_country_code"`
 	PhoneNumber            sql.NullString `json:"phone_number"`
+	PhotoID                uuid.NullUUID  `json:"photo_id"`
 	PhotoUrl               sql.NullString `json:"photo_url"`
+	PassportID             uuid.NullUUID  `json:"passport_id"`
 	PassportCountryCode    sql.NullString `json:"passport_country_code"`
 	IssuingOrganization    sql.NullString `json:"issuing_organization"`
 	MrzL1                  sql.NullString `json:"mrz_l1"`
@@ -233,6 +252,7 @@ type GetUserByIdRow struct {
 	PassportExpirationDate sql.NullTime   `json:"passport_expiration_date"`
 	PlaceOfBirth           sql.NullString `json:"place_of_birth"`
 	PassportType           sql.NullString `json:"passport_type"`
+	FingerPrintID          uuid.NullUUID  `json:"finger_print_id"`
 	PublicKey              sql.NullString `json:"public_key"`
 }
 
@@ -253,6 +273,7 @@ func (q *Queries) GetUserById(ctx context.Context, id uuid.UUID) (GetUserByIdRow
 		&i.Alpha3,
 		&i.RoleName,
 		&i.RoleClass,
+		&i.AddressID,
 		&i.Country,
 		&i.City,
 		&i.Line1,
@@ -260,7 +281,9 @@ func (q *Queries) GetUserById(ctx context.Context, id uuid.UUID) (GetUserByIdRow
 		&i.Zip,
 		&i.PhoneCountryCode,
 		&i.PhoneNumber,
+		&i.PhotoID,
 		&i.PhotoUrl,
+		&i.PassportID,
 		&i.PassportCountryCode,
 		&i.IssuingOrganization,
 		&i.MrzL1,
@@ -271,6 +294,7 @@ func (q *Queries) GetUserById(ctx context.Context, id uuid.UUID) (GetUserByIdRow
 		&i.PassportExpirationDate,
 		&i.PlaceOfBirth,
 		&i.PassportType,
+		&i.FingerPrintID,
 		&i.PublicKey,
 	)
 	return i, err
