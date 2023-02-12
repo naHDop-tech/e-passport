@@ -8,11 +8,11 @@ func (s *Server) setupRouter() {
 	router.POST("/user", s.createUser)
 	router.POST("/login", s.login)
 
-	authRoute := router.Group("/").Use(authMiddleware(s.tokenMaker))
-	authRoute.GET("/user/:user_id", s.getById)
+	authGroupRoute := router.Group("/").Use(authMiddleware(s.tokenMaker))
+	authGroupRoute.GET("/user/:user_id", s.getById)
 
-	authRoute.POST("/user/:user_id/phone", s.createPhone)
-	authRoute.PATCH("/user/:user_id/phone/:phone_id", s.updatePhone)
+	authGroupRoute.POST("/user/:user_id/phone", s.createPhone)
+	authGroupRoute.PATCH("/user/:user_id/phone/:phone_id", s.updatePhone)
 
 	s.router = router
 }
