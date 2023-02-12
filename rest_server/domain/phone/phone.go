@@ -64,11 +64,16 @@ func (p *Phone) CreatePhone(ctx context.Context, params CreateUserPhoneParams) e
 
 type UpdateUserPhoneParams struct {
 	PhoneId     uuid.UUID
+	UserId      uuid.UUID
 	CountryCode string
 	Number      string
 }
 
 func (p *Phone) UpdatePhone(ctx context.Context, params UpdateUserPhoneParams) (err error) {
+	existsUser, err := p.repository.GetUserById(ctx, params.UserId)
+	if existsUser.PhoneID.UUID.String() != params.PhoneId.String() {
+		return errors.New("this phone id related to other user")
+	}
 	_, err = p.repository.GetUserPhone(ctx, params.PhoneId)
 	if err != nil {
 		return err

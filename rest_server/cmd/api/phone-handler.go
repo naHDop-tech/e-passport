@@ -69,7 +69,7 @@ type updateUserPhoneRequest struct {
 
 type updateUserPhoneRequestIdParam struct {
 	PhoneId *string `uri:"phone_id" binding:"omitempty,uuid"`
-	UserID  string  `json:"user_id" binding:"omitempty,uuid"`
+	UserId  *string `uri:"user_id" binding:"omitempty,uuid"`
 }
 
 func (s *Server) updatePhone(ctx *gin.Context) {
@@ -90,7 +90,10 @@ func (s *Server) updatePhone(ctx *gin.Context) {
 
 	phoneDomain := phone.NewPhone(s.connect)
 	uuidPhoneID, err := uuid.Parse(*reqParams.PhoneId)
+	uuidUserID, err := uuid.Parse(*reqParams.UserId)
+
 	arg := phone.UpdateUserPhoneParams{
+		UserId:      uuidUserID,
 		PhoneId:     uuidPhoneID,
 		CountryCode: req.CountryCode,
 		Number:      req.Number,
