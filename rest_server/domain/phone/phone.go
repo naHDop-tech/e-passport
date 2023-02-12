@@ -20,14 +20,14 @@ func NewPhone(conn *sql.DB) *Phone {
 }
 
 type CreateUserPhoneParams struct {
-	UserID      uuid.UUID
+	UserId      uuid.UUID
 	CountryCode string
 	Number      string
 }
 
 func (p *Phone) CreatePhone(ctx context.Context, params CreateUserPhoneParams) error {
 	err := p.repository.ExecTx(ctx, func(q *db.Queries) error {
-		existsUser, err := q.GetUserById(ctx, params.UserID)
+		existsUser, err := q.GetUserById(ctx, params.UserId)
 		if err != nil {
 			return err
 		}
@@ -53,7 +53,7 @@ func (p *Phone) CreatePhone(ctx context.Context, params CreateUserPhoneParams) e
 
 		err = q.SetPhoneRelation(ctx, db.SetPhoneRelationParams{
 			PhoneID: uuid.NullUUID{UUID: phoneId, Valid: true},
-			ID:      params.UserID,
+			ID:      params.UserId,
 		})
 
 		return err
@@ -71,6 +71,9 @@ type UpdateUserPhoneParams struct {
 
 func (p *Phone) UpdatePhone(ctx context.Context, params UpdateUserPhoneParams) (err error) {
 	existsUser, err := p.repository.GetUserById(ctx, params.UserId)
+	if err != nil {
+		return err
+	}
 	if existsUser.PhoneID.UUID.String() != params.PhoneId.String() {
 		return errors.New("this phone id related to other user")
 	}

@@ -14,7 +14,7 @@ type createPhoneRequest struct {
 }
 
 type createPhoneRequestIdParams struct {
-	UserID string `json:"user_id" binding:"omitempty,uuid"`
+	UserId *string `uri:"user_id" binding:"omitempty,uuid"`
 }
 
 func (s *Server) createPhone(ctx *gin.Context) {
@@ -35,14 +35,14 @@ func (s *Server) createPhone(ctx *gin.Context) {
 	}
 
 	phoneDomain := phone.NewPhone(s.connect)
-	uuidUserID, err := uuid.Parse(reqParams.UserID)
+	uuidUserID, err := uuid.Parse(*reqParams.UserId)
 
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 		return
 	}
 	arg := phone.CreateUserPhoneParams{
-		UserID:      uuidUserID,
+		UserId:      uuidUserID,
 		CountryCode: req.CountryCode,
 		Number:      req.Number,
 	}
@@ -58,7 +58,8 @@ func (s *Server) createPhone(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, true)
+	var result = map[string]string{"status": "ok"}
+	ctx.JSON(http.StatusOK, successResponse(result))
 	return
 }
 
@@ -109,6 +110,7 @@ func (s *Server) updatePhone(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, true)
+	var result = map[string]string{"status": "ok"}
+	ctx.JSON(http.StatusOK, successResponse(result))
 	return
 }

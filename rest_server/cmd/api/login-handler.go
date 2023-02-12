@@ -32,6 +32,7 @@ func (s *Server) login(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
-	ctx.JSON(http.StatusOK, token)
+	var result = map[string]string{"token": token}
+	ctx.JSON(http.StatusOK, successResponse(result))
 	return
 }

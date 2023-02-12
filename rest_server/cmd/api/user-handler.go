@@ -16,6 +16,10 @@ type createUserRequest struct {
 	Password string `json:"password" binding:"required,min=6"`
 }
 
+type UserResponse struct {
+	user db.CreateUserRow
+}
+
 func (s *Server) createUser(ctx *gin.Context) {
 	var req createUserRequest
 	var err error
@@ -41,12 +45,12 @@ func (s *Server) createUser(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, draftUser)
+	ctx.JSON(http.StatusOK, successResponse(draftUser))
 	return
 }
 
 type getUserByIdRequest struct {
-	ID *string `uri:"id" binding:"omitempty,uuid"`
+	UserId *string `uri:"user_id" binding:"omitempty,uuid"`
 }
 
 func (s *Server) getById(ctx *gin.Context) {
@@ -60,7 +64,7 @@ func (s *Server) getById(ctx *gin.Context) {
 
 	userDomain := user.NewUser(s.connect)
 	var rawUser db.GetUserByIdRow
-	parsedUserId, _ := uuid.Parse(*req.ID)
+	parsedUserId, _ := uuid.Parse(*req.UserId)
 	rawUser, err = userDomain.GetUserById(ctx, parsedUserId)
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -71,8 +75,8 @@ func (s *Server) getById(ctx *gin.Context) {
 		return
 	}
 
-	user := userDomain.MarshallToStruct(rawUser)
+	clearUser := userDomain.MarshallToStruct(rawUser)
 
-	ctx.JSON(http.StatusOK, user)
+	ctx.JSON(http.StatusOK, successResponse(clearUser))
 	return
 }
