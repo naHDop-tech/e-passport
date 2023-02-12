@@ -107,7 +107,15 @@ func (s *Server) updatePhone(ctx *gin.Context) {
 
 	phoneDomain := phone.NewPhone(s.connect)
 	uuidPhoneID, err := uuid.Parse(*reqParams.PhoneId)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
 	uuidUserID, err := uuid.Parse(*reqParams.UserId)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
 
 	arg := phone.UpdateUserPhoneParams{
 		UserId:      uuidUserID,

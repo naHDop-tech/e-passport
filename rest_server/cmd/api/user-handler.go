@@ -24,15 +24,13 @@ type UserResponse struct {
 
 func (s *Server) createUser(ctx *gin.Context) {
 	var req createUserRequest
-	var err error
-	err = ctx.ShouldBindJSON(&req)
+	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 		return
 	}
 
 	userDomain := user.NewUser(s.connect)
-
 	arg := user.CreateDraftUserParams{
 		Email:     req.Email,
 		Password:  req.Password,
@@ -40,8 +38,7 @@ func (s *Server) createUser(ctx *gin.Context) {
 		RoleName:  user_role.Customer,
 	}
 
-	var draftUser db.CreateUserRow
-	draftUser, err = userDomain.CreateUser(ctx, arg)
+	draftUser, err := userDomain.CreateUser(ctx, arg)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
@@ -73,7 +70,11 @@ func (s *Server) getById(ctx *gin.Context) {
 
 	userDomain := user.NewUser(s.connect)
 	var rawUser db.GetUserByIdRow
-	parsedUserId, _ := uuid.Parse(*req.UserId)
+	parsedUserId, err := uuid.Parse(*req.UserId)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
 	rawUser, err = userDomain.GetUserById(ctx, parsedUserId)
 	if err != nil {
 		if err == sql.ErrNoRows {
