@@ -25,17 +25,8 @@ func NewServer(conf utils.Config, conn *sql.DB) (*Server, error) {
 		connect:    conn,
 		tokenMaker: tokenMaker,
 	}
-	router := gin.Default()
 
-	router.POST("/user", server.createUser)
-	router.GET("/user/:id", server.getById)
-
-	router.POST("/login", server.login)
-
-	router.POST("/phone", server.createPhone)
-	router.PATCH("/phone/:phone_id", server.updatePhone)
-
-	server.router = router
+	server.setupRouter()
 	return server, nil
 }
 
