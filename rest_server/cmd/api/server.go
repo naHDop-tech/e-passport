@@ -19,6 +19,7 @@ func NewServer(conn *sql.DB) *Server {
 	router.POST("/login", server.login)
 
 	router.POST("/phone", server.createPhone)
+	router.PATCH("/phone", server.updatePhone)
 
 	server.router = router
 	return server

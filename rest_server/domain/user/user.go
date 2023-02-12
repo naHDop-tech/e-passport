@@ -29,7 +29,14 @@ func NewUser(conn *sql.DB) *User {
 }
 
 func (u *User) UpdateUser(ctx context.Context, params db.UpdateUserParams) error {
-	err := u.repository.UpdateUser(ctx, params)
+	user, err := u.repository.GetUserById(ctx, params.ID)
+	if err != nil {
+		return err
+	}
+	if user.ID != params.ID {
+		return errors.New("user not exists")
+	}
+	err = u.repository.UpdateUser(ctx, params)
 	if err != nil {
 		return err
 	}

@@ -2,6 +2,7 @@ package api
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/naHDop-tech/e-passport/domain/phone"
@@ -24,7 +25,9 @@ func (s *Server) createPhone(ctx *gin.Context) {
 	}
 
 	phoneDomain := phone.NewPhone(s.connect)
-	uuidUserID, err := uuid.FromBytes([]byte(req.UserID))
+	uuidUserID, err := uuid.Parse(req.UserID)
+	fmt.Println("RAW UUID", req.UserID)
+	fmt.Println("UUID", uuidUserID)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 		return
@@ -56,14 +59,33 @@ type updateUserPhone struct {
 	Number      string `json:"number" binding:"required"`
 }
 
-//func (s *Server) UpdatePhone(ctx *gin.Context) {
-//	var req createPhoneRequest
-//	err := ctx.ShouldBindJSON(&req)
-//
-//	if err != nil {
-//		ctx.JSON(http.StatusBadRequest, errorResponse(err))
-//		return
-//	}
-//
-//	phoneDomain := phone.NewPhone(s.connect)
-//}
+func (s *Server) updatePhone(ctx *gin.Context) {
+	var req updateUserPhone
+	err := ctx.ShouldBindJSON(&req)
+
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
+	phoneDomain := phone.NewPhone(s.connect)
+	uuidPhoneID, err := uuid.Parse(req.PhoneID)
+	arg := phone.UpdateUserPhoneParams{
+		PhoneId:     uuidPhoneID,
+		CountryCode: req.CountryCode,
+		Number:      req.Number,
+	}
+
+	err = phoneDomain.UpdatePhone(ctx, arg)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			ctx.JSON(http.StatusNotFound, errorResponse(err))
+			return
+		}
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	ctx.JSON(http.StatusOK, true)
+	return
+}

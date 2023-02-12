@@ -57,6 +57,7 @@ SELECT
     ua.line_1,
     ua.line_2,
     ua.zip,
+    upn.id as "phone_id",
     upn.country_code as "phone_country_code",
     upn.number as "phone_number",
     upt.id as "photo_id",
@@ -105,6 +106,7 @@ type GetUserByEmailRow struct {
 	Line1                  sql.NullString `json:"line_1"`
 	Line2                  sql.NullString `json:"line_2"`
 	Zip                    sql.NullString `json:"zip"`
+	PhoneID                uuid.NullUUID  `json:"phone_id"`
 	PhoneCountryCode       sql.NullString `json:"phone_country_code"`
 	PhoneNumber            sql.NullString `json:"phone_number"`
 	PhotoID                uuid.NullUUID  `json:"photo_id"`
@@ -147,6 +149,7 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (GetUserByEm
 		&i.Line1,
 		&i.Line2,
 		&i.Zip,
+		&i.PhoneID,
 		&i.PhoneCountryCode,
 		&i.PhoneNumber,
 		&i.PhotoID,
@@ -189,6 +192,7 @@ SELECT
     ua.line_1,
     ua.line_2,
     ua.zip,
+    upn.id as "phone_id",
     upn.country_code as "phone_country_code",
     upn.number as "phone_number",
     upt.id as "photo_id",
@@ -237,6 +241,7 @@ type GetUserByIdRow struct {
 	Line1                  sql.NullString `json:"line_1"`
 	Line2                  sql.NullString `json:"line_2"`
 	Zip                    sql.NullString `json:"zip"`
+	PhoneID                uuid.NullUUID  `json:"phone_id"`
 	PhoneCountryCode       sql.NullString `json:"phone_country_code"`
 	PhoneNumber            sql.NullString `json:"phone_number"`
 	PhotoID                uuid.NullUUID  `json:"photo_id"`
@@ -279,6 +284,7 @@ func (q *Queries) GetUserById(ctx context.Context, id uuid.UUID) (GetUserByIdRow
 		&i.Line1,
 		&i.Line2,
 		&i.Zip,
+		&i.PhoneID,
 		&i.PhoneCountryCode,
 		&i.PhoneNumber,
 		&i.PhotoID,

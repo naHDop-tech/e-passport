@@ -5,6 +5,7 @@ import (
 )
 
 type ClearPhone struct {
+	PhoneId     string `json:"phone_id"`
 	CountryCode string `json:"country_code"`
 	Number      string `json:"number"`
 }
@@ -104,6 +105,7 @@ func (u *User) MarshallToStruct(rawUser db.GetUserByIdRow) ClearUser {
 			},
 		},
 		Phone: ClearPhone{
+			PhoneId:     rawUser.PhoneID.UUID.String(),
 			CountryCode: rawUser.PhoneCountryCode.String,
 			Number:      rawUser.PhoneNumber.String,
 		},

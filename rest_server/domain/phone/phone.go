@@ -6,6 +6,7 @@ import (
 	"errors"
 	"github.com/google/uuid"
 	db "github.com/naHDop-tech/e-passport/db/sqlc"
+	"time"
 )
 
 type Phone struct {
@@ -59,4 +60,29 @@ func (p *Phone) CreatePhone(ctx context.Context, params CreateUserPhoneParams) e
 	})
 
 	return err
+}
+
+type UpdateUserPhoneParams struct {
+	PhoneId     uuid.UUID
+	CountryCode string
+	Number      string
+}
+
+func (p *Phone) UpdatePhone(ctx context.Context, params UpdateUserPhoneParams) (err error) {
+	_, err = p.repository.GetUserPhone(ctx, params.PhoneId)
+	if err != nil {
+		return err
+	}
+	newPhone := db.UpdateUserPhoneParams{
+		CountryCode: params.CountryCode,
+		Number:      params.Number,
+		UpdatedAt: sql.NullTime{
+			Valid: true,
+			Time:  time.Now(),
+		},
+		ID: params.PhoneId,
+	}
+
+	err = p.repository.UpdateUserPhone(ctx, newPhone)
+	return
 }
