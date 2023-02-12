@@ -2,7 +2,6 @@ package api
 
 import (
 	"database/sql"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/naHDop-tech/e-passport/domain/phone"
@@ -10,9 +9,12 @@ import (
 )
 
 type createPhoneRequest struct {
-	UserID      string `json:"user_id" binding:"required"`
 	CountryCode string `json:"country_code" binding:"required"`
 	Number      string `json:"number" binding:"required"`
+}
+
+type createPhoneRequestIdParams struct {
+	UserID string `json:"user_id" binding:"omitempty,uuid"`
 }
 
 func (s *Server) createPhone(ctx *gin.Context) {
@@ -24,10 +26,17 @@ func (s *Server) createPhone(ctx *gin.Context) {
 		return
 	}
 
+	var reqParams createPhoneRequestIdParams
+
+	err = ctx.ShouldBindUri(&reqParams)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
 	phoneDomain := phone.NewPhone(s.connect)
-	uuidUserID, err := uuid.Parse(req.UserID)
-	fmt.Println("RAW UUID", req.UserID)
-	fmt.Println("UUID", uuidUserID)
+	uuidUserID, err := uuid.Parse(reqParams.UserID)
+
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 		return
@@ -60,6 +69,7 @@ type updateUserPhoneRequest struct {
 
 type updateUserPhoneRequestIdParam struct {
 	PhoneId *string `uri:"phone_id" binding:"omitempty,uuid"`
+	UserID  string  `json:"user_id" binding:"omitempty,uuid"`
 }
 
 func (s *Server) updatePhone(ctx *gin.Context) {
