@@ -6,12 +6,13 @@ func (s *Server) setupRouter() {
 	router := gin.Default()
 
 	router.POST("/user", s.createUser)
-	router.GET("/user/:user_id", s.getById)
-
 	router.POST("/login", s.login)
 
-	router.POST("/user/:user_id/phone", s.createPhone)
-	router.PATCH("/user/:user_id/phone/:phone_id", s.updatePhone)
+	authRoute := router.Group("/").Use(authMiddleware(s.tokenMaker))
+	authRoute.GET("/user/:user_id", s.getById)
+
+	authRoute.POST("/user/:user_id/phone", s.createPhone)
+	authRoute.PATCH("/user/:user_id/phone/:phone_id", s.updatePhone)
 
 	s.router = router
 }

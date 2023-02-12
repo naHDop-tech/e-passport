@@ -2,12 +2,14 @@ package api
 
 import (
 	"database/sql"
+	"errors"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	db "github.com/naHDop-tech/e-passport/db/sqlc"
 	"github.com/naHDop-tech/e-passport/domain/role_classes"
 	"github.com/naHDop-tech/e-passport/domain/user"
 	"github.com/naHDop-tech/e-passport/domain/user_role"
+	"github.com/naHDop-tech/e-passport/utils/token"
 	"net/http"
 )
 
@@ -59,6 +61,13 @@ func (s *Server) getById(ctx *gin.Context) {
 	err = ctx.ShouldBindUri(&req)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
+	val := ctx.MustGet(authPayloadKey).(*token.Payload)
+	if val.UserId != *req.UserId {
+		err := errors.New("you do not have access to this user")
+		ctx.JSON(http.StatusUnauthorized, errorResponse(err))
 		return
 	}
 

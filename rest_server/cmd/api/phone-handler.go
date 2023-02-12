@@ -2,9 +2,11 @@ package api
 
 import (
 	"database/sql"
+	"errors"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/naHDop-tech/e-passport/domain/phone"
+	"github.com/naHDop-tech/e-passport/utils/token"
 	"net/http"
 )
 
@@ -31,6 +33,13 @@ func (s *Server) createPhone(ctx *gin.Context) {
 	err = ctx.ShouldBindUri(&reqParams)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
+	val := ctx.MustGet(authPayloadKey).(*token.Payload)
+	if val.UserId != *reqParams.UserId {
+		err := errors.New("you do not have access to this user")
+		ctx.JSON(http.StatusUnauthorized, errorResponse(err))
 		return
 	}
 
@@ -86,6 +95,13 @@ func (s *Server) updatePhone(ctx *gin.Context) {
 	err = ctx.ShouldBindUri(&reqParams)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
+	val := ctx.MustGet(authPayloadKey).(*token.Payload)
+	if val.UserId != *reqParams.UserId {
+		err := errors.New("you do not have access to this user")
+		ctx.JSON(http.StatusUnauthorized, errorResponse(err))
 		return
 	}
 
