@@ -53,14 +53,17 @@ func (s *Server) createPhone(ctx *gin.Context) {
 	return
 }
 
-type updateUserPhone struct {
-	PhoneID     string `json:"phone_id" binding:"required"`
+type updateUserPhoneRequest struct {
 	CountryCode string `json:"country_code" binding:"required"`
 	Number      string `json:"number" binding:"required"`
 }
 
+type updateUserPhoneRequestIdParam struct {
+	PhoneId *string `uri:"phone_id" binding:"omitempty,uuid"`
+}
+
 func (s *Server) updatePhone(ctx *gin.Context) {
-	var req updateUserPhone
+	var req updateUserPhoneRequest
 	err := ctx.ShouldBindJSON(&req)
 
 	if err != nil {
@@ -68,8 +71,15 @@ func (s *Server) updatePhone(ctx *gin.Context) {
 		return
 	}
 
+	var reqParams updateUserPhoneRequestIdParam
+	err = ctx.ShouldBindUri(&reqParams)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
 	phoneDomain := phone.NewPhone(s.connect)
-	uuidPhoneID, err := uuid.Parse(req.PhoneID)
+	uuidPhoneID, err := uuid.Parse(*reqParams.PhoneId)
 	arg := phone.UpdateUserPhoneParams{
 		PhoneId:     uuidPhoneID,
 		CountryCode: req.CountryCode,

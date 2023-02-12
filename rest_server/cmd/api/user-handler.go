@@ -16,10 +16,6 @@ type createUserRequest struct {
 	Password string `json:"password" binding:"required"`
 }
 
-type getUserByIdRequest struct {
-	ID *string `uri:"id" binding:"omitempty,uuid"`
-}
-
 func (s *Server) createUser(ctx *gin.Context) {
 	var req createUserRequest
 	var err error
@@ -47,6 +43,10 @@ func (s *Server) createUser(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, draftUser)
 	return
+}
+
+type getUserByIdRequest struct {
+	ID *string `uri:"id" binding:"omitempty,uuid"`
 }
 
 func (s *Server) getById(ctx *gin.Context) {
