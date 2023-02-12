@@ -5,6 +5,7 @@ import (
 	"github.com/naHDop-tech/e-passport/domain/user"
 	"github.com/naHDop-tech/e-passport/services/login"
 	"net/http"
+	"time"
 )
 
 type loginRequest struct {
@@ -21,11 +22,12 @@ func (s *Server) login(ctx *gin.Context) {
 	}
 
 	userDomain := user.NewUser(s.connect)
-	loginService := login.NewLoginService(userDomain)
+	loginService := login.NewLoginService(userDomain, s.config)
 	token, err := loginService.Login(ctx, struct {
-		Email    string
-		Password string
-	}{Email: req.Email, Password: req.Password})
+		Email         string
+		Password      string
+		TokenDuration time.Duration
+	}{Email: req.Email, Password: req.Password, TokenDuration: s.config.AccessTokenDuration})
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return

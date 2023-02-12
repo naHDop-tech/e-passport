@@ -2,16 +2,29 @@ package api
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/naHDop-tech/e-passport/utils"
+	"github.com/naHDop-tech/e-passport/utils/token"
 )
 
 type Server struct {
-	router  *gin.Engine
-	connect *sql.DB
+	router     *gin.Engine
+	tokenMaker token.Maker
+	connect    *sql.DB
+	config     utils.Config
 }
 
-func NewServer(conn *sql.DB) *Server {
-	server := &Server{connect: conn}
+func NewServer(conf utils.Config, conn *sql.DB) (*Server, error) {
+	tokenMaker, err := token.NewPasetoMaker(conf.TokenSymmetricKey)
+	if err != nil {
+		return nil, fmt.Errorf("cannot create token maker %s", err)
+	}
+	server := &Server{
+		config:     conf,
+		connect:    conn,
+		tokenMaker: tokenMaker,
+	}
 	router := gin.Default()
 
 	router.POST("/user", server.createUser)
@@ -23,7 +36,7 @@ func NewServer(conn *sql.DB) *Server {
 	router.PATCH("/phone/:phone_id", server.updatePhone)
 
 	server.router = router
-	return server
+	return server, nil
 }
 
 func (s *Server) Start(address string) error {

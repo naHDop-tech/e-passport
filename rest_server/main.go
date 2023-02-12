@@ -31,7 +31,10 @@ func main() {
 		panic(err)
 	}
 
-	server := api.NewServer(conn)
+	server, err := api.NewServer(conf, conn)
+	if err != nil {
+		log.Fatal("Server has not configured", err)
+	}
 
 	serverAddress := fmt.Sprintf("%s:%s", conf.AppHost, conf.AppPort)
 
