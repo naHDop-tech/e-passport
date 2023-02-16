@@ -67,15 +67,13 @@ func (u *User) CreateUser(ctx context.Context, params CreateDraftUserParams) (db
 		if existsUser.Email == params.Email {
 			return errors.New("user with this email already exists")
 		}
-
-		class, err := q.GetRoleClass(ctx, params.ClassName.String())
+		class, err := q.GetRoleClass(ctx, string(params.ClassName))
 		if err != nil {
 			return err
 		}
-
 		var roleId uuid.UUID
 		roleId, err = q.CreateUserRole(ctx, db.CreateUserRoleParams{
-			Name:  params.RoleName.String(),
+			Name:  string(params.RoleName),
 			Class: sql.NullString{String: class.Class, Valid: true},
 		})
 		if err != nil {
