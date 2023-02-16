@@ -9,6 +9,10 @@ import (
 
 type RoleName string
 
+func (rn *RoleName) String() string {
+	return rn.String()
+}
+
 const (
 	Customer RoleName = "Customer"
 	Admin             = "Admin"

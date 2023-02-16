@@ -11,12 +11,16 @@ import (
 )
 
 type createPhoneRequest struct {
-	CountryCode string `json:"country_code" binding:"required"`
-	Number      string `json:"number" binding:"required"`
+	CountryCode string `json:"country_code" binding:"required,min=1,max=3"`
+	Number      string `json:"number" binding:"required,min=7,max=13"`
 }
 
 type createPhoneRequestIdParams struct {
-	UserId *string `uri:"user_id" binding:"omitempty,uuid"`
+	UserId *string `uri:"user_id" binding:"required,uuid"`
+}
+
+type createPhoneResponse struct {
+	status string
 }
 
 func (s *Server) createPhone(ctx *gin.Context) {
@@ -67,19 +71,23 @@ func (s *Server) createPhone(ctx *gin.Context) {
 		return
 	}
 
-	var result = map[string]string{"status": "ok"}
+	var result = createPhoneResponse{status: "ok"}
 	ctx.JSON(http.StatusOK, successResponse(result))
 	return
 }
 
 type updateUserPhoneRequest struct {
-	CountryCode string `json:"country_code" binding:"required"`
-	Number      string `json:"number" binding:"required"`
+	CountryCode string `json:"country_code" binding:"required,min=1,max=3"`
+	Number      string `json:"number" binding:"required,min=7,max=13"`
 }
 
 type updateUserPhoneRequestIdParam struct {
-	PhoneId *string `uri:"phone_id" binding:"omitempty,uuid"`
-	UserId  *string `uri:"user_id" binding:"omitempty,uuid"`
+	PhoneId *string `uri:"phone_id" binding:"required,uuid"`
+	UserId  *string `uri:"user_id" binding:"required,uuid"`
+}
+
+type updatePhoneResponse struct {
+	status string
 }
 
 func (s *Server) updatePhone(ctx *gin.Context) {
@@ -134,7 +142,7 @@ func (s *Server) updatePhone(ctx *gin.Context) {
 		return
 	}
 
-	var result = map[string]string{"status": "ok"}
+	var result = updatePhoneResponse{status: "ok"}
 	ctx.JSON(http.StatusOK, successResponse(result))
 	return
 }

@@ -1,18 +1,22 @@
 package api
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
 func (s *Server) setupRouter() {
 	router := gin.Default()
 
-	router.POST("/user", s.createUser)
-	router.POST("/login", s.login)
+	v1 := router.Group("/api/v1")
 
-	authGroupRoute := router.Group("/").Use(authMiddleware(s.tokenMaker))
-	authGroupRoute.GET("/user/:user_id", s.getById)
+	v1.POST("/user", s.createUser)
+	v1.POST("/login", s.login)
 
-	authGroupRoute.POST("/user/:user_id/phone", s.createPhone)
-	authGroupRoute.PATCH("/user/:user_id/phone/:phone_id", s.updatePhone)
+	v1AuthGroupRoute := v1.Group("/").Use(authMiddleware(s.tokenMaker))
+	v1AuthGroupRoute.GET("/user/:user_id", s.getById)
+
+	v1AuthGroupRoute.POST("/user/:user_id/phone", s.createPhone)
+	v1AuthGroupRoute.PATCH("/user/:user_id/phone/:phone_id", s.updatePhone)
 
 	s.router = router
 }

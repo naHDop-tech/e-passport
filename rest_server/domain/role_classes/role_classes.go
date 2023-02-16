@@ -8,6 +8,10 @@ import (
 
 type ClassName string
 
+func (cn *ClassName) String() string {
+	return cn.String()
+}
+
 const (
 	Draft ClassName = "Draft"
 	Base            = "Base"
