@@ -71,7 +71,7 @@ func (s *Server) createPhone(ctx *gin.Context) {
 		return
 	}
 
-	var result = createPhoneResponse{status: "ok"}
+	var result = map[string]string{"status": "ok"}
 	ctx.JSON(http.StatusOK, successResponse(result))
 	return
 }
@@ -142,7 +142,7 @@ func (s *Server) updatePhone(ctx *gin.Context) {
 		return
 	}
 
-	var result = updatePhoneResponse{status: "ok"}
+	var result = map[string]string{"status": "ok"}
 	ctx.JSON(http.StatusOK, successResponse(result))
 	return
 }
