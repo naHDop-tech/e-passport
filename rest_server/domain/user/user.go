@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+
 	"github.com/google/uuid"
 	"github.com/naHDop-tech/e-passport/db/sqlc"
 	"github.com/naHDop-tech/e-passport/domain/role_classes"
@@ -43,23 +44,23 @@ func (u *User) UpdateUser(ctx context.Context, params db.UpdateUserParams) error
 	return nil
 }
 
-func (u *User) GetUserById(ctx context.Context, userId uuid.UUID) (db.GetUserByIdRow, error) {
+func (u *User) GetUserById(ctx context.Context, userId uuid.UUID) (*db.GetUserByIdRow, error) {
 	user, err := u.repository.GetUserById(ctx, userId)
 	if err != nil {
-		return db.GetUserByIdRow{}, err
+		return nil, err
 	}
-	return user, nil
+	return &user, nil
 }
 
-func (u *User) GetUserByEmail(ctx context.Context, email string) (db.GetUserByEmailRow, error) {
+func (u *User) GetUserByEmail(ctx context.Context, email string) (*db.GetUserByEmailRow, error) {
 	user, err := u.repository.GetUserByEmail(ctx, email)
 	if err != nil {
-		return db.GetUserByEmailRow{}, err
+		return nil, err
 	}
-	return user, nil
+	return &user, nil
 }
 
-func (u *User) CreateUser(ctx context.Context, params CreateDraftUserParams) (db.CreateUserRow, error) {
+func (u *User) CreateUser(ctx context.Context, params CreateDraftUserParams) (*db.CreateUserRow, error) {
 	var result db.CreateUserRow
 
 	err := u.repository.ExecTx(ctx, func(q *db.Queries) error {
@@ -97,5 +98,5 @@ func (u *User) CreateUser(ctx context.Context, params CreateDraftUserParams) (db
 		return err
 	})
 
-	return result, err
+	return &result, err
 }

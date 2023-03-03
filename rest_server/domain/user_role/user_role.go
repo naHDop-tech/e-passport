@@ -30,10 +30,10 @@ func NewUserRole(conn *sql.DB) *UserRole {
 	}
 }
 
-func (ur *UserRole) CreateUserRole(ctx context.Context, payload db.CreateUserRoleParams) (uuid.UUID, error) {
+func (ur *UserRole) CreateUserRole(ctx context.Context, payload db.CreateUserRoleParams) (*uuid.UUID, error) {
 	role, err := ur.repository.CreateUserRole(ctx, payload)
 	if err != nil {
-		return uuid.Nil, err
+		return nil, err
 	}
-	return role, nil
+	return &role, nil
 }

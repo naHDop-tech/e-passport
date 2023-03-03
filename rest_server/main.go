@@ -3,11 +3,15 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/lib/pq"
-	"github.com/naHDop-tech/e-passport/cmd/api"
-	"github.com/naHDop-tech/e-passport/utils"
 	"log"
 	"strconv"
+
+	_ "github.com/lib/pq"
+	"github.com/naHDop-tech/e-passport/cmd/api"
+	"github.com/naHDop-tech/e-passport/domain/phone"
+	"github.com/naHDop-tech/e-passport/domain/user"
+	"github.com/naHDop-tech/e-passport/services/login"
+	"github.com/naHDop-tech/e-passport/utils"
 )
 
 func main() {
@@ -31,7 +35,10 @@ func main() {
 		panic(err)
 	}
 
-	server, err := api.NewServer(conf, conn)
+	userDomain := user.NewUser(conn)
+	phoneDomain := phone.NewPhone(conn)
+	loginSrv := login.NewLoginService(userDomain, conf)
+	server, err := api.NewServer(conf, conn, userDomain, phoneDomain, loginSrv)
 	if err != nil {
 		log.Fatal("Server has not configured", err)
 	}

@@ -3,11 +3,12 @@ package api
 import (
 	"database/sql"
 	"errors"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/naHDop-tech/e-passport/domain/phone"
 	"github.com/naHDop-tech/e-passport/utils/token"
-	"net/http"
 )
 
 type createPhoneRequest struct {
@@ -47,7 +48,6 @@ func (s *Server) createPhone(ctx *gin.Context) {
 		return
 	}
 
-	phoneDomain := phone.NewPhone(s.connect)
 	uuidUserID, err := uuid.Parse(*reqParams.UserId)
 
 	if err != nil {
@@ -60,7 +60,7 @@ func (s *Server) createPhone(ctx *gin.Context) {
 		Number:      req.Number,
 	}
 
-	err = phoneDomain.CreatePhone(ctx, arg)
+	err = s.phoneDomain.CreatePhone(ctx, arg)
 
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -113,7 +113,6 @@ func (s *Server) updatePhone(ctx *gin.Context) {
 		return
 	}
 
-	phoneDomain := phone.NewPhone(s.connect)
 	uuidPhoneID, err := uuid.Parse(*reqParams.PhoneId)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
@@ -132,7 +131,7 @@ func (s *Server) updatePhone(ctx *gin.Context) {
 		Number:      req.Number,
 	}
 
-	err = phoneDomain.UpdatePhone(ctx, arg)
+	err = s.phoneDomain.UpdatePhone(ctx, arg)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			ctx.JSON(http.StatusNotFound, errorResponse(err))

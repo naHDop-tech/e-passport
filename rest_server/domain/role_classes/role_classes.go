@@ -29,18 +29,18 @@ func NewRoleClasses(conn *sql.DB) *RoleClasses {
 	}
 }
 
-func (rc *RoleClasses) GetListRoleClasses(ctx context.Context) ([]db.RoleClass, error) {
+func (rc *RoleClasses) GetListRoleClasses(ctx context.Context) (*[]db.RoleClass, error) {
 	countries, err := rc.repository.ListRoleClasses(ctx)
 	if err != nil {
 		return nil, err
 	}
-	return countries, nil
+	return &countries, nil
 }
 
-func (rc *RoleClasses) GetRoleClass(ctx context.Context, roleClass ClassName) (db.RoleClass, error) {
+func (rc *RoleClasses) GetRoleClass(ctx context.Context, roleClass ClassName) (*db.RoleClass, error) {
 	rClass, err := rc.repository.GetRoleClass(ctx, string(roleClass))
 	if err != nil {
-		return db.RoleClass{}, err
+		return nil, err
 	}
-	return rClass, nil
+	return &rClass, nil
 }

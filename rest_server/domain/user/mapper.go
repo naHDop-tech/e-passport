@@ -72,7 +72,7 @@ type ClearUser struct {
 	Role         ClearRole        `json:"role"`
 }
 
-func (u *User) MarshallToStruct(rawUser db.GetUserByIdRow) ClearUser {
+func (u *User) MarshallToStruct(rawUser *db.GetUserByIdRow) *ClearUser {
 	clearUser := ClearUser{
 		ID:           rawUser.ID.String(),
 		FirstName:    rawUser.FirstName.String,
@@ -126,5 +126,5 @@ func (u *User) MarshallToStruct(rawUser db.GetUserByIdRow) ClearUser {
 			Class: rawUser.RoleClass.String,
 		},
 	}
-	return clearUser
+	return &clearUser
 }

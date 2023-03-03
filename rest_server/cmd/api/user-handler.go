@@ -3,6 +3,8 @@ package api
 import (
 	"database/sql"
 	"errors"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	db "github.com/naHDop-tech/e-passport/db/sqlc"
@@ -10,7 +12,6 @@ import (
 	"github.com/naHDop-tech/e-passport/domain/user"
 	"github.com/naHDop-tech/e-passport/domain/user_role"
 	"github.com/naHDop-tech/e-passport/utils/token"
-	"net/http"
 )
 
 type createUserRequest struct {
@@ -44,7 +45,7 @@ func (s *Server) createUser(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, successResponse(draftUser))
+	ctx.JSON(http.StatusOK, successResponse(&draftUser))
 	return
 }
 
@@ -68,14 +69,13 @@ func (s *Server) getById(ctx *gin.Context) {
 		return
 	}
 
-	userDomain := user.NewUser(s.connect)
-	var rawUser db.GetUserByIdRow
 	parsedUserId, err := uuid.Parse(*req.UserId)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 		return
 	}
-	rawUser, err = userDomain.GetUserById(ctx, parsedUserId)
+
+	rawUser, err := s.userDomain.GetUserById(ctx, parsedUserId)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			ctx.JSON(http.StatusNotFound, errorResponse(err))
@@ -85,7 +85,7 @@ func (s *Server) getById(ctx *gin.Context) {
 		return
 	}
 
-	clearUser := userDomain.MarshallToStruct(rawUser)
+	clearUser := s.userDomain.MarshallToStruct(rawUser)
 
 	ctx.JSON(http.StatusOK, successResponse(clearUser))
 	return

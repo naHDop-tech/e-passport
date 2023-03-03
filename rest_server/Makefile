@@ -10,9 +10,11 @@ sqlc_init:
 	sqlc init
 sqlc:
 	sqlc generate
-migration_up:
+migrate_up:
 	goose -dir=./db/migrations postgres "host=$(DB_HOST) user=$(DB_USER) password=$(DB_PASS) dbname=$(DB_NAME) sslmode=disable" up
-migration_down:
+migrate_down:
 	goose -dir=./db/migrations postgres "host=$(DB_HOST) user=$(DB_USER) password=$(DB_PASS) dbname=$(DB_NAME) sslmode=disable" down
-server:
+migrate_file:
+	goose create $(file_name) sql
+start:
 	go run main.go

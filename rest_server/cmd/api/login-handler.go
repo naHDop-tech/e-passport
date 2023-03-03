@@ -1,11 +1,10 @@
 package api
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/naHDop-tech/e-passport/domain/user"
-	"github.com/naHDop-tech/e-passport/services/login"
 	"net/http"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 type loginRequest struct {
@@ -21,9 +20,7 @@ func (s *Server) login(ctx *gin.Context) {
 		return
 	}
 
-	userDomain := user.NewUser(s.connect)
-	loginService := login.NewLoginService(userDomain, s.config)
-	token, err := loginService.Login(ctx, struct {
+	token, err := s.loginSrv.Login(ctx, struct {
 		Email         string
 		Password      string
 		TokenDuration time.Duration
@@ -32,7 +29,8 @@ func (s *Server) login(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
-	var result = map[string]string{"token": token}
+	user, _ := s.userDomain.GetUserByEmail(ctx, req.Email)
+	var result = map[string]string{"token": token, "userId": user.ID.String()}
 	ctx.JSON(http.StatusOK, successResponse(result))
 	return
 }
