@@ -9,6 +9,7 @@ import (
 	"github.com/naHDop-tech/e-passport/domain/user"
 	"github.com/naHDop-tech/e-passport/services/login"
 	"github.com/naHDop-tech/e-passport/utils"
+	"github.com/naHDop-tech/e-passport/utils/responser"
 	"github.com/naHDop-tech/e-passport/utils/token"
 )
 
@@ -20,6 +21,7 @@ type Server struct {
 	userDomain  *user.User
 	phoneDomain *phone.Phone
 	loginSrv    *login.LoginService
+	responser   responser.Responser
 }
 
 func NewServer(conf utils.Config, conn *sql.DB, userDomain *user.User, phoneDomain *phone.Phone, loginSrv *login.LoginService) (*Server, error) {
@@ -34,6 +36,7 @@ func NewServer(conf utils.Config, conn *sql.DB, userDomain *user.User, phoneDoma
 		userDomain:  userDomain,
 		phoneDomain: phoneDomain,
 		loginSrv:    loginSrv,
+		responser:   responser.NewResponser(),
 	}
 
 	server.setupRouter()

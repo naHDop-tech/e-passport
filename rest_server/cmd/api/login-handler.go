@@ -1,10 +1,10 @@
 package api
 
 import (
-	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/naHDop-tech/e-passport/utils/responser"
 )
 
 type loginRequest struct {
@@ -13,10 +13,12 @@ type loginRequest struct {
 }
 
 func (s *Server) login(ctx *gin.Context) {
+	var response responser.Response
 	var req loginRequest
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		response = s.responser.New(nil, err, responser.API_NOT_FOUND)
+		ctx.JSON(response.Status, response)
 		return
 	}
 
@@ -26,11 +28,20 @@ func (s *Server) login(ctx *gin.Context) {
 		TokenDuration time.Duration
 	}{Email: req.Email, Password: req.Password, TokenDuration: s.config.AccessTokenDuration})
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		response = s.responser.New(nil, err, responser.API_FAIL)
+		ctx.JSON(response.Status, response)
 		return
 	}
-	user, _ := s.userDomain.GetUserByEmail(ctx, req.Email)
-	var result = map[string]string{"token": token, "userId": user.ID.String()}
-	ctx.JSON(http.StatusOK, successResponse(result))
+	user, err := s.userDomain.GetUserByEmail(ctx, req.Email)
+	if err != nil {
+		response = s.responser.New(nil, err, responser.API_NOT_FOUND)
+		ctx.JSON(response.Status, response)
+		return
+	}
+	response = s.responser.New(struct {
+		token  string
+		userId string
+	}{token: token, userId: user.ID.String()}, err, responser.API_NOT_FOUND)
+	ctx.JSON(response.Status, response)
 	return
 }

@@ -13,10 +13,12 @@ func (s *Server) setupRouter() {
 	v1.POST("/login", s.login)
 
 	v1AuthGroupRoute := v1.Group("/").Use(authMiddleware(s.tokenMaker))
-	v1AuthGroupRoute.GET("/user/:user_id", s.getById)
+	{
+		v1AuthGroupRoute.GET("/user/:user_id", s.getById)
 
-	v1AuthGroupRoute.POST("/user/:user_id/phone", s.createPhone)
-	v1AuthGroupRoute.PATCH("/user/:user_id/phone/:phone_id", s.updatePhone)
+		v1AuthGroupRoute.POST("/user/:user_id/phone", s.createPhone)
+		v1AuthGroupRoute.PATCH("/user/:user_id/phone/:phone_id", s.updatePhone)
+	}
 
 	s.router = router
 }

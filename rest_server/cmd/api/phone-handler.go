@@ -3,11 +3,11 @@ package api
 import (
 	"database/sql"
 	"errors"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/naHDop-tech/e-passport/domain/phone"
+	"github.com/naHDop-tech/e-passport/utils/responser"
 	"github.com/naHDop-tech/e-passport/utils/token"
 )
 
@@ -25,11 +25,13 @@ type createPhoneResponse struct {
 }
 
 func (s *Server) createPhone(ctx *gin.Context) {
+	var response responser.Response
 	var req createPhoneRequest
 	err := ctx.ShouldBindJSON(&req)
 
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
+		ctx.JSON(response.Status, response)
 		return
 	}
 
@@ -37,21 +39,24 @@ func (s *Server) createPhone(ctx *gin.Context) {
 
 	err = ctx.ShouldBindUri(&reqParams)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
+		ctx.JSON(response.Status, response)
 		return
 	}
 
 	val := ctx.MustGet(authPayloadKey).(*token.Payload)
 	if val.UserId != *reqParams.UserId {
-		err := errors.New("you do not have access to this user")
-		ctx.JSON(http.StatusUnauthorized, errorResponse(err))
+		err = errors.New("you do not have access to this user")
+		response = s.responser.New(nil, err, responser.API_UNAUTH)
+		ctx.JSON(response.Status, response)
 		return
 	}
 
 	uuidUserID, err := uuid.Parse(*reqParams.UserId)
 
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
+		ctx.JSON(response.Status, response)
 		return
 	}
 	arg := phone.CreateUserPhoneParams{
@@ -64,15 +69,19 @@ func (s *Server) createPhone(ctx *gin.Context) {
 
 	if err != nil {
 		if err == sql.ErrNoRows {
-			ctx.JSON(http.StatusNotFound, errorResponse(err))
+			response = s.responser.New(nil, err, responser.API_NOT_FOUND)
+			ctx.JSON(response.Status, response)
 			return
 		}
-		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
+		ctx.JSON(response.Status, response)
 		return
 	}
 
-	var result = map[string]string{"status": "ok"}
-	ctx.JSON(http.StatusOK, successResponse(result))
+	response = s.responser.New(struct {
+		status string
+	}{status: "ok"}, err, responser.API_OK)
+	ctx.JSON(response.Status, response)
 	return
 }
 
@@ -91,36 +100,42 @@ type updatePhoneResponse struct {
 }
 
 func (s *Server) updatePhone(ctx *gin.Context) {
+	var response responser.Response
 	var req updateUserPhoneRequest
 	err := ctx.ShouldBindJSON(&req)
 
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
+		ctx.JSON(response.Status, response)
 		return
 	}
 
 	var reqParams updateUserPhoneRequestIdParam
 	err = ctx.ShouldBindUri(&reqParams)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
+		ctx.JSON(response.Status, response)
 		return
 	}
 
 	val := ctx.MustGet(authPayloadKey).(*token.Payload)
 	if val.UserId != *reqParams.UserId {
-		err := errors.New("you do not have access to this user")
-		ctx.JSON(http.StatusUnauthorized, errorResponse(err))
+		err = errors.New("you do not have access to this user")
+		response = s.responser.New(nil, err, responser.API_UNAUTH)
+		ctx.JSON(response.Status, response)
 		return
 	}
 
 	uuidPhoneID, err := uuid.Parse(*reqParams.PhoneId)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
+		ctx.JSON(response.Status, response)
 		return
 	}
 	uuidUserID, err := uuid.Parse(*reqParams.UserId)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
+		ctx.JSON(response.Status, response)
 		return
 	}
 
@@ -134,14 +149,18 @@ func (s *Server) updatePhone(ctx *gin.Context) {
 	err = s.phoneDomain.UpdatePhone(ctx, arg)
 	if err != nil {
 		if err == sql.ErrNoRows {
-			ctx.JSON(http.StatusNotFound, errorResponse(err))
+			response = s.responser.New(nil, err, responser.API_NOT_FOUND)
+			ctx.JSON(response.Status, response)
 			return
 		}
-		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		response = s.responser.New(nil, err, responser.API_FAIL)
+		ctx.JSON(response.Status, response)
 		return
 	}
 
-	var result = map[string]string{"status": "ok"}
-	ctx.JSON(http.StatusOK, successResponse(result))
+	response = s.responser.New(struct {
+		status string
+	}{status: "ok"}, err, responser.API_OK)
+	ctx.JSON(response.Status, response)
 	return
 }
