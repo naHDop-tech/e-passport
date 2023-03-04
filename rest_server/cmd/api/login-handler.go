@@ -1,6 +1,7 @@
 package api
 
 import (
+	"database/sql"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -33,6 +34,11 @@ func (s *Server) login(ctx *gin.Context) {
 		TokenDuration time.Duration
 	}{Email: req.Email, Password: req.Password, TokenDuration: s.config.AccessTokenDuration})
 	if err != nil {
+		if err == sql.ErrNoRows {
+			response = s.responser.New(nil, err, responser.API_NOT_FOUND)
+			ctx.JSON(response.Status, response)
+			return
+		}
 		response = s.responser.New(nil, err, responser.API_FAIL)
 		ctx.JSON(response.Status, response)
 		return

@@ -1,7 +1,6 @@
 package responser
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 )
@@ -40,7 +39,7 @@ var codeToStatusMap = map[ResponseCode]int{
 func (r *responser) New(data any, err error, code ResponseCode) (response Response) {
 	response.Status = codeToStatusMap[code]
 	response.Code = code
-	fmt.Println("DATA", data)
+
 	response.Data = data
 	response.Timestamp = time.Now()
 	response.Message = codeToMessageMap[code]
