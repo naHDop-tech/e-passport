@@ -17,9 +17,9 @@ var (
 )
 
 type UploaderResult struct {
-	SecureLink  string
-	PublicLink  string
-	ExternalRef string
+	SecureLink  string `json:"secure_link"`
+	PublicLink  string `json:"public_link"`
+	ExternalRef string `json:"external_ref"`
 }
 
 // Docs here https://cloudinary.com/documentation/go_integration
