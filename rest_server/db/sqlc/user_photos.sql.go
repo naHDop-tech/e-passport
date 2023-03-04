@@ -14,25 +14,33 @@ import (
 
 const createUserPhoto = `-- name: CreateUserPhoto :one
 INSERT INTO user_photos
-(file_name, mime_type, url)
-VALUES ($1, $2, $3) RETURNING id
+(file_name, mime_type, url, external_ref, secure_url)
+VALUES ($1, $2, $3, $4, $5) RETURNING id
 `
 
 type CreateUserPhotoParams struct {
-	FileName string `json:"file_name"`
-	MimeType string `json:"mime_type"`
-	Url      string `json:"url"`
+	FileName    string `json:"file_name"`
+	MimeType    string `json:"mime_type"`
+	Url         string `json:"url"`
+	ExternalRef string `json:"external_ref"`
+	SecureUrl   string `json:"secure_url"`
 }
 
 func (q *Queries) CreateUserPhoto(ctx context.Context, arg CreateUserPhotoParams) (uuid.UUID, error) {
-	row := q.db.QueryRowContext(ctx, createUserPhoto, arg.FileName, arg.MimeType, arg.Url)
+	row := q.db.QueryRowContext(ctx, createUserPhoto,
+		arg.FileName,
+		arg.MimeType,
+		arg.Url,
+		arg.ExternalRef,
+		arg.SecureUrl,
+	)
 	var id uuid.UUID
 	err := row.Scan(&id)
 	return id, err
 }
 
 const getUserPhoto = `-- name: GetUserPhoto :one
-SELECT id, file_name, mime_type, url, created_at, updated_at FROM user_photos
+SELECT id, file_name, mime_type, url, created_at, updated_at, external_ref, secure_url FROM user_photos
 WHERE id = $1 LIMIT 1
 `
 
@@ -46,22 +54,26 @@ func (q *Queries) GetUserPhoto(ctx context.Context, id uuid.UUID) (UserPhoto, er
 		&i.Url,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.ExternalRef,
+		&i.SecureUrl,
 	)
 	return i, err
 }
 
 const updateUserPhoto = `-- name: UpdateUserPhoto :exec
 UPDATE user_photos
-SET file_name = $1, mime_type = $2, url = $3, updated_at = $4
-WHERE id = $5
+SET file_name = $1, mime_type = $2, url = $3, updated_at = $4, external_ref = $5, secure_url = $6
+WHERE id = $7
 `
 
 type UpdateUserPhotoParams struct {
-	FileName  string       `json:"file_name"`
-	MimeType  string       `json:"mime_type"`
-	Url       string       `json:"url"`
-	UpdatedAt sql.NullTime `json:"updated_at"`
-	ID        uuid.UUID    `json:"id"`
+	FileName    string       `json:"file_name"`
+	MimeType    string       `json:"mime_type"`
+	Url         string       `json:"url"`
+	UpdatedAt   sql.NullTime `json:"updated_at"`
+	ExternalRef string       `json:"external_ref"`
+	SecureUrl   string       `json:"secure_url"`
+	ID          uuid.UUID    `json:"id"`
 }
 
 func (q *Queries) UpdateUserPhoto(ctx context.Context, arg UpdateUserPhotoParams) error {
@@ -70,6 +82,8 @@ func (q *Queries) UpdateUserPhoto(ctx context.Context, arg UpdateUserPhotoParams
 		arg.MimeType,
 		arg.Url,
 		arg.UpdatedAt,
+		arg.ExternalRef,
+		arg.SecureUrl,
 		arg.ID,
 	)
 	return err

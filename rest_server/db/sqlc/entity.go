@@ -91,12 +91,14 @@ type UserPhone struct {
 }
 
 type UserPhoto struct {
-	ID        uuid.UUID    `json:"id"`
-	FileName  string       `json:"file_name"`
-	MimeType  string       `json:"mime_type"`
-	Url       string       `json:"url"`
-	CreatedAt time.Time    `json:"created_at"`
-	UpdatedAt sql.NullTime `json:"updated_at"`
+	ID          uuid.UUID    `json:"id"`
+	FileName    string       `json:"file_name"`
+	MimeType    string       `json:"mime_type"`
+	Url         string       `json:"url"`
+	CreatedAt   time.Time    `json:"created_at"`
+	UpdatedAt   sql.NullTime `json:"updated_at"`
+	ExternalRef string       `json:"external_ref"`
+	SecureUrl   string       `json:"secure_url"`
 }
 
 type UserRole struct {
