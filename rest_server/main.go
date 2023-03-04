@@ -13,6 +13,7 @@ import (
 	"github.com/naHDop-tech/e-passport/domain/user"
 	"github.com/naHDop-tech/e-passport/services/login"
 	"github.com/naHDop-tech/e-passport/utils"
+	file_manager "github.com/naHDop-tech/e-passport/utils/file-manager"
 )
 
 func main() {
@@ -39,8 +40,9 @@ func main() {
 	userDomain := user.NewUser(conn)
 	phoneDomain := phone.NewPhone(conn)
 	addressDomain := address.NewAddress(conn)
+	fileManager := file_manager.NewFileManager(conf)
 	loginSrv := login.NewLoginService(userDomain, conf)
-	server, err := api.NewServer(conf, conn, userDomain, phoneDomain, addressDomain, loginSrv)
+	server, err := api.NewServer(conf, conn, fileManager, userDomain, phoneDomain, addressDomain, loginSrv)
 	if err != nil {
 		log.Fatal("Server has not configured", err)
 	}

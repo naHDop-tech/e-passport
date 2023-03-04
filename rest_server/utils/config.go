@@ -1,8 +1,9 @@
 package utils
 
 import (
-	"github.com/spf13/viper"
 	"time"
+
+	"github.com/spf13/viper"
 )
 
 type Config struct {
@@ -16,6 +17,10 @@ type Config struct {
 	AppPort             string        `mapstructure:"PORT"`
 	TokenSymmetricKey   string        `mapstructure:"TOKEN_SYMMETRIC_KEY"`
 	AccessTokenDuration time.Duration `mapstructure:"ACCESS_TOKEN_DURATION"`
+	FileCloudApiName    string        `mapstructure:"CLOUDINARY_API_NAME"`
+	FileCloudApiKey     string        `mapstructure:"CLOUDINARY_API_KEY"`
+	FileCloudApiSecret  string        `mapstructure:"CLOUDINARY_API_SECRET"`
+	CloudinaryUrl       string        `mapstructure:"CLOUDINARY_URL"`
 }
 
 func LoadConfig(path string) (config Config, err error) {

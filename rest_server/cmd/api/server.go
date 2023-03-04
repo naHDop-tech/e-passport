@@ -10,6 +10,7 @@ import (
 	"github.com/naHDop-tech/e-passport/domain/user"
 	"github.com/naHDop-tech/e-passport/services/login"
 	"github.com/naHDop-tech/e-passport/utils"
+	file_manager "github.com/naHDop-tech/e-passport/utils/file-manager"
 	"github.com/naHDop-tech/e-passport/utils/responser"
 	"github.com/naHDop-tech/e-passport/utils/token"
 )
@@ -23,10 +24,11 @@ type Server struct {
 	phoneDomain   *phone.Phone
 	addressDomain *address.Address
 	loginSrv      *login.LoginService
+	fileManager   file_manager.FileManager
 	responser     responser.Responser
 }
 
-func NewServer(conf utils.Config, conn *sql.DB, userDomain *user.User, phoneDomain *phone.Phone, addressDomain *address.Address, loginSrv *login.LoginService) (*Server, error) {
+func NewServer(conf utils.Config, conn *sql.DB, fileManager file_manager.FileManager, userDomain *user.User, phoneDomain *phone.Phone, addressDomain *address.Address, loginSrv *login.LoginService) (*Server, error) {
 	tokenMaker, err := token.NewPasetoMaker(conf.TokenSymmetricKey)
 	if err != nil {
 		return nil, fmt.Errorf("cannot create token maker %s", err)
@@ -34,6 +36,7 @@ func NewServer(conf utils.Config, conn *sql.DB, userDomain *user.User, phoneDoma
 	server := &Server{
 		config:        conf,
 		connect:       conn,
+		fileManager:   fileManager,
 		tokenMaker:    tokenMaker,
 		userDomain:    userDomain,
 		phoneDomain:   phoneDomain,
