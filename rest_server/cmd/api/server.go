@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/naHDop-tech/e-passport/domain/address"
 	"github.com/naHDop-tech/e-passport/domain/phone"
+	"github.com/naHDop-tech/e-passport/domain/photo"
 	"github.com/naHDop-tech/e-passport/domain/user"
 	"github.com/naHDop-tech/e-passport/services/login"
 	"github.com/naHDop-tech/e-passport/utils"
@@ -23,6 +24,7 @@ type Server struct {
 	userDomain    *user.User
 	phoneDomain   *phone.Phone
 	addressDomain *address.Address
+	photoDomain   photo.Resolver
 	loginSrv      *login.LoginService
 	fileManager   file_manager.FileManager
 	responser     responser.Responser
@@ -36,7 +38,16 @@ type responseStatus struct {
 	Status string `json:"status"`
 }
 
-func NewServer(conf utils.Config, conn *sql.DB, fileManager file_manager.FileManager, userDomain *user.User, phoneDomain *phone.Phone, addressDomain *address.Address, loginSrv *login.LoginService) (*Server, error) {
+func NewServer(
+	conf utils.Config,
+	conn *sql.DB,
+	fileManager file_manager.FileManager,
+	userDomain *user.User,
+	phoneDomain *phone.Phone,
+	addressDomain *address.Address,
+	photoDomain photo.Resolver,
+	loginSrv *login.LoginService,
+) (*Server, error) {
 	tokenMaker, err := token.NewPasetoMaker(conf.TokenSymmetricKey)
 	if err != nil {
 		return nil, fmt.Errorf("cannot create token maker %s", err)
@@ -49,6 +60,7 @@ func NewServer(conf utils.Config, conn *sql.DB, fileManager file_manager.FileMan
 		userDomain:    userDomain,
 		phoneDomain:   phoneDomain,
 		addressDomain: addressDomain,
+		photoDomain:   photoDomain,
 		loginSrv:      loginSrv,
 		responser:     responser.NewResponser(),
 	}

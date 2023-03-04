@@ -15,8 +15,8 @@ import (
 )
 
 var (
-	errFileAlreadyExists = errors.New("user already have photo")
-	errFileNotExists     = errors.New("user don't have photo")
+	errFileAlreadyExists      = errors.New("user already have photo")
+	errFileRelatedToOtherUser = errors.New("this photo id related to other user")
 )
 
 type Resolver interface {
@@ -77,39 +77,35 @@ func (p *Photo) UpdateFile(
 	userId uuid.UUID,
 	photoId uuid.UUID,
 ) error {
-	err := p.repository.ExecTx(ctx, func(q *db.Queries) error {
-		existsUser, err := q.GetUserById(ctx, userId)
-		if err != nil {
-			return err
-		}
-		if !existsUser.PhotoID.Valid {
-			return errFileNotExists
-		}
-		uploadedFile, err := p.fileManager.UploadFile(ctx, file, params)
-		if err != nil {
-			return err
-		}
-		err = q.UpdateUserPhoto(ctx, db.UpdateUserPhotoParams{
-			FileName:    params.PublicID,
-			MimeType:    "empty",
-			Url:         uploadedFile.PublicLink,
-			UpdatedAt:   sql.NullTime{Valid: true, Time: time.Now()},
-			ExternalRef: uploadedFile.ExternalRef,
-			SecureUrl:   uploadedFile.SecureLink,
-			ID:          existsUser.PhotoID.UUID,
-		})
-		if err != nil {
-			return err
-		}
-
-		destroyFile, err := p.fileManager.DestroyFile(ctx, uploader.DestroyParams{
-			PublicID: params.PublicID,
-		})
-		if err != nil {
-			return err
-		}
-		fmt.Println("Previous file has destroyed:", destroyFile)
+	existsUser, err := p.repository.GetUserById(ctx, userId)
+	if err != nil {
 		return err
+	}
+	if existsUser.PhotoID.UUID != photoId {
+		return errFileRelatedToOtherUser
+	}
+	uploadedFile, err := p.fileManager.UploadFile(ctx, file, params)
+	if err != nil {
+		return err
+	}
+	err = p.repository.UpdateUserPhoto(ctx, db.UpdateUserPhotoParams{
+		FileName:    params.PublicID,
+		MimeType:    "empty",
+		Url:         uploadedFile.PublicLink,
+		UpdatedAt:   sql.NullTime{Valid: true, Time: time.Now()},
+		ExternalRef: uploadedFile.ExternalRef,
+		SecureUrl:   uploadedFile.SecureLink,
+		ID:          existsUser.PhotoID.UUID,
 	})
+	if err != nil {
+		return err
+	}
+
+	destroyFile, err := p.fileManager.DestroyFile(ctx, uploader.DestroyParams{
+		PublicID: params.PublicID,
+	})
+	if err == nil {
+		fmt.Println("Previous file has destroyed:", destroyFile)
+	}
 	return err
 }

@@ -10,6 +10,7 @@ import (
 	"github.com/naHDop-tech/e-passport/cmd/api"
 	"github.com/naHDop-tech/e-passport/domain/address"
 	"github.com/naHDop-tech/e-passport/domain/phone"
+	"github.com/naHDop-tech/e-passport/domain/photo"
 	"github.com/naHDop-tech/e-passport/domain/user"
 	"github.com/naHDop-tech/e-passport/services/login"
 	"github.com/naHDop-tech/e-passport/utils"
@@ -41,8 +42,9 @@ func main() {
 	phoneDomain := phone.NewPhone(conn)
 	addressDomain := address.NewAddress(conn)
 	fileManager := file_manager.NewFileManager(conf)
+	photoDomain := photo.NewPhoto(conn, fileManager)
 	loginSrv := login.NewLoginService(userDomain, conf)
-	server, err := api.NewServer(conf, conn, fileManager, userDomain, phoneDomain, addressDomain, loginSrv)
+	server, err := api.NewServer(conf, conn, fileManager, userDomain, phoneDomain, addressDomain, photoDomain, loginSrv)
 	if err != nil {
 		log.Fatal("Server has not configured", err)
 	}
