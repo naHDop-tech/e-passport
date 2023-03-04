@@ -87,7 +87,6 @@ func (s *Server) updateAddress(ctx *gin.Context) {
 	var response responser.Response
 	var request addressResponse
 	err := ctx.ShouldBindJSON(&request)
-
 	if err != nil {
 		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
 		ctx.JSON(response.Status, response)

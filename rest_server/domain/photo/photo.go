@@ -50,7 +50,7 @@ func (p *Photo) UploadFile(ctx context.Context, file multipart.File, params uplo
 			return err
 		}
 		fileId, err := q.CreateUserPhoto(ctx, db.CreateUserPhotoParams{
-			FileName:    params.PublicID,
+			FileName:    uploadedFile.ExternalRef,
 			MimeType:    "empty",
 			Url:         uploadedFile.PublicLink,
 			ExternalRef: uploadedFile.ExternalRef,
@@ -84,12 +84,20 @@ func (p *Photo) UpdateFile(
 	if existsUser.PhotoID.UUID != photoId {
 		return errFileRelatedToOtherUser
 	}
+	destroyFile, err := p.fileManager.DestroyFile(ctx, uploader.DestroyParams{
+		PublicID: existsUser.PhotoExternalRef.String,
+	})
+	if err != nil {
+		return err
+	}
+	fmt.Println("Previous file has destroyed:", destroyFile)
 	uploadedFile, err := p.fileManager.UploadFile(ctx, file, params)
 	if err != nil {
 		return err
 	}
+
 	err = p.repository.UpdateUserPhoto(ctx, db.UpdateUserPhotoParams{
-		FileName:    params.PublicID,
+		FileName:    uploadedFile.ExternalRef,
 		MimeType:    "empty",
 		Url:         uploadedFile.PublicLink,
 		UpdatedAt:   sql.NullTime{Valid: true, Time: time.Now()},
@@ -97,15 +105,5 @@ func (p *Photo) UpdateFile(
 		SecureUrl:   uploadedFile.SecureLink,
 		ID:          existsUser.PhotoID.UUID,
 	})
-	if err != nil {
-		return err
-	}
-
-	destroyFile, err := p.fileManager.DestroyFile(ctx, uploader.DestroyParams{
-		PublicID: params.PublicID,
-	})
-	if err == nil {
-		fmt.Println("Previous file has destroyed:", destroyFile)
-	}
 	return err
 }
