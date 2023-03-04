@@ -12,12 +12,17 @@ type loginRequest struct {
 	Password string `json:"password" binding:"required"`
 }
 
+type loginResponse struct {
+	Token  string `json:"token"`
+	UserId string `json:"userId"`
+}
+
 func (s *Server) login(ctx *gin.Context) {
 	var response responser.Response
 	var req loginRequest
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
-		response = s.responser.New(nil, err, responser.API_NOT_FOUND)
+		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
 		ctx.JSON(response.Status, response)
 		return
 	}
@@ -32,16 +37,20 @@ func (s *Server) login(ctx *gin.Context) {
 		ctx.JSON(response.Status, response)
 		return
 	}
+
 	user, err := s.userDomain.GetUserByEmail(ctx, req.Email)
 	if err != nil {
 		response = s.responser.New(nil, err, responser.API_NOT_FOUND)
 		ctx.JSON(response.Status, response)
 		return
 	}
-	response = s.responser.New(struct {
-		token  string
-		userId string
-	}{token: token, userId: user.ID.String()}, err, responser.API_NOT_FOUND)
+
+	result := loginResponse{
+		Token:  token,
+		UserId: user.ID.String(),
+	}
+
+	response = s.responser.New(result, err, responser.API_OK)
 	ctx.JSON(response.Status, response)
 	return
 }

@@ -21,7 +21,7 @@ type createPhoneRequestIdParams struct {
 }
 
 type createPhoneResponse struct {
-	status string
+	Status string `json:"status"`
 }
 
 func (s *Server) createPhone(ctx *gin.Context) {
@@ -78,9 +78,7 @@ func (s *Server) createPhone(ctx *gin.Context) {
 		return
 	}
 
-	response = s.responser.New(struct {
-		status string
-	}{status: "ok"}, err, responser.API_OK)
+	response = s.responser.New(createPhoneResponse{Status: "ok"}, err, responser.API_OK)
 	ctx.JSON(response.Status, response)
 	return
 }
@@ -158,9 +156,7 @@ func (s *Server) updatePhone(ctx *gin.Context) {
 		return
 	}
 
-	response = s.responser.New(struct {
-		status string
-	}{status: "ok"}, err, responser.API_OK)
+	response = s.responser.New(createPhoneResponse{Status: "ok"}, err, responser.API_OK)
 	ctx.JSON(response.Status, response)
 	return
 }
