@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3d5fe2fd-2a0a-4f5a-a401-bc5c443720b7",
+		"_postman_id": "f781d9c4-9168-4de1-b689-8e6b66ff5bed",
 		"name": "Digital passport",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "18024335"
@@ -167,6 +167,67 @@
 				"description": "Update user pgone by id (uuid4)"
 			},
 			"response": []
+		},
+		{
+			"name": "Create Address",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"USA\",\n    \"city\": \"Denver\",\n    \"line_1\": \"Main rd. 1-2/5\",\n    \"line_2\": \"Aclend hs\",\n    \"zip\": \"453453\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/user/{{user_id}}/address",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{user_id}}",
+						"address"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Address",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country\": \"USA\",\n    \"city\": \"Oclend\",\n    \"line_1\": \"Rever side 324/6\",\n    \"line_2\": \"455\",\n    \"zip\": \"345873\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/user/{{user_id}}/address/{{address_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{user_id}}",
+						"address",
+						"{{address_id}}"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
@@ -174,7 +235,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "v2.local.o62lRKtiLvlmXyTRlqfi0KvmavVlVS2O7jR8QUTQjkvPRuQhTKCiULmfgKfPaoyKPSheHJbWJO9UcSjb_8S2UAT5A5O9D8DgVjW-S9yMqsBcigDN_wnyQRzrDhd3WfkG6IIgT1TULxwfg8HT7cyWkPlZqY68Wz3Z2Vo2lChWrLbSPSSj4G_0k4zKdtCz12xcxZw_eVqbUizer4wJJp78LfySjuth7wEsHC9ib6j0-v8N2ZokFMCWUhDK-uAELc5Puup2rLj5Gtg5x81zB_HI_hJ-4LCQvdg7KUCx22zY_P2KNyvNHGRK9x4eQgtRXU6BAFJzaz42wAuN.bnVsbA",
+				"value": "v2.local.VJpEwkyZx20fDPFO8eh0jfGvMFrPZS28521e8ZCVmQVPxXD1tlfS9B_jJigVsjyJemYFch7xh1r-X0uILvbeRrbJAAx1QQLk2U5AKqefci0JISkZHaFDlZSmXpJgABjk6M_uwWRWMYa9-DW1eNL63eUCG-aHa56aDjDpHLFEuFFojadh-MlHLQMN_EqxEEu3Nb769fMD5jGs4-uN82TCm_FiBycbzs7otu54RJmVExzzbPwSK3voJNLHPzUMKACAnTFnMqLS3_3zvTLxj00odmKGRD1vNoCgfZF2QuCPNrmwKtMq3-EDyY257bmm4LLLGY6OZZkeow.bnVsbA",
 				"type": "string"
 			}
 		]
@@ -217,6 +278,10 @@
 			"key": "token",
 			"value": "v2.local.o62lRKtiLvlmXyTRlqfi0KvmavVlVS2O7jR8QUTQjkvPRuQhTKCiULmfgKfPaoyKPSheHJbWJO9UcSjb_8S2UAT5A5O9D8DgVjW-S9yMqsBcigDN_wnyQRzrDhd3WfkG6IIgT1TULxwfg8HT7cyWkPlZqY68Wz3Z2Vo2lChWrLbSPSSj4G_0k4zKdtCz12xcxZw_eVqbUizer4wJJp78LfySjuth7wEsHC9ib6j0-v8N2ZokFMCWUhDK-uAELc5Puup2rLj5Gtg5x81zB_HI_hJ-4LCQvdg7KUCx22zY_P2KNyvNHGRK9x4eQgtRXU6BAFJzaz42wAuN.bnVsbA",
 			"type": "string"
+		},
+		{
+			"key": "address_id",
+			"value": "7dd8f362-3554-4a79-8c24-2c7f650add31"
 		}
 	]
 }
