@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f781d9c4-9168-4de1-b689-8e6b66ff5bed",
+		"_postman_id": "f03ac765-50c8-4710-8625-1c2a08721510",
 		"name": "Digital passport",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "18024335"
@@ -228,6 +228,80 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Create Photo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/tarasov_grigory/Downloads/1737-09-sized.webp"
+						},
+						{
+							"key": "file_name",
+							"value": "SuperAva",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/user/{{user_id}}/photo",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{user_id}}",
+						"photo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Photo",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/tarasov_grigory/Downloads/bitninja.png"
+						},
+						{
+							"key": "external_ref",
+							"value": "SuperAvatar",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/user/{{user_id}}/photo/{{photo_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{user_id}}",
+						"photo",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
@@ -282,6 +356,10 @@
 		{
 			"key": "address_id",
 			"value": "7dd8f362-3554-4a79-8c24-2c7f650add31"
+		},
+		{
+			"key": "photo_id",
+			"value": "55c358e0-5d44-4734-836f-282a97a44455"
 		}
 	]
 }
