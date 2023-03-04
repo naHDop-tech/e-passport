@@ -2,6 +2,10 @@
 SELECT * FROM user_photos
 WHERE id = $1 LIMIT 1;
 
+-- name: GetUserPhotoByFileName :one
+SELECT * FROM user_photos
+WHERE file_name = $1 LIMIT 1;
+
 -- name: CreateUserPhoto :one
 INSERT INTO user_photos
 (file_name, mime_type, url, external_ref, secure_url)

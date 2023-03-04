@@ -10,6 +10,10 @@ import (
 	db "github.com/naHDop-tech/e-passport/db/sqlc"
 )
 
+var (
+	errAddressAlreadyExists = errors.New("user already have address")
+)
+
 type Address struct {
 	repository *db.Store
 }
@@ -36,7 +40,7 @@ func (a *Address) CreateAddress(ctx context.Context, params CreateUserAddressPar
 			return err
 		}
 		if existsUser.AddressID.Valid {
-			return errors.New("user already have address")
+			return errAddressAlreadyExists
 		}
 
 		addressId, err := q.CreateUserAddress(ctx, db.CreateUserAddressParams{

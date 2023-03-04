@@ -28,6 +28,7 @@ type Querier interface {
 	GetUserPhone(ctx context.Context, id uuid.UUID) (UserPhone, error)
 	GetUserPhoneByNumberAndCode(ctx context.Context, arg GetUserPhoneByNumberAndCodeParams) (UserPhone, error)
 	GetUserPhoto(ctx context.Context, id uuid.UUID) (UserPhoto, error)
+	GetUserPhotoByFileName(ctx context.Context, fileName string) (UserPhoto, error)
 	GetUserRole(ctx context.Context, id uuid.UUID) (UserRole, error)
 	ListCountries(ctx context.Context) ([]Country, error)
 	ListNationalities(ctx context.Context) ([]Nationality, error)

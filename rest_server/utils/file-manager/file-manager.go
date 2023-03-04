@@ -26,6 +26,7 @@ type UploaderResult struct {
 type FileManager interface {
 	UploadFile(ctx context.Context, file multipart.File, param uploader.UploadParams) (*UploaderResult, error)
 	GetFile(ctx context.Context, param admin.AssetParams) (*UploaderResult, error)
+	DestroyFile(ctx context.Context, params uploader.DestroyParams) (string, error)
 }
 
 type fileManager struct {
@@ -63,4 +64,15 @@ func (f *fileManager) GetFile(ctx context.Context, param admin.AssetParams) (*Up
 		PublicLink:  asset.URL,
 		ExternalRef: asset.PublicID,
 	}, nil
+}
+
+func (f *fileManager) DestroyFile(ctx context.Context, params uploader.DestroyParams) (string, error) {
+	result, err := f.client.Upload.Destroy(ctx, uploader.DestroyParams{
+		PublicID: params.PublicID,
+	})
+	if err != nil {
+		return "", err
+	}
+
+	return result.Result, nil
 }

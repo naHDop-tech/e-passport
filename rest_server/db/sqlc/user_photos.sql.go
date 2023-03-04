@@ -60,6 +60,27 @@ func (q *Queries) GetUserPhoto(ctx context.Context, id uuid.UUID) (UserPhoto, er
 	return i, err
 }
 
+const getUserPhotoByFileName = `-- name: GetUserPhotoByFileName :one
+SELECT id, file_name, mime_type, url, created_at, updated_at, external_ref, secure_url FROM user_photos
+WHERE file_name = $1 LIMIT 1
+`
+
+func (q *Queries) GetUserPhotoByFileName(ctx context.Context, fileName string) (UserPhoto, error) {
+	row := q.db.QueryRowContext(ctx, getUserPhotoByFileName, fileName)
+	var i UserPhoto
+	err := row.Scan(
+		&i.ID,
+		&i.FileName,
+		&i.MimeType,
+		&i.Url,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.ExternalRef,
+		&i.SecureUrl,
+	)
+	return i, err
+}
+
 const updateUserPhoto = `-- name: UpdateUserPhoto :exec
 UPDATE user_photos
 SET file_name = $1, mime_type = $2, url = $3, updated_at = $4, external_ref = $5, secure_url = $6
