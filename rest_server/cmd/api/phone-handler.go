@@ -83,12 +83,12 @@ func (s *Server) createPhone(ctx *gin.Context) {
 	return
 }
 
-type updateUserPhoneRequest struct {
+type updateUserPhoneRequestBody struct {
 	CountryCode string `json:"country_code" binding:"required,min=1,max=3"`
 	Number      string `json:"number" binding:"required,min=7,max=13"`
 }
 
-type updateUserPhoneRequestIdParam struct {
+type updateUserPhoneRequestQueryParam struct {
 	PhoneId *string `uri:"phone_id" binding:"required,uuid"`
 	UserId  *string `uri:"user_id" binding:"required,uuid"`
 }
@@ -99,7 +99,7 @@ type updatePhoneResponse struct {
 
 func (s *Server) updatePhone(ctx *gin.Context) {
 	var response responser.Response
-	var req updateUserPhoneRequest
+	var req updateUserPhoneRequestBody
 	err := ctx.ShouldBindJSON(&req)
 
 	if err != nil {
@@ -108,7 +108,7 @@ func (s *Server) updatePhone(ctx *gin.Context) {
 		return
 	}
 
-	var reqParams updateUserPhoneRequestIdParam
+	var reqParams updateUserPhoneRequestQueryParam
 	err = ctx.ShouldBindUri(&reqParams)
 	if err != nil {
 		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)

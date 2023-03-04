@@ -8,19 +8,19 @@ import (
 	"github.com/naHDop-tech/e-passport/utils/responser"
 )
 
-type loginRequest struct {
+type loginRequestBody struct {
 	Email    string `json:"email" binding:"required"`
 	Password string `json:"password" binding:"required"`
 }
 
 type loginResponse struct {
 	Token  string `json:"token"`
-	UserId string `json:"userId"`
+	UserId string `json:"user_id"`
 }
 
 func (s *Server) login(ctx *gin.Context) {
 	var response responser.Response
-	var req loginRequest
+	var req loginRequestBody
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)

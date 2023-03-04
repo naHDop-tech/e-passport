@@ -4,9 +4,10 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"time"
+
 	"github.com/google/uuid"
 	db "github.com/naHDop-tech/e-passport/db/sqlc"
-	"time"
 )
 
 type Phone struct {
@@ -53,7 +54,7 @@ func (p *Phone) CreatePhone(ctx context.Context, params CreateUserPhoneParams) e
 
 		err = q.SetPhoneRelation(ctx, db.SetPhoneRelationParams{
 			PhoneID: uuid.NullUUID{UUID: phoneId, Valid: true},
-			ID:      params.UserId,
+			ID:      existsUser.ID,
 		})
 
 		return err
@@ -81,7 +82,7 @@ func (p *Phone) UpdatePhone(ctx context.Context, params UpdateUserPhoneParams) (
 	if err != nil {
 		return err
 	}
-	newPhone := db.UpdateUserPhoneParams{
+	phone := db.UpdateUserPhoneParams{
 		CountryCode: params.CountryCode,
 		Number:      params.Number,
 		UpdatedAt: sql.NullTime{
@@ -91,6 +92,6 @@ func (p *Phone) UpdatePhone(ctx context.Context, params UpdateUserPhoneParams) (
 		ID: params.PhoneId,
 	}
 
-	err = p.repository.UpdateUserPhone(ctx, newPhone)
+	err = p.repository.UpdateUserPhone(ctx, phone)
 	return
 }
