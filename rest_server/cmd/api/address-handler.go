@@ -6,37 +6,38 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"github.com/naHDop-tech/e-passport/domain/phone"
+	"github.com/naHDop-tech/e-passport/domain/address"
 	"github.com/naHDop-tech/e-passport/utils/responser"
 	"github.com/naHDop-tech/e-passport/utils/token"
 )
 
-type createPhoneRequest struct {
-	CountryCode string `json:"country_code" binding:"required,min=1,max=3"`
-	Number      string `json:"number" binding:"required,min=7,max=13"`
+type addressResponse struct {
+	Country string `json:"country" binding:"required,min=3,max=30"`
+	City    string `json:"city" binding:"required,min=3,max=30"`
+	Line1   string `json:"line_1" binding:"required,min=3,max=30"`
+	Line2   string `json:"line_2" binding:"required,min=3,max=30"`
+	Zip     string `json:"zip" binding:"required,min=6,max=6"`
 }
 
-type createPhoneRequestIdParams struct {
+type createAddressRequestParams struct {
 	UserId *string `uri:"user_id" binding:"required,uuid"`
 }
 
-type createPhoneResponse struct {
+type responseStatus struct {
 	Status string `json:"status"`
 }
 
-func (s *Server) createPhone(ctx *gin.Context) {
+func (s *Server) createAddress(ctx *gin.Context) {
 	var response responser.Response
-	var req createPhoneRequest
-	err := ctx.ShouldBindJSON(&req)
-
+	var request addressResponse
+	err := ctx.ShouldBindJSON(&request)
 	if err != nil {
 		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
 		ctx.JSON(response.Status, response)
 		return
 	}
 
-	var reqParams createPhoneRequestIdParams
-
+	var reqParams createAddressRequestParams
 	err = ctx.ShouldBindUri(&reqParams)
 	if err != nil {
 		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
@@ -53,20 +54,22 @@ func (s *Server) createPhone(ctx *gin.Context) {
 	}
 
 	uuidUserID, err := uuid.Parse(*reqParams.UserId)
-
 	if err != nil {
 		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
 		ctx.JSON(response.Status, response)
 		return
 	}
-	arg := phone.CreateUserPhoneParams{
-		UserId:      uuidUserID,
-		CountryCode: req.CountryCode,
-		Number:      req.Number,
+
+	payload := address.CreateUserAddressParams{
+		UserId:  uuidUserID,
+		Country: request.Country,
+		City:    request.City,
+		Line1:   request.Line1,
+		Line2:   request.Line2,
+		Zip:     request.Zip,
 	}
 
-	err = s.phoneDomain.CreatePhone(ctx, arg)
-
+	err = s.addressDomain.CreateAddress(ctx, payload)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			response = s.responser.New(nil, err, responser.API_NOT_FOUND)
@@ -78,29 +81,20 @@ func (s *Server) createPhone(ctx *gin.Context) {
 		return
 	}
 
-	response = s.responser.New(createPhoneResponse{Status: "ok"}, err, responser.API_OK)
+	response = s.responser.New(responseStatus{Status: "ok"}, err, responser.API_OK)
 	ctx.JSON(response.Status, response)
 	return
 }
 
-type updateUserPhoneRequestBody struct {
-	CountryCode string `json:"country_code" binding:"required,min=1,max=3"`
-	Number      string `json:"number" binding:"required,min=7,max=13"`
+type updateAddressRequestParams struct {
+	AddressId *string `uri:"address_id" binding:"required,uuid"`
+	UserId    *string `uri:"user_id" binding:"required,uuid"`
 }
 
-type updateUserPhoneRequestParam struct {
-	PhoneId *string `uri:"phone_id" binding:"required,uuid"`
-	UserId  *string `uri:"user_id" binding:"required,uuid"`
-}
-
-type updatePhoneResponse struct {
-	status string
-}
-
-func (s *Server) updatePhone(ctx *gin.Context) {
+func (s *Server) updateAddress(ctx *gin.Context) {
 	var response responser.Response
-	var req updateUserPhoneRequestBody
-	err := ctx.ShouldBindJSON(&req)
+	var request addressResponse
+	err := ctx.ShouldBindJSON(&request)
 
 	if err != nil {
 		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
@@ -108,7 +102,7 @@ func (s *Server) updatePhone(ctx *gin.Context) {
 		return
 	}
 
-	var reqParams updateUserPhoneRequestParam
+	var reqParams updateAddressRequestParams
 	err = ctx.ShouldBindUri(&reqParams)
 	if err != nil {
 		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
@@ -124,12 +118,13 @@ func (s *Server) updatePhone(ctx *gin.Context) {
 		return
 	}
 
-	uuidPhoneID, err := uuid.Parse(*reqParams.PhoneId)
+	uuidAddressID, err := uuid.Parse(*reqParams.AddressId)
 	if err != nil {
 		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
 		ctx.JSON(response.Status, response)
 		return
 	}
+
 	uuidUserID, err := uuid.Parse(*reqParams.UserId)
 	if err != nil {
 		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
@@ -137,14 +132,17 @@ func (s *Server) updatePhone(ctx *gin.Context) {
 		return
 	}
 
-	arg := phone.UpdateUserPhoneParams{
-		UserId:      uuidUserID,
-		PhoneId:     uuidPhoneID,
-		CountryCode: req.CountryCode,
-		Number:      req.Number,
+	payload := address.UpdateUserAddressParams{
+		UserId:  uuidUserID,
+		ID:      uuidAddressID,
+		Country: request.Country,
+		City:    request.City,
+		Line1:   request.Line1,
+		Line2:   request.Line2,
+		Zip:     request.Zip,
 	}
 
-	err = s.phoneDomain.UpdatePhone(ctx, arg)
+	err = s.addressDomain.UpdateAddress(ctx, payload)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			response = s.responser.New(nil, err, responser.API_NOT_FOUND)
@@ -156,7 +154,7 @@ func (s *Server) updatePhone(ctx *gin.Context) {
 		return
 	}
 
-	response = s.responser.New(createPhoneResponse{Status: "ok"}, err, responser.API_OK)
+	response = s.responser.New(responseStatus{Status: "ok"}, err, responser.API_OK)
 	ctx.JSON(response.Status, response)
 	return
 }

@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/gin-gonic/gin"
+	"github.com/naHDop-tech/e-passport/domain/address"
 	"github.com/naHDop-tech/e-passport/domain/phone"
 	"github.com/naHDop-tech/e-passport/domain/user"
 	"github.com/naHDop-tech/e-passport/services/login"
@@ -14,29 +15,31 @@ import (
 )
 
 type Server struct {
-	router      *gin.Engine
-	tokenMaker  token.Maker
-	connect     *sql.DB
-	config      utils.Config
-	userDomain  *user.User
-	phoneDomain *phone.Phone
-	loginSrv    *login.LoginService
-	responser   responser.Responser
+	router        *gin.Engine
+	tokenMaker    token.Maker
+	connect       *sql.DB
+	config        utils.Config
+	userDomain    *user.User
+	phoneDomain   *phone.Phone
+	addressDomain *address.Address
+	loginSrv      *login.LoginService
+	responser     responser.Responser
 }
 
-func NewServer(conf utils.Config, conn *sql.DB, userDomain *user.User, phoneDomain *phone.Phone, loginSrv *login.LoginService) (*Server, error) {
+func NewServer(conf utils.Config, conn *sql.DB, userDomain *user.User, phoneDomain *phone.Phone, addressDomain *address.Address, loginSrv *login.LoginService) (*Server, error) {
 	tokenMaker, err := token.NewPasetoMaker(conf.TokenSymmetricKey)
 	if err != nil {
 		return nil, fmt.Errorf("cannot create token maker %s", err)
 	}
 	server := &Server{
-		config:      conf,
-		connect:     conn,
-		tokenMaker:  tokenMaker,
-		userDomain:  userDomain,
-		phoneDomain: phoneDomain,
-		loginSrv:    loginSrv,
-		responser:   responser.NewResponser(),
+		config:        conf,
+		connect:       conn,
+		tokenMaker:    tokenMaker,
+		userDomain:    userDomain,
+		phoneDomain:   phoneDomain,
+		addressDomain: addressDomain,
+		loginSrv:      loginSrv,
+		responser:     responser.NewResponser(),
 	}
 
 	server.setupRouter()

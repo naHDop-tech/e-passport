@@ -8,6 +8,7 @@ import (
 
 	_ "github.com/lib/pq"
 	"github.com/naHDop-tech/e-passport/cmd/api"
+	"github.com/naHDop-tech/e-passport/domain/address"
 	"github.com/naHDop-tech/e-passport/domain/phone"
 	"github.com/naHDop-tech/e-passport/domain/user"
 	"github.com/naHDop-tech/e-passport/services/login"
@@ -37,8 +38,9 @@ func main() {
 
 	userDomain := user.NewUser(conn)
 	phoneDomain := phone.NewPhone(conn)
+	addressDomain := address.NewAddress(conn)
 	loginSrv := login.NewLoginService(userDomain, conf)
-	server, err := api.NewServer(conf, conn, userDomain, phoneDomain, loginSrv)
+	server, err := api.NewServer(conf, conn, userDomain, phoneDomain, addressDomain, loginSrv)
 	if err != nil {
 		log.Fatal("Server has not configured", err)
 	}
