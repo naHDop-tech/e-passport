@@ -19,14 +19,6 @@ type addressResponse struct {
 	Zip     string `json:"zip" binding:"required,min=6,max=6"`
 }
 
-type createAddressRequestParams struct {
-	UserId *string `uri:"user_id" binding:"required,uuid"`
-}
-
-type responseStatus struct {
-	Status string `json:"status"`
-}
-
 func (s *Server) createAddress(ctx *gin.Context) {
 	var response responser.Response
 	var request addressResponse
@@ -37,7 +29,7 @@ func (s *Server) createAddress(ctx *gin.Context) {
 		return
 	}
 
-	var reqParams createAddressRequestParams
+	var reqParams userIdRequestParams
 	err = ctx.ShouldBindUri(&reqParams)
 	if err != nil {
 		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)

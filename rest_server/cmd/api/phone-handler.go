@@ -16,14 +16,6 @@ type createPhoneRequest struct {
 	Number      string `json:"number" binding:"required,min=7,max=13"`
 }
 
-type createPhoneRequestIdParams struct {
-	UserId *string `uri:"user_id" binding:"required,uuid"`
-}
-
-type createPhoneResponse struct {
-	Status string `json:"status"`
-}
-
 func (s *Server) createPhone(ctx *gin.Context) {
 	var response responser.Response
 	var req createPhoneRequest
@@ -35,7 +27,7 @@ func (s *Server) createPhone(ctx *gin.Context) {
 		return
 	}
 
-	var reqParams createPhoneRequestIdParams
+	var reqParams userIdRequestParams
 
 	err = ctx.ShouldBindUri(&reqParams)
 	if err != nil {
@@ -78,7 +70,7 @@ func (s *Server) createPhone(ctx *gin.Context) {
 		return
 	}
 
-	response = s.responser.New(createPhoneResponse{Status: "ok"}, err, responser.API_OK)
+	response = s.responser.New(responseStatus{Status: "ok"}, err, responser.API_OK)
 	ctx.JSON(response.Status, response)
 	return
 }
@@ -156,7 +148,7 @@ func (s *Server) updatePhone(ctx *gin.Context) {
 		return
 	}
 
-	response = s.responser.New(createPhoneResponse{Status: "ok"}, err, responser.API_OK)
+	response = s.responser.New(responseStatus{Status: "ok"}, err, responser.API_OK)
 	ctx.JSON(response.Status, response)
 	return
 }

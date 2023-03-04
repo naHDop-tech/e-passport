@@ -21,7 +21,7 @@ INSERT INTO "user_sex" VALUES
     ('Unset');
 
 INSERT INTO "countries" VALUES
-    ('USA', 'United States Of America')
+    ('USA', 'United States Of America');
 
 INSERT INTO "nationalities" (code,alpha_2,alpha_3,nationality) VALUES (0,'UT','UTO','Utopian');
 INSERT INTO "nationalities" (code,alpha_2,alpha_3,nationality) VALUES (4,'AF','AFG','Afghan');

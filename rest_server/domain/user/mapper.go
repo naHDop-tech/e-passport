@@ -11,8 +11,10 @@ type ClearPhone struct {
 }
 
 type ClearPhoto struct {
-	PhotoID string `json:"photo_id"`
-	Url     string `json:"url"`
+	PhotoID    string `json:"photo_id"`
+	Url        string `json:"url"`
+	ExternalId string `json:"external_id"`
+	SecureUrl  string `json:"secure_url"`
 }
 
 type ClearFingerPrint struct {
@@ -110,8 +112,10 @@ func (u *User) MarshallToStruct(rawUser *db.GetUserByIdRow) *ClearUser {
 			Number:      rawUser.PhoneNumber.String,
 		},
 		Photo: ClearPhoto{
-			PhotoID: rawUser.PhotoID.UUID.String(),
-			Url:     rawUser.PhotoUrl.String,
+			PhotoID:    rawUser.PhotoID.UUID.String(),
+			Url:        rawUser.PhotoUrl.String,
+			SecureUrl:  rawUser.PhotoSecureUrl.String,
+			ExternalId: rawUser.PhotoExternalRef.String,
 		},
 		Address: ClearAddress{
 			AddressID: rawUser.AddressID.UUID.String(),

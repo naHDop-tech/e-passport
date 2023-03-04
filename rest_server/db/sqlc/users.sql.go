@@ -62,6 +62,8 @@ SELECT
     upn.number as "phone_number",
     upt.id as "photo_id",
     upt.url as "photo_url",
+    upt.secure_url as "photo_secure_url",
+    upt.external_ref as "photo_external_ref",
     up.id as "passport_id",
     up.country_code as "passport_country_code",
     up.issuing_organization,
@@ -111,6 +113,8 @@ type GetUserByEmailRow struct {
 	PhoneNumber            sql.NullString `json:"phone_number"`
 	PhotoID                uuid.NullUUID  `json:"photo_id"`
 	PhotoUrl               sql.NullString `json:"photo_url"`
+	PhotoSecureUrl         sql.NullString `json:"photo_secure_url"`
+	PhotoExternalRef       sql.NullString `json:"photo_external_ref"`
 	PassportID             uuid.NullUUID  `json:"passport_id"`
 	PassportCountryCode    sql.NullString `json:"passport_country_code"`
 	IssuingOrganization    sql.NullString `json:"issuing_organization"`
@@ -154,6 +158,8 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (GetUserByEm
 		&i.PhoneNumber,
 		&i.PhotoID,
 		&i.PhotoUrl,
+		&i.PhotoSecureUrl,
+		&i.PhotoExternalRef,
 		&i.PassportID,
 		&i.PassportCountryCode,
 		&i.IssuingOrganization,
@@ -197,6 +203,8 @@ SELECT
     upn.number as "phone_number",
     upt.id as "photo_id",
     upt.url as "photo_url",
+    upt.secure_url as "photo_secure_url",
+    upt.external_ref as "photo_external_ref",
     up.id as "passport_id",
     up.country_code as "passport_country_code",
     up.issuing_organization,
@@ -246,6 +254,8 @@ type GetUserByIdRow struct {
 	PhoneNumber            sql.NullString `json:"phone_number"`
 	PhotoID                uuid.NullUUID  `json:"photo_id"`
 	PhotoUrl               sql.NullString `json:"photo_url"`
+	PhotoSecureUrl         sql.NullString `json:"photo_secure_url"`
+	PhotoExternalRef       sql.NullString `json:"photo_external_ref"`
 	PassportID             uuid.NullUUID  `json:"passport_id"`
 	PassportCountryCode    sql.NullString `json:"passport_country_code"`
 	IssuingOrganization    sql.NullString `json:"issuing_organization"`
@@ -289,6 +299,8 @@ func (q *Queries) GetUserById(ctx context.Context, id uuid.UUID) (GetUserByIdRow
 		&i.PhoneNumber,
 		&i.PhotoID,
 		&i.PhotoUrl,
+		&i.PhotoSecureUrl,
+		&i.PhotoExternalRef,
 		&i.PassportID,
 		&i.PassportCountryCode,
 		&i.IssuingOrganization,

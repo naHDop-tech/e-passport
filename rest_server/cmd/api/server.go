@@ -28,6 +28,14 @@ type Server struct {
 	responser     responser.Responser
 }
 
+type userIdRequestParams struct {
+	UserId *string `uri:"user_id" binding:"required,uuid"`
+}
+
+type responseStatus struct {
+	Status string `json:"status"`
+}
+
 func NewServer(conf utils.Config, conn *sql.DB, fileManager file_manager.FileManager, userDomain *user.User, phoneDomain *phone.Phone, addressDomain *address.Address, loginSrv *login.LoginService) (*Server, error) {
 	tokenMaker, err := token.NewPasetoMaker(conf.TokenSymmetricKey)
 	if err != nil {
