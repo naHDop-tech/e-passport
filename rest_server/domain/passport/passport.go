@@ -35,9 +35,10 @@ func NewPassport(conn *sql.DB, identificator passport.IdetificatorResolver) Pass
 }
 
 type CreatePassportParams struct {
-	db.CreateUserPassportParams
-	UserId    uuid.UUID
-	PublicKey string
+	CountryCode  string    `json:"country_code"`
+	PlaceOfBirth string    `json:"place_of_birth"`
+	UserId       uuid.UUID `json:"user_id"`
+	PublicKey    string    `json:"public_key"`
 }
 
 func (p *Passport) Create(ctx context.Context, payload CreatePassportParams) (uuid.UUID, error) {
@@ -66,9 +67,9 @@ func (p *Passport) Create(ctx context.Context, payload CreatePassportParams) (uu
 		expirationDate := today.AddDate(10, 0, 0)
 
 		mrzLines, err := p.identificator.MachineReadableZoneLines(passport.MRZZLinesParams{
-			Type:           payload.Type,
+			Type:           "P",
 			Sex:            existsUser.Sex.String,
-			CountryCode:    payload.CountryCode.String,
+			CountryCode:    payload.CountryCode,
 			FirstName:      existsUser.FirstName.String,
 			LastName:       existsUser.LastName.String,
 			PNumber:        pNumber,
@@ -87,8 +88,8 @@ func (p *Passport) Create(ctx context.Context, payload CreatePassportParams) (uu
 		}
 
 		passportId, err = q.CreateUserPassport(ctx, db.CreateUserPassportParams{
-			CountryCode:         payload.CountryCode,
-			IssuingOrganization: payload.IssuingOrganization,
+			CountryCode:         sql.NullString{Valid: true, String: payload.CountryCode},
+			IssuingOrganization: "Digital Documents LLC",
 			MrzL1:               mrzLines.MrzL1,
 			MrzL2:               mrzLines.MrzL2,
 			UNumber:             *uNumber,
@@ -96,8 +97,13 @@ func (p *Passport) Create(ctx context.Context, payload CreatePassportParams) (uu
 			IssueDate:           today,
 			ExpirationDate:      expirationDate,
 			PlaceOfBirth:        existsUser.PlaceOfBirth.String,
-			Type:                payload.Type,
+			Type:                "P",
 			FingerPrintID:       uuid.NullUUID{Valid: true, UUID: pfId},
+		})
+
+		err = q.SetPassportRelation(ctx, db.SetPassportRelationParams{
+			PassportID: uuid.NullUUID{Valid: true, UUID: passportId},
+			ID:         existsUser.ID,
 		})
 		return err
 	})
@@ -106,9 +112,11 @@ func (p *Passport) Create(ctx context.Context, payload CreatePassportParams) (uu
 }
 
 type UpdatePassportParams struct {
-	db.UpdateUserPassportParams
-	UserId    uuid.UUID
-	PublicKey string
+	CountryCode  string    `json:"country_code"`
+	PlaceOfBirth string    `json:"place_of_birth"`
+	UserId       uuid.UUID `json:"user_id"`
+	PublicKey    string    `json:"public_key"`
+	PassportId   uuid.UUID `json:"passport_id"`
 }
 
 func (p *Passport) Update(ctx context.Context, payload UpdatePassportParams) error {
@@ -123,26 +131,24 @@ func (p *Passport) Update(ctx context.Context, payload UpdatePassportParams) err
 		if !existsUser.PassportID.Valid {
 			return errPassportNotExists
 		}
-		existsPassport, err := p.repository.GetUserPassport(ctx, payload.ID)
+		existsPassport, err := p.repository.GetUserPassport(ctx, payload.PassportId)
 		if err != nil {
 			return err
 		}
 
-		if len(payload.PublicKey) > 1 {
-			err = q.UpdateFingerPrint(ctx, db.UpdateFingerPrintParams{
-				PublicKey: payload.PublicKey,
-				UpdatedAt: sql.NullTime{Valid: true, Time: time.Now()},
-				ID:        payload.ID,
-			})
-			if err != nil {
-				return err
-			}
+		err = q.UpdateFingerPrint(ctx, db.UpdateFingerPrintParams{
+			PublicKey: payload.PublicKey,
+			UpdatedAt: sql.NullTime{Valid: true, Time: time.Now()},
+			ID:        payload.PassportId,
+		})
+		if err != nil {
+			return err
 		}
 
 		mrzLines, err := p.identificator.MachineReadableZoneLines(passport.MRZZLinesParams{
 			Type:           existsPassport.Type,
 			Sex:            existsUser.Sex.String,
-			CountryCode:    payload.CountryCode.String,
+			CountryCode:    payload.CountryCode,
 			FirstName:      existsUser.FirstName.String,
 			LastName:       existsUser.LastName.String,
 			PNumber:        existsPassport.PNumber,
@@ -159,7 +165,7 @@ func (p *Passport) Update(ctx context.Context, payload UpdatePassportParams) err
 		expirationDate := today.AddDate(10, 0, 0)
 
 		err = q.UpdateUserPassport(ctx, db.UpdateUserPassportParams{
-			CountryCode:         payload.CountryCode,
+			CountryCode:         sql.NullString{Valid: true, String: payload.CountryCode},
 			IssuingOrganization: existsPassport.IssuingOrganization,
 			MrzL1:               mrzLines.MrzL1,
 			MrzL2:               mrzLines.MrzL2,

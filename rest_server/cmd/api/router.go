@@ -19,10 +19,12 @@ func (s *Server) setupRouter() {
 		v1AuthGroupRoute.POST("/user/:user_id/phone", s.createPhone)
 		v1AuthGroupRoute.POST("/user/:user_id/address", s.createAddress)
 		v1AuthGroupRoute.POST("/user/:user_id/photo", s.uploadPhoto)
+		v1AuthGroupRoute.POST("/user/:user_id/passport", s.createPassport)
 
 		v1AuthGroupRoute.PATCH("/user/:user_id/phone/:phone_id", s.updatePhone)
 		v1AuthGroupRoute.PATCH("/user/:user_id/address/:address_id", s.updateAddress)
 		v1AuthGroupRoute.PATCH("/user/:user_id/photo/:photo_id", s.updatePhoto)
+		v1AuthGroupRoute.PATCH("/user/:user_id/passport/:passport_id", s.updatePassport)
 	}
 
 	s.router = router

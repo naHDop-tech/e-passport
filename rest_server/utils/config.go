@@ -20,7 +20,6 @@ type Config struct {
 	FileCloudApiName    string        `mapstructure:"CLOUDINARY_API_NAME"`
 	FileCloudApiKey     string        `mapstructure:"CLOUDINARY_API_KEY"`
 	FileCloudApiSecret  string        `mapstructure:"CLOUDINARY_API_SECRET"`
-	CloudinaryUrl       string        `mapstructure:"CLOUDINARY_URL"`
 }
 
 func LoadConfig(path string) (config Config, err error) {
