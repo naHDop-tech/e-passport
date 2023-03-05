@@ -80,7 +80,3 @@ func (s *Server) Start(address string) error {
 func errorResponse(err error) gin.H {
 	return gin.H{"error": err.Error()}
 }
-
-func successResponse(data any) gin.H {
-	return gin.H{"data": data}
-}

@@ -11,9 +11,9 @@ import (
 )
 
 type createPassportParams struct {
-	CountryCode  string `json:"country_code" binding:"required, min=3"`
-	PlaceOfBirth string `json:"place_of_birth" binding:"required, min=10"`
-	PublicKey    string `json:"public_key" binding:"required, min=20"`
+	CountryCode  string `json:"country_code" binding:"required,min=3"`
+	PlaceOfBirth string `json:"place_of_birth" binding:"required,min=10"`
+	PublicKey    string `json:"public_key" binding:"required,min=20"`
 }
 
 func (s *Server) createPassport(ctx *gin.Context) {

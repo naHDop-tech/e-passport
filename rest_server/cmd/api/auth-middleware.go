@@ -2,10 +2,11 @@ package api
 
 import (
 	"errors"
-	"github.com/gin-gonic/gin"
-	"github.com/naHDop-tech/e-passport/utils/token"
 	"net/http"
 	"strings"
+
+	"github.com/gin-gonic/gin"
+	"github.com/naHDop-tech/e-passport/utils/token"
 )
 
 const (
