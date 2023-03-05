@@ -90,6 +90,22 @@ func (q *Queries) GetUserPassport(ctx context.Context, id uuid.UUID) (UserPasspo
 	return i, err
 }
 
+const setFingerPrintRelation = `-- name: SetFingerPrintRelation :exec
+UPDATE user_passports
+SET finger_print_id = $1
+WHERE id = $2
+`
+
+type SetFingerPrintRelationParams struct {
+	FingerPrintID uuid.NullUUID `json:"finger_print_id"`
+	ID            uuid.UUID     `json:"id"`
+}
+
+func (q *Queries) SetFingerPrintRelation(ctx context.Context, arg SetFingerPrintRelationParams) error {
+	_, err := q.db.ExecContext(ctx, setFingerPrintRelation, arg.FingerPrintID, arg.ID)
+	return err
+}
+
 const updateUserPassport = `-- name: UpdateUserPassport :exec
 UPDATE user_passports SET
     country_code = $1,

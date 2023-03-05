@@ -124,3 +124,8 @@ WHERE id = $2;
 UPDATE users
 SET photo_id = $1
 WHERE id = $2;
+
+-- name: SetPassportRelation :exec
+UPDATE users
+SET passport_id = $1
+WHERE id = $2;

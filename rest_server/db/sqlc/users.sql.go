@@ -334,6 +334,22 @@ func (q *Queries) SetAddressRelation(ctx context.Context, arg SetAddressRelation
 	return err
 }
 
+const setPassportRelation = `-- name: SetPassportRelation :exec
+UPDATE users
+SET passport_id = $1
+WHERE id = $2
+`
+
+type SetPassportRelationParams struct {
+	PassportID uuid.NullUUID `json:"passport_id"`
+	ID         uuid.UUID     `json:"id"`
+}
+
+func (q *Queries) SetPassportRelation(ctx context.Context, arg SetPassportRelationParams) error {
+	_, err := q.db.ExecContext(ctx, setPassportRelation, arg.PassportID, arg.ID)
+	return err
+}
+
 const setPhoneRelation = `-- name: SetPhoneRelation :exec
 UPDATE users
 SET phone_id = $1

@@ -24,7 +24,7 @@ type Server struct {
 	userDomain    *user.User
 	phoneDomain   *phone.Phone
 	addressDomain *address.Address
-	photoDomain   photo.Resolver
+	photoDomain   photo.PhotoResolver
 	loginSrv      *login.LoginService
 	fileManager   file_manager.FileManager
 	responser     responser.Responser
@@ -45,7 +45,7 @@ func NewServer(
 	userDomain *user.User,
 	phoneDomain *phone.Phone,
 	addressDomain *address.Address,
-	photoDomain photo.Resolver,
+	photoDomain photo.PhotoResolver,
 	loginSrv *login.LoginService,
 ) (*Server, error) {
 	tokenMaker, err := token.NewPasetoMaker(conf.TokenSymmetricKey)

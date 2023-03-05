@@ -19,7 +19,7 @@ var (
 	errFileRelatedToOtherUser = errors.New("this photo id related to other user")
 )
 
-type Resolver interface {
+type PhotoResolver interface {
 	UploadFile(ctx context.Context, file multipart.File, params uploader.UploadParams, userId uuid.UUID) error
 	UpdateFile(ctx context.Context, file multipart.File, params uploader.UploadParams, userId uuid.UUID, photoId uuid.UUID) error
 }
@@ -29,7 +29,7 @@ type Photo struct {
 	fileManager file_manager.FileManager
 }
 
-func NewPhoto(conn *sql.DB, fileManager file_manager.FileManager) Resolver {
+func NewPhoto(conn *sql.DB, fileManager file_manager.FileManager) PhotoResolver {
 	return &Photo{
 		repository:  db.NewStore(conn),
 		fileManager: fileManager,
@@ -45,10 +45,12 @@ func (p *Photo) UploadFile(ctx context.Context, file multipart.File, params uplo
 		if existsUser.PhotoID.Valid {
 			return errFileAlreadyExists
 		}
+
 		uploadedFile, err := p.fileManager.UploadFile(ctx, file, params)
 		if err != nil {
 			return err
 		}
+
 		fileId, err := q.CreateUserPhoto(ctx, db.CreateUserPhotoParams{
 			FileName:    uploadedFile.ExternalRef,
 			MimeType:    "empty",
@@ -59,6 +61,7 @@ func (p *Photo) UploadFile(ctx context.Context, file multipart.File, params uplo
 		if err != nil {
 			return err
 		}
+
 		err = q.SetPhotoRelation(ctx, db.SetPhotoRelationParams{
 			PhotoID: uuid.NullUUID{Valid: true, UUID: fileId},
 			ID:      existsUser.ID,
@@ -84,13 +87,16 @@ func (p *Photo) UpdateFile(
 	if existsUser.PhotoID.UUID != photoId {
 		return errFileRelatedToOtherUser
 	}
+
 	destroyFile, err := p.fileManager.DestroyFile(ctx, uploader.DestroyParams{
 		PublicID: existsUser.PhotoExternalRef.String,
 	})
 	if err != nil {
 		return err
 	}
+
 	fmt.Println("Previous file has destroyed:", destroyFile)
+
 	uploadedFile, err := p.fileManager.UploadFile(ctx, file, params)
 	if err != nil {
 		return err

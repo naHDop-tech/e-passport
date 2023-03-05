@@ -33,3 +33,8 @@ UPDATE user_passports SET
     finger_print_id = $11,
     updated_at = $12
 WHERE id = $13;
+
+-- name: SetFingerPrintRelation :exec
+UPDATE user_passports
+SET finger_print_id = $1
+WHERE id = $2;
