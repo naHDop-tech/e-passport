@@ -54,14 +54,11 @@ func (p *Passport) Create(ctx context.Context, payload CreatePassportParams) (uu
 		}
 
 		pNumber := p.identificator.PassportNumber()
-		uNumber, err := p.identificator.UserNumber(passport.UserNumberParams{
+		uNumber := p.identificator.UserNumber(passport.UserNumberParams{
 			FirstName:    existsUser.FirstName.String,
 			LastName:     existsUser.LastName.String,
 			PlaceOfBirth: payload.PlaceOfBirth,
 		})
-		if err != nil {
-			return err
-		}
 
 		today := time.Now()
 		expirationDate := today.AddDate(10, 0, 0)
@@ -73,7 +70,7 @@ func (p *Passport) Create(ctx context.Context, payload CreatePassportParams) (uu
 			FirstName:      existsUser.FirstName.String,
 			LastName:       existsUser.LastName.String,
 			PNumber:        pNumber,
-			UNumber:        *uNumber,
+			UNumber:        uNumber,
 			Nationality:    existsUser.Nationality.String,
 			ExpirationDate: expirationDate,
 			DateOfBirth:    existsUser.BirthDate.Time,
@@ -92,7 +89,7 @@ func (p *Passport) Create(ctx context.Context, payload CreatePassportParams) (uu
 			IssuingOrganization: "Digital Documents LLC",
 			MrzL1:               mrzLines.MrzL1,
 			MrzL2:               mrzLines.MrzL2,
-			UNumber:             *uNumber,
+			UNumber:             uNumber,
 			PNumber:             pNumber,
 			IssueDate:           today,
 			ExpirationDate:      expirationDate,
