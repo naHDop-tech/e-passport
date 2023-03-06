@@ -11,7 +11,7 @@ import (
 	"github.com/naHDop-tech/e-passport/utils/token"
 )
 
-type addressResponse struct {
+type addressRequest struct {
 	Country string `json:"country" binding:"required,min=3,max=30"`
 	City    string `json:"city" binding:"required,min=3,max=30"`
 	Line1   string `json:"line_1" binding:"required,min=3,max=30"`
@@ -21,7 +21,7 @@ type addressResponse struct {
 
 func (s *Server) createAddress(ctx *gin.Context) {
 	var response responser.Response
-	var request addressResponse
+	var request addressRequest
 	err := ctx.ShouldBindJSON(&request)
 	if err != nil {
 		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
@@ -85,7 +85,7 @@ type updateAddressRequestParams struct {
 
 func (s *Server) updateAddress(ctx *gin.Context) {
 	var response responser.Response
-	var request addressResponse
+	var request addressRequest
 	err := ctx.ShouldBindJSON(&request)
 	if err != nil {
 		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
