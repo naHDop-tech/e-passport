@@ -69,7 +69,7 @@ func NewServer(
 		responser:      responser.NewResponser(),
 	}
 
-	server.setupRouter()
+	server.SetupRouter()
 	return server, nil
 }
 

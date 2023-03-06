@@ -24,10 +24,10 @@ func main() {
 	if err != nil {
 		log.Fatal("Could not read from config:", err)
 	}
-	DbPort, _ := strconv.Atoi(conf.DBPort)
+	dbPort, _ := strconv.Atoi(conf.DBPort)
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",
-		conf.DBHost, DbPort, conf.DBUser, conf.DBPassword, conf.DBName)
+		conf.DBHost, dbPort, conf.DBUser, conf.DBPassword, conf.DBName)
 
 	conn, err := sql.Open(conf.DBDriver, psqlInfo)
 	if err != nil {

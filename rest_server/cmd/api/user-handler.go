@@ -20,10 +20,6 @@ type createUserRequest struct {
 	Password string `json:"password" binding:"required,min=6"`
 }
 
-type UserResponse struct {
-	user db.CreateUserRow
-}
-
 type responseNewUser struct {
 	ID    uuid.UUID `json:"id"`
 	Email string    `json:"email"`
