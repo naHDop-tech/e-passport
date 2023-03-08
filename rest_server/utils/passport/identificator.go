@@ -1,7 +1,8 @@
 package passport
 
 import (
-	"crypto/sha256"
+	"crypto/md5"
+	"encoding/hex"
 	"errors"
 	"fmt"
 	"math/rand"
@@ -57,7 +58,7 @@ const MrzLineLimitLen = 44
 func (i *identificator) UserNumber(params UserNumberParams) string {
 	lastFirstName := fmt.Sprintf("%s%s", params.FirstName, params.LastName)
 	hash := i.HashWithLen(lastFirstName, 8)
-	userNumber := fmt.Sprintf("%s%s", params.PlaceOfBirth[0:2], strings.ToUpper(hash))
+	userNumber := fmt.Sprintf("%s%s", strings.ToUpper(params.PlaceOfBirth[0:2]), strings.ToUpper(hash))
 	return userNumber
 }
 
@@ -120,10 +121,8 @@ func (i *identificator) MachineReadableZoneLines(payload MRZZLinesParams) (*MRZL
 }
 
 func (i *identificator) HashWithLen(str string, len int) string {
-	h := sha256.New()
-	h.Write([]byte(str))
-
-	return string(h.Sum(nil))[:len]
+	hash := md5.Sum([]byte(str))
+	return hex.EncodeToString(hash[:])[0:len]
 }
 
 func (i *identificator) RandomInt(min int, max int) int {

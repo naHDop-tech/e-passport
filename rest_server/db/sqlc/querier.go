@@ -20,6 +20,7 @@ type Querier interface {
 	CreateUserPhoto(ctx context.Context, arg CreateUserPhotoParams) (uuid.UUID, error)
 	CreateUserRole(ctx context.Context, arg CreateUserRoleParams) (uuid.UUID, error)
 	GetFingerPrint(ctx context.Context, id uuid.UUID) (PassportFingerPrint, error)
+	GetNationality(ctx context.Context, code int32) (Nationality, error)
 	GetRoleClass(ctx context.Context, class string) (RoleClass, error)
 	GetUserAddress(ctx context.Context, id uuid.UUID) (UserAddress, error)
 	GetUserByEmail(ctx context.Context, email string) (GetUserByEmailRow, error)

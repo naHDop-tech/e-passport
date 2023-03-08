@@ -71,7 +71,7 @@ func (p *Passport) Create(ctx context.Context, payload CreatePassportParams) (uu
 			LastName:       existsUser.LastName.String,
 			PNumber:        pNumber,
 			UNumber:        uNumber,
-			Nationality:    existsUser.Nationality.String,
+			Nationality:    existsUser.Alpha3.String,
 			ExpirationDate: expirationDate,
 			DateOfBirth:    existsUser.BirthDate.Time,
 		})
@@ -142,6 +142,12 @@ func (p *Passport) Update(ctx context.Context, payload UpdatePassportParams) err
 			return err
 		}
 
+		uNumber := p.identificator.UserNumber(passport.UserNumberParams{
+			FirstName:    existsUser.FirstName.String,
+			LastName:     existsUser.LastName.String,
+			PlaceOfBirth: payload.PlaceOfBirth,
+		})
+
 		mrzLines, err := p.identificator.MachineReadableZoneLines(passport.MRZZLinesParams{
 			Type:           existsPassport.Type,
 			Sex:            existsUser.Sex.String,
@@ -149,8 +155,8 @@ func (p *Passport) Update(ctx context.Context, payload UpdatePassportParams) err
 			FirstName:      existsUser.FirstName.String,
 			LastName:       existsUser.LastName.String,
 			PNumber:        existsPassport.PNumber,
-			UNumber:        existsPassport.UNumber,
-			Nationality:    existsUser.Nationality.String,
+			UNumber:        uNumber,
+			Nationality:    existsUser.Alpha3.String,
 			ExpirationDate: existsPassport.ExpirationDate,
 			DateOfBirth:    existsUser.BirthDate.Time,
 		})
@@ -166,7 +172,7 @@ func (p *Passport) Update(ctx context.Context, payload UpdatePassportParams) err
 			IssuingOrganization: existsPassport.IssuingOrganization,
 			MrzL1:               mrzLines.MrzL1,
 			MrzL2:               mrzLines.MrzL2,
-			UNumber:             existsPassport.UNumber,
+			UNumber:             uNumber,
 			PNumber:             existsPassport.PNumber,
 			IssueDate:           today,
 			ExpirationDate:      expirationDate,

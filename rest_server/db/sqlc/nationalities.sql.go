@@ -9,6 +9,23 @@ import (
 	"context"
 )
 
+const getNationality = `-- name: GetNationality :one
+SELECT code, alpha_2, alpha_3, nationality FROM nationalities
+WHERE code = $1 LIMIT 1
+`
+
+func (q *Queries) GetNationality(ctx context.Context, code int32) (Nationality, error) {
+	row := q.db.QueryRowContext(ctx, getNationality, code)
+	var i Nationality
+	err := row.Scan(
+		&i.Code,
+		&i.Alpha2,
+		&i.Alpha3,
+		&i.Nationality,
+	)
+	return i, err
+}
+
 const listNationalities = `-- name: ListNationalities :many
 SELECT code, alpha_2, alpha_3, nationality FROM nationalities
 ORDER BY alpha_2
