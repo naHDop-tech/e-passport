@@ -1,0 +1,62 @@
+package api
+
+import (
+	"database/sql"
+	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/naHDop-tech/e-passport/utils/responser"
+)
+
+type loginRequestBody struct {
+	Email    string `json:"email" binding:"required"`
+	Password string `json:"password" binding:"required"`
+}
+
+type loginResponse struct {
+	Token  string `json:"token"`
+	UserId string `json:"user_id"`
+}
+
+func (s *Server) login(ctx *gin.Context) {
+	var response responser.Response
+	var req loginRequestBody
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		response = s.responser.New(nil, err, responser.API_BAD_REQUEST)
+		ctx.JSON(response.Status, response)
+		return
+	}
+
+	token, err := s.loginSrv.Login(ctx, struct {
+		Email         string
+		Password      string
+		TokenDuration time.Duration
+	}{Email: req.Email, Password: req.Password, TokenDuration: s.config.AccessTokenDuration})
+	if err != nil {
+		if err == sql.ErrNoRows {
+			response = s.responser.New(nil, err, responser.API_NOT_FOUND)
+			ctx.JSON(response.Status, response)
+			return
+		}
+		response = s.responser.New(nil, err, responser.API_FAIL)
+		ctx.JSON(response.Status, response)
+		return
+	}
+
+	user, err := s.userDomain.GetUserByEmail(ctx, req.Email)
+	if err != nil {
+		response = s.responser.New(nil, err, responser.API_NOT_FOUND)
+		ctx.JSON(response.Status, response)
+		return
+	}
+
+	result := loginResponse{
+		Token:  token,
+		UserId: user.ID.String(),
+	}
+
+	response = s.responser.New(result, err, responser.API_OK)
+	ctx.JSON(response.Status, response)
+	return
+}

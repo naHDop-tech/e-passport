@@ -1,5 +1,5 @@
 docker run -d \
- --name di-passport-mysql \
+ --name di-passport \
  -e POSTGRES_PASSWORD=1qaz2wsx \
  -e POSTGRES_DB=di-passport-db \
  -e POSTGRES_USER=di-passport-user \
