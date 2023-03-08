@@ -49,6 +49,7 @@ SELECT
     un.code as "nationality_code",
     un.alpha_2,
     un.alpha_3,
+    ur.id as "role_id",
     ur.name as "role_name",
     ur.class as "role_class",
     ua.id as "address_id",
@@ -100,6 +101,7 @@ type GetUserByEmailRow struct {
 	NationalityCode        sql.NullInt32  `json:"nationality_code"`
 	Alpha2                 sql.NullString `json:"alpha_2"`
 	Alpha3                 sql.NullString `json:"alpha_3"`
+	RoleID                 uuid.NullUUID  `json:"role_id"`
 	RoleName               sql.NullString `json:"role_name"`
 	RoleClass              sql.NullString `json:"role_class"`
 	AddressID              uuid.NullUUID  `json:"address_id"`
@@ -145,6 +147,7 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (GetUserByEm
 		&i.NationalityCode,
 		&i.Alpha2,
 		&i.Alpha3,
+		&i.RoleID,
 		&i.RoleName,
 		&i.RoleClass,
 		&i.AddressID,
@@ -190,6 +193,7 @@ SELECT
     un.code as "nationality_code",
     un.alpha_2,
     un.alpha_3,
+    ur.id as "role_id",
     ur.name as "role_name",
     ur.class as "role_class",
     ua.id as "address_id",
@@ -241,6 +245,7 @@ type GetUserByIdRow struct {
 	NationalityCode        sql.NullInt32  `json:"nationality_code"`
 	Alpha2                 sql.NullString `json:"alpha_2"`
 	Alpha3                 sql.NullString `json:"alpha_3"`
+	RoleID                 uuid.NullUUID  `json:"role_id"`
 	RoleName               sql.NullString `json:"role_name"`
 	RoleClass              sql.NullString `json:"role_class"`
 	AddressID              uuid.NullUUID  `json:"address_id"`
@@ -286,6 +291,7 @@ func (q *Queries) GetUserById(ctx context.Context, id uuid.UUID) (GetUserByIdRow
 		&i.NationalityCode,
 		&i.Alpha2,
 		&i.Alpha3,
+		&i.RoleID,
 		&i.RoleName,
 		&i.RoleClass,
 		&i.AddressID,

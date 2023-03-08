@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"time"
 
 	"github.com/google/uuid"
 	"github.com/naHDop-tech/e-passport/db/sqlc"
@@ -37,11 +38,22 @@ func (u *User) UpdateUser(ctx context.Context, params db.UpdateUserParams) error
 	if user.ID != params.ID {
 		return errors.New("user not exists")
 	}
-	err = u.repository.UpdateUser(ctx, params)
-	if err != nil {
+	err = u.repository.ExecTx(ctx, func(q *db.Queries) error {
+		if user.RoleClass.String == "Draft" {
+			err = q.UpdateUserRole(ctx, db.UpdateUserRoleParams{
+				Class:     sql.NullString{Valid: true, String: "Base"},
+				UpdatedAt: sql.NullTime{Valid: true, Time: time.Now()},
+				ID:        user.RoleID.UUID,
+			})
+			if err != nil {
+				return err
+			}
+		}
+
+		err = q.UpdateUser(ctx, params)
 		return err
-	}
-	return nil
+	})
+	return err
 }
 
 func (u *User) GetUserById(ctx context.Context, userId uuid.UUID) (*db.GetUserByIdRow, error) {

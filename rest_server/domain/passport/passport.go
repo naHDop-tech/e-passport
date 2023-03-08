@@ -93,7 +93,7 @@ func (p *Passport) Create(ctx context.Context, payload CreatePassportParams) (uu
 			PNumber:             pNumber,
 			IssueDate:           today,
 			ExpirationDate:      expirationDate,
-			PlaceOfBirth:        existsUser.PlaceOfBirth.String,
+			PlaceOfBirth:        payload.PlaceOfBirth,
 			Type:                "P",
 			FingerPrintID:       uuid.NullUUID{Valid: true, UUID: pfId},
 		})

@@ -23,8 +23,9 @@ type ClearFingerPrint struct {
 }
 
 type ClearRole struct {
-	Name  string `json:"role_name"`
-	Class string `json:"role_class"`
+	RoleId string `json:"role_id"`
+	Name   string `json:"role_name"`
+	Class  string `json:"role_class"`
 }
 
 type ClearNationality struct {
@@ -126,8 +127,9 @@ func (u *User) MarshallToStruct(rawUser *db.GetUserByIdRow) *ClearUser {
 			Zip:       rawUser.Zip.String,
 		},
 		Role: ClearRole{
-			Name:  rawUser.RoleName.String,
-			Class: rawUser.RoleClass.String,
+			RoleId: rawUser.RoleID.UUID.String(),
+			Name:   rawUser.RoleName.String,
+			Class:  rawUser.RoleClass.String,
 		},
 	}
 	return &clearUser
