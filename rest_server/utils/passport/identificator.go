@@ -77,13 +77,13 @@ func (i *identificator) MachineReadableZoneLines(payload MRZZLinesParams) (*MRZL
 	rand1 := i.RandomInt(1, 9)
 	rand2 := i.RandomInt(1, 9)
 	rand3 := i.RandomInt(1, 9)
-	checkSum := i.HashWithLen(fmt.Sprintf("%s%s%s", strconv.Itoa(rand1), strconv.Itoa(rand2), strconv.Itoa(rand3)), 2)
+	checkSum := strings.ToUpper(i.HashWithLen(fmt.Sprintf("%s%s%s", strconv.Itoa(rand1), strconv.Itoa(rand2), strconv.Itoa(rand3)), 2))
 	sexId := payload.Sex[0:1]
 	lastName := strings.Replace(payload.LastName, " ", "<", -1)
 	dateOfBirth := fmt.Sprintf("%d%d%d", payload.DateOfBirth.Year(), payload.DateOfBirth.Month(), payload.DateOfBirth.Day())
 	expirationDate := fmt.Sprintf("%d%d%d", payload.ExpirationDate.Year(), payload.ExpirationDate.Month(), payload.ExpirationDate.Day())
 
-	mrzL1 = fmt.Sprintf("%s<%s%s<<%s", payload.Type, payload.CountryCode, payload.FirstName, lastName)
+	mrzL1 = fmt.Sprintf("%s<%s%s<<%s", payload.Type, payload.CountryCode, strings.ToUpper(payload.FirstName), strings.ToUpper(lastName))
 	if len(mrzL1) > MrzLineLimitLen {
 		fmt.Println("l1 line is too long")
 		mrzL1 = mrzL1[1:MrzLineLimitLen]
