@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f03ac765-50c8-4710-8625-1c2a08721510",
+		"_postman_id": "9a221378-9663-4b09-b258-37179e2153ff",
 		"name": "Digital passport",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "18024335"
@@ -78,6 +78,17 @@
 		},
 		{
 			"name": "Login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -302,6 +313,96 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Create Passport",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country_code\": \"USA\",\n    \"place_of_birth\": \"Denver CO, USA\",\n    \"public_key\": \"kjekh2k34h2khfkhjdksjfksdjhkshAKDV~KGkhgdskjfhgsdkjg34kug5rkjhgdsf\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/user/{{user_id}}/passport",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{user_id}}",
+						"passport"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"Mala\",\n    \"last_name\": \"Koala\",\n    \"birth_date\": \"1987-04-26\",\n    \"nationality\": 840,\n    \"sex\": \"Male\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/user/{{user_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Passport",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"country_code\": \"USA\",\n    \"place_of_birth\": \"Denver CO, USA\",\n    \"public_key\": \"kjekh2k34h2khfkhjdksjfksdjhkshAKDV~KGkhgdskjfhgsdkjg34kug5rkjhgdsf\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/user/{{user_id}}/passport/{{passport_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{user_id}}",
+						"passport",
+						"{{passport_id}}"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
@@ -309,7 +410,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "v2.local.VJpEwkyZx20fDPFO8eh0jfGvMFrPZS28521e8ZCVmQVPxXD1tlfS9B_jJigVsjyJemYFch7xh1r-X0uILvbeRrbJAAx1QQLk2U5AKqefci0JISkZHaFDlZSmXpJgABjk6M_uwWRWMYa9-DW1eNL63eUCG-aHa56aDjDpHLFEuFFojadh-MlHLQMN_EqxEEu3Nb769fMD5jGs4-uN82TCm_FiBycbzs7otu54RJmVExzzbPwSK3voJNLHPzUMKACAnTFnMqLS3_3zvTLxj00odmKGRD1vNoCgfZF2QuCPNrmwKtMq3-EDyY257bmm4LLLGY6OZZkeow.bnVsbA",
+				"value": "v2.local.vERITp93WYVEfUgtIcVWo-BhZi2BjX6COQMTn5Vg7Cu_IQrIn6OtlLUhMDU9jfKG2EaMdS6tg2MltH6-T2RnhsVIY7Q8FjN0S9qdhJsrydF73TKDX9IaxIEc80UPIOUQCeU5GHmU5JDmHR2IclVkbfDlQyZeEaOtIWMPTnqEC7D9P_ZfSQ0jzO468NzPV2K_dDrofp-Kx5iqNG5QClzLxmilEDp3_MDM3Itdy7kTsrSus3J5xVQk7ywJVSuNPzgUXGQnFfD2gJ0mv39oFcmocCX-hqqF-gTjy1gtBL6lONm09Vgh-TDdTH7S8U9fRci61DUz1mF6pCmP.bnVsbA",
 				"type": "string"
 			}
 		]
@@ -360,6 +461,10 @@
 		{
 			"key": "photo_id",
 			"value": "55c358e0-5d44-4734-836f-282a97a44455"
+		},
+		{
+			"key": "passport_id",
+			"value": "b4688732-c300-4343-90d8-5673d37a1372"
 		}
 	]
 }
