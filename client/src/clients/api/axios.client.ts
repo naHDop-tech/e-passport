@@ -5,7 +5,8 @@ import { StatusCode, IApiClient } from '@root/clients/api/interface'
 const headers: Readonly<Record<string, string | boolean>> = {
     Accept: "application/json",
     "Content-Type": "application/json; charset=utf-8",
-    "Access-Control-Allow-Credentials": true,
+    "Access-Control-Allow-Origin": "*",
+    // "Access-Control-Allow-Credentials": true,
     "X-Requested-With": "XMLHttpRequest",
 };
 
@@ -34,7 +35,6 @@ export class AxiosApiClient implements IApiClient {
         })
 
         instance.interceptors.request.use(injectToken, (error) => Promise.reject(error));
-
         instance.interceptors.response.use(
             (response) => response,
             (error) => {
@@ -67,7 +67,7 @@ export class AxiosApiClient implements IApiClient {
         data?: T,
         config?: AxiosRequestConfig
     ): Promise<R> {
-        return this.client.post<T, R>(url, data, config);
+        return this.client.patch<T, R>(url, data, config);
     }
 
     delete<T = any, R = AxiosResponse<T>>(url: string, config?: AxiosRequestConfig): Promise<R> {
