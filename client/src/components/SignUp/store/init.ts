@@ -1,10 +1,7 @@
 import { createApi, createEffect, createEvent, createStore, sample } from "effector";
 
 import { signUpApi } from "@components/SignUp/store/api/sign-up.api";
-import { ISignUpStore } from "@components/SignUp/store/interface";
-import { useToast } from "@hooks/useToast";
-import { ToastType } from "@components/Toast/Toast";
-import { useNavigate } from "react-router-dom";
+import { INavigationAfterStore, IServerErrorStore, ISignUpStore } from "@components/SignUp/store/interface";
 
 export function createDomain(onDoneNavigatePath: string) {
     /*
@@ -22,26 +19,22 @@ export function createDomain(onDoneNavigatePath: string) {
         repeatedPassword: '',
         termsOfConditionsWasRead: false
     }
+    const navigationDefault: INavigationAfterStore = {
+        onSuccessPath: onDoneNavigatePath || '/'
+    }
+    const serverErrorDefault: IServerErrorStore = {}
 
     /*
     * Stores
     * */
     const $signUpStore = createStore<ISignUpStore>(signUpStoreDefault)
+    const $navigationAfterStore = createStore<INavigationAfterStore>(navigationDefault)
+    const $serverErrorStore = createStore<IServerErrorStore>(serverErrorDefault)
     
     /*
      * Effects
      * */
     const inviteFriendFx = createEffect(signUpApi)
-    const notifyFx = createEffect(({ content, type }: { content: string, type: ToastType} ) => {
-        const toast = useToast()
-        console.log('TOAST SHOULD BE')
-        toast.open({ content, type })
-    })
-    const navigateOnDoneFx = createEffect(() => {
-        const navigateTo = useNavigate()
-        resetData()
-        navigateTo(onDoneNavigatePath)
-    })
 
     /*
      * Store's Api
@@ -69,8 +62,6 @@ export function createDomain(onDoneNavigatePath: string) {
         },
         effect: {
             inviteFriendFx,
-            notifyFx,
-            navigateOnDoneFx,
         },
         event: {
             createUserEvent,
@@ -78,6 +69,8 @@ export function createDomain(onDoneNavigatePath: string) {
         },
         store: {
             $signUpStore,
+            $navigationAfterStore,
+            $serverErrorStore,
         },
         defaultState: signUpStoreDefault,
     }

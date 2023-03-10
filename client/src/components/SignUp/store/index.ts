@@ -16,20 +16,7 @@ sample({
     source: signUpDomain.store.$signUpStore
 })
 
-sample({
-    clock: signUpDomain.effect.inviteFriendFx.failData,
-    fn: (error) => {
-        return {
-            content: error.message,
-            type: ToastType.Error
-        }
-    },
-    target: signUpDomain.effect.notifyFx,
-})
-
-sample({
-    clock: signUpDomain.effect.inviteFriendFx.doneData,
-    target: signUpDomain.effect.navigateOnDoneFx
-})
-
+// @ts-ignore
+signUpDomain.store.$signUpStore.on(signUpDomain.effect.inviteFriendFx.doneData, () => ({ userWasCreated: true }))
+signUpDomain.store.$serverErrorStore.on(signUpDomain.effect.inviteFriendFx.failData, (_, error: any) => ({ error }))
 signUpDomain.store.$signUpStore.on(signUpDomain.event.resetData, () => signUpDomain.defaultState)

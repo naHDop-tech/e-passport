@@ -1,13 +1,18 @@
-import { ChangeEvent} from 'react'
-import { useStore } from "effector-react";
+import { ChangeEvent, useEffect } from 'react'
+import {useStore} from "effector-react";
 
-import { useSignUpValidation } from '@root/hooks/validation/userSignUpValidation'
+import {useSignUpValidation} from '@root/hooks/validation/userSignUpValidation'
 
-import { SignUpForm } from './SignUpForm'
-import { signUpDomain } from "@components/SignUp/store";
+import {SignUpForm} from './SignUpForm'
+import {signUpDomain} from "@components/SignUp/store";
+import {useToast} from '@root/hooks/useToast';
+import {ToastType} from "@components/Toast/Toast";
+import {useNavigate} from "react-router-dom";
 
 export function SignUpDLC() {
   const store = useStore(signUpDomain.store.$signUpStore)
+  const serverErrorStore = useStore(signUpDomain.store.$serverErrorStore)
+  const navigateStore = useStore(signUpDomain.store.$navigationAfterStore)
   const isLoading = useStore(signUpDomain.effect.inviteFriendFx.pending)
   const {
     email,
@@ -19,6 +24,21 @@ export function SignUpDLC() {
     termsOfConditionsWasRead
   } = store
   const signUpFormValidate = useSignUpValidation({ email, password, repeatedPassword })
+  const toast = useToast()
+  const navigateTo = useNavigate()
+
+  useEffect(() => {
+    if(serverErrorStore.error) {
+      toast.open({ content: serverErrorStore.error, type: ToastType.Error })
+    }
+  }, [serverErrorStore.error])
+  
+  useEffect(() => {
+    if (store.userWasCreated) {
+      toast.open({ content: "User created", type: ToastType.Success })
+      navigateTo(navigateStore.onSuccessPath)
+    }
+  }, [store.userWasCreated])
 
   const submitFormHandler = async () => {
     signUpDomain.api.signUpStoreApi.resetError()
