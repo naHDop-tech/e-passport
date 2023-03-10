@@ -24,5 +24,7 @@ loginDomain.store.$responseStore.on(loginDomain.effect.loginFx.doneData, (_, dat
         console.warn("No user data")
     }
 })
-loginDomain.store.$serverErrorStore.on(loginDomain.effect.loginFx.failData, (_, error: any) => ({ error }))
-loginDomain.store.$loginStore.on(loginDomain.event.loginEvent, () => loginDomain.defaultState)
+loginDomain.store.$serverErrorStore.on(loginDomain.effect.loginFx.failData, (_, error: any) => {
+    return { error: error.data.error.message }
+})
+loginDomain.store.$loginStore.on(loginDomain.event.resetDataEvent, () => loginDomain.defaultState)

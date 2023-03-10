@@ -1,4 +1,4 @@
-import Axios, {AxiosResponse, AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig, AxiosError} from 'axios'
+import Axios, { AxiosResponse, AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig, AxiosError } from 'axios'
 
 import { StatusCode, IApiClient } from '@root/clients/api/interface'
 

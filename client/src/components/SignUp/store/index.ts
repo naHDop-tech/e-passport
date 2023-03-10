@@ -22,5 +22,7 @@ signUpDomain.store.$responseStore.on(signUpDomain.effect.signUpFx.doneData, (_, 
         console.warn("No response")
     }
 })
-signUpDomain.store.$serverErrorStore.on(signUpDomain.effect.signUpFx.failData, (_, error: any) => ({ error }))
+signUpDomain.store.$serverErrorStore.on(signUpDomain.effect.signUpFx.failData, (_, error: any) => {
+    return { error: error.data.error.message }
+})
 signUpDomain.store.$signUpStore.on(signUpDomain.event.resetData, () => signUpDomain.defaultState)

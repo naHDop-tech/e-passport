@@ -18,7 +18,7 @@ export function SignInDLC(): JSX.Element {
   const { email, password, rememberMe, passwordError, emailError } = loginStore
   const toast = useToast()
   const navigateTo = useNavigate()
-
+  
   const signInFormValidate = useSignInValidation({ email, password })
 
   useEffect(() => {
@@ -30,16 +30,23 @@ export function SignInDLC(): JSX.Element {
   useEffect(() => {
     if (responseStore.token) {
       toast.open({ content: "You are login", type: ToastType.Success })
+      loginDomain.api.responseStoreApi.reset()
+      loginDomain.api.loginStoreApi.resetData()
       navigateTo(navigateStore.onSuccessPath)
     }
   }, [responseStore.token])
 
   const submitFormHandler = async () => {
-    loginDomain.api.resetError()
+    loginDomain.api.loginStoreApi.resetError()
+    loginDomain.api.loginServerErrorApi.reset()
     const validationResult = signInFormValidate()
 
     if (!validationResult.error) {
-      loginDomain.event.loginEvent()
+      try {
+        loginDomain.event.loginEvent()
+      } catch {
+        console.log('S')
+      }
     } else {
       if (!validationResult?.error?.details.length) {
         console.error('Unexpected error')
@@ -47,25 +54,25 @@ export function SignInDLC(): JSX.Element {
 
       for (const error of validationResult?.error?.details) {
         if (error.path[0] === 'password') {
-          loginDomain.api.setPasswordError(error.message)
+          loginDomain.api.loginStoreApi.setPasswordError(error.message)
         }
         if (error.path[0] === 'email') {
-          loginDomain.api.setEmailError(error.message)
+          loginDomain.api.loginStoreApi.setEmailError(error.message)
         }
       }
     }
   }
 
   const changeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    loginDomain.api.setEmail(e.target.value)
+    loginDomain.api.loginStoreApi.setEmail(e.target.value)
   }
 
   const changePasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    loginDomain.api.setPassword(e.target.value)
+    loginDomain.api.loginStoreApi.setPassword(e.target.value)
   }
 
   const changeRememberMeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    loginDomain.api.setRememberMe(e.target.checked)
+    loginDomain.api.loginStoreApi.setRememberMe(e.target.checked)
   }
 
   return (

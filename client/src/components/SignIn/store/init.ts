@@ -2,7 +2,7 @@ import {createApi, createEffect, createEvent, createStore} from "effector";
 
 import { INavigationAfterStore, IServerErrorStore, ILoginStore } from "@components/SignIn/store/interface";
 import { loginApi } from "@components/SignIn/store/api/sign-in.api";
-import {ILoginResponse} from "@components/SignIn/store/api/interface";
+import { ILoginResponse } from "@components/SignIn/store/api/interface";
 
 
 export function createDomain(onDoneNavigatePath: string) {
@@ -59,9 +59,19 @@ export function createDomain(onDoneNavigatePath: string) {
         }),
         resetData: () => loginStoreDefault,
     })
+    const loginServerErrorApi = createApi($serverErrorStore, {
+        reset: () => serverErrorDefault
+    })
+    const responseStoreApi = createApi($responseStore, {
+        reset: () => responseStoreDefault
+    })
     
     return {
-        api: loginStoreApi,
+        api: {
+            loginStoreApi,
+            loginServerErrorApi,
+            responseStoreApi,
+        },
         store: {
             $loginStore,
             $navigationAfterStore,
