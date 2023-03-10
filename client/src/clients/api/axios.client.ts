@@ -5,9 +5,6 @@ import { StatusCode, IApiClient } from '@root/clients/api/interface'
 const headers: Readonly<Record<string, string | boolean>> = {
     Accept: "application/json",
     "Content-Type": "application/json; charset=utf-8",
-    "Access-Control-Allow-Origin": "*",
-    // "Access-Control-Allow-Credentials": true,
-    "X-Requested-With": "XMLHttpRequest",
 };
 
 const injectToken = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
