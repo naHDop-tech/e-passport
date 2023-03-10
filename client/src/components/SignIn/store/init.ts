@@ -25,7 +25,7 @@ export function createDomain(onDoneNavigatePath: string) {
     }
     const serverErrorDefault: IServerErrorStore = {}
     const responseStoreDefault: ILoginResponse = {
-        id: '',
+        user_id: '',
         token: '',
     }
 

@@ -18,8 +18,8 @@ sample({
 loginDomain.store.$responseStore.on(loginDomain.effect.loginFx.doneData, (_, data) => {
     if (data.data) {
         localStorage.setItem("accessToken", data.data?.token)
-        localStorage.setItem("userId", data.data?.id)
-        return { token: data.data?.token, id: data.data?.id }
+        localStorage.setItem("userId", data.data?.user_id)
+        return { token: data.data?.token, user_id: data.data?.user_id }
     } else {
         console.warn("No user data")
     }

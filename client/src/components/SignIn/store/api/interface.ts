@@ -6,6 +6,6 @@ export interface ILoginPayload {
 }
 
 export interface ILoginResponse {
-    id: string
+    user_id: string
     token: string
 }

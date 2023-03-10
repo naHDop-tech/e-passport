@@ -1,4 +1,4 @@
-import {ChangeEvent, useEffect} from 'react'
+import { ChangeEvent, useEffect } from 'react'
 import { useStore } from "effector-react";
 import { useNavigate } from "react-router-dom";
 
@@ -22,7 +22,7 @@ export function SignInDLC(): JSX.Element {
   const signInFormValidate = useSignInValidation({ email, password })
 
   useEffect(() => {
-    if(serverErrorStore.error) {
+    if (serverErrorStore.error) {
       toast.open({ content: serverErrorStore.error, type: ToastType.Error })
     }
   }, [serverErrorStore.error])
