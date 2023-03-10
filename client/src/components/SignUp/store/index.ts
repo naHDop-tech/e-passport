@@ -15,7 +15,12 @@ sample({
     source: signUpDomain.store.$signUpStore
 })
 
-// @ts-ignore
-signUpDomain.store.$signUpStore.on(signUpDomain.effect.signUpFx.doneData, () => ({ userWasCreated: true }))
+signUpDomain.store.$responseStore.on(signUpDomain.effect.signUpFx.doneData, (_, data) => {
+    if (data.data) {
+        return { id: data.data?.id, email: data.data?.email }
+    } else {
+        console.warn("No response")
+    }
+})
 signUpDomain.store.$serverErrorStore.on(signUpDomain.effect.signUpFx.failData, (_, error: any) => ({ error }))
 signUpDomain.store.$signUpStore.on(signUpDomain.event.resetData, () => signUpDomain.defaultState)

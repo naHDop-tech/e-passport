@@ -12,6 +12,7 @@ import {useNavigate} from "react-router-dom";
 export function SignUpDLC() {
   const store = useStore(signUpDomain.store.$signUpStore)
   const serverErrorStore = useStore(signUpDomain.store.$serverErrorStore)
+  const responseStore = useStore(signUpDomain.store.$responseStore)
   const navigateStore = useStore(signUpDomain.store.$navigationAfterStore)
   const isLoading = useStore(signUpDomain.effect.signUpFx.pending)
   const {
@@ -34,11 +35,11 @@ export function SignUpDLC() {
   }, [serverErrorStore.error])
   
   useEffect(() => {
-    if (store.userWasCreated) {
+    if (responseStore.email) {
       toast.open({ content: "User created", type: ToastType.Success })
       navigateTo(navigateStore.onSuccessPath)
     }
-  }, [store.userWasCreated])
+  }, [responseStore.email])
 
   const submitFormHandler = async () => {
     signUpDomain.api.resetError()

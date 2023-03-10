@@ -6,7 +6,6 @@ export interface ISignUpStore {
     emailError?: string
     passwordError?: string
     repeatedPasswordError?: string
-    userWasCreated?: boolean
 }
 
 export interface INavigationAfterStore {

@@ -2,6 +2,7 @@ import { createApi, createEffect, createEvent, createStore } from "effector";
 
 import { signUpApi } from "@components/SignUp/store/api/sign-up.api";
 import { INavigationAfterStore, IServerErrorStore, ISignUpStore } from "@components/SignUp/store/interface";
+import {ISignUpResponse} from "@components/SignUp/store/api/interface";
 
 export function createDomain(onDoneNavigatePath: string) {
     /*
@@ -23,6 +24,10 @@ export function createDomain(onDoneNavigatePath: string) {
         onSuccessPath: onDoneNavigatePath || '/'
     }
     const serverErrorDefault: IServerErrorStore = {}
+    const responseStoreDefault: ISignUpResponse = {
+        id: '',
+        email: '',
+    }
 
     /*
     * Stores
@@ -30,6 +35,7 @@ export function createDomain(onDoneNavigatePath: string) {
     const $signUpStore = createStore<ISignUpStore>(signUpStoreDefault)
     const $navigationAfterStore = createStore<INavigationAfterStore>(navigationDefault)
     const $serverErrorStore = createStore<IServerErrorStore>(serverErrorDefault)
+    const $responseStore = createStore<ISignUpResponse>(responseStoreDefault)
     
     /*
      * Effects
@@ -69,6 +75,7 @@ export function createDomain(onDoneNavigatePath: string) {
             $signUpStore,
             $navigationAfterStore,
             $serverErrorStore,
+            $responseStore,
         },
         defaultState: signUpStoreDefault,
     }
