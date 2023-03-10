@@ -1,4 +1,4 @@
-import { createApi, createEffect, createEvent, createStore, sample } from "effector";
+import { createApi, createEffect, createEvent, createStore } from "effector";
 
 import { signUpApi } from "@components/SignUp/store/api/sign-up.api";
 import { INavigationAfterStore, IServerErrorStore, ISignUpStore } from "@components/SignUp/store/interface";
@@ -34,7 +34,7 @@ export function createDomain(onDoneNavigatePath: string) {
     /*
      * Effects
      * */
-    const inviteFriendFx = createEffect(signUpApi)
+    const signUpFx = createEffect(signUpApi)
 
     /*
      * Store's Api
@@ -57,11 +57,9 @@ export function createDomain(onDoneNavigatePath: string) {
     })
 
     return {
-        api: {
-            signUpStoreApi,
-        },
+        api: signUpStoreApi,
         effect: {
-            inviteFriendFx,
+            signUpFx,
         },
         event: {
             createUserEvent,

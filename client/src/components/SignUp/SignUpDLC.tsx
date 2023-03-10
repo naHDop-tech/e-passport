@@ -13,7 +13,7 @@ export function SignUpDLC() {
   const store = useStore(signUpDomain.store.$signUpStore)
   const serverErrorStore = useStore(signUpDomain.store.$serverErrorStore)
   const navigateStore = useStore(signUpDomain.store.$navigationAfterStore)
-  const isLoading = useStore(signUpDomain.effect.inviteFriendFx.pending)
+  const isLoading = useStore(signUpDomain.effect.signUpFx.pending)
   const {
     email,
     password,
@@ -41,7 +41,7 @@ export function SignUpDLC() {
   }, [store.userWasCreated])
 
   const submitFormHandler = async () => {
-    signUpDomain.api.signUpStoreApi.resetError()
+    signUpDomain.api.resetError()
     const validationResult = signUpFormValidate()
 
     if (!validationResult.error) {
@@ -53,32 +53,32 @@ export function SignUpDLC() {
 
       for (const error of validationResult?.error?.details) {
         if (error.path[0] === 'password') {
-          signUpDomain.api.signUpStoreApi.setPasswordError(error.message)
+          signUpDomain.api.setPasswordError(error.message)
         }
         if (error.path[0] === 'repeatedPassword') {
-          signUpDomain.api.signUpStoreApi.setRepeatedPasswordError(error.message)
+          signUpDomain.api.setRepeatedPasswordError(error.message)
         }
         if (error.path[0] === 'email') {
-          signUpDomain.api.signUpStoreApi.setEmailError(error.message)
+          signUpDomain.api.setEmailError(error.message)
         }
       }
     }
   }
 
   const changeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    signUpDomain.api.signUpStoreApi.setEmail(e.target.value)
+    signUpDomain.api.setEmail(e.target.value)
   }
 
   const changePasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    signUpDomain.api.signUpStoreApi.setPassword(e.target.value)
+    signUpDomain.api.setPassword(e.target.value)
   }
 
   const changeRepeatedPasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    signUpDomain.api.signUpStoreApi.setRepeatedPassword(e.target.value)
+    signUpDomain.api.setRepeatedPassword(e.target.value)
   }
 
   const changeTermsOfConditionWasReadHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    signUpDomain.api.signUpStoreApi.setTermsOfConditionWasRead(e.target.checked)
+    signUpDomain.api.setTermsOfConditionWasRead(e.target.checked)
   }
 
   return (
