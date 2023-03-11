@@ -48,6 +48,7 @@ func main() {
 	identificator := p_ident.NewIdentifacator()
 	passportDomain := passport.NewPassport(conn, identificator)
 	loginSrv := login.NewLoginService(userDomain, conf)
+	countriesDomain := countries.NewCountry(conn)
 	server, err := api.NewServer(
 		conf,
 		conn,
@@ -58,6 +59,7 @@ func main() {
 		photoDomain,
 		passportDomain,
 		loginSrv,
+		countriesDomain,
 	)
 	if err != nil {
 		log.Fatal("Server has not configured", err)

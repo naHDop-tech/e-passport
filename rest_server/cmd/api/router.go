@@ -24,6 +24,7 @@ func (s *Server) SetupRouter() {
 	v1AuthGroupRoute := v1.Group("/").Use(authMiddleware(s.tokenMaker))
 	{
 		v1AuthGroupRoute.GET("/user/:user_id", s.getById)
+		v1AuthGroupRoute.GET("/countries", s.getCountries)
 
 		v1AuthGroupRoute.POST("/user/:user_id/phone", s.createPhone)
 		v1AuthGroupRoute.POST("/user/:user_id/address", s.createAddress)

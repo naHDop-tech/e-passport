@@ -10,6 +10,7 @@ import (
 	"github.com/naHDop-tech/e-passport/domain/phone"
 	"github.com/naHDop-tech/e-passport/domain/photo"
 	"github.com/naHDop-tech/e-passport/domain/user"
+	"github.com/naHDop-tech/e-passport/domain/countries"
 	"github.com/naHDop-tech/e-passport/services/login"
 	"github.com/naHDop-tech/e-passport/utils"
 	file_manager "github.com/naHDop-tech/e-passport/utils/file-manager"
@@ -27,6 +28,7 @@ type Server struct {
 	addressDomain  *address.Address
 	photoDomain    photo.PhotoResolver
 	passportDomain passport.PassportResolver
+	countriesDomain *countries.Country
 	loginSrv       *login.LoginService
 	fileManager    file_manager.FileManager
 	responser      responser.Responser
@@ -50,6 +52,7 @@ func NewServer(
 	photoDomain photo.PhotoResolver,
 	passportDomain passport.PassportResolver,
 	loginSrv *login.LoginService,
+	countriesDomain *countries.Country,
 ) (*Server, error) {
 	tokenMaker, err := token.NewPasetoMaker(conf.TokenSymmetricKey)
 	if err != nil {
@@ -66,6 +69,7 @@ func NewServer(
 		passportDomain: passportDomain,
 		photoDomain:    photoDomain,
 		loginSrv:       loginSrv,
+		countriesDomain: countriesDomain,
 		responser:      responser.NewResponser(),
 	}
 
