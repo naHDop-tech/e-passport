@@ -30,23 +30,15 @@ export function SignInDLC(): JSX.Element {
   useEffect(() => {
     if (responseStore.token) {
       toast.open({ content: "You are login", type: ToastType.Success })
-      loginDomain.api.responseStoreApi.reset()
-      loginDomain.api.loginStoreApi.resetData()
       navigateTo(navigateStore.onSuccessPath)
     }
   }, [responseStore.token])
 
   const submitFormHandler = async () => {
-    loginDomain.api.loginStoreApi.resetError()
-    loginDomain.api.loginServerErrorApi.reset()
     const validationResult = signInFormValidate()
 
     if (!validationResult.error) {
-      try {
-        loginDomain.event.loginEvent()
-      } catch {
-        console.log('S')
-      }
+      loginDomain.event.loginEvent()
     } else {
       if (!validationResult?.error?.details.length) {
         console.error('Unexpected error')

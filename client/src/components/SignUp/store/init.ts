@@ -61,9 +61,15 @@ export function createDomain(onDoneNavigatePath: string) {
         }),
         resetData: () => signUpStoreDefault,
     })
+    const serverErrorApi = createApi($serverErrorStore, {
+        reset: () => serverErrorDefault
+    })
 
     return {
-        api: signUpStoreApi,
+        api: {
+            signUpStoreApi,
+            serverErrorApi,
+        },
         effect: {
             signUpFx,
         },

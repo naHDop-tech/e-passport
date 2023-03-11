@@ -6,6 +6,8 @@ export const signUpDomain = createDomain('/sign-in')
 sample({
     clock: signUpDomain.event.createUserEvent,
     fn: (store) => {
+        signUpDomain.api.signUpStoreApi.resetError()
+        signUpDomain.api.serverErrorApi.reset()
         return {
             email: store.email,
             password: store.password,
