@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { ThemeMode, themes, ColorTypes } from '@store/theme/types'
+import { ThemeMode, themes, ColorTypes } from '@components/HOC/WithTheme/store/interface'
 
 export const useTheme = (selectedTheme: ThemeMode): void => {
   useEffect(() => {
