@@ -17,3 +17,13 @@ export interface INationality {
     alfa_3: string
     nationalities: string
 }
+
+export interface INationalitiesStore {
+    nationalities: INationality[]
+    serverError?: string
+}
+
+export interface ICountriesStore {
+    countries: ICountry[]
+    serverError?: string
+}
