@@ -55,7 +55,6 @@ sample({
     clock: userPhotoStoreDomain.event.updateUserPhotoEvent,
     target: userPhotoStoreDomain.effect.updateUserPhotoFx,
     fn: (store, photoId) => {
-        userPhotoStoreDomain.api.responseStoreApi.reset()
         const userId = localStorage.getItem('userId')
         if (userId && store.file) {
             return {
@@ -73,7 +72,6 @@ sample({
     clock: userPhotoStoreDomain.event.uploadUserPhotoEvent,
     target: userPhotoStoreDomain.effect.uploadUserPhotoFx,
     fn: (store) => {
-        userPhotoStoreDomain.api.responseStoreApi.reset()
         const userId = localStorage.getItem('userId')
         if (userId && store.file) {
             return {
@@ -86,22 +84,28 @@ sample({
     },
     source: userPhotoStoreDomain.store.$fileStore,
 })
+sample({
+    clock: userPhotoStoreDomain.event.uploadUserPhotoEvent,
+    target: userPhotoStoreDomain.event.fileStoreResponseReset
+})
+sample({
+    clock: userPhotoStoreDomain.event.updateUserPhotoEvent,
+    target: userPhotoStoreDomain.event.fileStoreResponseReset
+})
 userPhotoStoreDomain.store.$responseStore.on(userPhotoStoreDomain.effect.uploadUserPhotoFx.failData, (cs, error: any) =>
     ({ ...cs, serverError: error.data.error.message })
-)
+).reset(userPhotoStoreDomain.event.fileStoreReset)
 userPhotoStoreDomain.store.$responseStore.on(userPhotoStoreDomain.effect.updateUserPhotoFx.failData, (cs, error: any) =>
     ({ ...cs, serverError: error.data.error.message })
 )
 userPhotoStoreDomain.store.$responseStore.on(userPhotoStoreDomain.effect.uploadUserPhotoFx.doneData, (cs, data) => {
     if (data.data) {
-        userPhotoStoreDomain.api.fileStoreApi.reset()
         return { ...cs, status: data.data.status }
     }
     return cs
 })
 userPhotoStoreDomain.store.$responseStore.on(userPhotoStoreDomain.effect.updateUserPhotoFx.doneData, (cs, data) => {
     if (data.data) {
-        userPhotoStoreDomain.api.fileStoreApi.reset()
         return { ...cs, status: data.data.status }
     }
     return cs
@@ -145,10 +149,9 @@ countriesAndNationalitiesDomain.store.$countriesStore.on(
 
 // USER PRFILE
 sample({
-    clock: userProfileStoreDomain.event.updateUserProfile,
+    clock: userProfileStoreDomain.event.updateUserProfileEvent,
     target: userProfileStoreDomain.effect.updateUserProfileFx,
     fn: (store) => {
-        userProfileStoreDomain.api.userProfileResponseStoreApi.reset()
         const userId = localStorage.getItem('userId')
         if (userId) {
             return {
@@ -161,17 +164,25 @@ sample({
     },
     source: userProfileStoreDomain.store.$userProfileStore,
 })
-
+sample({
+    clock: userProfileStoreDomain.event.updateUserProfileEvent,
+    target: userProfileStoreDomain.event.userProfileResponseResetEvent
+})
+sample({
+    clock: userProfileStoreDomain.effect.updateUserProfileFx.doneData,
+    target: userProfileStoreDomain.event.userProfileStoreResetEvent
+})
 userProfileStoreDomain.store.$userProfileResponseStore.on(
     userProfileStoreDomain.effect.updateUserProfileFx.failData, (cs, error: any) => 
         ({ ...cs, serverError: error.data.error.message })
-)
+).reset(userProfileStoreDomain.event.userProfileResponseResetEvent)
 userProfileStoreDomain.store.$userProfileResponseStore.on(
     userProfileStoreDomain.effect.updateUserProfileFx.doneData, (cs, data) => {
         if (data.data) {
-            userProfileStoreDomain.api.userProfileStoreApi.reset()
+            // userProfileStoreDomain.api.userProfileStoreApi.reset()
             return { ...cs, status: data.data.status }
         }
         return cs
     }
 )
+userProfileStoreDomain.store.$userProfileStore.reset(userProfileStoreDomain.event.userProfileStoreResetEvent)

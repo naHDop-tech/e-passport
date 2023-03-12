@@ -99,7 +99,9 @@ export function createUserPhotoStoreDomain() {
 }
 
 export function createUserInfoStoreDomain() {
-    const updateUserProfile = createEvent()
+    const updateUserProfileEvent = createEvent()
+    const userProfileStoreResetEvent = createEvent()
+    const userProfileResponseResetEvent = createEvent()
     
     const userInfoStoreDefault: IUserProfileStore = {
         birthDate: "",
@@ -140,7 +142,9 @@ export function createUserInfoStoreDomain() {
             $userProfileResponseStore
         },
         event: {
-            updateUserProfile,
+            updateUserProfileEvent,
+            userProfileResponseResetEvent,
+            userProfileStoreResetEvent
         },
         effect: {
             updateUserProfileFx
