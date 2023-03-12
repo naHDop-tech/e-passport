@@ -107,7 +107,7 @@ export function createUserInfoStoreDomain() {
         birthDate: "",
         firstName: "",
         lastName: "",
-        nationality: "",
+        nationality: 0,
         sex: ""
     }
     const userProfileResponseStoreDefault: ICommonResponseStore = {
@@ -123,9 +123,9 @@ export function createUserInfoStoreDomain() {
     const userProfileStoreApi = createApi($userProfileStore, {
         setFirstName: (cs, firstName: string) => ({ ...cs, firstName }),
         setLastName: (cs, lastName: string) => ({ ...cs, lastName }),
-        setNationality: (cs, nationality: string) => ({ ...cs, nationality }),
+        setNationality: (cs, nationality: number) => ({ ...cs, nationality }),
         setSex: (cs, sex: string) => ({ ...cs, sex }),
-        setBirthDay: (cs, birthDay: string) => ({ ...cs, birthDay }),
+        setBirthDay: (cs, birthDate: string) => ({ ...cs, birthDate }),
         setDefaultValues: (cs, profile: IUserProfileStore) => profile,
         reset: () => userInfoStoreDefault,
     })

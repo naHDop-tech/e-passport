@@ -11,6 +11,7 @@ import cs from '@components/CommonStyle.module.css'
 import { ICommonStyle } from '@components/common-style-types'
 import { Button } from '@root/components/Button'
 import {IFullUserInfo, IUserProfileStore} from "@components/UserProfile/store/interface";
+import {NumberInput} from "@components/Inputs/NumberInput";
 
 const commonStyle = cs as ICommonStyle
 
@@ -98,14 +99,24 @@ export function UserProfile(props: IUserProfileProps) {
         <div className={commonStyle.Margin24} />
 
         {/* TODO: SELECTOR */}
-        <TextInput
-          label='Country resident'
-          placeholder='i.e. "England"'
-          value={changedUserFiled.nationality}
-          id={FormFiledIds.Nationality}
-          onChange={onChange}
-          errorText={errors?.[FormFiledIds.Nationality]}
+        <NumberInput
+            label='Country resident'
+            placeholder='i.e. "England"'
+            value={changedUserFiled.nationality}
+            id={FormFiledIds.Nationality}
+            onChange={onChange}
+            errorText={errors?.[FormFiledIds.Nationality]}
         />
+        <div className={commonStyle.Margin24} />
+        {/*<TextInput*/}
+        {/*  label='Country resident'*/}
+        {/*  placeholder='i.e. "England"'*/}
+        {/*  value={changedUserFiled.nationality}*/}
+        {/*  id={FormFiledIds.Nationality}*/}
+        {/*  onChange={onChange}*/}
+        {/*  errorText={errors?.[FormFiledIds.Nationality]}*/}
+        {/*/>*/}
+        {/*<div className={commonStyle.Margin24} />*/}
 
         {/* TODO: SELECTOR */}
         <TextInput

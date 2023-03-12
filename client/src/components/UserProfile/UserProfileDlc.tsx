@@ -7,10 +7,16 @@ import {useIsFieldWasTouched} from '@hooks/useIsFieldWasTouched'
 
 import {ToastType} from '@components/Toast/Toast'
 import {UserProfile} from '@components/UserProfile'
-import {userInfoDomain, userPhotoStoreDomain, userProfileStoreDomain} from "@components/UserProfile/store";
+import {
+  countriesAndNationalitiesDomain,
+  userInfoDomain,
+  userPhotoStoreDomain,
+  userProfileStoreDomain
+} from "@components/UserProfile/store";
 import {IFullUserInfo, IUserProfileStore} from "@components/UserProfile/store/interface";
 
 export function UserProfileDlc() {
+  const n = useStore(countriesAndNationalitiesDomain.store.$nationalitiesStore)
   const userProfile = useStore(userInfoDomain.store.$userInfo)
   const userProfileResponse = useStore(userInfoDomain.store.$userInfoResponse)
 
@@ -20,6 +26,8 @@ export function UserProfileDlc() {
   const userPhotoStore = useStore(userPhotoStoreDomain.store.$fileStore)
   const userPhotoResponseStore = useStore(userPhotoStoreDomain.store.$responseStore)
   const toast = useToast()
+
+  console.log(n)
 
   // TODO: to custom hook ?
   useEffect(() => {
@@ -40,7 +48,7 @@ export function UserProfileDlc() {
         firstName: userProfile.first_name,
         lastName: userProfile.last_name,
         birthDate: userProfile.birth_date,
-        nationality: userProfile.nationality.nationality,
+        nationality: userProfile.nationality.code,
         sex: userProfile.sex,
       }
       userProfileStoreDomain.api.userProfileStoreApi.setDefaultValues(payload)
@@ -104,12 +112,14 @@ export function UserProfileDlc() {
       userProfileStoreDomain.api.userProfileStoreApi.setBirthDay(e.target.value)
     }
     if (e.target.id === 'nationality') {
-      userProfileStoreDomain.api.userProfileStoreApi.setNationality(e.target.value)
+      userProfileStoreDomain.api.userProfileStoreApi.setNationality(Number(e.target.value))
     }
     if (e.target.id === 'sex') {
       userProfileStoreDomain.api.userProfileStoreApi.setSex(e.target.value)
     }
   }
+
+  console.log(userProfileStore)
 
   return (
     <UserProfile

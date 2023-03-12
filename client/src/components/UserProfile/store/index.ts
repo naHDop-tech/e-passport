@@ -151,18 +151,18 @@ countriesAndNationalitiesDomain.store.$countriesStore.on(
 sample({
     clock: userProfileStoreDomain.event.updateUserProfileEvent,
     target: userProfileStoreDomain.effect.updateUserProfileFx,
-    fn: (store) => {
+    fn: ({ups}) => {
         const userId = localStorage.getItem('userId')
         if (userId) {
             return {
+                ...ups,
                 userId,
-                ...store
             }
         } else {
-            throw new Error('No user Id')
+            throw new Error('No user Id or nation not exists')
         }
     },
-    source: userProfileStoreDomain.store.$userProfileStore,
+    source: {ups: userProfileStoreDomain.store.$userProfileStore},
 })
 sample({
     clock: userProfileStoreDomain.event.updateUserProfileEvent,
@@ -176,10 +176,10 @@ userProfileStoreDomain.store.$userProfileResponseStore.on(
     userProfileStoreDomain.effect.updateUserProfileFx.failData, (cs, error: any) => 
         ({ ...cs, serverError: error.data.error.message })
 ).reset(userProfileStoreDomain.event.userProfileResponseResetEvent)
+
 userProfileStoreDomain.store.$userProfileResponseStore.on(
     userProfileStoreDomain.effect.updateUserProfileFx.doneData, (cs, data) => {
         if (data.data) {
-            // userProfileStoreDomain.api.userProfileStoreApi.reset()
             return { ...cs, status: data.data.status }
         }
         return cs

@@ -14,7 +14,7 @@ export interface IUserProfileStore {
     firstName: string,
     lastName: string,
     birthDate: string,
-    nationality: string,
+    nationality: number,
     sex: string
 }
 

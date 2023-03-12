@@ -14,7 +14,7 @@ export function useUserProfileValidator(form: Partial<IUserProfileStore>): Valid
     [FormFiledIds.FirstName]: Joi.string().min(3).max(20),
     [FormFiledIds.LastName]: Joi.string().min(3).max(30),
     [FormFiledIds.BirthDate]: Joi.date().iso().max(cutoffDate),
-    [FormFiledIds.Nationality]: Joi.string(),
+    [FormFiledIds.Nationality]: Joi.number(),
     [FormFiledIds.Sex]: Joi.string(),
   })
 
