@@ -6,11 +6,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/naHDop-tech/e-passport/domain/address"
+	"github.com/naHDop-tech/e-passport/domain/countries"
+	"github.com/naHDop-tech/e-passport/domain/nationalities"
 	"github.com/naHDop-tech/e-passport/domain/passport"
 	"github.com/naHDop-tech/e-passport/domain/phone"
 	"github.com/naHDop-tech/e-passport/domain/photo"
 	"github.com/naHDop-tech/e-passport/domain/user"
-	"github.com/naHDop-tech/e-passport/domain/countries"
 	"github.com/naHDop-tech/e-passport/services/login"
 	"github.com/naHDop-tech/e-passport/utils"
 	file_manager "github.com/naHDop-tech/e-passport/utils/file-manager"
@@ -19,19 +20,20 @@ import (
 )
 
 type Server struct {
-	router         *gin.Engine
-	tokenMaker     token.Maker
-	connect        *sql.DB
-	config         utils.Config
-	userDomain     *user.User
-	phoneDomain    *phone.Phone
-	addressDomain  *address.Address
-	photoDomain    photo.PhotoResolver
-	passportDomain passport.PassportResolver
-	countriesDomain *countries.Country
-	loginSrv       *login.LoginService
-	fileManager    file_manager.FileManager
-	responser      responser.Responser
+	router              *gin.Engine
+	tokenMaker          token.Maker
+	connect             *sql.DB
+	config              utils.Config
+	userDomain          *user.User
+	phoneDomain         *phone.Phone
+	addressDomain       *address.Address
+	photoDomain         photo.PhotoResolver
+	passportDomain      passport.PassportResolver
+	countriesDomain     *countries.Country
+	nationalitiesDomain *nationalities.Nationality
+	loginSrv            *login.LoginService
+	fileManager         file_manager.FileManager
+	responser           responser.Responser
 }
 
 type userIdRequestParams struct {
@@ -53,24 +55,26 @@ func NewServer(
 	passportDomain passport.PassportResolver,
 	loginSrv *login.LoginService,
 	countriesDomain *countries.Country,
+	nationalitiesDomain *nationalities.Nationality,
 ) (*Server, error) {
 	tokenMaker, err := token.NewPasetoMaker(conf.TokenSymmetricKey)
 	if err != nil {
 		return nil, fmt.Errorf("cannot create token maker %s", err)
 	}
 	server := &Server{
-		config:         conf,
-		connect:        conn,
-		fileManager:    fileManager,
-		tokenMaker:     tokenMaker,
-		userDomain:     userDomain,
-		phoneDomain:    phoneDomain,
-		addressDomain:  addressDomain,
-		passportDomain: passportDomain,
-		photoDomain:    photoDomain,
-		loginSrv:       loginSrv,
-		countriesDomain: countriesDomain,
-		responser:      responser.NewResponser(),
+		config:              conf,
+		connect:             conn,
+		fileManager:         fileManager,
+		tokenMaker:          tokenMaker,
+		userDomain:          userDomain,
+		phoneDomain:         phoneDomain,
+		addressDomain:       addressDomain,
+		passportDomain:      passportDomain,
+		photoDomain:         photoDomain,
+		loginSrv:            loginSrv,
+		countriesDomain:     countriesDomain,
+		responser:           responser.NewResponser(),
+		nationalitiesDomain: nationalitiesDomain,
 	}
 
 	server.SetupRouter()

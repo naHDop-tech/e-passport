@@ -25,6 +25,7 @@ func (s *Server) SetupRouter() {
 	{
 		v1AuthGroupRoute.GET("/user/:user_id", s.getById)
 		v1AuthGroupRoute.GET("/countries", s.getCountries)
+		v1AuthGroupRoute.GET("/nationalities", s.getNationalities)
 
 		v1AuthGroupRoute.POST("/user/:user_id/phone", s.createPhone)
 		v1AuthGroupRoute.POST("/user/:user_id/address", s.createAddress)
