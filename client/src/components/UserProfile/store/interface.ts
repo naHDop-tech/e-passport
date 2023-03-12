@@ -17,6 +17,7 @@ export interface IUserProfileStore {
     nationality: string,
     sex: string
     serverError?: string
+    status?: string
 }
 
 export interface INationalitiesStore {
