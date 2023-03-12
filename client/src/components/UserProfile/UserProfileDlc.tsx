@@ -19,12 +19,22 @@ import { useIsFieldWasTouched } from '@hooks/useIsFieldWasTouched'
 import { ToastType } from '@components/Toast/Toast'
 import { UserProfile } from '@components/UserProfile'
 import { token } from '@store/auth/atoms'
-import { countriesAndNationalitiesDomain } from "@components/UserProfile/store";
+import {
+  userInfoDomain,
+  userPhotoStoreDomain,
+  userProfileStoreDomain
+} from "@components/UserProfile/store";
 
 export function UserProfileDlc() {
-  const nationalities = useStore(countriesAndNationalitiesDomain.store.$nationalitiesStore)
-  const countries = useStore(countriesAndNationalitiesDomain.store.$countriesStore)
-  const [image, setImage] = useState<File>()
+  const userProfile = useStore(userInfoDomain.store.$userInfo)
+  // const userProfileResponse = useStore(userInfoDomain.store.$userInfoResponse)
+  // const userProfileStore = useStore(userProfileStoreDomain.store.$userProfileStore)
+  // const userProfileResponseStore = useStore(userProfileStoreDomain.store.$userProfileResponseStore)
+  // const userPhotoStore = useStore(userPhotoStoreDomain.store.$fileStore)
+  // const userPhotoResponseStore = useStore(userPhotoStoreDomain.store.$responseStore)
+
+  console.log(userProfile)
+  // const [image, setImage] = useState<File>()
   // const { user, fetchUserInfo } = useUserInfo()
   // const setToken = useSetRecoilState(token)
   // const [userProfileForm, setUserProfileForm] = useState<Partial<IUserProfile>>({
@@ -37,8 +47,6 @@ export function UserProfileDlc() {
   // const errors = useUserProfileValidator(userProfileForm)
   // const toast = useToast()
   //
-  console.log(nationalities)
-  console.log(countries)
   //
   // const shortCurrentUserField = {
   //   firstName: user.firstName,

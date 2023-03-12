@@ -3,12 +3,52 @@ import { sample } from "effector";
 import {
     createNationalitiesAndCountriesDomain,
     createUserInfoDomain,
+    createUserInfoStoreDomain,
     createUserPhotoStoreDomain
 } from "@components/UserProfile/store/init";
 
 export const countriesAndNationalitiesDomain = createNationalitiesAndCountriesDomain()
-export const userProfileStoreDomain = createUserInfoDomain()
+export const userProfileStoreDomain = createUserInfoStoreDomain()
 export const userPhotoStoreDomain = createUserPhotoStoreDomain()
+export const userInfoDomain = createUserInfoDomain()
+
+//USER INFO
+sample({
+    clock: userInfoDomain.event.getUserInfoEvent,
+    target: userInfoDomain.effect.getUserInfoFx,
+    fn: () => {
+        const userId = localStorage.getItem('userId')
+        if (userId) {
+            return userId
+        } else {
+            throw new Error("No user id")
+        }
+    }
+})
+
+sample({
+    clock: userInfoDomain.effect.getUserInfoFx.doneData,
+    target: userInfoDomain.event.resetResponse
+})
+
+sample({
+    clock: userInfoDomain.event.getUserInfoEvent,
+    target: userInfoDomain.event.resetResponse
+})
+
+userInfoDomain.store.$userInfo.on(userInfoDomain.effect.getUserInfoFx.doneData, (_, data) => {
+    if (data.data) {
+        return data.data
+    }
+})
+userInfoDomain.store.$userInfoResponse.on(userInfoDomain.effect.getUserInfoFx.failData, (_, error: any) => 
+    ({ status: "failed", serverError: error.data.error.message})).reset(userInfoDomain.event.resetResponse)
+userInfoDomain.store.$userInfoResponse.on(userInfoDomain.effect.getUserInfoFx.doneData, () => {
+    return {
+        serverError: "",
+        status: "ok"
+    }
+})
 
 // USER PHOTO
 sample({

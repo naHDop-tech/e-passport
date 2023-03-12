@@ -4,7 +4,7 @@ export interface ICountry {
 }
 
 export interface INationality {
-    code: string,
+    code: number,
     alpha_2: string
     alpha_3: string
     nationality: string
@@ -80,14 +80,14 @@ export interface IPassportInfo {
 }
 
 export interface IFullUserInfo {
-    id: string
-    first_name: string
-    last_name: string
-    email: string
-    birth_date: string
-    sex: string
-    nationality: INationality
-    role: IRoleInfo
+    id?: string
+    first_name?: string
+    last_name?: string
+    email?: string
+    birth_date?: string
+    sex?: string
+    nationality?: INationality
+    role?: IRoleInfo
     passport?: IPassportInfo
     phone?: IPhoneInfo
     photo?: IPhotoInfo

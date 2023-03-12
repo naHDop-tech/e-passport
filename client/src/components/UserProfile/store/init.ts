@@ -4,16 +4,57 @@ import {
     ICountriesStore,
     INationalitiesStore,
     ICommonResponseStore,
-    IUserProfileStore, IUserPhotoStore
+    IUserProfileStore, IUserPhotoStore, IFullUserInfo
 } from "@components/UserProfile/store/interface";
 import {nationalitiesApi} from "@components/UserProfile/store/api/nationalities";
 import {countriesApi} from "@components/UserProfile/store/api/countries";
-import {updateUserProfileApi} from "@components/UserProfile/store/api/user-profile";
+import {getUserProfileApi, updateUserProfileApi} from "@components/UserProfile/store/api/user-profile";
 import {updateUserPhotoApi, uploadUserPhotoApi} from "@components/UserProfile/store/api/user-iamge";
+
+export function createUserInfoDomain() {
+    const getUserInfoEvent = createEvent()
+    const resetResponse = createEvent()
+    const resetStore = createEvent()
+
+    const userInfoDefault: IFullUserInfo = {}
+    const userInfoResponseDefault: ICommonResponseStore = {
+        serverError: "",
+        status: "",
+    }
+
+    const getUserInfoFx = createEffect(getUserProfileApi)
+
+    const $userInfo = createStore<IFullUserInfo>(userInfoDefault)
+    const $userInfoResponse = createStore<ICommonResponseStore>(userInfoResponseDefault)
+    
+    const userInfoResponseApi = createApi($userInfoResponse, {
+        reset: () => userInfoResponseDefault
+    })
+
+    return {
+        api: {
+            userInfoResponseApi
+        },
+        store: {
+            $userInfoResponse,
+            $userInfo,
+        },
+        event: {
+            getUserInfoEvent,
+            resetResponse,
+            resetStore,
+        },
+        effect: {
+            getUserInfoFx
+        }
+    }
+}
 
 export function createUserPhotoStoreDomain() {
     const uploadUserPhotoEvent = createEvent()
     const updateUserPhotoEvent = createEvent<string>()
+    const fileStoreReset = createEvent()
+    const fileStoreResponseReset = createEvent()
     
     const userPhotoStoreDefault: IUserPhotoStore = {}
     const userPhotoResponseStore: ICommonResponseStore = {
@@ -47,6 +88,8 @@ export function createUserPhotoStoreDomain() {
         event: {
             uploadUserPhotoEvent,
             updateUserPhotoEvent,
+            fileStoreReset,
+            fileStoreResponseReset,
         },
         effect: {
             uploadUserPhotoFx,
@@ -55,7 +98,7 @@ export function createUserPhotoStoreDomain() {
     }
 }
 
-export function createUserInfoDomain() {
+export function createUserInfoStoreDomain() {
     const updateUserProfile = createEvent()
     
     const userInfoStoreDefault: IUserProfileStore = {

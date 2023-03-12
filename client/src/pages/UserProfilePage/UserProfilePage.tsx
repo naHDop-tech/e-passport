@@ -10,7 +10,7 @@ const styles = s as UserProfilePageStyle
 
 import cs from '@components/CommonStyle.module.css'
 import { ICommonStyle } from '@components/common-style-types'
-import {countriesAndNationalitiesDomain} from "@components/UserProfile/store";
+import {countriesAndNationalitiesDomain, userInfoDomain} from "@components/UserProfile/store";
 
 const commonStyle = cs as ICommonStyle
 
@@ -23,6 +23,7 @@ export function UserProfilePage() {
   useEffect(() => {
     countriesAndNationalitiesDomain.event.getCountriesEvent()
     countriesAndNationalitiesDomain.event.getNationalitiesEvent()
+    userInfoDomain.event.getUserInfoEvent()
     // fetchUserInfo()
   }, [])
 

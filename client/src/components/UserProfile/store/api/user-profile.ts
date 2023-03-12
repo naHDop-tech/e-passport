@@ -16,7 +16,7 @@ export const updateUserProfileApi = async (
     return data
 }
 
-export const getUserDataApi = async (
+export const getUserProfileApi = async (
     userId: string
 ): Promise<GenericMSResponse<IFullUserInfo>> => {
     const { data } = await apiClient.get<null, AxiosResponse<GenericMSResponse<IFullUserInfo>>>(
