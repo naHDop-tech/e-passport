@@ -12,9 +12,9 @@ export interface ICountry {
 }
 
 export interface INationality {
-    code: number,
-    alfa_2: string
-    alfa_3: string
+    code: string,
+    alpha_2: string
+    alpha_3: string
     nationalities: string
 }
 

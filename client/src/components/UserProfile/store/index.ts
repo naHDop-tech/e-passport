@@ -1,6 +1,16 @@
 import {createDomain} from "@components/UserProfile/store/init";
+import {sample} from "effector";
 
 export const countriesAndNationalitiesDomain = createDomain()
+
+sample({
+    clock: countriesAndNationalitiesDomain.event.getNationalitiesEvent,
+    target: countriesAndNationalitiesDomain.effect.getNationalitiesFx
+})
+sample({
+    clock: countriesAndNationalitiesDomain.event.getCountriesEvent,
+    target: countriesAndNationalitiesDomain.effect.getCountriesFx
+})
 
 countriesAndNationalitiesDomain.store.$nationalitiesStore.on(
     countriesAndNationalitiesDomain.effect.getNationalitiesFx.failData, (cs, error: any) => ({ ...cs, serverError: error.data.error.message })

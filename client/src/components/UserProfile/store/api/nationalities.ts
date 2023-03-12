@@ -6,7 +6,7 @@ import { INationality } from "@components/UserProfile/store/interface";
 
 export const nationalitiesApi = async (): Promise<GenericMSResponse<INationality[]>> => {
     const { data } = await apiClient.get<null, AxiosResponse<GenericMSResponse<INationality[]>>>(
-        "/v1/nationalities", { withCredentials: true }
+        "/v1/nationalities", { withCredentials: false }
     )
     return data
 }

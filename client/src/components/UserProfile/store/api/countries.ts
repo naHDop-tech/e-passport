@@ -6,7 +6,7 @@ import { apiClient } from "@root/clients/api";
 
 export const countriesApi = async (): Promise<GenericMSResponse<ICountry[]>> => {
     const { data } = await apiClient.get<null, AxiosResponse<GenericMSResponse<ICountry[]>>>(
-        "/v1/countries", { withCredentials: true }
+        "/v1/countries", { withCredentials: false }
     )
     return data
 }
