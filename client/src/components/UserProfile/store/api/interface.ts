@@ -1,3 +1,5 @@
+import { IUserProfileStore } from "@components/UserProfile/store/interface";
+
 export interface IUploadUserPhotoPayload {
     file: File,
     userId: string
@@ -9,7 +11,10 @@ export interface IUpdateUserPhotoPayload {
     photoId: string
 }
 
-
-export interface IUploadUserPhotoResponse {
+export interface ICommonResponse {
     status: string
+}
+
+export interface IUpdateUserProfilePayload extends IUserProfileStore {
+    userId: string
 }

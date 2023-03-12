@@ -6,7 +6,7 @@ import { apiClient } from "@root/clients/api";
 
 export const loginApi = async (payload: ILoginPayload): Promise<GenericMSResponse<ILoginResponse>> => {
     const { data } = await apiClient.post<ILoginPayload, AxiosResponse<GenericMSResponse<ILoginResponse>>>(
-        "/v1/login", payload, { withCredentials: false }
+        "/v1/login"
     )
     return data
 }

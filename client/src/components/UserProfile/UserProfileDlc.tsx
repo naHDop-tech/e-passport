@@ -1,3 +1,4 @@
+import { useStore } from "effector-react";
 import { ChangeEvent, useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client'
 import { useSetRecoilState } from 'recoil'
@@ -18,13 +19,12 @@ import { useIsFieldWasTouched } from '@hooks/useIsFieldWasTouched'
 import { ToastType } from '@components/Toast/Toast'
 import { UserProfile } from '@components/UserProfile'
 import { token } from '@store/auth/atoms'
-import {useStore} from "effector-react";
-import {countriesAndNationalitiesDomain} from "@components/UserProfile/store";
+import { countriesAndNationalitiesDomain } from "@components/UserProfile/store";
 
 export function UserProfileDlc() {
   const nationalities = useStore(countriesAndNationalitiesDomain.store.$nationalitiesStore)
   const countries = useStore(countriesAndNationalitiesDomain.store.$countriesStore)
-  // const [image, setImage] = useState<File>()
+  const [image, setImage] = useState<File>()
   // const { user, fetchUserInfo } = useUserInfo()
   // const setToken = useSetRecoilState(token)
   // const [userProfileForm, setUserProfileForm] = useState<Partial<IUserProfile>>({

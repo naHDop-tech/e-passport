@@ -29,6 +29,7 @@ export class AxiosApiClient implements IApiClient {
             responseType: 'json',
             headers,
             timeout: 10 * 1000,
+            withCredentials: false,
         })
 
         instance.interceptors.request.use(injectToken, (error) => Promise.reject(error));
