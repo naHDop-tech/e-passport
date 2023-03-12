@@ -10,7 +10,7 @@ const styles = s as UserProfileStyle
 import cs from '@components/CommonStyle.module.css'
 import { ICommonStyle } from '@components/common-style-types'
 import { Button } from '@root/components/Button'
-import { IUserProfile } from '@root/interfaces/user'
+import {IFullUserInfo, IUserProfileStore} from "@components/UserProfile/store/interface";
 
 const commonStyle = cs as ICommonStyle
 
@@ -27,9 +27,9 @@ export interface IUserProfileProps {
 
   isButtonDisabled: boolean
 
-  changedUserFiled: Partial<IUserProfile>
+  changedUserFiled: Partial<IUserProfileStore>
 
-  user: Partial<IUserProfile>
+  user: Partial<IFullUserInfo>
   errors?: Partial<Record<FormFiledIds, string>>
 }
 
@@ -47,17 +47,17 @@ export function UserProfile(props: IUserProfileProps) {
   return (
     <div>
       {
-        !user.isDraft && <div className={styles.MainInfoBox}>
+        user.role?.role_class !== "Draft" && <div className={styles.MainInfoBox}>
           <div className={commonStyle.PositionRelative}>
             <Avatar
-              isSrcAllowed={!!user.photo?.encoding}
-              imgSrc={user.photo?.encoding}
+              isSrcAllowed={!!user.photo?.external_id}
+              imgSrc={user.photo?.url}
               size={AvatarSizeType.Medium}
             />
             <ImageUploader setImage={onSetImage} />
           </div>
           <div className={styles.MainInfo}>
-            <p>{`${user.firstName} ${user.lastName}`}</p>
+            <p>{`${user.first_name} ${user.last_name}`}</p>
             <p>{user.email}</p>
           </div>
         </div>
@@ -116,8 +116,6 @@ export function UserProfile(props: IUserProfileProps) {
             onChange={onChange}
             errorText={errors?.[FormFiledIds.Sex]}
         />
-
-{/* !!Object.keys(errors as Object).length */}
 
         <div className={commonStyle.Margin32} />
         <Button disabled={isButtonDisabled} style={{ float: 'right' }} title='Save profile' onClick={onSave} />

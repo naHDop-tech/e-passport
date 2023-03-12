@@ -126,6 +126,7 @@ export function createUserInfoStoreDomain() {
         setNationality: (cs, nationality: string) => ({ ...cs, nationality }),
         setSex: (cs, sex: string) => ({ ...cs, sex }),
         setBirthDay: (cs, birthDay: string) => ({ ...cs, birthDay }),
+        setDefaultValues: (cs, profile: IUserProfileStore) => profile,
         reset: () => userInfoStoreDefault,
     })
     const userProfileResponseStoreApi = createApi($userProfileResponseStore, {

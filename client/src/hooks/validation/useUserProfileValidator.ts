@@ -2,11 +2,11 @@ import { useMemo } from 'react'
 import Joi from 'joi'
 
 import { FormFiledIds } from '@components/UserProfile/ui/profile/UserProfile'
-import { IUserProfile } from '@root/interfaces/user'
+import { IUserProfileStore } from "@components/UserProfile/store/interface";
 
 type ValidatorReturnType = Partial<Record<FormFiledIds, string>>
 
-export function useUserProfileValidator(form: Partial<IUserProfile>): ValidatorReturnType {
+export function useUserProfileValidator(form: Partial<IUserProfileStore>): ValidatorReturnType {
   const now = Date.now();
   const cutoffDate = new Date(now - (1000 * 60 * 60 * 24 * 365 * 21)); // 21 years old
 
