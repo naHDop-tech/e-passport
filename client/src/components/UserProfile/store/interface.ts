@@ -16,8 +16,15 @@ export interface IUserProfileStore {
     birthDate: string,
     nationality: string,
     sex: string
-    serverError?: string
-    status?: string
+}
+
+export interface ICommonResponseStore {
+    serverError: string
+    status: string
+}
+
+export interface IUserPhotoStore {
+    file?: File
 }
 
 export interface INationalitiesStore {

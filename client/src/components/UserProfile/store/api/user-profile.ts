@@ -8,7 +8,7 @@ import { IFullUserInfo, IUserProfileStore } from "@components/UserProfile/store/
 export const updateUserProfileApi = async (
     payload: IUpdateUserProfilePayload
 ): Promise<GenericMSResponse<ICommonResponse>> => {
-    const { userId, serverError,  ...params } = payload
+    const { userId,  ...params } = payload
     const { data } = await apiClient.patch<IUserProfileStore, AxiosResponse<GenericMSResponse<ICommonResponse>>>(
         `/v1/user/${payload.userId}`,
         params,
