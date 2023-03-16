@@ -147,7 +147,7 @@ countriesAndNationalitiesDomain.store.$countriesStore.on(
     }
 )
 
-// USER PRFILE
+// USER PROFILE
 sample({
     clock: userProfileStoreDomain.event.updateUserProfileEvent,
     target: userProfileStoreDomain.effect.updateUserProfileFx,

@@ -35,9 +35,9 @@ export interface IUserProfileProps {
 }
 
 export enum FormFiledIds {
-  FirstName = 'firstName',
-  LastName = 'lastName',
-  BirthDate = 'birthDate',
+  FirstName = 'first_name',
+  LastName = 'last_name',
+  BirthDate = 'birth_date',
   Nationality = 'nationality',
   Sex = 'sex',
 }
@@ -73,7 +73,7 @@ export function UserProfile(props: IUserProfileProps) {
         <TextInput
           label='First name'
           placeholder='i.e. "John"'
-          value={changedUserFiled.firstName}
+          value={changedUserFiled.first_name}
           id={FormFiledIds.FirstName}
           onChange={onChange}
           errorText={errors?.[FormFiledIds.FirstName]}
@@ -82,7 +82,7 @@ export function UserProfile(props: IUserProfileProps) {
         <TextInput
           label='Last name'
           placeholder='i.e. "Doe"'
-          value={changedUserFiled.lastName}
+          value={changedUserFiled.last_name}
           id={FormFiledIds.LastName}
           onChange={onChange}
           errorText={errors?.[FormFiledIds.LastName]}
@@ -91,7 +91,7 @@ export function UserProfile(props: IUserProfileProps) {
         <TextInput
           type="date"
           label='Birth date'
-          value={changedUserFiled.birthDate}
+          value={changedUserFiled.birth_date}
           id={FormFiledIds.BirthDate}
           onChange={onChange}
           errorText={errors?.[FormFiledIds.BirthDate]}

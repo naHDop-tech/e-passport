@@ -11,9 +11,9 @@ export interface INationality {
 }
 
 export interface IUserProfileStore {
-    firstName: string,
-    lastName: string,
-    birthDate: string,
+    first_name: string,
+    last_name: string,
+    birth_date: string,
     nationality: number,
     sex: string
 }

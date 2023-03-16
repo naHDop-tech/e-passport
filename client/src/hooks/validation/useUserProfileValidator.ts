@@ -18,7 +18,7 @@ export function useUserProfileValidator(form: Partial<IUserProfileStore>): Valid
     [FormFiledIds.Sex]: Joi.string(),
   })
 
-  const errorData: ValidatorReturnType = useMemo(() => {
+  return useMemo(() => {
     const validationResult = schema.validate(form, { abortEarly: false })
 
     if (validationResult?.error?.details.length) {
@@ -30,6 +30,4 @@ export function useUserProfileValidator(form: Partial<IUserProfileStore>): Valid
     }
     return {}
   }, [form])
-
-  return errorData
 }

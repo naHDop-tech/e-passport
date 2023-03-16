@@ -16,7 +16,7 @@ import {
 import {IFullUserInfo, IUserProfileStore} from "@components/UserProfile/store/interface";
 
 export function UserProfileDlc() {
-  const n = useStore(countriesAndNationalitiesDomain.store.$nationalitiesStore)
+  // const n = useStore(countriesAndNationalitiesDomain.store.$nationalitiesStore)
   const userProfile = useStore(userInfoDomain.store.$userInfo)
   const userProfileResponse = useStore(userInfoDomain.store.$userInfoResponse)
 
@@ -27,8 +27,6 @@ export function UserProfileDlc() {
   const userPhotoResponseStore = useStore(userPhotoStoreDomain.store.$responseStore)
   const toast = useToast()
 
-  console.log(n)
-
   // TODO: to custom hook ?
   useEffect(() => {
     if (userProfileResponse.serverError) {
@@ -37,23 +35,22 @@ export function UserProfileDlc() {
   }, [userProfileResponse.serverError])
   useEffect(() => {
     if (
-        userProfileResponse?.status === 'ok'
-        && userProfile.first_name
+        userProfile.first_name
         && userProfile.last_name
         && userProfile.nationality
         && userProfile.sex
         && userProfile.birth_date
     ) {
       const payload: IUserProfileStore = {
-        firstName: userProfile.first_name,
-        lastName: userProfile.last_name,
-        birthDate: userProfile.birth_date,
+        first_name: userProfile.first_name,
+        last_name: userProfile.last_name,
+        birth_date: new Date(userProfile.birth_date).toISOString(),
         nationality: userProfile.nationality.code,
         sex: userProfile.sex,
       }
       userProfileStoreDomain.api.userProfileStoreApi.setDefaultValues(payload)
     }
-  }, [userProfileResponse.status])
+  }, [userProfile])
 
   useEffect(() => {
     if (userProfileResponseStore.serverError) {
@@ -67,16 +64,16 @@ export function UserProfileDlc() {
   }, [userProfileResponseStore.status])
 
   const errors = useUserProfileValidator(userProfileStore)
-  const shortCurrentUserField = {
-    firstName: userProfile.first_name,
-    lastName: userProfile.last_name,
-    birthDate: userProfile.birth_date,
-    nationality: userProfile.nationality,
-    sex: userProfile.sex,
-  }
+  // const shortCurrentUserField = {
+  //   firstName: userProfile.first_name,
+  //   lastName: userProfile.last_name,
+  //   birthDate: userProfile.birth_date,
+  //   nationality: userProfile.nationality,
+  //   sex: userProfile.sex,
+  // }
 
-  const isFieldWasTouched = useIsFieldWasTouched<Partial<IFullUserInfo>>(shortCurrentUserField, userProfile);
-  const isButtonDisabled = !!Object.keys(errors as Object).length || !isFieldWasTouched;
+  // const isFieldWasTouched = useIsFieldWasTouched<Partial<IFullUserInfo>>(shortCurrentUserField, userProfile);
+  const isButtonDisabled = Object.keys(errors as Object).length !== 0;
   
   useEffect(() => {
     if (userPhotoStore.file && userProfile?.photo?.photo_id) {
@@ -101,14 +98,16 @@ export function UserProfileDlc() {
     userProfileStoreDomain.event.updateUserProfileEvent()
   }
 
+  console.log(userProfileResponse)
+
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.id === 'firstName') {
+    if (e.target.id === 'first_name') {
       userProfileStoreDomain.api.userProfileStoreApi.setFirstName(e.target.value)
     }
-    if (e.target.id === 'lastName') {
+    if (e.target.id === 'last_name') {
       userProfileStoreDomain.api.userProfileStoreApi.setLastName(e.target.value)
     }
-    if (e.target.id === 'birthDate') {
+    if (e.target.id === 'birth_date') {
       userProfileStoreDomain.api.userProfileStoreApi.setBirthDay(e.target.value)
     }
     if (e.target.id === 'nationality') {
@@ -118,8 +117,6 @@ export function UserProfileDlc() {
       userProfileStoreDomain.api.userProfileStoreApi.setSex(e.target.value)
     }
   }
-
-  console.log(userProfileStore)
 
   return (
     <UserProfile
