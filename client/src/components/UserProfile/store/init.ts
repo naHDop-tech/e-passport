@@ -4,12 +4,61 @@ import {
     ICountriesStore,
     INationalitiesStore,
     ICommonResponseStore,
-    IUserProfileStore, IUserPhotoStore, IFullUserInfo
+    IUserProfileStore,
+    IUserPhotoStore,
+    IFullUserInfo,
+    IUserPhoneStore
 } from "@components/UserProfile/store/interface";
 import {nationalitiesApi} from "@components/UserProfile/store/api/nationalities";
 import {countriesApi} from "@components/UserProfile/store/api/countries";
 import {getUserProfileApi, updateUserProfileApi} from "@components/UserProfile/store/api/user-profile";
 import {updateUserPhotoApi, uploadUserPhotoApi} from "@components/UserProfile/store/api/user-iamge";
+import {createUserPhoneApi, updateUserPhoneApi} from "@components/UserProfile/store/api/user-phone";
+
+export function createUserPhoneDomain() {
+    const createUserPhoneEvent = createEvent()
+    const updateUserPhoneEvent = createEvent()
+    const storeResetEvent = createEvent()
+    const responseResetEvent = createEvent()
+    
+    const userPhoneFormDefault: IUserPhoneStore = {
+        country_code: "",
+        number: ""
+    }
+    const responseDefault: ICommonResponseStore = {
+        serverError: "",
+        status: "",
+    }
+    
+    const createUserPhoneFx = createEffect(createUserPhoneApi)
+    const updateUserPhoneFx = createEffect(updateUserPhoneApi)
+    
+    const $form = createStore<IUserPhoneStore>(userPhoneFormDefault)
+    const $response = createStore<ICommonResponseStore>(responseDefault)
+    
+    const formApi = createApi($form, {
+        setCountryCode: (cs, country_code: string) => ({ ...cs, country_code }),
+        setNumber: (cs, number: string) => ({ ...cs, number }),
+    })
+    
+    return {
+        api: { formApi },
+        store: {
+            $form,
+            $response,
+        },
+        effect: {
+            createUserPhoneFx,
+            updateUserPhoneFx,
+        },
+        event: {
+            createUserPhoneEvent,
+            updateUserPhoneEvent,
+            responseResetEvent,
+            storeResetEvent,
+        }
+    }
+}
 
 export function createUserInfoDomain() {
     const getUserInfoEvent = createEvent()

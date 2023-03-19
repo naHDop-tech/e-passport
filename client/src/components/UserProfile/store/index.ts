@@ -3,7 +3,7 @@ import { sample } from "effector";
 import {
     createNationalitiesAndCountriesDomain,
     createUserInfoDomain,
-    createUserInfoStoreDomain,
+    createUserInfoStoreDomain, createUserPhoneDomain,
     createUserPhotoStoreDomain
 } from "@components/UserProfile/store/init";
 
@@ -11,7 +11,67 @@ export const countriesAndNationalitiesDomain = createNationalitiesAndCountriesDo
 export const userProfileStoreDomain = createUserInfoStoreDomain()
 export const userPhotoStoreDomain = createUserPhotoStoreDomain()
 export const userInfoDomain = createUserInfoDomain()
+export const userPhoneDomain = createUserPhoneDomain()
 
+//USER PHONE
+sample({
+    clock: userPhoneDomain.effect.createUserPhoneFx.doneData,
+    target: userPhoneDomain.event.storeResetEvent,
+})
+sample({
+    clock: userPhoneDomain.effect.updateUserPhoneFx.doneData,
+    target: userPhoneDomain.event.storeResetEvent,
+})
+sample({
+    clock: userPhoneDomain.event.createUserPhoneEvent,
+    target: userPhoneDomain.event.responseResetEvent,
+})
+sample({
+    clock: userPhoneDomain.event.updateUserPhoneEvent,
+    target: userPhoneDomain.event.responseResetEvent,
+})
+sample({
+    clock: userPhoneDomain.event.createUserPhoneEvent,
+    target: userPhoneDomain.effect.createUserPhoneFx,
+    fn: (store) => {
+        const userId = localStorage.getItem('userId')
+        if (userId) {
+            return {
+                userId,
+                country_code: store.country_code,
+                number: store.number,
+            }
+        } else {
+            throw new Error("No user id")
+        }
+    },
+    source: userPhoneDomain.store.$form,
+})
+sample({
+    clock: userPhoneDomain.event.updateUserPhoneEvent,
+    target: userPhoneDomain.effect.updateUserPhoneFx,
+    fn: ({ ups, uis }) => {
+        const userId = localStorage.getItem('userId')
+        if (userId) {
+            if (!uis?.phone) {
+                throw new Error("No user phone id")
+            }
+            return {
+                userId,
+                country_code: ups.country_code,
+                number: ups.number,
+                phone_id: uis.phone.phone_id,
+            }
+        } else {
+            throw new Error("No user id")
+        }
+    },
+    source: { ups: userPhoneDomain.store.$form, uis: userInfoDomain.store.$userInfo },
+})
+userPhoneDomain.store.$response.on(userPhoneDomain.effect.createUserPhoneFx.failData, (_, error: any) =>
+    ({ status: "failed", serverError: error.data.error.message})).reset(userPhoneDomain.event.responseResetEvent)
+userPhoneDomain.store.$response.on(userPhoneDomain.effect.createUserPhoneFx.doneData, (_, data) =>
+    ({ status: "ok", serverError: "" })).reset(userPhoneDomain.event.responseResetEvent)
 //USER INFO
 sample({
     clock: userInfoDomain.event.getUserInfoEvent,
