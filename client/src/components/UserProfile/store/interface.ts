@@ -18,6 +18,11 @@ export interface IUserProfileStore {
     sex: string
 }
 
+export interface IUserPhoneStore {
+    country_code: string
+    number: string
+}
+
 export interface ICommonResponseStore {
     serverError: string
     status: string

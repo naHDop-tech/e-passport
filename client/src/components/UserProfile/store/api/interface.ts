@@ -11,6 +11,19 @@ export interface IUpdateUserPhotoPayload {
     photoId: string
 }
 
+export interface ICreateUserPhonePayload {
+    userId: string
+    country_code: string
+    number: string
+}
+
+export interface IUpdateUserPhonePayload {
+    userId: string
+    country_code: string
+    number: string
+    phone_id: string
+}
+
 export interface ICommonResponse {
     status: string
 }

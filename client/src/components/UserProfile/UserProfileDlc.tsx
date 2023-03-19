@@ -16,7 +16,6 @@ import {
 import {IFullUserInfo, IUserProfileStore} from "@components/UserProfile/store/interface";
 
 export function UserProfileDlc() {
-  // const n = useStore(countriesAndNationalitiesDomain.store.$nationalitiesStore)
   const userProfile = useStore(userInfoDomain.store.$userInfo)
   const userProfileResponse = useStore(userInfoDomain.store.$userInfoResponse)
 
@@ -26,8 +25,7 @@ export function UserProfileDlc() {
   const userPhotoStore = useStore(userPhotoStoreDomain.store.$fileStore)
   const userPhotoResponseStore = useStore(userPhotoStoreDomain.store.$responseStore)
   const toast = useToast()
-
-  // TODO: to custom hook ?
+  
   useEffect(() => {
     if (userProfileResponse.serverError) {
       toast.open({ type: ToastType.Error, content: userProfileResponse.serverError })
@@ -60,6 +58,7 @@ export function UserProfileDlc() {
   useEffect(() => {
     if (userProfileResponseStore?.status === 'ok') {
       toast.open({ type: ToastType.Success, content: "User profile has updated" })
+      userInfoDomain.event.getUserInfoEvent()
     }
   }, [userProfileResponseStore.status])
 
@@ -87,7 +86,7 @@ export function UserProfileDlc() {
     if (userPhotoResponseStore.status === 'ok') {
       toast.open({ type: ToastType.Success, content: "User photo has updated" })
     }
-  }, [userPhotoResponseStore.serverError])
+  }, [userPhotoResponseStore.status])
   useEffect(() => {
     if (userPhotoResponseStore.serverError) {
       toast.open({ type: ToastType.Error, content: userPhotoResponseStore.serverError })
@@ -97,8 +96,6 @@ export function UserProfileDlc() {
   const saveHandler = () => {
     userProfileStoreDomain.event.updateUserProfileEvent()
   }
-
-  console.log(userProfileResponse)
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.id === 'first_name') {
