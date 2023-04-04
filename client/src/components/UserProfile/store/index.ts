@@ -70,7 +70,7 @@ sample({
 })
 userPhoneDomain.store.$response.on(userPhoneDomain.effect.createUserPhoneFx.failData, (_, error: any) =>
     ({ status: "failed", serverError: error.data.error.message})).reset(userPhoneDomain.event.responseResetEvent)
-userPhoneDomain.store.$response.on(userPhoneDomain.effect.createUserPhoneFx.doneData, (_, data) =>
+userPhoneDomain.store.$response.on(userPhoneDomain.effect.createUserPhoneFx.doneData, () =>
     ({ status: "ok", serverError: "" })).reset(userPhoneDomain.event.responseResetEvent)
 //USER INFO
 sample({

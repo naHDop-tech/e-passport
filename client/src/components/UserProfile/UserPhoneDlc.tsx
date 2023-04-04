@@ -12,59 +12,58 @@ import { useUserPhoneValidator } from '@root/hooks/validation/userUserPhoneValid
 import { useIsFieldWasTouched } from '@hooks/useIsFieldWasTouched'
 
 export function UserPhoneDlc() {
-  return <div>test</div>
-  // const { user, fetchUserInfo } = useUserInfo()
-  // const [userPhone, setUserPhone] = useState<Partial<IUserProfile['phone']>>({
-  //   number: user.phone?.number,
-  //   countryCode: user.phone?.countryCode
-  // })
-  // const errors = useUserPhoneValidator(userPhone)
-  // const toast = useToast()
-  //
-  // const shortCurrentUserField = {
-  //   number: user.phone?.number,
-  //   countryCode: user.phone?.countryCode,
-  // }
-  //
-  // const isFieldWasTouched = useIsFieldWasTouched<Partial<IUserProfile['phone']>>(shortCurrentUserField, userPhone);
-  // const isButtonDisabled = !!Object.keys(errors as Object).length || !isFieldWasTouched;
-  //
-  // const [updateUserPhoneFx] = useMutation(UPDATE_USER_PHONE)
-  //
-  // const saveHandler = async () => {
-  //   try {
-  //     await updateUserPhoneFx({ variables: { updateUserPhoneInput: {
-  //       countryCode: userPhone.countryCode,
-  //       number: userPhone.number,
-  //     }}})
-  //
-  //     await fetchUserInfo()
-  //     toast.open({ type: ToastType.Success, content: 'Your phone successfully changed' })
-  //   } catch (err: any) {
-  //     toast.open({ type: ToastType.Error, content: err.message })
-  //   }
-  // }
-  //
-  // const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setUserPhone((prevState) => {
-  //     return {
-  //       ...prevState,
-  //       [e.target.id]: e.target.value,
-  //     }
-  //   })
-  // }
-  //
-  // if (user.isDraft) {
-  //   return null
-  // }
-  //
-  // return (
-  //   <UserPhone
-  //     isButtonDisabled={isButtonDisabled}
-  //     errors={errors}
-  //     changedUserFiled={userPhone}
-  //     onChange={changeHandler}
-  //     onSave={saveHandler}
-  //   />
-  // )
+  const { user, fetchUserInfo } = useUserInfo()
+  const [userPhone, setUserPhone] = useState<Partial<IUserProfile['phone']>>({
+    number: user.phone?.number,
+    countryCode: user.phone?.countryCode
+  })
+  const errors = useUserPhoneValidator(userPhone)
+  const toast = useToast()
+
+  const shortCurrentUserField = {
+    number: user.phone?.number,
+    countryCode: user.phone?.countryCode,
+  }
+
+  const isFieldWasTouched = useIsFieldWasTouched<Partial<IUserProfile['phone']>>(shortCurrentUserField, userPhone);
+  const isButtonDisabled = !!Object.keys(errors as Object).length || !isFieldWasTouched;
+
+  const [updateUserPhoneFx] = useMutation(UPDATE_USER_PHONE)
+
+  const saveHandler = async () => {
+    try {
+      await updateUserPhoneFx({ variables: { updateUserPhoneInput: {
+        countryCode: userPhone.countryCode,
+        number: userPhone.number,
+      }}})
+
+      await fetchUserInfo()
+      toast.open({ type: ToastType.Success, content: 'Your phone successfully changed' })
+    } catch (err: any) {
+      toast.open({ type: ToastType.Error, content: err.message })
+    }
+  }
+
+  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setUserPhone((prevState) => {
+      return {
+        ...prevState,
+        [e.target.id]: e.target.value,
+      }
+    })
+  }
+
+  if (user.isDraft) {
+    return null
+  }
+
+  return (
+    <UserPhone
+      isButtonDisabled={isButtonDisabled}
+      errors={errors}
+      changedUserFiled={userPhone}
+      onChange={changeHandler}
+      onSave={saveHandler}
+    />
+  )
 }
