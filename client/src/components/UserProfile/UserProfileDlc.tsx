@@ -1,143 +1,129 @@
-import { ChangeEvent, useState, useEffect } from 'react'
-import { useMutation } from '@apollo/client'
-import { useSetRecoilState } from 'recoil'
+import { useStore } from "effector-react";
+import { useEffect, ChangeEvent } from 'react'
 
-import { toBase64 } from '@root/utils/files'
-import { IUserProfile } from '@root/interfaces/user'
+import {useUserProfileValidator} from '@hooks/validation/useUserProfileValidator'
+import {useToast} from '@hooks/useToast'
+import {useIsFieldWasTouched} from '@hooks/useIsFieldWasTouched'
 
-import { CREATE_USER } from '@gql/mutations/new-user'
-import { UPDATE_USER } from '@gql/mutations/update-user'
-import { UPLOAD_USER_IMAGE } from '@gql/mutations/upload-user-image'
-import { UPDATE_USER_PASSPORT } from "@gql/mutations/update-user-passport";
-
-import { useUserProfileValidator } from '@hooks/validation/useUserProfileValidator'
-import { useToast } from '@hooks/useToast'
-import { useUserInfo } from '@hooks/useUserInfo'
-import { useIsFieldWasTouched } from '@hooks/useIsFieldWasTouched'
-
-import { ToastType } from '@components/Toast/Toast'
-import { UserProfile } from '@components/UserProfile'
-import { token } from '@store/auth/atoms'
+import {ToastType} from '@components/Toast/Toast'
+import {UserProfile} from '@components/UserProfile'
+import {
+  countriesAndNationalitiesDomain,
+  userInfoDomain,
+  userPhotoStoreDomain,
+  userProfileStoreDomain
+} from "@components/UserProfile/store";
+import {IFullUserInfo, IUserProfileStore} from "@components/UserProfile/store/interface";
 
 export function UserProfileDlc() {
-  const [image, setImage] = useState<File>()
-  const { user, fetchUserInfo } = useUserInfo()
-  const setToken = useSetRecoilState(token)
-  const [userProfileForm, setUserProfileForm] = useState<Partial<IUserProfile>>({
-    firstName: user.firstName,
-    lastName: user.lastName,
-    birthDate: user.birthDate,
-    nationality: user.nationality,
-    sex: user.sex,
-  })
-  const errors = useUserProfileValidator(userProfileForm)
+  const userProfile = useStore(userInfoDomain.store.$userInfo)
+  const userProfileResponse = useStore(userInfoDomain.store.$userInfoResponse)
+
+  const userProfileStore = useStore(userProfileStoreDomain.store.$userProfileStore)
+  const userProfileResponseStore = useStore(userProfileStoreDomain.store.$userProfileResponseStore)
+
+  const userPhotoStore = useStore(userPhotoStoreDomain.store.$fileStore)
+  const userPhotoResponseStore = useStore(userPhotoStoreDomain.store.$responseStore)
   const toast = useToast()
   
-  const shortCurrentUserField = {
-    firstName: user.firstName,
-    lastName: user.lastName,
-    birthDate: user.birthDate,
-    nationality: user.nationality,
-    sex: user.sex,
-  }
-
-  const isFieldWasTouched = useIsFieldWasTouched<Partial<IUserProfile>>(shortCurrentUserField, userProfileForm);
-  const isButtonDisabled = !!Object.keys(errors as Object).length || !isFieldWasTouched;
-
-  const [createUserFx, { data: userCreatedData }] = useMutation(CREATE_USER)
-  const [updateUserFx] = useMutation(UPDATE_USER)
-  // TODO: replace to backend
-  const [updateUserPassportFx] = useMutation(UPDATE_USER_PASSPORT)
-  const [uploadUserImageFx] = useMutation(UPLOAD_USER_IMAGE)
+  useEffect(() => {
+    if (userProfileResponse.serverError) {
+      toast.open({ type: ToastType.Error, content: userProfileResponse.serverError })
+    }
+  }, [userProfileResponse.serverError])
+  useEffect(() => {
+    if (
+        userProfile.first_name
+        && userProfile.last_name
+        && userProfile.nationality
+        && userProfile.sex
+        && userProfile.birth_date
+    ) {
+      const payload: IUserProfileStore = {
+        first_name: userProfile.first_name,
+        last_name: userProfile.last_name,
+        birth_date: new Date(userProfile.birth_date).toISOString(),
+        nationality: userProfile.nationality.code,
+        sex: userProfile.sex,
+      }
+      userProfileStoreDomain.api.userProfileStoreApi.setDefaultValues(payload)
+    }
+  }, [userProfile])
 
   useEffect(() => {
-    if (userCreatedData?.createUser.token) {
-      setToken(userCreatedData.createUser.token)
+    if (userProfileResponseStore.serverError) {
+      toast.open({ type: ToastType.Error, content: userProfileResponseStore.serverError })
     }
-  }, [userCreatedData])
-
+  }, [userProfileResponseStore.serverError])
   useEffect(() => {
-    ;(async() => {
-      if (image) {
-        const base64 = await toBase64(image)
-
-        try {
-          await uploadUserImageFx({ variables: { createPhotoInput: {
-              filename: image.name.replaceAll(' ', ''),
-              mimetype: image.type,
-              encoding: base64,
-          }}})
-          // TODO: replace to backend
-          if (!user.isDraft && user.passport?.type) {
-            await updateUserPassportFx({ variables: { updatePassportInput: {}}})
-          }
-          await fetchUserInfo()
-          toast.open({ type: ToastType.Success, content: 'Your photo was updated' })
-        } catch (error: any) {
-          toast.open({ type: ToastType.Error, content: error.message })
-        }
-      }
-    })()
-  }, [image])
-
-  const saveHandler = async () => {
-    try {
-      if (user.isDraft) {
-        const createdUser = await createUserFx({ variables: { createUserInput: {
-          email: user.email,
-          firstName: userProfileForm.firstName,
-          lastName: userProfileForm.lastName,
-          birthDate: userProfileForm.birthDate,
-          nationality: userProfileForm.nationality,
-          sex: userProfileForm.sex,
-        } } })
-
-        if (createdUser.errors?.length) {
-          throw new Error(createdUser.errors[0].message)
-        }
-      } else {
-        const updatedUser = await updateUserFx({ variables: { updateUserInput: {
-          email: userProfileForm.email,
-          firstName: userProfileForm.firstName,
-          lastName: userProfileForm.lastName,
-          birthDate: userProfileForm.birthDate,
-          nationality: userProfileForm.nationality,
-          sex: userProfileForm.sex,
-        } } })
-
-        if (updatedUser.errors?.length) {
-          throw new Error(updatedUser.errors[0].message)
-        }
-      }
-      // TODO: replace to backend
-      if (!user.isDraft && user.passport?.type) {
-        await updateUserPassportFx({ variables: { updatePassportInput: {}}})
-      }
-      fetchUserInfo()
-      toast.open({ type: ToastType.Success, content: 'User profile were updated' })
-    } catch (err: any) {
-      toast.open({ type: ToastType.Error, content: err.message })
+    if (userProfileResponseStore?.status === 'ok') {
+      toast.open({ type: ToastType.Success, content: "User profile has updated" })
+      userInfoDomain.event.getUserInfoEvent()
     }
+  }, [userProfileResponseStore.status])
+
+  const errors = useUserProfileValidator(userProfileStore)
+  // const shortCurrentUserField = {
+  //   firstName: userProfile.first_name,
+  //   lastName: userProfile.last_name,
+  //   birthDate: userProfile.birth_date,
+  //   nationality: userProfile.nationality,
+  //   sex: userProfile.sex,
+  // }
+
+  // const isFieldWasTouched = useIsFieldWasTouched<Partial<IFullUserInfo>>(shortCurrentUserField, userProfile);
+  const isButtonDisabled = Object.keys(errors as Object).length !== 0;
+  
+  useEffect(() => {
+    if (userPhotoStore.file && userProfile?.photo?.photo_id) {
+      userPhotoStoreDomain.event.updateUserPhotoEvent(userProfile.photo.photo_id)
+    }
+    if (userPhotoStore.file && !userProfile.photo?.external_id) {
+      userPhotoStoreDomain.event.uploadUserPhotoEvent()
+    }
+  }, [userPhotoStore.file])
+  useEffect(() => {
+    if (userPhotoResponseStore.status === 'ok') {
+      toast.open({ type: ToastType.Success, content: "User photo has updated" })
+    }
+  }, [userPhotoResponseStore.status])
+  useEffect(() => {
+    if (userPhotoResponseStore.serverError) {
+      toast.open({ type: ToastType.Error, content: userPhotoResponseStore.serverError })
+    }
+  }, [userPhotoResponseStore.serverError])
+
+  const saveHandler = () => {
+    userProfileStoreDomain.event.updateUserProfileEvent()
   }
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setUserProfileForm((prevState) => {
-      return {
-        ...prevState,
-        [e.target.id]: e.target.value,
-      }
-    })
+    if (e.target.id === 'first_name') {
+      userProfileStoreDomain.api.userProfileStoreApi.setFirstName(e.target.value)
+    }
+    if (e.target.id === 'last_name') {
+      userProfileStoreDomain.api.userProfileStoreApi.setLastName(e.target.value)
+    }
+    if (e.target.id === 'birth_date') {
+      userProfileStoreDomain.api.userProfileStoreApi.setBirthDay(e.target.value)
+    }
+    if (e.target.id === 'nationality') {
+      userProfileStoreDomain.api.userProfileStoreApi.setNationality(Number(e.target.value))
+    }
+    if (e.target.id === 'sex') {
+      userProfileStoreDomain.api.userProfileStoreApi.setSex(e.target.value)
+    }
   }
 
   return (
     <UserProfile
       isButtonDisabled={isButtonDisabled}
-      onSetImage={setImage}
+      onSetImage={userPhotoStoreDomain.api.fileStoreApi.setFile}
       errors={errors}
-      changedUserFiled={userProfileForm}
+      changedUserFiled={userProfileStore}
       onChange={changeHandler}
       onSave={saveHandler}
-      user={user}
+      user={userProfile}
     />
   )
 }

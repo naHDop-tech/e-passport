@@ -10,7 +10,8 @@ const styles = s as UserProfileStyle
 import cs from '@components/CommonStyle.module.css'
 import { ICommonStyle } from '@components/common-style-types'
 import { Button } from '@root/components/Button'
-import { IUserProfile } from '@root/interfaces/user'
+import {IFullUserInfo, IUserProfileStore} from "@components/UserProfile/store/interface";
+import {NumberInput} from "@components/Inputs/NumberInput";
 
 const commonStyle = cs as ICommonStyle
 
@@ -27,16 +28,16 @@ export interface IUserProfileProps {
 
   isButtonDisabled: boolean
 
-  changedUserFiled: Partial<IUserProfile>
+  changedUserFiled: Partial<IUserProfileStore>
 
-  user: Partial<IUserProfile>
+  user: Partial<IFullUserInfo>
   errors?: Partial<Record<FormFiledIds, string>>
 }
 
 export enum FormFiledIds {
-  FirstName = 'firstName',
-  LastName = 'lastName',
-  BirthDate = 'birthDate',
+  FirstName = 'first_name',
+  LastName = 'last_name',
+  BirthDate = 'birth_date',
   Nationality = 'nationality',
   Sex = 'sex',
 }
@@ -47,17 +48,17 @@ export function UserProfile(props: IUserProfileProps) {
   return (
     <div>
       {
-        !user.isDraft && <div className={styles.MainInfoBox}>
+        user.role?.role_class !== "Draft" && <div className={styles.MainInfoBox}>
           <div className={commonStyle.PositionRelative}>
             <Avatar
-              isSrcAllowed={!!user.photo?.encoding}
-              imgSrc={user.photo?.encoding}
+              isSrcAllowed={!!user.photo?.external_id}
+              imgSrc={user.photo?.url}
               size={AvatarSizeType.Medium}
             />
             <ImageUploader setImage={onSetImage} />
           </div>
           <div className={styles.MainInfo}>
-            <p>{`${user.firstName} ${user.lastName}`}</p>
+            <p>{`${user.first_name} ${user.last_name}`}</p>
             <p>{user.email}</p>
           </div>
         </div>
@@ -72,7 +73,7 @@ export function UserProfile(props: IUserProfileProps) {
         <TextInput
           label='First name'
           placeholder='i.e. "John"'
-          value={changedUserFiled.firstName}
+          value={changedUserFiled.first_name}
           id={FormFiledIds.FirstName}
           onChange={onChange}
           errorText={errors?.[FormFiledIds.FirstName]}
@@ -81,7 +82,7 @@ export function UserProfile(props: IUserProfileProps) {
         <TextInput
           label='Last name'
           placeholder='i.e. "Doe"'
-          value={changedUserFiled.lastName}
+          value={changedUserFiled.last_name}
           id={FormFiledIds.LastName}
           onChange={onChange}
           errorText={errors?.[FormFiledIds.LastName]}
@@ -90,7 +91,7 @@ export function UserProfile(props: IUserProfileProps) {
         <TextInput
           type="date"
           label='Birth date'
-          value={changedUserFiled.birthDate}
+          value={changedUserFiled.birth_date}
           id={FormFiledIds.BirthDate}
           onChange={onChange}
           errorText={errors?.[FormFiledIds.BirthDate]}
@@ -98,14 +99,24 @@ export function UserProfile(props: IUserProfileProps) {
         <div className={commonStyle.Margin24} />
 
         {/* TODO: SELECTOR */}
-        <TextInput
-          label='Country resident'
-          placeholder='i.e. "England"'
-          value={changedUserFiled.nationality}
-          id={FormFiledIds.Nationality}
-          onChange={onChange}
-          errorText={errors?.[FormFiledIds.Nationality]}
+        <NumberInput
+            label='Country resident'
+            placeholder='i.e. "England"'
+            value={changedUserFiled.nationality}
+            id={FormFiledIds.Nationality}
+            onChange={onChange}
+            errorText={errors?.[FormFiledIds.Nationality]}
         />
+        <div className={commonStyle.Margin24} />
+        {/*<TextInput*/}
+        {/*  label='Country resident'*/}
+        {/*  placeholder='i.e. "England"'*/}
+        {/*  value={changedUserFiled.nationality}*/}
+        {/*  id={FormFiledIds.Nationality}*/}
+        {/*  onChange={onChange}*/}
+        {/*  errorText={errors?.[FormFiledIds.Nationality]}*/}
+        {/*/>*/}
+        {/*<div className={commonStyle.Margin24} />*/}
 
         {/* TODO: SELECTOR */}
         <TextInput
@@ -116,8 +127,6 @@ export function UserProfile(props: IUserProfileProps) {
             onChange={onChange}
             errorText={errors?.[FormFiledIds.Sex]}
         />
-
-{/* !!Object.keys(errors as Object).length */}
 
         <div className={commonStyle.Margin32} />
         <Button disabled={isButtonDisabled} style={{ float: 'right' }} title='Save profile' onClick={onSave} />

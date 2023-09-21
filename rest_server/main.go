@@ -9,6 +9,8 @@ import (
 	_ "github.com/lib/pq"
 	"github.com/naHDop-tech/e-passport/cmd/api"
 	"github.com/naHDop-tech/e-passport/domain/address"
+	"github.com/naHDop-tech/e-passport/domain/countries"
+	"github.com/naHDop-tech/e-passport/domain/nationalities"
 	"github.com/naHDop-tech/e-passport/domain/passport"
 	"github.com/naHDop-tech/e-passport/domain/phone"
 	"github.com/naHDop-tech/e-passport/domain/photo"
@@ -48,6 +50,8 @@ func main() {
 	identificator := p_ident.NewIdentifacator()
 	passportDomain := passport.NewPassport(conn, identificator)
 	loginSrv := login.NewLoginService(userDomain, conf)
+	countriesDomain := countries.NewCountry(conn)
+	nationalitiesDomain := nationalities.NewNationality(conn)
 	server, err := api.NewServer(
 		conf,
 		conn,
@@ -58,6 +62,8 @@ func main() {
 		photoDomain,
 		passportDomain,
 		loginSrv,
+		countriesDomain,
+		nationalitiesDomain,
 	)
 	if err != nil {
 		log.Fatal("Server has not configured", err)

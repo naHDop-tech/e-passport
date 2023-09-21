@@ -59,7 +59,7 @@ export function UserPhoneDlc() {
 
   return (
     <UserPhone
-    isButtonDisabled={isButtonDisabled}
+      isButtonDisabled={isButtonDisabled}
       errors={errors}
       changedUserFiled={userPhone}
       onChange={changeHandler}

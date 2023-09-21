@@ -1,16 +1,15 @@
 import ReactDOM from 'react-dom/client';
-import { ApolloProvider } from '@apollo/client';
-import { apolloClient } from './providers/Apollo/ApolloProvider';
 import { RecoilRoot } from 'recoil';
 
 import { App } from './App';
+import { ErrorBoundary } from "@components/ErrorBoundary/ErrorBoundary";
 
 const root = ReactDOM.createRoot(document.querySelector('#root'));
 
 root.render(
-  <ApolloProvider client={apolloClient}>
     <RecoilRoot>
-      <App />
+        <ErrorBoundary>
+            <App />
+        </ErrorBoundary>
     </RecoilRoot>
-  </ApolloProvider>,
 );

@@ -1,11 +1,20 @@
 package api
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func (s *Server) SetupRouter() {
 	router := gin.Default()
+
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"},
+		AllowMethods:     []string{"POST", "PATCH", "GET"},
+		AllowHeaders:     []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token", "Referer", "User-Agent"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+	}))
 
 	v1 := router.Group("/api/v1")
 
@@ -15,6 +24,8 @@ func (s *Server) SetupRouter() {
 	v1AuthGroupRoute := v1.Group("/").Use(authMiddleware(s.tokenMaker))
 	{
 		v1AuthGroupRoute.GET("/user/:user_id", s.getById)
+		v1AuthGroupRoute.GET("/countries", s.getCountries)
+		v1AuthGroupRoute.GET("/nationalities", s.getNationalities)
 
 		v1AuthGroupRoute.POST("/user/:user_id/phone", s.createPhone)
 		v1AuthGroupRoute.POST("/user/:user_id/address", s.createAddress)

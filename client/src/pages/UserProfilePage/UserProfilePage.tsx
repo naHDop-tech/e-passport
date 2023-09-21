@@ -10,7 +10,7 @@ const styles = s as UserProfilePageStyle
 
 import cs from '@components/CommonStyle.module.css'
 import { ICommonStyle } from '@components/common-style-types'
-import { useUserInfo } from '@hooks/useUserInfo';
+import {countriesAndNationalitiesDomain, userInfoDomain} from "@components/UserProfile/store";
 
 const commonStyle = cs as ICommonStyle
 
@@ -19,10 +19,12 @@ interface UserProfilePageStyle {
 }
 
 export function UserProfilePage() {
-  const { fetchUserInfo } = useUserInfo()
 
   useEffect(() => {
-    fetchUserInfo()
+    countriesAndNationalitiesDomain.event.getCountriesEvent()
+    countriesAndNationalitiesDomain.event.getNationalitiesEvent()
+    userInfoDomain.event.getUserInfoEvent()
+    // fetchUserInfo()
   }, [])
 
   return (
@@ -36,10 +38,10 @@ export function UserProfilePage() {
         <UserProfileDlc />
 
         {/* Phone */}
-        <UserPhoneDlc />
+        {/*<UserPhoneDlc />*/}
 
         {/* Address */}
-        <UserAddressDlc />
+        {/*<UserAddressDlc />*/}
       </div>
     </Suspense>
   )

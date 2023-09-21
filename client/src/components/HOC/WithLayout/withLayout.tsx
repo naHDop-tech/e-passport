@@ -17,8 +17,7 @@ const ThemeToggle = withTheme(TT)
 export function withLayout() {
   return (props: PropsWithChildren<{}>) => {
     const { children } = props
-    const { pathname } = useLocation()
-    const { isAuth } = useUserInfo()
+    const isAuth = localStorage.getItem("accessToken")
     const setActiveItem = useActiveItem()
 
     const sidebar = () => (
@@ -50,7 +49,7 @@ export function withLayout() {
         navbar={navbar}
         header={header}
         sidebar={sidebar}
-        isAuth={isAuth}
+        isAuth={!!isAuth}
       >
         {children}
         <div style={{ position: 'absolute', bottom: '10px', right: '10px' }}>

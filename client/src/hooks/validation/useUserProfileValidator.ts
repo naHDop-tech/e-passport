@@ -2,11 +2,11 @@ import { useMemo } from 'react'
 import Joi from 'joi'
 
 import { FormFiledIds } from '@components/UserProfile/ui/profile/UserProfile'
-import { IUserProfile } from '@root/interfaces/user'
+import { IUserProfileStore } from "@components/UserProfile/store/interface";
 
 type ValidatorReturnType = Partial<Record<FormFiledIds, string>>
 
-export function useUserProfileValidator(form: Partial<IUserProfile>): ValidatorReturnType {
+export function useUserProfileValidator(form: Partial<IUserProfileStore>): ValidatorReturnType {
   const now = Date.now();
   const cutoffDate = new Date(now - (1000 * 60 * 60 * 24 * 365 * 21)); // 21 years old
 
@@ -14,11 +14,11 @@ export function useUserProfileValidator(form: Partial<IUserProfile>): ValidatorR
     [FormFiledIds.FirstName]: Joi.string().min(3).max(20),
     [FormFiledIds.LastName]: Joi.string().min(3).max(30),
     [FormFiledIds.BirthDate]: Joi.date().iso().max(cutoffDate),
-    [FormFiledIds.Nationality]: Joi.string(),
+    [FormFiledIds.Nationality]: Joi.number(),
     [FormFiledIds.Sex]: Joi.string(),
   })
 
-  const errorData: ValidatorReturnType = useMemo(() => {
+  return useMemo(() => {
     const validationResult = schema.validate(form, { abortEarly: false })
 
     if (validationResult?.error?.details.length) {
@@ -30,6 +30,4 @@ export function useUserProfileValidator(form: Partial<IUserProfile>): ValidatorR
     }
     return {}
   }, [form])
-
-  return errorData
 }

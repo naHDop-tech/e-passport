@@ -9,7 +9,7 @@ interface IGuardRouteProps {
 
 export function GuardRoute(props: PropsWithChildren<IGuardRouteProps>): JSX.Element {
   const { authPath = '/sign-in', children } = props
-  const { isAuth } = useUserInfo()
+  const isAuth = localStorage.getItem('accessToken')
 
   if (!isAuth) {
     return <Navigate to={`${authPath}`} replace />
